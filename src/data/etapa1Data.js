@@ -68,9 +68,9 @@ export const marcoTeoricoSlosse = {
     }
   ],
   afirmacionesDefinicion: [
-    { codigo: "E", nombre: "Existencia", descripcion: "Los activos, pasivos y transacciones registrados existen físicamente o han ocurrido realmente y pertenecen al período auditado (Veracidad / Ocurrencia)." },
+    { codigo: "E", nombre: "Existencia", descripcion: "Los activos, pasivos y transacciones registrados existen físicamente o han ocurrido realmente a la fecha de cierre (Veracidad / Ocurrencia)." },
     { codigo: "I", nombre: "Integridad", descripcion: "Todas las transacciones, activos y pasivos que debieron registrarse están íntegramente contabilizados en el período correcto sin omisiones (Totalidad / Corte)." },
-    { codigo: "P", nombre: "Propiedad", descripcion: "Los activos registrados son propiedad legal de Telecom Argentina S.A. (derechos) y los pasivos representan obligaciones reales de la entidad." },
+    { codigo: "P", nombre: "Propiedad", descripcion: "Los activos registrados son propiedad legal o están bajo el control económico de Telecom Argentina S.A. (derechos) y los pasivos representan obligaciones reales de la entidad." },
     { codigo: "M", nombre: "Medición", descripcion: "Los activos, pasivos, ingresos y costos están correctamente valuados y medidos conforme a las Normas Internacionales de Información Financiera (NIIF / NIC) en moneda homogénea (NIC 29)." },
     { codigo: "X", nombre: "Exposición", descripcion: "Los rubros están adecuadamente clasificados (corriente/no corriente), descritos y revelados con todas las notas y anexos exigidos por las normas contables." }
   ]
