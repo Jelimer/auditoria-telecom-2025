@@ -138,8 +138,8 @@ export const papelesTrabajo = [
         ref: "PT-A1",
         nombre: "Inspección Física de Nodos, Sitios 5G y 16 Data Centers + Siniestros de Fibra",
         afirmaciones: ["Existencia", "Medición"],
-        muestra: "16 Data Centers propios (Pacheco, Barracas, Córdoba, Rosario, etc.) + 85 nodos ópticos/radiobases 5G.",
-        resultado: "Se verificó la existencia y operatividad de los 16 Data Centers y sitios 5G inspeccionados (✓). Sin embargo, al cruzar los reportes de siniestros del área de Operaciones con el módulo de Activo Fijo SAP, se detectaron tendidos de fibra óptica y nodos vandalizados/robados en vía pública en el 4° trimestre por $6.890 millones que permanecían activados (⊗).",
+        muestra: "Seleccionada desde el auxiliar contable de SAP (FI-AA): 16 Data Centers propios (Pacheco, Barracas, Córdoba, Rosario, etc.) + 85 nodos ópticos/radiobases 5G.",
+        resultado: "Partiendo del auxiliar contable hacia el terreno, se verificó in situ la existencia y operatividad de los 16 Data Centers y sitios 5G inspeccionados (✓). Sin embargo, al cruzar el listado de activos vigentes en SAP contra los reportes operativos de siniestros del área de Operaciones, se detectaron tendidos de fibra óptica y nodos vandalizados/robados en vía pública en el 4° trimestre por $6.890 millones que permanecían activados sin haberse dado de baja (⊗).",
         marca: "✓ ⊗"
       },
       {
@@ -191,9 +191,9 @@ export const papelesTrabajo = [
       {
         ref: "PT-B1",
         nombre: "Circularización de Clientes Corporativos B2B (Personal Tech), Verificación Adquisición TMA (NIIF 3) y Cobros Posteriores",
-        afirmaciones: ["Existencia", "Propiedad"],
-        muestra: "65 grandes cuentas corporativas y organismos públicos + Verificación de incorporación de cartera de Telefónica Móviles Argentina S.A. (TMA: $421.919M al 24/02/2025).",
-        resultado: "Se recibieron 54 respuestas conformes (©) y sobre las 11 restantes se verificó el cobro posterior en extractos bancarios de enero 2026 (✓). Asimismo, se comprobó que la incorporación de la cartera de créditos de TMA ($421.919M a valor razonable bajo NIIF 3) explica por qué el stock de Créditos al cierre crece +105,25% mientras el Estado de Resultados consolida solo 10 meses de ventas de TMA (marzo a diciembre 2025).",
+        afirmaciones: ["Existencia", "Propiedad", "Medición"],
+        muestra: "65 grandes cuentas corporativas y organismos públicos + Verificación del PPA (NIIF 3) e incorporación de cartera de Telefónica Móviles Argentina S.A. (TMA: $421.919M al 24/02/2025).",
+        resultado: "Se recibieron 54 respuestas conformes (©) y sobre las 11 restantes se verificó el cobro posterior en extractos bancarios de enero 2026 (✓). Asimismo, se comprobó la medición a valor razonable inicial de la cartera de créditos adquirida de TMA ($421.919M bajo NIIF 3), lo que explica por qué el stock de Créditos al cierre crece +105,25% mientras el Estado de Resultados consolida solo 10 meses de ventas de TMA (marzo a diciembre 2025).",
         marca: "© ✓"
       },
       {
@@ -201,7 +201,7 @@ export const papelesTrabajo = [
         nombre: "Prueba de Corte de Facturación B2B (Cut-off) y Conciliación de Agentes Externos",
         afirmaciones: ["Integridad", "Existencia"],
         muestra: "Contratos y actas de recepción B2B emitidos entre el 15/12/2025 y el 15/01/2026 + Interfaces de cobro al 31/12.",
-        resultado: "1) Se detectaron 8 hitos de integración Cloud/Ciberseguridad de Personal Tech con acta de conformidad final firmada entre el 20/12 y el 30/12/2025 por $14.620 millones que recién fueron facturados en enero 2026 (CCI-02 preg. 16) (⊗). 2) En las interfaces de Rapipago, Pago Fácil y billeteras virtuales (CCI-02 preg. 5) se verificaron cobranzas del 30 y 31/12 por $4.180 millones acreditadas en pasarela pero pendientes de imputación en clientes al cierre (⊗).",
+        resultado: "1) [Integridad - Corte] Se detectaron 8 hitos de integración Cloud/Ciberseguridad de Personal Tech con acta de conformidad final firmada entre el 20/12 y el 30/12/2025 por $14.620 millones que recién fueron facturados en enero 2026 (CCI-02 preg. 16) (⊗). 2) [Existencia] En las interfaces de Rapipago, Pago Fácil y billeteras virtuales (CCI-02 preg. 5) se verificaron cobranzas del 30 y 31/12 por $4.180 millones ya abonadas por los clientes pero pendientes de desafectación en sus cuentas corrientes al cierre (⊗).",
         marca: "✓ ⊗"
       },
       {
@@ -299,10 +299,10 @@ export const papelesTrabajo = [
       },
       {
         ref: "PT-D2",
-        nombre: "Auditoría de Interfaces Comerciales Legacy vs. ERP SAP y Tasación de CDRs",
+        nombre: "Auditoría de Interfaces Comerciales Legacy vs. ERP SAP, Asignación NIIF 15 y Tasación de CDRs",
         afirmaciones: ["Existencia", "Integridad", "Medición"],
-        muestra: "Logs de interfaces diarias de los 12 meses + 120 facturas B2C y B2B cruzadas contra Call Detail Records (CDR).",
-        resultado: "Los comprobantes de la muestra coinciden con el tráfico tasado y discriminan correctamente el IVA, la Tasa de Control ENACOM (0,50%) y el Fondo de Servicio Universal (1,00% - Ley 27.078) (✓). Se verificó que las interfaces heredadas ex Cablevisión requieren conciliaciones manuales mensuales (CCI-05 preg. 19), habiéndose validado los ajustes de cuadre al cierre.",
+        muestra: "Logs de interfaces diarias de los 12 meses + 120 facturas convergentes B2C y B2B cruzadas contra estado activo (churn) y Call Detail Records (CDR).",
+        resultado: "Los comprobantes de la muestra corresponden a líneas activas, coinciden con el tráfico tasado, asignan razonablemente las bonificaciones de paquetes convergentes (NIIF 15), netean el IVA de la línea de ingresos y devengan la Tasa de Control ENACOM (0,50%) y Fondo de Servicio Universal (1,00% - Ley 27.078) en Gastos Operativos (✓). Se verificó que las interfaces heredadas ex Cablevisión requieren conciliaciones manuales mensuales (CCI-05 preg. 19), habiéndose validado los ajustes de cuadre al cierre.",
         marca: "✓ §"
       },
       {
@@ -353,10 +353,10 @@ export const papelesTrabajo = [
       },
       {
         ref: "PT-E3",
-        nombre: "Prueba de Capitalización de Software (NIC 38) y Recálculo de Amortizaciones",
-        afirmaciones: ["Integridad", "Medición", "Exposición"],
-        muestra: "18 proyectos de desarrollo evolutivo de la plataforma Flow, App Mi Personal y automatización IA.",
-        resultado: "Los proyectos activados cumplen con los requisitos de factibilidad técnica y beneficio económico futuro de la NIC 38 (✓). El recálculo global de amortizaciones según la vida útil remanente de las licencias no arrojó diferencias significativas (∑).",
+        nombre: "Prueba de Proyectos de Software (NIC 38 — Existencia e Integridad) y Recálculo de Amortizaciones",
+        afirmaciones: ["Existencia", "Integridad", "Medición", "Exposición"],
+        muestra: "100% del portafolio de proyectos de IT en SAP PS (18 proyectos evolutivos de Flow, App Mi Personal e IA) + Muestra de cuentas de gastos tecnológicos.",
+        resultado: "Los 18 proyectos activados cumplen con los requisitos de factibilidad técnica y beneficio económico futuro de la NIC 38, y de la revisión del módulo SAP PS y cuentas de gastos tecnológicos se comprobó que no se omitió la capitalización de desarrollos elegibles (✓). El recálculo global de amortizaciones según la vida útil remanente de las licencias y software no arrojó diferencias significativas (∑).",
         marca: "✓ ∑"
       }
     ],
@@ -394,7 +394,7 @@ export const hallazgosYAjustes = [
     afirmacionAfectada: "Integridad (Corte / Cut-off) y Existencia",
     origenCCI: "CCI-02 (Preg. 5 y 16) — Demoras de facturación B2B al cierre y desfasaje de 24-48 hs en cobranzas externas",
     tipo: "Ajuste de Corte de Operaciones",
-    descripcionHallazgo: "1) Servicios corporativos de integración Cloud/Ciberseguridad (Personal Tech) con acta de conformidad firmada en diciembre de 2025 cuya factura fue emitida en enero 2026 ($14.620M). 2) Cobranzas recaudadas el 30 y 31/12 por Rapipago/Pago Fácil/billeteras pendientes de imputación en cuentas corrientes de clientes ($4.180M).",
+    descripcionHallazgo: "1) [Integridad - Corte] Servicios corporativos de integración Cloud/Ciberseguridad (Personal Tech) con acta de conformidad firmada en diciembre de 2025 cuya factura fue emitida en enero 2026 ($14.620M). 2) [Existencia] Cobranzas recaudadas el 30 y 31/12 por Rapipago/Pago Fácil/billeteras pendientes de desafectación en cuentas corrientes de clientes ($4.180M).",
     montoMillones: 18800,
     superaPAE: true,
     impactoPatrimonial: { activo: 14620, pasivo: 0, patrimonioNeto: 14620, resultadoEjercicio: 14620 },

@@ -418,6 +418,54 @@ export default function Etapa1ControlInternoView({
           </table>
         </div>
       </div>
+
+      {/* GUÍA DE LECTURA Y EXPOSICIÓN ORAL — CIERRE INTEGRAL DE LA SUBETAPA 1.1: PLANIFICACIÓN PRELIMINAR / ESTRATÉGICA */}
+      <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-2xl border border-teal-500/40 p-6 text-white shadow-lg space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
+          <div className="flex items-center gap-2">
+            <ClipboardCheck className="w-5 h-5 text-lime-400 shrink-0" />
+            <span className="text-xs font-extrabold uppercase tracking-wider text-lime-400">
+              Guía de Lectura y Exposición Oral — Cierre de la Subetapa 1.1: Planificación Preliminar (Estratégica)
+            </span>
+          </div>
+          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-teal-200 border border-white/15">
+            Doctrina: Carlos A. Slosse &amp; RT 37 / RT 53
+          </span>
+        </div>
+
+        <h3 className="text-base sm:text-lg font-extrabold text-white">
+          Resumen de la Planificación Preliminar: ¿Qué empezamos haciendo, qué hicimos y por qué?
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-lime-300 block uppercase text-[11px] tracking-wider">
+              1. ¿Qué se empieza haciendo en la Planificación Preliminar?
+            </strong>
+            <p className="text-slate-200">
+              En esta primera subetapa de la planificación (que abarca los puntos <strong>1A Conocimiento del Ente</strong>, <strong>1B Relevamiento del Control Interno</strong> y <strong>1C Revisión Analítica Preliminar H/V y Ratios</strong>) empezamos relevando el negocio de Telecom S.A. de lo general a lo particular y poniendo a prueba cómo funcionan sus <strong>5 sistemas de control interno</strong>: Archivo Documental, Sistema Contable, Presupuestos, Operativo y Tecnológico/CGTI.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-amber-300 block uppercase text-[11px] tracking-wider">
+              2. ¿Qué se hace concretamente acá?
+            </strong>
+            <p className="text-slate-200">
+              Aplicamos los <strong>5 Cuestionarios de Control Interno (CCI)</strong> verificando qué controles se cumplen («SÍ») y cuáles fallan («NO»). Con esas respuestas calculamos matemáticamente la <strong>Matriz de Confianza y Riesgo</strong> de cada componente. Al detectar fallas críticas (como falta de bajas contables de centrales obsoletas y cables robados en SAP, omisión de mora &gt; 180 días en la previsión de incobrables e interfaces manuales entre los facturadores y SAP), el <strong>Nivel de Confianza (NC) resultó BAJO (entre 15,38% y 23,33%)</strong> y, por espejo inverso, el <strong>Riesgo de Control (RC) dio ALTO en los 5 componentes</strong>.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-teal-300 block uppercase text-[11px] tracking-wider">
+              3. ¿Por qué y para qué sirve este resultado?
+            </strong>
+            <p className="text-slate-200">
+              Porque el objetivo de la <strong>Planificación Preliminar (Estratégica)</strong> en Slosse es definir la <strong>Estrategia o Enfoque Global de Auditoría</strong>. Como tanto el <em>Riesgo Inherente</em> como el <em>Riesgo de Control</em> son <strong>ALTOS</strong>, concluimos que <strong>no podemos confiar en los controles internos de Telecom</strong> para reducir nuestras pruebas. Eso nos obliga a definir un <strong>Enfoque Predominantemente Sustantivo</strong> (ir directamente a validar los saldos y transacciones con pruebas intensivas), lo que da paso a la <strong>Planificación Detallada (1D)</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

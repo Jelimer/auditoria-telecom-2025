@@ -501,13 +501,13 @@ export const rubrosSignificativos = [
     afirmaciones: [
       {
         afirmacion: "Existencia",
-        objetivo: "Comprobar que los equipos de red, nodos, radiobases, centrales y Data Centers registrados en el activo fijo existen físicamente.",
-        riesgo: "Inexistencia física de nodos, radiobases o centrales dadas de baja contablemente pero no físicamente, o destrucción de tendidos de fibra por vandalismo.",
-        controlClave: "Conciliaciones contra el módulo de Activo Fijo del ERP SAP.",
-        naturalezaProc: "Inspección física directa y confirmación externa.",
-        instrumento: "Seleccionar una muestra representativa de activos de red, Data Centers y equipos tecnológicos y realizar inspección ocular in situ. Solicitar al área de operaciones los informes de siniestros/vandalismo del ejercicio y cotejar su baja física contra el registro contable.",
-        oportunidad: "Trabajo de campo interino (octubre-noviembre) y cierre.",
-        alcance: "Muestra selectiva de los principales nodos y Data Centers en AMBA y sucursales provinciales."
+        objetivo: "Comprobar que los equipos de red, nodos, radiobases, centrales y Data Centers registrados en el activo contable existen físicamente a la fecha de cierre.",
+        riesgo: "Inexistencia física de nodos, radiobases, centrales o equipos de red desmantelados, obsoletos o destruidos por siniestros/vandalismo que no hayan sido dados de baja contablemente, generando sobrevaluación del rubro.",
+        controlClave: "Recuentos físicos rotativos e inventarios técnicos de red conciliados periódicamente contra el módulo de Activo Fijo del ERP SAP (FI-AA).",
+        naturalezaProc: "Inspección física directa, examen de documentación de respaldo e indagación.",
+        instrumento: "Seleccionar del auxiliar contable de Activo Fijo (SAP) una muestra representativa de activos de red, Data Centers y equipos tecnológicos y realizar inspección física in situ para verificar su presencia y funcionamiento operativo. Cruzar el listado de activos vigentes en el auxiliar contable contra los informes operativos de siniestros y vandalismo del período, verificando que los bienes destruidos hayan sido dados de baja del balance.",
+        oportunidad: "Trabajo de campo interino (octubre-noviembre) con procedimientos de actualización (roll-forward) al cierre.",
+        alcance: "Muestra selectiva de los principales nodos y Data Centers en AMBA y sitios provinciales de mayor materialidad."
       },
       {
         afirmacion: "Integridad",
@@ -551,7 +551,7 @@ export const rubrosSignificativos = [
       }
     ],
     programaTrabajo: [
-      { Bloque: "Inspección Física", Pasos: ["Seleccionar una muestra de nodos de red, sitios 5G y servidores en los Data Centers principales de AMBA e interior.", "Verificar la existencia física y el estado de operatividad de los activos.", "Inspeccionar los informes de robo de cableado y fibra para constatar el registro de las bajas correspondientes."] },
+      { Bloque: "Inspección Física", Pasos: ["Seleccionar del auxiliar contable de Activo Fijo (SAP) una muestra de nodos de red, sitios 5G y servidores en los Data Centers principales de AMBA e interior.", "Verificar in situ la existencia física y el estado de operatividad de los activos seleccionados.", "Cruzar el auxiliar contable de activos vigentes contra los informes operativos de siniestros, robo de cableado y vandalismo de fibra para comprobar que los bienes destruidos hayan sido dados de baja."] },
       { Bloque: "Prueba de Altas y Obras en Curso", Pasos: ["Cotejar las adiciones del ejercicio (CAPEX) contra certificados de obra aprobados, facturas de proveedores importados y despachos de aduana.", "Ejecutar prueba de corte sobre las obras en curso habilitadas en diciembre de 2025 para comprobar la oportuna activación e inicio de depreciación."] },
       { Bloque: "Validación de Titularidad", Pasos: ["Solicitar al Registro de la Propiedad Inmueble (RPI) los informes de dominio para los inmuebles adquiridos o fusionados en el ejercicio."] },
       { Bloque: "Prueba de Depreciaciones y Obsolescencia", Pasos: ["Recalcular globalmente el cargo por depreciación del ejercicio en función de las vidas útiles por categoría.", "Solicitar el informe técnico del área de Operaciones sobre las centrales analógicas fuera de servicio y verificar la contabilización de la baja por obsolescencia."] }
@@ -573,23 +573,23 @@ export const rubrosSignificativos = [
     afirmaciones: [
       {
         afirmacion: "Existencia",
-        objetivo: "Confirmar que los saldos a cobrar de clientes B2C y B2B representen derechos reales de cobro derivados de servicios efectivamente prestados o contratados.",
-        riesgo: "Inclusión de saldos ficticios o servicios B2B no ejecutados/facturados con demoras que distorsionen el saldo.",
-        controlClave: "Conciliación mensual entre la facturación comercial de la app/sistemas B2C y el libro mayor en SAP.",
-        naturalezaProc: "Circularización e inspección de pagos posteriores.",
-        instrumento: "Enviar solicitudes de confirmación externa de saldos (circular positiva) a clientes corporativos del segmento B2B (Personal Tech). Para no contestadas y clientes masivos B2C, aplicar procedimiento alternativo verificando la cobranza posterior en extractos bancarios.",
-        oportunidad: "Circularización a fecha interina (31/10 ó 30/11) con prueba de rotación al cierre, o directa al 31/12.",
-        alcance: "Muestra estratificada: 100% de los clientes B2B con saldos mayores y muestra aleatoria en B2C."
+        objetivo: "Confirmar que los saldos a cobrar de clientes B2C y B2B al cierre representen derechos reales y exigibles derivados de servicios efectivamente prestados y no cancelados.",
+        riesgo: "Inclusión de saldos ficticios o sobrevaluación del saldo por desfasajes temporales (24 a 48 hs) en la imputación de cobranzas ya efectuadas por clientes en agentes externos (Rapipago, Pago Fácil y billeteras virtuales) al 31/12.",
+        controlClave: "Conciliación diaria automatizada entre la facturación comercial, las rendiciones de pasarelas de cobro externas y el subdiario de clientes en SAP.",
+        naturalezaProc: "Confirmación externa (circularización), revisión de cobros posteriores y auditoría de conciliaciones de recaudadores.",
+        instrumento: "Enviar solicitudes de confirmación externa de saldos (circular positiva) a clientes corporativos del segmento B2B (Personal Tech) y aplicar procedimiento alternativo verificando cobros posteriores en extractos bancarios de enero 2026 para no contestadas y segmento B2C. Auditar las partidas pendientes de conciliación en interfaces con Rapipago/Pago Fácil/billeteras al 31/12 para identificar cobranzas ingresadas no desafectadas de las cuentas de clientes.",
+        oportunidad: "Circularización en pre-cierre/cierre y corte de recaudaciones al 31/12.",
+        alcance: "Muestra estratificada: 100% de grandes clientes B2B, muestra aleatoria en B2C y 100% de las conciliaciones de recaudadores al 31/12."
       },
       {
         afirmacion: "Integridad",
-        objetivo: "Validar que todas las ventas y servicios prestados antes del cierre hayan sido facturados o devengados, y que no existan omitidos de corte de facturación al cierre del ejercicio.",
-        riesgo: "Omisión de facturación o cortes incorrectos en servicios corporativos ejecutados en diciembre sin facturar (corte de ventas) y desfasajes de cobros con terceros.",
-        controlClave: "Control automatizado de la interfaz entre los sistemas de facturación comerciales y el sistema contable.",
-        naturalezaProc: "Pruebas de corte de documentación (cut-off) y revisión de interfaces.",
-        instrumento: "Revisar las actas de recepción de conformidad de servicios corporativos B2B emitidas en los últimos 15 días del ejercicio y primeros 15 días del ejercicio siguiente, verificando su oportuna emisión de factura e imputación al ejercicio correcto. Auditar las partidas pendientes de conciliación en interfaces con Rapipago/Pago Fácil/billeteras al 31/12.",
+        objetivo: "Validar que todas las ventas y servicios prestados hasta el 31/12/2025 hayan sido íntegramente facturados o devengados en el período correcto, sin omisiones de corte de facturación (cut-off).",
+        riesgo: "Subvaluación de créditos e ingresos por demoras u omisión de facturación en proyectos corporativos B2B ejecutados en diciembre (corte de ventas) o falta de devengamiento de consumos pospagos al cierre.",
+        controlClave: "Control automatizado de la interfaz entre los sistemas de tráfico/facturación comercial, las actas de conformidad B2B y el sistema contable SAP.",
+        naturalezaProc: "Pruebas sustantivas de corte de documentación (cut-off) y cruce de devengamientos.",
+        instrumento: "Revisar los contratos y actas de recepción de conformidad de servicios corporativos B2B (Personal Tech) emitidos en los últimos 15 días de diciembre 2025 y primeros 15 días de enero 2026, verificando su oportuna facturación o devengamiento en el ejercicio correcto. Cruzar los reportes de tráfico y consumo de red de diciembre contra la facturación emitida para verificar el íntegro devengamiento de servicios pendientes de facturación al cierre (unbilled revenue).",
         oportunidad: "Cierre de ejercicio.",
-        alcance: "Transacciones B2B emitidas en la ventana de corte (+/- 15 días del cierre)."
+        alcance: "100% de las actas e hitos B2B significativos en la ventana de corte (+/- 15 días del cierre)."
       },
       {
         afirmacion: "Propiedad",
@@ -603,29 +603,29 @@ export const rubrosSignificativos = [
       },
       {
         afirmacion: "Medición",
-        objetivo: "Evaluar la razonabilidad de la estimación de la previsión para deudores de dudoso cobro, asegurando la inclusión adecuada de saldos en mora mayor a 180 días.",
-        riesgo: "Subestimación de la previsión para deudores de dudoso cobro por omitir saldos con morosidad superior a 180 días en clientes masivos.",
-        controlClave: "Emisión mensual automatizada del reporte de antigüedad de saldos y aplicación del modelo de pérdida esperada.",
-        naturalezaProc: "Recálculo mediante TAACs y evaluación de estimaciones NIIF 9.",
-        instrumento: "Obtener el reporte maestro de antigüedad de saldos al 31/12/2025. Recalcular la previsión para incobrables aplicando los porcentajes históricos de pérdida ajustados e incluir la totalidad de la mora superior a 180 días no previsionada por la empresa, evaluando el impacto en el Estado de Resultados.",
+        objetivo: "Evaluar la razonabilidad de la Previsión para Deudores Incobrables bajo el modelo de Pérdida Crediticia Esperada (NIIF 9) —asegurando la inclusión de saldos en mora mayor a 180 días— y validar la medición a valor razonable inicial de la cartera incorporada de TMA (NIIF 3).",
+        riesgo: "Subestimación de la previsión para deudores de dudoso cobro por omitir carteras migradas con morosidad superior a 180 días en consumo masivo, o errores en la valuación a valor razonable de los créditos adquiridos de TMA ($421.919M).",
+        controlClave: "Emisión mensual automatizada del reporte de antigüedad de saldos (aging), aplicación del modelo de pérdida esperada NIIF 9 y revisión técnica del PPA (Purchase Price Allocation) de TMA.",
+        naturalezaProc: "Recálculo independiente mediante TAACs y evaluación de estimaciones NIIF 9 y NIIF 3.",
+        instrumento: "Obtener el padrón maestro de antigüedad de saldos al 31/12/2025 y recalcular la previsión bajo NIIF 9 mediante TAACs, identificando los saldos con mora > 180 días omitidos para cuantificar el desvío y proponer el ajuste de auditoría correspondiente en el Estado de Resultados. Revisar el informe de asignación del precio de compra (PPA bajo NIIF 3) para validar el valor razonable inicial y el deterioro crediticio de la cartera incorporada de TMA.",
         oportunidad: "Cierre de ejercicio.",
-        alcance: "100% de la base de datos de deudores (mediante herramientas de auditoría asistidas por computadora - TAACs)."
+        alcance: "100% del padrón unificado de deudores (Telecom + TMA, $1.071.047M brutos) mediante herramientas de auditoría asistidas por computadora (TAACs)."
       },
       {
         afirmacion: "Exposición",
-        objetivo: "Verificar la correcta apertura en corriente y no corriente, la discriminación por segmento (B2C / B2B) y la exposición de las notas explicativas sobre concentración de riesgo de crédito.",
-        riesgo: "Incorrecta separación entre créditos corrientes y no corrientes o falta de desglose por segmento B2B/B2C en notas.",
-        controlClave: "Parametrización en SAP de los vencimientos contractuales para la emisión de reportes.",
-        naturalezaProc: "Revisión de la presentación en estados financieros.",
-        instrumento: "Verificar que las notas explicativas clasifiquen adecuadamente los créditos según su vencimiento (a vencer y vencidos por tramos) y expongan adecuadamente las concentraciones de riesgo e impuestos diferidos/asociados.",
+        objetivo: "Verificar la correcta apertura en corriente y no corriente, la discriminación por segmento (B2C / B2B) y el cumplimiento íntegro de las revelaciones exigidas en la Nota 5.",
+        riesgo: "Incorrecta separación entre créditos corrientes y no corrientes, o revelación incompleta del riesgo de crédito, evolución de la previsión NIIF 9 y saldos con partes relacionadas.",
+        controlClave: "Parametrización en SAP de los vencimientos contractuales y lista de chequeo de revelaciones NIIF revisada por la Gerencia de Contabilidad.",
+        naturalezaProc: "Revisión de la presentación y revelación en los Estados Contables.",
+        instrumento: "Cotejar la Nota 5 con el balance de sumas y saldos de SAP, verificando que las notas clasifiquen adecuadamente los créditos según su vencimiento (a vencer y vencidos por tramos) y expongan las concentraciones de riesgo de crédito (NIIF 7), la evolución de la previsión NIIF 9 y los saldos con partes relacionadas (NIC 24).",
         oportunidad: "Cierre definitivo.",
-        alcance: "Muestra de revisión de la nota complementaria de créditos por ventas."
+        alcance: "Revisión del 100% de los desgloses de la Nota 5 y anexos vinculados (NIIF 7)."
       }
     ],
     programaTrabajo: [
-      { Bloque: "Circularización de Saldos", Pasos: ["Enviar solicitudes de confirmación escrita a una muestra de clientes corporativos del segmento B2B (Personal Tech)."] },
-      { Bloque: "Prueba de Corte de Facturación", Pasos: ["Seleccionar los contratos y actas de conformidad de servicios B2B emitidas entre el 15/12/2025 y el 15/01/2026.", "Revisar las partidas en conciliación de las interfaces con agentes de cobro al 31/12/2025."] },
-      { Bloque: "Evaluación de la Previsión para Incobrables", Pasos: ["Obtener la matriz de antigüedad de saldos al cierre emitida por el ERP SAP.", "Verificar que la totalidad de los deudores con morosidad superior a 180 días se encuentren contemplados en la matriz de previsión.", "Recalcular la estimación de la previsión aplicando el modelo de pérdidas crediticias esperadas según la NIIF 9."] }
+      { Bloque: "Circularización de Saldos y Conciliación de Cobranzas (Existencia)", Pasos: ["Enviar solicitudes de confirmación escrita a una muestra estratificada de clientes corporativos del segmento B2B (Personal Tech) y verificar cobros posteriores en enero 2026.", "Auditar las partidas en conciliación de las interfaces con agentes de cobro externos (Rapipago, Pago Fácil y billeteras virtuales) al 31/12/2025 para detectar cobranzas ingresadas no imputadas."] },
+      { Bloque: "Prueba de Corte de Facturación y Devengamiento (Integridad)", Pasos: ["Seleccionar los contratos y actas de conformidad de servicios B2B emitidos entre el 15/12/2025 y el 15/01/2026 para verificar su imputación en el período correcto.", "Cruzar los reportes de tráfico/consumo de red de diciembre contra la facturación emitida para validar el íntegro devengamiento de servicios pendientes de facturación al cierre (unbilled revenue)."] },
+      { Bloque: "Valuación NIIF 9 (Mora > 180 días) y Cartera TMA NIIF 3 (Medición)", Pasos: ["Obtener el padrón unificado de antigüedad de saldos al cierre en SAP y reprocesar mediante TAACs el 100% de la base, cuantificando los deudores con mora > 180 días omitidos para proponer el ajuste de auditoría.", "Revisar el PPA (NIIF 3) de la adquisición de TMA ($421.919M) y recalcular la Previsión para Deudores Incobrables bajo el modelo de pérdidas crediticias esperadas (NIIF 9)."] }
     ]
   },
   {
@@ -644,60 +644,60 @@ export const rubrosSignificativos = [
     afirmaciones: [
       {
         afirmacion: "Existencia",
-        objetivo: "Comprobar que las obligaciones financieras por préstamos bancarios y Obligaciones Negociables representen deudas efectivas y vigentes a la fecha de cierre.",
-        riesgo: "Registro de deudas inexistentes o cancelación en libros de préstamos bancarios u ONs no liquidadas efectivamente.",
-        controlClave: "Conciliación bancaria y confirmación mensual enviada por Tesorería Corporativa a entidades financieras.",
-        naturalezaProc: "Confirmación externa directa (circularización bancaria y agentes pagadores).",
-        instrumento: "Enviar pedidos de confirmación directa de saldos a la totalidad de los bancos acreedores, fiduciarios y Agente Pagador de las Obligaciones Negociables (Caja de Valores S.A.). Comprobar el capital adeudado, tasas aplicables, garantías y vencimientos.",
+        objetivo: "Comprobar que las obligaciones financieras por préstamos bancarios y Obligaciones Negociables (ONs) registradas al cierre representen deudas reales, efectivas y vigentes al 31/12/2025.",
+        riesgo: "Registro de pasivos ficticios o falta de baja contable de préstamos bancarios u ONs ya amortizados, rescatados o cancelados efectivamente (sobrevaluación del pasivo).",
+        controlClave: "Conciliación mensual entre el módulo de Tesorería SAP (TRM), extractos bancarios y estados de cuenta de agentes fiduciarios y de pago.",
+        naturalezaProc: "Confirmación externa directa (circularización bancaria, fiduciarios y agente pagador).",
+        instrumento: "Enviar pedidos de confirmación directa de saldos a la totalidad de los bancos acreedores, organismos multilaterales (IFC, BID, Finnvera), fiduciarios y Agente de Registro y Pago de las Obligaciones Negociables (Caja de Valores S.A.). Comprobar el capital vigente adeudado, amortizaciones pagadas, tasas aplicables, garantías y vencimientos.",
         oportunidad: "Al 31 de diciembre de 2025.",
-        alcance: "100% de las entidades financieras y fiduciarias de deuda."
+        alcance: "100% de las entidades financieras, fiduciarias y agentes de pago de deuda."
       },
       {
         afirmacion: "Integridad",
-        objetivo: "Verificar que la totalidad de las operaciones de endeudamiento financiero, devengamiento de intereses y diferencias de cambio hayan sido registradas en su totalidad.",
-        riesgo: "Omisión de registro de endeudamientos nuevos, contratos de arrendamiento financiero o gastos de emisión y devengamiento de intereses diferidos.",
-        controlClave: "Aprobación por Asamblea y Directorio de todo endeudamiento y registro en el módulo de Tesorería SAP.",
-        naturalezaProc: "Prueba de pasivos no registrados y lectura de actas.",
-        instrumento: "Inspeccionar las actas de Directorio y Asamblea de Accionistas del ejercicio para identificar la emisión de nuevas series de ON o toma de préstamos. Revisar los extractos bancarios posteriores al cierre para detectar cancelaciones de pasivos financieros no registrados al 31/12.",
-        oportunidad: "Trabajo de cierre.",
-        alcance: "100% de las actas de la sociedad e ingresos de fondos en extractos bancarios de enero del año siguiente."
+        objetivo: "Verificar que la totalidad de las operaciones de endeudamiento financiero, comisiones bancarias, devengamiento de intereses y diferencias de cambio hayan sido íntegramente registradas en el período.",
+        riesgo: "Omisión de registro de endeudamientos nuevos, líneas de crédito utilizadas, comisiones bancarias o intereses devengados impagos al cierre (subvaluación del pasivo).",
+        controlClave: "Aprobación formal por Asamblea y Directorio de todo endeudamiento y control de devengamiento mensual en el módulo de Tesorería SAP.",
+        naturalezaProc: "Prueba sustantiva de pasivos no registrados (unrecorded liabilities) e inspección de actas.",
+        instrumento: "Inspeccionar las actas de Directorio y Asamblea de Accionistas del ejercicio para identificar la emisión de nuevas series de ONs o toma de préstamos. Revisar los extractos bancarios posteriores al cierre (enero y febrero 2026) para detectar pagos o cancelaciones de pasivos financieros e intereses devengados al 31/12 no registrados al cierre.",
+        oportunidad: "Trabajo de cierre y revisión de hechos posteriores.",
+        alcance: "100% de las actas de Asamblea/Directorio del ejercicio y egresos de fondos significativos en extractos bancarios posteriores al cierre."
       },
       {
         afirmacion: "Propiedad",
-        objetivo: "Asegurar que las deudas corresponden a compromisos asumidos directamente por la entidad (Derechos y Obligaciones).",
-        riesgo: "Imputación a Telecom Argentina S.A. de deudas financieras contraídas por subsidiarias sin respaldo de avales o responsabilidad corporativa.",
-        controlClave: "Verificación por Asuntos Legales de los contratos de préstamo y estatutos.",
+        objetivo: "Asegurar que las deudas corresponden a compromisos legales asumidos por la entidad y sus subsidiarias consolidadas (Derechos y Obligaciones).",
+        riesgo: "Inclusión en los estados financieros separados de deudas contraídas por subsidiarias sin aval corporativo, o asunción en el consolidado de obligaciones pertenecientes a terceros o negocios conjuntos no consolidados.",
+        controlClave: "Verificación y visado por la Gerencia de Asuntos Legales de los contratos de préstamo, prospectos de ONs y garantías societarias.",
         naturalezaProc: "Revisión de contratos marco de crédito y prospectos de emisión.",
-        instrumento: "Examinar los contratos de préstamo e instrumentos de deuda suscritos en el año, validando las cláusulas de responsabilidad, garantías cruzadas (cross-default) y la titularidad del sujeto obligado pasivo.",
-        oportunidad: "Interina y cierre.",
-        alcance: "100% de las nuevas contrataciones de deuda financiera del año."
+        instrumento: "Examinar los contratos de préstamo e instrumentos de deuda vigentes o suscritos en el año, validando las cláusulas de responsabilidad, garantías cruzadas (cross-default) y la titularidad del sujeto obligado pasivo en los estados consolidados (NIIF 10) y separados.",
+        oportunidad: "Interina y actualización al cierre.",
+        alcance: "100% de los contratos y nuevas emisiones de deuda financiera del año."
       },
       {
         afirmacion: "Medición",
-        objetivo: "Validar que los pasivos financieros estén medidos a su costo amortizado, aplicando la tasa de interés efectiva y validados al tipo de cambio de cierre para deudas en moneda extranjera.",
-        riesgo: "Error en la conversión de deudas en moneda extranjera al tipo de cambio de cierre (BNA US$/$) o en el cálculo del costo amortizado por tasa efectiva.",
-        controlClave: "Verificación automatizada en SAP del tipo de cambio del Banco Nación e intereses devengados.",
-        naturalezaProc: "Recálculo financiero y comprobación de variables de mercado.",
-        instrumento: "Recalcular de forma independiente la conversión en pesos de las deudas en dólares u otras divisas aplicando el tipo de cambio oficial de cierre (BNA $/US$ 1.455,00 al 31/12/2025). Recalcular costos financieros e instrumentos derivados de cobertura (IFD).",
+        objetivo: "Validar que los pasivos financieros estén medidos a su costo amortizado aplicando el método de la tasa de interés efectiva (NIIF 9) y convertidos al tipo de cambio oficial vendedor de cierre para deudas en moneda extranjera (NIC 21).",
+        riesgo: "Error en la conversión de deudas en moneda extranjera al tipo de cambio oficial vendedor de cierre (BNA $/US$ 1.455,00) o en el cálculo del costo amortizado y devengamiento de gastos de emisión por tasa de interés efectiva (TIE).",
+        controlClave: "Verificación automatizada en SAP del tipo de cambio oficial vendedor del Banco Nación y tablas de costo amortizado por TIE.",
+        naturalezaProc: "Recálculo financiero independiente y comprobación de variables de mercado.",
+        instrumento: "Recalcular de forma independiente la conversión en pesos de las deudas en dólares (US$ 3.736,5M) aplicando el tipo de cambio oficial vendedor de cierre (BNA $/US$ 1.455,00 al 31/12/2025). Recalcular el costo amortizado mediante la tasa de interés efectiva (incluyendo el devengamiento de los costos de emisión de ONs bajo NIIF 9) y la valuación de instrumentos derivados de cobertura (IFD).",
         oportunidad: "Cierre de balance.",
-        alcance: "100% de los préstamos en moneda extranjera y contratos de derivados."
+        alcance: "100% de los préstamos y ONs en moneda extranjera y contratos de derivados."
       },
       {
         afirmacion: "Exposición",
-        objetivo: "Comprobar la adecuada clasificación entre pasivo corriente y no corriente, detallando en notas las garantías otorgadas, vencimientos y cumplimiento de compromisos financieros (covenants).",
-        riesgo: "Clasificación incorrecta del tramo corriente/no corriente de la deuda o falta de revelación del incumplimiento de covenants financieros.",
-        controlClave: "Control de vencimientos por la Gerencia de Planeamiento Financiero (FP&A).",
+        objetivo: "Comprobar la adecuada clasificación entre pasivo corriente y no corriente (NIC 1), detallando en la Nota 14 las garantías otorgadas, vencimientos, riesgos financieros (NIIF 7) y cumplimiento de compromisos financieros (covenants).",
+        riesgo: "Clasificación incorrecta del tramo corriente/no corriente de la deuda o falta de revelación/reclasificación ante eventuales incumplimientos de covenants financieros.",
+        controlClave: "Control trimestral de vencimientos y monitoreo de ratios de covenants por la Gerencia de Planeamiento Financiero (FP&A).",
         naturalezaProc: "Revisión de notas y prueba de cumplimiento de resguardos contractuales.",
-        instrumento: "Verificar el perfil de vencimientos de la deuda para la correcta apertura corriente/no corriente. Verificar el cumplimiento de los ratios e indicadores financieros exigidos en los contratos financieros y validar su adecuada exposición en Notas.",
+        instrumento: "Verificar el perfil contractual de vencimientos de la deuda para la correcta apertura corriente/no corriente. Verificar el cumplimiento de los ratios e indicadores financieros exigidos en los contratos (Deuda Neta/EBITDA y Cobertura de Intereses) y validar su adecuada exposición en Notas (o su reclasificación íntegra a Pasivo Corriente en caso de incumplimiento sin dispensa/waiver vigente al cierre - NIC 1).",
         oportunidad: "Cierre definitivo.",
-        alcance: "Muestra de la Nota de Préstamos y pasivos financieros de los Estados Financieros."
+        alcance: "Revisión del 100% de la Nota 14 de Préstamos y Pasivos Financieros y desgloses de riesgo de liquidez/mercado (NIIF 7)."
       }
     ],
     programaTrabajo: [
-      { Bloque: "Confirmación Directa", Pasos: ["Circularizar al 100% de los bancos prestamistas, fiduciarios y a la Caja de Valores S.A. (agente pagador de las ONs)."] },
-      { Bloque: "Revisión de Pasivos No Registrados", Pasos: ["Revisar las actas de Directorio y Asamblea de Accionistas del ejercicio para identificar la aprobación de nuevos endeudamientos.", "Examinar los extractos de enero de 2026 para detectar cancelaciones de deuda no registradas al cierre."] },
-      { Bloque: "Valuación y Conversión de Divisas", Pasos: ["Recalcular los pasivos en moneda extranjera aplicando el tipo de cambio oficial vendedor de cierre (BNA $/US$ 1.455,00 al 31/12/2025).", "Verificar la correcta aplicación de la tasa de interés efectiva y el devengamiento de intereses e instrumentos financieros derivados (IFD)."] },
-      { Bloque: "Verificación de Covenants y Exposición", Pasos: ["Revisar los contratos de endeudamiento y verificar el cumplimiento de los resguardos financieros exigidos.", "Comprobar la adecuada división entre el tramo corriente y no corriente de la deuda en los estados financieros."] }
+      { Bloque: "Confirmación Directa (Existencia y Propiedad)", Pasos: ["Circularizar al 100% de los bancos prestamistas, organismos multilaterales (IFC, BID, Finnvera), fiduciarios y a la Caja de Valores S.A. (agente de registro y pago de las ONs)."] },
+      { Bloque: "Revisión de Pasivos No Registrados (Integridad)", Pasos: ["Revisar el 100% de las actas de Directorio y Asamblea de Accionistas del ejercicio para identificar la aprobación de nuevos endeudamientos y verificar la titularidad en los EECC consolidados y separados.", "Examinar los egresos de fondos en extractos bancarios de enero y febrero de 2026 para detectar pagos o cancelaciones de pasivos e intereses devengados no registrados al 31/12/2025."] },
+      { Bloque: "Valuación Moneda Extranjera y Costo Amortizado TIE (Medición)", Pasos: ["Recalcular los pasivos en moneda extranjera aplicando el tipo de cambio oficial vendedor de cierre (BNA $/US$ 1.455,00 al 31/12/2025).", "Verificar la correcta aplicación de la tasa de interés efectiva (incluyendo el devengamiento de gastos de emisión de ONs bajo NIIF 9) e instrumentos financieros derivados (IFD)."] },
+      { Bloque: "Verificación de Covenants y Revelación (Exposición)", Pasos: ["Recalcular los ratios de resguardos financieros (covenants) exigidos en los contratos de préstamo y prospectos de ONs (evaluando eventuales cláusulas de aceleración bajo NIC 1).", "Comprobar al 100% la división entre pasivo corriente y no corriente y las revelaciones de riesgo de liquidez y mercado en la Nota 14 (NIIF 7)."] }
     ]
   },
   {
@@ -716,59 +716,59 @@ export const rubrosSignificativos = [
     afirmaciones: [
       {
         afirmacion: "Existencia",
-        objetivo: "Garantizar que los ingresos reconocidos corresponden a prestaciones de conectividad, tráfico, entretenimiento o soluciones digitales B2B efectivamente brindadas a clientes.",
-        riesgo: "Registro de ingresos por servicios no prestados o sobreestimación de abonos masivos sin consumo/tráfico real.",
-        controlClave: "Validación cruzada automatizada entre los logs de tráfico de la red (switching/rutado) y los registros del sistema de facturación.",
-        naturalezaProc: "Pruebas sustantivas de detalle y conciliación de CDRs (Call Detail Records).",
-        instrumento: "Tomar una muestra de facturas de clientes y corporativos B2B contra las tasaciones de tráfico de red y contratos vigentes.",
+        objetivo: "Garantizar que los ingresos reconocidos corresponden a prestaciones de conectividad, tráfico, entretenimiento o soluciones digitales B2B efectivamente brindadas o disponibles para clientes activos (NIIF 15).",
+        riesgo: "Registro de ingresos por proyectos B2B no ejecutados, facturación de líneas/abonos masivos ya dados de baja (churn no procesado) o tasación de tráfico excedente inexistente.",
+        controlClave: "Validación cruzada automatizada entre el padrón de líneas activas en la red (HLR/switching), logs de tráfico y los registros del sistema de facturación.",
+        naturalezaProc: "Pruebas sustantivas de detalle, cruce con padrón de bajas (churn) y conciliación de CDRs (Call Detail Records).",
+        instrumento: "Seleccionar una muestra de facturas de abonos masivos B2C y proyectos corporativos B2B y cotejarlas contra el estado activo del servicio en red, tasaciones de tráfico excedente (CDRs) y actas de conformidad vigentes.",
         oportunidad: "Trabajo interino y cierre.",
-        alcance: "Muestra aleatoria de comprobantes B2C y prueba selectiva sobre clientes B2B."
+        alcance: "Muestra aleatoria estratificada de comprobantes B2C y prueba selectiva sobre contratos B2B."
       },
       {
         afirmacion: "Integridad",
-        objetivo: "Asegurar que todas las transacciones procesadas por los sistemas comerciales (facturación masiva e interfaces) estén íntegramente contabilizadas en el período.",
-        riesgo: "Omisión en la contabilización de facturación masiva mensual o fallas en el traspaso de información desde las plataformas de cobranzas al ERP.",
-        controlClave: "Cuadre de interfaces informáticas diarias con informe automático de inconsistencias entre sistemas comerciales y SAP.",
-        naturalezaProc: "Prueba analítica sustantiva global y auditoría de logs de interfaces.",
-        instrumento: "Desarrollar una prueba global del ingreso multiplicando el parque promedio de clientes activos por el ingreso medio por usuario (ARPU) ponderado por segmento, comparando el valor estimado con el ingreso contabilizado. Validar las bitácoras (logs) de procesamiento de las interfaces comerciales al 31/12.",
+        objetivo: "Asegurar que la totalidad de los ciclos de facturación masiva, tráficos tasados y servicios corporativos B2B devengados en el período estén íntegramente contabilizados en el ejercicio correcto.",
+        riesgo: "Omisión en la contabilización de ciclos de facturación masiva mensual, fallas en el traspaso de interfaces desde los sistemas de tasación/facturación al ERP SAP, o servicios B2B prestados en diciembre y facturados en el ejercicio siguiente (corte).",
+        controlClave: "Cuadre diario automatizado de interfaces informáticas con reporte de excepciones entre los facturadores comerciales y el libro mayor en SAP.",
+        naturalezaProc: "Prueba analítica sustantiva global, auditoría de logs de interfaces y prueba de corte (cut-off).",
+        instrumento: "Desarrollar una prueba global del ingreso multiplicando el parque promedio de clientes activos por el ingreso medio por usuario (ARPU) ponderado por segmento, comparando el valor estimado en moneda homogénea con el ingreso contabilizado. Auditar las bitácoras (logs) de interfaces comerciales al 31/12 y vincular con la prueba de corte de actas B2B.",
         oportunidad: "Cierre de ejercicio.",
-        alcance: "100% de la masa de ingresos por abonos recurrentes B2C y B2B."
+        alcance: "100% de la masa de ingresos por abonos recurrentes B2C y ventana de corte B2B (+/- 15 días del cierre)."
       },
       {
         afirmacion: "Propiedad",
-        objetivo: "Verificar que los ingresos reconocidos otorgan el derecho legal de cobro a Telecom.",
-        riesgo: "Inclusión de ingresos cobrados por cuenta y orden de terceros como ventas propias sin netear la obligación correspondiente.",
-        controlClave: "Mapeo de cuentas en el plan de cuentas SAP para la segregación de cobros de terceros.",
-        naturalezaProc: "Inspección de contratos con terceros y revisión de cuentas de pasivo.",
-        instrumento: "Revisar los contratos con proveedores de contenido de terceros (ej. suscripciones a plataformas de streaming facturadas en Flow) para verificar que solo se registre en ventas el margen o comisión neta acordada, deduciendo el costo del tercero.",
-        oportunidad: "Interina.",
-        alcance: "100% de los contratos de servicios de valor agregado y contenidos bajo demanda."
+        objetivo: "Verificar que los ingresos reconocidos correspondan a prestaciones donde Telecom actúa como Principal bajo NIIF 15, excluyendo recaudaciones por cuenta y orden de terceros.",
+        riesgo: "Reconocimiento por su importe bruto como ventas propias de suscripciones cobradas por cuenta y orden de terceros (rol de Agente vs. Principal según NIIF 15) sin netear la obligación hacia el proveedor del contenido.",
+        controlClave: "Mapeo parametrizado de cuentas en SAP para segregar cobros de terceros y reconocer únicamente la comisión comercial.",
+        naturalezaProc: "Inspección de contratos comerciales con terceros y análisis NIIF 15 (Principal vs. Agente).",
+        instrumento: "Revisar los contratos con proveedores externos de contenido OTT (ej. suscripciones a plataformas de streaming facturadas en la boleta de Flow) para verificar que bajo NIIF 15 solo se registre en Ingresos por Servicios el margen o comisión neta acordada.",
+        oportunidad: "Interina y cierre.",
+        alcance: "100% de los contratos de servicios de valor agregado y contenidos de terceros integrados en Flow."
       },
       {
         afirmacion: "Medición",
-        objetivo: "Validar que las tarifas, descuentos, promociones y retenciones hayan sido correctamente calculados e imputados según los contratos y normas vigentes.",
-        riesgo: "Mala aplicación de promociones, descuentos, bonificaciones en la facturación o imprecisión en el cómputo de diferimientos por cobros adelantados.",
-        controlClave: "Tabla de tarifas y promociones parametrizada e inmodificable en el sistema comercial sin doble autorización.",
-        naturalezaProc: "Prueba de cumplimiento del parámetro del sistema (CGTI).",
-        instrumento: "Probar los controles generales de TI (CGTI) sobre el módulo de parametrización de tarifas. Inspeccionar una muestra de facturas y verificar que los descuentos y tasas de reguladores (Tasa ENACOM 0,5% y Fondo Servicio Universal 1%) estén discriminados.",
-        oportunidad: "Trabajo interino.",
-        alcance: "Muestra de facturas emitidas en diferentes ciclos del mes."
+        objetivo: "Validar que las tarifas, bonificaciones, asignación de precios en paquetes convergentes (NIIF 15), diferimientos y reexpresión a moneda homogénea de cierre (NIC 29) estén correctamente calculados.",
+        riesgo: "Incorrecta asignación del descuento en paquetes convergentes (móvil, internet y Flow) respecto a sus precios de venta independientes (NIIF 15), errores en el diferimiento de cobros anticipados (Pasivos por Contratos) o en la reexpresión por inflación (NIC 29).",
+        controlClave: "Tabla maestra de tarifas, promociones y reglas de asignación NIIF 15 parametrizadas en el facturador con doble autorización y proceso automático de ajuste por inflación en SAP.",
+        naturalezaProc: "Pruebas de controles (CGTI) combinadas con pruebas sustantivas de recálculo NIIF 15 y NIC 29.",
+        instrumento: "Probar los controles generales de TI (CGTI) sobre la parametrización de tarifas y promociones. Inspeccionar una muestra de facturas convergentes recalculando la distribución del ingreso según precios independientes (stand-alone selling prices - NIIF 15), el diferimiento de abonos adelantados y la reexpresión mensual por IPC al 31/12/2025 (NIC 29).",
+        oportunidad: "Trabajo interino (controles CGTI) y cierre de ejercicio (pruebas sustantivas).",
+        alcance: "Muestra representativa de facturas convergentes de los distintos ciclos mensuales y 100% de los coeficientes de reexpresión NIC 29."
       },
       {
         afirmacion: "Exposición",
-        objetivo: "Confirmar la presentación neta de impuestos indirectos y la adecuada apertura por líneas de negocio (B2C Personal/Flow y B2B Personal Tech) en el Estado de Resultados y Notas.",
-        riesgo: "Falta de apertura por segmentos reportables (Redes Personal, Redes TMA, Otros) exigida por la NIIF 8 en notas de los EECC.",
-        controlClave: "Revisión por la Gerencia de Contabilidad de la información por segmentos presentada al Comité Ejecutivo y CEO.",
-        naturalezaProc: "Verificación de la nota de información financiera.",
-        instrumento: "Cotejar la nota de Información por Segmentos de los EECC con los reportes de gestión recibidos por la Máxima Autoridad Unipersonal (CEO) y el Comité Ejecutivo, validando la reconciliación de ingresos entre segmentos.",
+        objetivo: "Confirmar la presentación neta de IVA e Impuestos Internos, la desagregación de ingresos por línea de negocio (NIIF 15) y la apertura por segmentos reportables (NIIF 8) en el Estado de Resultados y Notas.",
+        riesgo: "Exposición bruta de impuestos indirectos o de ingresos en rol de Agente, o inadecuada apertura de ingresos desagregados (Nota 24 - NIIF 15) y segmentos operativos (NIIF 8).",
+        controlClave: "Revisión por la Gerencia de Contabilidad de las Notas de Ingresos y Segmentos conciliadas con los reportes elevados al CEO (CODM) y Comité Ejecutivo.",
+        naturalezaProc: "Revisión de presentación y revelaciones en los Estados Contables.",
+        instrumento: "Cotejar la Nota 24 (Ingresos por Servicios) y la Nota de Información por Segmentos (NIIF 8) con el mayor de SAP y los reportes de gestión recibidos por la Máxima Autoridad en la Toma de Decisiones de Operación (CEO), verificando el neteo de IVA/Impuestos Internos y que los cargos regulatorios (Tasa ENACOM 0,5% y SU 1%) se expongan en Gastos Operativos.",
         oportunidad: "Cierre definitivo de balance.",
-        alcance: "100% de la nota de segmentos operativos."
+        alcance: "Revisión del 100% de la Nota 24 de Ingresos (NIIF 15) y la Nota de Segmentos Operativos (NIIF 8)."
       }
     ],
     programaTrabajo: [
-      { Bloque: "Prueba Analítica Sustantiva Global", Pasos: ["Estimar el volumen de ingresos teóricos multiplicando el parque promedio de clientes activos por el ARPU (ingreso medio por usuario) ponderado por segmento (Personal, Flow, Internet).", "Comparar la estimación global con el saldo contabilizado."] },
-      { Bloque: "Prueba de Procesamiento e Interfaces", Pasos: ["Auditar los reportes de descuadre de las interfaces diarias entre el sistema comercial/convergente y el sistema contable SAP.", "Seleccionar una muestra de facturas emitidas en el período y conciliar los montos facturados contra los registros de tráfico (CDR - Call Detail Records) y tablas de tarifas aprobadas."] },
-      { Bloque: "Corte de Ingresos", Pasos: ["Verificar el neteo de ingresos por servicios de streaming y contenidos de terceros facturados en la plataforma Flow, asegurando que solo se reconozca como venta la comisión o margen correspondiente."] }
+      { Bloque: "Prueba Analítica Sustantiva Global y NIC 29 (Integridad y Medición)", Pasos: ["Estimar el volumen de ingresos teóricos multiplicando el parque promedio de clientes activos por el ARPU (ingreso medio por usuario) ponderado por segmento (Personal, Flow, Internet) reexpresado a moneda de cierre (NIC 29).", "Comparar la estimación global independiente con el saldo contabilizado en la Nota 24."] },
+      { Bloque: "Auditoría de Interfaces, CDRs y Combos NIIF 15 (Existencia y Medición)", Pasos: ["Auditar los reportes de cuadre de las interfaces diarias entre los sistemas de tasación/facturación y el ERP SAP.", "Seleccionar una muestra de facturas y conciliar los montos contra registros de tráfico (CDR), estado activo de la línea (control de churn) y asignación de precios independientes en paquetes convergentes (NIIF 15)."] },
+      { Bloque: "Análisis Principal vs. Agente y Desagregación (Propiedad y Exposición)", Pasos: ["Verificar bajo NIIF 15 el neteo de ingresos por suscripciones de streaming de terceros facturadas en Flow, asegurando que solo se reconozca como venta la comisión comercial.", "Comprobar al 100% la apertura de la Nota 24 (NIIF 15) y la Nota de Segmentos (NIIF 8)."] }
     ]
   },
   {
@@ -787,59 +787,59 @@ export const rubrosSignificativos = [
     afirmaciones: [
       {
         afirmacion: "Existencia",
-        objetivo: "Verificar la vigencia efectiva de las licencias de espectro radioeléctrico (4G/5G) otorgadas por ENACOM y la existencia del valor llave derivado de combinaciones de negocios.",
-        riesgo: "Caducidad o revocación de las licencias de espectro otorgadas por ENACOM o pérdida del valor llave asignado a las Unidades Generadoras de Efectivo (UGE).",
-        controlClave: "Seguimiento y control legal periódico del cumplimiento de las obligaciones de despliegue de espectro.",
-        naturalezaProc: "Confirmación legal e inspección de actos administrativos.",
-        instrumento: "Solicitar confirmación legal al ENACOM o inspeccionar los actos administrativos y resoluciones (ej. Adjudicación Lote 5G Banda 3.400-3.500 MHz) para validar la vigencia de las licencias de radiodifusión y telecomunicaciones.",
+        objetivo: "Verificar la vigencia efectiva de las licencias de espectro radioeléctrico (4G/5G) otorgadas por ENACOM, la validez de los desarrollos de software activados (NIC 38) y la existencia de las operaciones que sustentan el valor llave.",
+        riesgo: "Caducidad o revocación de licencias de espectro (ENACOM) no dadas de baja, capitalización indebida de gastos de investigación o proyectos de software abandonados (NIC 38), o permanencia de valor llave asociado a operaciones discontinuadas.",
+        controlClave: "Seguimiento legal periódico de las obligaciones de despliegue de espectro ante ENACOM y control de hitos de factibilidad técnica de software (NIC 38).",
+        naturalezaProc: "Confirmación legal, inspección de actos administrativos y examen de altas de software.",
+        instrumento: "Solicitar confirmación legal al ENACOM o inspeccionar los actos administrativos y resoluciones (ej. Adjudicación Lote 5G Banda 3.400-3.500 MHz) para validar la vigencia de las licencias. Asimismo, verificar para una muestra de altas de software activadas que cumplan estrictamente los requisitos de activo de la NIC 38 (fase de desarrollo y no investigación).",
         oportunidad: "Cierre de ejercicio.",
-        alcance: "100% de las licencias de espectro activas y registradas en el activo intangible."
+        alcance: "100% de las licencias de espectro activas y muestra selectiva de altas de software del ejercicio."
       },
       {
         afirmacion: "Integridad",
-        objetivo: "Comprobar que se hayan incorporado todos los costos capitalizables asociados a la adquisición o desarrollo de licencias y software corporativo.",
-        riesgo: "Omisión de capitalización de costos directos asociados a la adquisición o desarrollo de software y licencias.",
-        controlClave: "Proceso de validación contable de proyectos de software en el módulo de proyectos de SAP.",
-        naturalezaProc: "Prueba de adiciones y desarrollo interno.",
-        instrumento: "Auditar los cargos activados en la cuenta de Activos Intangibles durante el ejercicio, comprobando que cumplan de forma estricta los criterios de capitalización fijados por la NIC 38 (viabilidad técnica, intención de completar el activo y generación de beneficios futuros).",
+        objetivo: "Comprobar que se hayan incorporado e incluido en el activo todos los costos directos capitalizables asociados a la adquisición o desarrollo interno de licencias y software corporativo sin omisiones.",
+        riesgo: "Omisión de capitalización de costos directos asociados al desarrollo de software evolutivo o licencias (imputados erróneamente a gastos en el Estado de Resultados, subvaluando el activo).",
+        controlClave: "Proceso de seguimiento y liquidación contable de órdenes de inversión tecnológica en el módulo de proyectos de SAP (SAP PS).",
+        naturalezaProc: "Conciliación del portafolio de proyectos de IT y revisión de cuentas de gastos tecnológicos.",
+        instrumento: "Conciliar el listado de proyectos tecnológicos en etapa de desarrollo (reportados por la Gerencia de IT en el módulo SAP PS) y examinar las cuentas de gastos de mantenimiento y honorarios tecnológicos del Estado de Resultados, para verificar que las erogaciones que cumplen los criterios de la NIC 38 hayan sido íntegramente capitalizadas en el activo y no imputadas a pérdida.",
         oportunidad: "Cierre de ejercicio.",
-        alcance: "Muestra de proyectos de software finalizados y activados en el año."
+        alcance: "100% del portafolio de proyectos de IT del ejercicio y muestra de imputaciones significativas en cuentas de gastos tecnológicos."
       },
       {
         afirmacion: "Propiedad",
-        objetivo: "Confirmar que los derechos de uso de espectro y marcas estén formalmente otorgados e inscriptos a nombre de la sociedad.",
-        riesgo: "Licencias o marcas registradas a nombre de terceros o filiales sin contratos de cesión o uso intercompañía formalizados.",
-        controlClave: "Custodia por la Gerencia de Asuntos Legales de los títulos de concesión y marcas en el INPI.",
-        naturalezaProc: "Inspección de registros y títulos de concesión.",
-        instrumento: "Verificar la titularidad legal de los certificados de marcas (Personal, Flow, Personal Tech) en el Instituto Nacional de la Propiedad Industrial (INPI) y comprobar que las bandas de frecuencia estén inscriptas formalmente a nombre de la sociedad o consolidadas (ej. TMA).",
-        oportunidad: "Interina.",
+        objetivo: "Confirmar que los derechos de uso de espectro y marcas estén formalmente otorgados e inscriptos a nombre de la sociedad o sus subsidiarias consolidadas.",
+        riesgo: "Licencias o marcas registradas a nombre de terceros o entidades no consolidadas sin contratos de cesión vigentes, o existencia de gravámenes/restricciones regulatorias sobre los títulos de concesión.",
+        controlClave: "Custodia por la Gerencia de Asuntos Legales de los títulos de concesión ENACOM y certificados marcarios en el INPI.",
+        naturalezaProc: "Inspección de registros públicos y títulos de concesión.",
+        instrumento: "Verificar la titularidad legal de los certificados de marcas (Personal, Flow, Personal Tech) en el Instituto Nacional de la Propiedad Industrial (INPI) y comprobar que las bandas de frecuencia estén inscriptas formalmente a nombre de la sociedad o sus subsidiarias consolidadas (ej. TMA).",
+        oportunidad: "Interina y cierre.",
         alcance: "100% de las marcas y concesiones de espectro significativas."
       },
       {
         afirmacion: "Medición",
-        objetivo: "Evaluar la amortización acumulada de las licencias y realizar la prueba de deterioro sobre la llave de negocio y activos de vida útil indefinida.",
-        riesgo: "Sobrevaluación de la Llave de Negocio por utilizar premisas irrazonables (tasas de descuento WACC o proyecciones de flujo de fondos desalineadas) en el Test de Deterioro.",
-        controlClave: "Aprobación por el Directorio del presupuesto proyectado y revisión del informe técnico de valuación independiente.",
-        naturalezaProc: "Evaluación de estimaciones de la gerencia e intervención de especialistas en valuación.",
-        instrumento: "Revisar el modelo de flujo de fondos descontados preparado para el Test de Recuperabilidad de la UGE Redes Personal. Involucrar a especialistas de auditoría en valuación para evaluar la razonabilidad de la tasa de descuento WACC, la tasa de crecimiento a largo plazo y las pruebas de sensibilidad.",
+        objetivo: "Evaluar la amortización acumulada de las licencias y software de vida útil definida, la asignación del precio de compra (PPA - NIIF 3) y la prueba de deterioro (NIC 36) sobre la llave de negocio y activos de vida útil indefinida.",
+        riesgo: "Sobrevaluación de la Llave de Negocio por utilizar premisas irrazonables (tasas de descuento WACC o proyecciones de flujo de fondos desalineadas) en el Test de Deterioro (NIC 36) o errores en el cálculo de amortizaciones.",
+        controlClave: "Aprobación por el Directorio del presupuesto proyectado, revisión del informe técnico de valuación independiente y corrida mensual de amortizaciones en SAP.",
+        naturalezaProc: "Recálculo de amortizaciones, evaluación de estimaciones e intervención de especialistas en valuación (NIA 620).",
+        instrumento: "Recalcular globalmente el cargo por amortización de licencias y software según su vida útil remanente y verificar el PPA (NIIF 3) de TMA. Revisar el modelo de flujo de fondos descontados preparado para el Test de Recuperabilidad de la UGE Redes Personal ($12.774.695M), involucrando a especialistas de auditoría en valuación para evaluar la razonabilidad de la tasa de descuento WACC, la tasa de crecimiento a perpetuidad (g) y las pruebas de sensibilidad.",
         oportunidad: "Trabajo de cierre de balance.",
-        alcance: "100% del test de deterioro sobre Llaves de Negocio y licencias."
+        alcance: "100% del test de deterioro sobre Llaves de Negocio y recálculo global del parque de intangibles amortizables."
       },
       {
         afirmacion: "Exposición",
-        objetivo: "Verificar la correcta discriminación en el activo no corriente y el detalle de las vidas útiles y criterios de amortización en las notas a los estados contables.",
-        riesgo: "Omisión de las revelaciones requeridas sobre la vida útil de las licencias, criterios de amortización o análisis de sensibilidad del test de deterioro en Notas.",
+        objetivo: "Verificar la correcta discriminación en el activo no corriente y el detalle de las vidas útiles, criterios de amortización y supuestos clave de recuperabilidad en las notas a los estados contables (Notas 8 y 10).",
+        riesgo: "Omisión de las revelaciones requeridas sobre la vida útil de las licencias, criterios de amortización o análisis de sensibilidad del test de deterioro en Notas (NIC 36 párr. 134 / NIC 38).",
         controlClave: "Lista de chequeo de la Gerencia de Contabilidad sobre revelaciones de NIIF (NIC 36 / NIC 38).",
         naturalezaProc: "Revisión de revelaciones en los Estados Financieros.",
         instrumento: "Verificar que en las Notas a los EECC se expongan con precisión los supuestos clave del test de deterioro de la llave de negocio (WACC, tasa de crecimiento, sensibilidad) y se desglose adecuadamente la amortización acumulada y vida útil del espectro 5G.",
         oportunidad: "Cierre definitivo.",
-        alcance: "100% de la nota de Activos Intangibles y Llave de Negocio de los Estados Financieros."
+        alcance: "100% de las Notas 8 (Llaves de Negocio) y 10 (Activos Intangibles) de los Estados Financieros."
       }
     ],
     programaTrabajo: [
-      { Bloque: "Verificación de Titularidad", Pasos: ["Inspeccionar las resoluciones de ENACOM que respaldan las concesiones de espectro radioeléctrico (incluyendo el Lote 5G) y constatar el cumplimiento de los planes de despliegue.", "Confirmar la inscripción de las marcas registradas ante el INPI."] },
-      { Bloque: "Evaluación del Test de Deterioro de Llave de Negocio", Pasos: ["Revisar el modelo financiero de flujo de fondos descontados aplicado para determinar el valor recuperable de la UGE Redes Personal.", "Auditar los supuestos macroeconómicos clave: tasa de descuento WACC, tasa de crecimiento a largo plazo y proyecciones de EBITDA.", "Efectuar pruebas de sensibilidad sobre las variables críticas del modelo."] },
-      { Bloque: "Amortizaciones y Exposición", Pasos: ["Recalcular las amortizaciones del ejercicio sobre licencias y software en función de las vidas útiles contractuales o estimadas.", "Comprobar la inclusión de las revelaciones requeridas por la NIC 36 y NIC 38 en las notas explicativas de los EECC."] }
+      { Bloque: "Vigencia Legal y Titularidad (Existencia y Propiedad)", Pasos: ["Inspeccionar las resoluciones de ENACOM que respaldan las concesiones de espectro radioeléctrico (incluyendo el Lote 5G Banda 3.400-3.500 MHz) y constatar el cumplimiento de los planes de despliegue.", "Confirmar la inscripción de las marcas registradas (Personal, Flow, Personal Tech) ante el INPI a nombre de la sociedad o subsidiarias consolidadas."] },
+      { Bloque: "Proyectos de Software NIC 38 (Existencia e Integridad)", Pasos: ["Auditar una muestra de altas de software activadas verificando que cumplan los requisitos de desarrollo de la NIC 38 (Existencia).", "Conciliar el portafolio de proyectos de IT en SAP PS y revisar cuentas de gastos tecnológicos del Estado de Resultados para comprobar que no se hayan omitido costos capitalizables (Integridad)."] },
+      { Bloque: "Test de Deterioro de Llave y Amortizaciones (Medición y Exposición)", Pasos: ["Recalcular las amortizaciones del ejercicio sobre licencias y software según sus vidas útiles remanentes.", "Revisar con especialistas en valuación el modelo de Flujos de Fondos Descontados de la UGE Redes Personal ($12.774.695M), auditando WACC, tasa de crecimiento (g) y análisis de sensibilidad, y verificar su revelación íntegra en las Notas 8 y 10 (NIC 36 / NIC 38)."] }
     ]
   }
 ];

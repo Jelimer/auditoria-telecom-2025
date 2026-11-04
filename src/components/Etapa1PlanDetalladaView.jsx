@@ -145,6 +145,43 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
             </p>
           </div>
         </div>
+
+        {/* Explicación Didáctica de qué es la Materialidad y qué se pretende en el punto 1.4 */}
+        <div className="mt-5 p-4 rounded-xl bg-slate-900 text-white border border-teal-500/40 space-y-2.5 text-xs">
+          <div className="flex items-center gap-2 text-lime-400 font-extrabold uppercase tracking-wider text-[11px]">
+            <Calculator className="w-4 h-4 shrink-0" />
+            ¿Qué es la Materialidad (Significatividad) y qué se pretende en este punto 1.4?
+          </div>
+          <p className="text-slate-200 leading-relaxed">
+            En una compañía de la escala de <strong>Telecom Argentina S.A.</strong> (con un Activo Total de <strong>$16.622.552 millones</strong>, es decir, más de 16,6 billones de pesos), el auditor externo <strong>no busca exactitud matemática al centavo</strong>, sino <strong>razonabilidad</strong>. La <strong>Materialidad o Significatividad</strong> (según Carlos Slosse y la RT 37) es el <em>«termómetro o umbral numérico»</em> a partir del cual un error u omisión contable es tan grande que podría cambiar la decisión económica de un usuario que lee el Balance (un accionista en la bolsa, un banco acreedor o la CNV).
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
+            <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+              <strong className="text-teal-300 block mb-0.5">
+                1. Materialidad Global (PM = $166.225M — 1% del Activo):
+              </strong>
+              <span className="text-slate-300">
+                Es el techo máximo para el Balance en su conjunto. Si al terminar la auditoría la suma de errores que la empresa se niega a corregir supera los <strong>$166.225M</strong>, los Estados Contables están distorsionados de forma generalizada.
+              </span>
+            </div>
+            <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+              <strong className="text-amber-300 block mb-0.5">
+                2. Error Tolerable (ET = $83.112M — 50% de la PM):
+              </strong>
+              <span className="text-slate-300">
+                Es el límite máximo de error que toleramos dentro de <strong>cada rubro individual</strong> (por ejemplo, dentro de Bienes de Uso o dentro de Créditos por Ventas). Se fija a la mitad de la PM por prudencia, para evitar que varios errores medianos en distintas cuentas sumen más que la PM global, y nos sirve para definir el <strong>tamaño de las muestras</strong> a revisar.
+              </span>
+            </div>
+            <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+              <strong className="text-rose-300 block mb-0.5">
+                3. Umbral Mínimo de Ajustes (PAE = $8.311M — 5% de la PM):
+              </strong>
+              <span className="text-slate-300">
+                Es el filtro de lo «claramente insignificante». Todo desvío que encontremos en la Etapa 2 que sea <strong>mayor a $8.311M</strong> (como los ajustes <code>AJ-01</code> a <code>AJ-04</code>) debe llevarse obligatoriamente a la Planilla de Ajustes Propuestos para exigir su corrección; si es menor a $8.311M (como los $3.120M de <code>PAE-NC-01</code>), se deja constancia pero no afecta la opinión.
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Guía de las 5 Afirmaciones de Auditoría (Doctrina Carlos Slosse / RT 37) */}
@@ -539,6 +576,54 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
             </h4>
             <p className="text-slate-700 leading-relaxed">
               Encargados: <strong>Grebe — Pisonero De Biase (U.C.P.)</strong> con asistencia de especialistas en Auditoría de Sistemas (CGTI / SAP) y Valuaciones Financieras (WACC / Test Deterioro UGE Personal). Ejecución en 3 visitas: Interina (Oct-Nov 2025), Pre-Cierre (Dic 2025) y Cierre Final (Ene-Feb 2026).
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* GUÍA DE LECTURA Y EXPOSICIÓN ORAL — CIERRE DE LA SUBETAPA 1.2: PLANIFICACIÓN DETALLADA */}
+      <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-2xl border border-teal-500/40 p-6 text-white shadow-lg space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
+          <div className="flex items-center gap-2">
+            <FileText className="w-5 h-5 text-lime-400 shrink-0" />
+            <span className="text-xs font-extrabold uppercase tracking-wider text-lime-400">
+              Guía de Lectura y Exposición Oral — Cierre de la Subetapa 1.2: Planificación Detallada
+            </span>
+          </div>
+          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-teal-200 border border-white/15">
+            Fin de la Etapa 1 (Planificación) → Paso a Etapa 2 (Ejecución)
+          </span>
+        </div>
+
+        <h3 className="text-base sm:text-lg font-extrabold text-white">
+          Resumen de la Planificación Detallada: ¿Qué empezamos haciendo acá, qué hicimos y por qué?
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-lime-300 block uppercase text-[11px] tracking-wider">
+              1. ¿Qué se empieza haciendo en la Planificación Detallada?
+            </strong>
+            <p className="text-slate-200">
+              Una vez que en la <em>Planificación Preliminar (1A, 1B y 1C)</em> definimos que el Riesgo de Control de Telecom es ALTO y que aplicaremos un enfoque sustantivo, en la <strong>Planificación Detallada (1D)</strong> bajamos de la visión global a las <strong>cuentas individuales del Balance</strong>. Empezamos fijando los umbrales numéricos de <strong>Materialidad ($166.225M de PM, $83.112M de ET y $8.311M de PAE)</strong> y seleccionando los <strong>5 rubros más significativos y riesgosos</strong>: <em>PP&amp;E (Nota 9), Créditos por Ventas (Nota 5), Préstamos (Nota 14), Ingresos por Servicios (Nota 24) y Llaves/Intangibles (Notas 8 y 10)</em>.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-amber-300 block uppercase text-[11px] tracking-wider">
+              2. ¿Qué se hace concretamente acá?
+            </strong>
+            <p className="text-slate-200">
+              Para cada uno de esos 5 rubros críticos identificamos qué <strong>Afirmaciones u Objetivos de Auditoría de Slosse</strong> están en peligro (<em>Existencia, Integridad, Propiedad, Medición y Exposición</em>) y redactamos a medida los <strong>5 Programas de Trabajo (Programas A, B, C, D y E)</strong>. En cada Programa dejamos escrito exactamente <strong>qué procedimiento sustantivo</strong> se va a aplicar, <strong>con qué alcance (muestra)</strong> y <strong>en qué momento del año</strong> (Visita Interina, Pre-Cierre o Visita Final), cerrando todo en el <strong>Memorando de Planificación (LP-01)</strong>.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-teal-300 block uppercase text-[11px] tracking-wider">
+              3. ¿Por qué y para qué lo hacemos?
+            </strong>
+            <p className="text-slate-200">
+              Porque según <strong>Carlos Slosse y la RT 37</strong>, el equipo de auditoría no puede salir a hacer el trabajo de campo improvisando qué pedirle al cliente. La Planificación Detallada transforma el diagnóstico de riesgos en una <strong>«hoja de ruta operativa paso a paso» (el Programa de Trabajo)</strong>. Con este documento aprobado termina la <strong>Etapa 1 (Planificación)</strong> y los auditores salen al terreno a cumplir cada procedimiento en la <strong>Etapa 2 (Ejecución)</strong>.
             </p>
           </div>
         </div>

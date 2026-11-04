@@ -430,6 +430,59 @@ export default function Etapa2EjecucionView({
           ))}
         </div>
       </div>
+
+      {/* GUÍA DE LECTURA Y EXPOSICIÓN ORAL — CIERRE DE LA ETAPA 2: EJECUCIÓN DEL TRABAJO DE CAMPO */}
+      <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-2xl border border-teal-500/40 p-6 text-white shadow-lg space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
+          <div className="flex items-center gap-2">
+            <BookmarkCheck className="w-5 h-5 text-lime-400 shrink-0" />
+            <span className="text-xs font-extrabold uppercase tracking-wider text-lime-400">
+              Guía de Lectura y Exposición Oral — Cierre de la Etapa 2: Ejecución (Trabajo de Campo y Papeles de Trabajo)
+            </span>
+          </div>
+          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-teal-200 border border-white/15">
+            Doctrina: Carlos A. Slosse &amp; RT 37 (Obtención de Elementos de Juicio Válidos y Suficientes)
+          </span>
+        </div>
+
+        <h3 className="text-base sm:text-lg font-extrabold text-white">
+          Resumen de la Etapa 2 (Ejecución): ¿Qué empezamos haciendo acá, qué hicimos y por qué?
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-lime-300 block uppercase text-[11px] tracking-wider">
+              1. ¿Qué se empieza haciendo en la Etapa de Ejecución?
+            </strong>
+            <p className="text-slate-200">
+              En la <strong>Etapa 2 (Ejecución)</strong> llevamos a la práctica los <strong>Programas de Trabajo (A a E)</strong> que habíamos diseñado en la Etapa 1. Lo primero que hacemos al abrir el legajo de cada rubro es confeccionar su <strong>Cédula Sumaria (o Hoja Llave: PT-A, PT-B, PT-C, PT-D y PT-E)</strong>: allí volcamos el saldo oficial que muestra el Balance de Telecom al 31/12/2025 junto con su 2024 comparativo y lo desglosamos en las líneas que componen su Nota a los Estados Contables, para saber exactamente qué importe vamos a auditar.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-amber-300 block uppercase text-[11px] tracking-wider">
+              2. ¿Qué se hace concretamente durante el trabajo de campo?
+            </strong>
+            <p className="text-slate-200">
+              A continuación abrimos las <strong>Cédulas Analíticas (sub-papeles como PT-A1, PT-B3, PT-C3, etc.)</strong> donde ejecutamos las pruebas sustantivas reales y dejamos <strong>marcas de auditoría (✓, ∑, ©, ⊗)</strong>:
+              <br />• En <strong>PP&amp;E (PT-A)</strong> inspeccionamos los 16 Data Centers y 85 nodos y detectamos centrales analógicas obsoletas y nodos vandalizados sin dar de baja (<strong>Ajuste AJ-01 por $28.340M</strong>).
+              <br />• En <strong>Créditos por Ventas (PT-B)</strong> circularizamos clientes B2B, auditamos el corte de diciembre/enero (<strong>Ajuste AJ-02 por $18.800M</strong>) y reprocesamos con software TAACs el 100% de la mora &gt; 180 días incluyendo la cartera migrada de TMA (<strong>Ajuste AJ-03 por $19.850M</strong>).
+              <br />• En <strong>Préstamos (PT-C)</strong> confirmamos el 100% de la deuda con bancos y Caja de Valores y recalculamos su valuación al TC BNA $/US$ 1.455,00.
+              <br />• En <strong>Ventas (PT-D)</strong> hicimos la prueba global (Parque × ARPU) y detectamos ingresos de streaming de terceros registrados por el bruto (<strong>Reclasificación AJ-04 por $11.240M</strong>).
+              <br />• En <strong>Intangibles y Llave (PT-E)</strong> auditamos con especialistas el Test de Deterioro (NIC 36) de la UGE Personal.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-teal-300 block uppercase text-[11px] tracking-wider">
+              3. ¿Por qué y para qué lo hacemos?
+            </strong>
+            <p className="text-slate-200">
+              Porque la <strong>RT 37 (modif. RT 53)</strong> y <strong>Carlos Slosse</strong> exigen que el auditor reúna <strong>«elementos de juicio válidos y suficientes» (evidencia documental y matemática en Papeles de Trabajo)</strong> antes de emitir su opinión. Todos los errores detectados en las Cédulas Analíticas que superan el umbral mínimo de ajuste (<strong>PAE de $8.311M</strong>) se vuelcan en la <strong>Planilla de Ajustes Propuestos (PAE)</strong> con sus respectivos asientos contables (Debe/Haber), los cuales pasan a la <strong>Etapa 3 (Conclusión e Informe)</strong> para definir si el dictamen final sale limpio (si la Gerencia los registra) o con salvedades (si no los registra).
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

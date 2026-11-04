@@ -382,6 +382,54 @@ export default function Etapa1EnteView() {
           </div>
         </div>
       </div>
+
+      {/* GUÍA DE LECTURA Y EXPOSICIÓN ORAL — CIERRE DEL PUNTO 1A (PLANIFICACIÓN PRELIMINAR: CONOCIMIENTO DEL ENTE) */}
+      <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-2xl border border-teal-500/40 p-6 text-white shadow-lg space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
+          <div className="flex items-center gap-2">
+            <Compass className="w-5 h-5 text-lime-400 shrink-0" />
+            <span className="text-xs font-extrabold uppercase tracking-wider text-lime-400">
+              Guía de Lectura y Exposición Oral — Etapa 1 (Parte Preliminar: Conocimiento del Ente)
+            </span>
+          </div>
+          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-teal-200 border border-white/15">
+            Doctrina: Carlos A. Slosse (Enfoque «De Arriba hacia Abajo»)
+          </span>
+        </div>
+
+        <h3 className="text-base sm:text-lg font-extrabold text-white">
+          ¿Qué empezamos haciendo acá, qué se hace y por qué? (Para explicar con tus palabras)
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-lime-300 block uppercase text-[11px] tracking-wider">
+              1. ¿Qué se empieza haciendo?
+            </strong>
+            <p className="text-slate-200">
+              Según <strong>Carlos Slosse</strong>, una auditoría nunca empieza mirando facturas ni sumando recibos: empieza <strong>«de arriba hacia abajo» (Top-Down)</strong> conociendo a fondo quién es el cliente. En este primer paso relevamos qué hace <strong>Telecom Argentina S.A.</strong> (servicios convergentes móviles 4G/5G con <em>Personal</em>, fibra e internet, TV y streaming con <em>Flow</em>, soluciones corporativas <em>B2B Personal Tech</em> y la reciente compra de <em>Telefónica Móviles Argentina - TMA</em> en febrero de 2025), cómo está organizada su cúpula directiva y qué sistemas informáticos utiliza (el ERP <strong>SAP S/4HANA</strong> conectado con facturadores comerciales heredados).
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-amber-300 block uppercase text-[11px] tracking-wider">
+              2. ¿Qué se hace concretamente?
+            </strong>
+            <p className="text-slate-200">
+              Analizamos los <strong>factores internos y externos</strong> que rodean al negocio: el macroentorno económico argentino (inflación que exige aplicar <strong>NIC 29</strong>, devaluación del peso que impacta en su deuda en dólares e importación de equipos de red), las regulaciones del <strong>ENACOM, CNV y SEC</strong>, las 5 fuerzas competitivas (competencia con Claro, Starlink y plataformas OTT) y las vulnerabilidades físicas de sus activos (como el robo de cables y vandalismo en nodos en la vía pública).
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
+            <strong className="text-teal-300 block uppercase text-[11px] tracking-wider">
+              3. ¿Por qué y para qué lo hacemos?
+            </strong>
+            <p className="text-slate-200">
+              Lo hacemos para identificar el <strong>Riesgo Inherente (RI)</strong>, es decir, el riesgo de que los Estados Contables tengan errores significativos por la propia naturaleza compleja del negocio de las telecomunicaciones, <em>antes</em> de mirar siquiera si la empresa tiene buenos controles internos. Con este diagnóstico de negocio ya sabemos dónde están los peligros naturales de Telecom y pasamos al siguiente escalón de la Planificación Preliminar: <strong>evaluar su Control Interno (1B)</strong> y hacer la <strong>Revisión Analítica Preliminar del Balance (1C)</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
