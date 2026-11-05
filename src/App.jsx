@@ -129,7 +129,7 @@ const NAV_ITEMS = [
     subItems: [
       { id: 'pt-a', label: '2.1. PT-A: Bienes de Uso ⭐', type: 'tab' },
       { id: 'pt-b', label: '2.2. PT-B: Créditos por Ventas ⭐', type: 'tab' },
-      { id: 'pt-c', label: '2.3. PT-C: Deuda Financiera', type: 'tab' },
+      { id: 'pt-c', label: '2.3. PT-C: Préstamos', type: 'tab' },
       { id: 'pt-d', label: '2.4. PT-D: Ventas', type: 'tab' },
       { id: 'pt-e', label: '2.5. PT-E: Activos Intangibles ⭐', type: 'tab' },
       { id: 'pt-f', label: '2.6. PT-F: Llaves de Negocio', type: 'tab' },
@@ -556,7 +556,7 @@ export default function App() {
               </span>
               <span className="hidden xl:inline-block text-xs font-semibold text-slate-500">
                 Autores: <strong className="text-slate-800">{proyectoMeta.encargados} (U.C.P.)</strong> •{' '}
-                <strong className="text-teal-700">Slosse & RT 37 / RT 53 / RT 54</strong>
+                <strong className="text-teal-700">Slosse &amp; RT 37 / RT 53 (Auditoría) • NIIF / NIC (Telecom)</strong>
               </span>
             </div>
 
@@ -601,7 +601,7 @@ export default function App() {
         </header>
 
         {/* Área de Trabajo Dinámica */}
-        <main className="p-4 sm:p-6 max-w-[1440px] w-full mx-auto flex-1">
+        <main className="p-4 sm:p-6 lg:p-8 max-w-[1680px] w-full mx-auto flex-1">
           {activeView === 'dashboard' && (
             <DashboardView
               cciCalculados={cciCalculados}
@@ -622,6 +622,7 @@ export default function App() {
               cciCalculados={cciCalculados}
               onToggleRespuesta={handleToggleRespuesta}
               onResetCuestionarios={handleResetCuestionarios}
+              onNavigate={handleNavigate}
               subTarget={subTarget}
               subTargetTick={subTargetTick}
             />

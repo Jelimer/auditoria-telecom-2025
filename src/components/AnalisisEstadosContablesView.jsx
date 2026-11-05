@@ -1400,7 +1400,7 @@ const matrizVinculacionAuditoria = [
   {
     alertaAnalitica:
       '5. Salto del +43,60% en Préstamos Totales ($5.436.615M en Nota 14), suba del Endeudamiento Total a 1,38x y del Endeudamiento Financiero a 0,78x (Apalancamiento Total 2,38x y Neto 1,78x), junto a Costos Financieros de -$748.840M (Nota 26).',
-    rubroYPrograma: 'Préstamos y Deuda Financiera — PROGRAMA C (PT-C)',
+    rubroYPrograma: 'Préstamos — PROGRAMA C (PT-C)',
     afirmacionesCriticas: 'Medición (Valuación Moneda Extranjera y TIE), Integridad y Exposición',
     procedimientosAplicados:
       '• Circularización directa al 100% de los bancos acreedores, organismos multilaterales (IFC/BID/Finnvera) y Caja de Valores S.A. (PT-C1).\n• Recálculo independiente del 100% de la deuda en moneda extranjera (US$ 3.736,5M) al TC vendedor BNA $/US$ 1.455,00 al 31/12/2025 y devengamiento por tasa efectiva (PT-C3).\n• Verificación de ratios de resguardo (Repago en EBITDA = 2,15x; Cobertura EBITDA/Intereses = 3,37x) y apertura de vencimientos (PT-C4).',
@@ -2810,7 +2810,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
           <div className="p-4 rounded-xl bg-slate-800/90 border border-slate-700 space-y-2.5">
             <div className="flex items-center justify-between gap-2">
               <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 font-extrabold text-[11px]">
-                3. RUBRO: PRÉSTAMOS Y DEUDA FINANCIERA (NOTA 14: $5.436.615M) → PROGRAMA C
+                3. RUBRO: PRÉSTAMOS (NOTA 14: $5.436.615M) → PROGRAMA C
               </span>
               <span className="font-mono font-bold text-amber-300 text-[11px]">
                 AV: 32,71% | AH: +43,60% | End.: 1,38x

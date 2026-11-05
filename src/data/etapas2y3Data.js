@@ -64,7 +64,7 @@ export const equipoTrabajoInicial = [
   {
     id: "eq-5",
     solicitud: "PT-C: Circularización Bancos/ONs, Recálculo USD ($1.455) y Covenants",
-    rubro: "Préstamos y Deuda Financiera",
+    rubro: "Préstamos",
     etapa: "Ejecución",
     responsable: "Grebe",
     rol: "Auditor Senior / Co-Encargado",
@@ -235,7 +235,7 @@ export const papelesTrabajo = [
     id: "pt-c",
     codigo: "PT-C",
     programa: "PROGRAMA C",
-    rubro: "Préstamos y Deuda Financiera (Pasivo Financiero)",
+    rubro: "Préstamos (Nota 14)",
     refLegajo: "Legajo Corriente — Sección C (Cédula Sumaria C-1 y Analíticas C-2 a C-5)",
     elaboradoPor: "Grebe",
     revisadoPor: "Pisonero De Biase",
@@ -283,7 +283,7 @@ export const papelesTrabajo = [
         marca: "✓"
       }
     ],
-    conclusionRubro: "El rubro Préstamos y Deuda Financiera ($5.436.615 millones) se encuentra razonablemente valuado y expuesto al 31/12/2025 conforme a las normas contables vigentes."
+    conclusionRubro: "El rubro Préstamos ($5.436.615 millones) se encuentra razonablemente valuado y expuesto al 31/12/2025 conforme a las normas contables vigentes."
   },
   {
     id: "pt-d",
@@ -519,7 +519,7 @@ export const documentosEtapa3 = {
       },
       {
         subtitulo: "2. Resumen de Resultados de los Programas A, B, C, D, E y F",
-        contenido: "Se ejecutaron en su totalidad los procedimientos previstos en el Trabajo Interino (Oct-Nov 2025), Pre-Cierre (Dic 2025) y Cierre Final (Ene-Feb 2026). Se validaron las cinco afirmaciones (Existencia, Integridad, Propiedad, Medición y Exposición) en los rubros críticos del Balance Consolidado, con foco prioritario en los 3 rubros principales de la cátedra: Bienes de Uso (PP&E $6.789.118M en Nota 9), Créditos por Ventas ($800.128M en Nota 5) y Activos Intangibles ($2.671.525M en Nota 10), junto a Préstamos y Deuda Financiera ($5.436.615M en Nota 14), Ventas ($8.328.814M en Nota 24) y Llaves de Negocio ($4.443.998M en Nota 8 con Valor Recuperable UGE Redes Personal $12.774.695M verificado en PT-F1)."
+        contenido: "Se ejecutaron en su totalidad los procedimientos previstos en el Trabajo Interino (Oct-Nov 2025), Pre-Cierre (Dic 2025) y Cierre Final (Ene-Feb 2026). Se validaron las cinco afirmaciones (Existencia, Integridad, Propiedad, Medición y Exposición) en los rubros críticos del Balance Consolidado, con foco prioritario en los 3 rubros principales de la cátedra: Bienes de Uso (PP&E $6.789.118M en Nota 9), Créditos por Ventas ($800.128M en Nota 5) y Activos Intangibles ($2.671.525M en Nota 10), junto a Préstamos ($5.436.615M en Nota 14), Ventas ($8.328.814M en Nota 24) y Llaves de Negocio ($4.443.998M en Nota 8 con Valor Recuperable UGE Redes Personal $12.774.695M verificado en PT-F1)."
       },
       {
         subtitulo: "3. Evaluación de Hallazgos, Ajustes Propuestos y Empresa en Marcha",

@@ -685,7 +685,7 @@ export const rubrosSignificativos = [
     id: "rubro-3",
     numero: 3,
     codigoPrograma: "PROGRAMA C",
-    nombre: "Préstamos y Deuda Financiera (Pasivo Financiero)",
+    nombre: "Préstamos (Nota 14)",
     naturaleza: "Pasivo Corriente / No Corriente",
     saldoContable: 5436615,
     composicionSaldo: "$5.436.615 millones consolidado (Obligaciones Negociables + Préstamos Bancarios en USD, valuados al TC BNA $/US$ 1.455,00)",

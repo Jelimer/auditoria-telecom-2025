@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 @layer base {
+  html {
+    font-size: 17px; /* Aumento proporcional de 1 punto en toda la escala tipográfica de la web */
+  }
   body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }

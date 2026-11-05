@@ -7,14 +7,24 @@ import {
   RotateCcw,
   Calculator,
   ShieldAlert,
-  Search
+  Search,
+  ArrowUpRight
 } from 'lucide-react';
+
+const CCI_PT_TARGETS = {
+  'cci-1': { targetPT: 'pt-a', label: 'PT-A: Bienes de Uso' },
+  'cci-2': { targetPT: 'pt-b', label: 'PT-B: Créditos por Ventas' },
+  'cci-3': { targetPT: 'pt-a', label: 'PT-A: Bienes de Uso / CAPEX' },
+  'cci-4': { targetPT: 'pt-c', label: 'PT-C: Préstamos' },
+  'cci-5': { targetPT: 'pt-d', label: 'PT-D: Ventas' }
+};
 
 export default function Etapa1ControlInternoView({
   cuestionariosState,
   cciCalculados,
   onToggleRespuesta,
   onResetCuestionarios,
+  onNavigate,
   subTarget,
   subTargetTick
 }) {
@@ -409,8 +419,28 @@ export default function Etapa1ControlInternoView({
                   <td className="py-3.5 px-4 text-slate-600 leading-relaxed">
                     {cci.comentario}
                   </td>
-                  <td className="py-3.5 px-4 font-medium text-teal-950 bg-teal-50/30 leading-relaxed">
-                    {cci.enfoquePlanificacion}
+                  <td
+                    onClick={() => {
+                      if (onNavigate) {
+                        const target = CCI_PT_TARGETS[cci.id]?.targetPT || 'pt-a';
+                        onNavigate('etapa2-ejecucion', target);
+                      }
+                    }}
+                    className="py-3.5 px-4 font-medium text-teal-950 bg-teal-50/40 hover:bg-teal-100/80 transition-all cursor-pointer group leading-relaxed border-l border-teal-200/50"
+                    title="Hacé clic para pasar automáticamente a la Etapa 2 (Ejecución) y ver estas pruebas sustantivas"
+                  >
+                    <div className="space-y-2">
+                      <p>{cci.enfoquePlanificacion}</p>
+                      <div className="flex flex-wrap items-center justify-between gap-1 pt-1">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-700 text-white font-extrabold text-[10px] group-hover:bg-teal-800 transition-all shadow-2xs group-hover:scale-105">
+                          <span>Ver en Etapa 2 ({CCI_PT_TARGETS[cci.id]?.label || 'PT'})</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </span>
+                        <span className="text-[10px] font-bold text-teal-700 opacity-80 group-hover:opacity-100">
+                          Clic para pasar ↗
+                        </span>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ))}
