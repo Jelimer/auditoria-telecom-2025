@@ -22,13 +22,37 @@ export default function Etapa2EjecucionView({
 
   useEffect(() => {
     if (!subTarget) return;
-    if (subTarget.startsWith('pt-')) {
-      setSelectedPTId(subTarget);
-    } else if (subTarget === 'sec-pae') {
+    const lower = subTarget.toLowerCase().trim();
+    if (lower === 'sec-pae') {
       setTimeout(() => {
         const el = document.getElementById('sec-pae');
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 60);
+      return;
+    }
+
+    // Soporte para selección de PT (ej: "pt-a", "pt-f") o procedimiento específico (ej: "pt-c4", "pt-b2")
+    const match = lower.match(/^pt-([a-f])(\d+)?$/i);
+    if (match) {
+      const ptLetter = match[1].toLowerCase();
+      const targetPT = `pt-${ptLetter}`;
+      setSelectedPTId(targetPT);
+
+      if (match[2]) {
+        // Scroll y foco visual con animación sobre la cédula analítica específica
+        setTimeout(() => {
+          const procEl = document.getElementById(lower);
+          if (procEl) {
+            procEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            procEl.classList.add('ring-4', 'ring-amber-400', 'bg-amber-50/60');
+            setTimeout(() => {
+              procEl.classList.remove('ring-4', 'ring-amber-400', 'bg-amber-50/60');
+            }, 3000);
+          }
+        }, 150);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
   }, [subTarget, subTargetTick]);
 
@@ -50,10 +74,10 @@ export default function Etapa2EjecucionView({
               ETAPA 2 — EJECUCIÓN (PAPELES DE TRABAJO, EVIDENCIA Y PLANILLA DE AJUSTES PAE)
             </span>
             <h2 className="text-xl font-extrabold text-slate-900 mt-2">
-              Legajo Corriente de Papeles de Trabajo (PT-A a PT-E) y Planilla de Ajustes Propuestos
+              Legajo Corriente de Papeles de Trabajo (PT-A a PT-F) y Planilla de Ajustes Propuestos
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              Ejecución secuencial de los Programas A, B, C, D y E sobre los EECC de Telecom Argentina S.A. al 31/12/2025 • Obtención de elementos de juicio válidos y suficientes (RT 37 / RT 53).
+              Ejecución secuencial de los Programas A, B, C, D, E y F sobre los EECC de Telecom Argentina S.A. al 31/12/2025 • Obtención de elementos de juicio válidos y suficientes (RT 37 / RT 53 y Carlos Slosse).
             </p>
           </div>
           <button
@@ -64,8 +88,8 @@ export default function Etapa2EjecucionView({
           </button>
         </div>
 
-        {/* Selector de los 5 Papeles de Trabajo (PT-A a PT-E) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 mt-4">
+        {/* Selector de los 6 Papeles de Trabajo (PT-A a PT-F) con badges de prioridad */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-4">
           {papelesTrabajo.map((pt) => {
             const isSelected = pt.id === selectedPTId;
             const tieneAjuste = pt.ajustePropuestoNeto !== 0;
@@ -73,35 +97,51 @@ export default function Etapa2EjecucionView({
               <button
                 key={pt.id}
                 onClick={() => setSelectedPTId(pt.id)}
-                className={`text-left p-3.5 rounded-xl border transition-all cursor-pointer ${
+                className={`text-left p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
-                    ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                    ? 'bg-slate-900 text-white border-slate-900 shadow-sm ring-2 ring-amber-400'
+                    : pt.esPrioritario
+                    ? 'bg-amber-50/40 text-slate-800 border-amber-300 hover:bg-white hover:border-amber-400'
                     : 'bg-slate-50 text-slate-800 border-slate-200 hover:bg-white hover:border-teal-400'
                 }`}
               >
-                <div className="flex items-center justify-between">
-                  <span
-                    className={`px-2 py-0.5 rounded text-[10px] font-extrabold font-mono ${
-                      isSelected ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-900'
-                    }`}
-                  >
-                    {pt.codigo} ({pt.programa})
-                  </span>
-                  <span
-                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                      tieneAjuste
-                        ? isSelected
-                          ? 'bg-red-500 text-white'
-                          : 'bg-red-100 text-red-700'
-                        : isSelected
-                        ? 'bg-emerald-500 text-white'
-                        : 'bg-emerald-100 text-emerald-800'
-                    }`}
-                  >
-                    {tieneAjuste ? 'Con Ajuste' : 'Conforme'}
-                  </span>
+                <div>
+                  <div className="flex items-center justify-between gap-1">
+                    <span
+                      className={`px-2 py-0.5 rounded text-[10px] font-extrabold font-mono ${
+                        isSelected ? 'bg-amber-500 text-white' : 'bg-amber-100 text-amber-900'
+                      }`}
+                    >
+                      {pt.codigo}
+                    </span>
+                    <div className="flex items-center gap-1">
+                      {pt.esPrioritario && (
+                        <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-400 text-slate-950">
+                          ⭐ Prioritario
+                        </span>
+                      )}
+                      <span
+                        className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
+                          tieneAjuste
+                            ? isSelected
+                              ? 'bg-red-500 text-white'
+                              : 'bg-red-100 text-red-700'
+                            : isSelected
+                            ? 'bg-emerald-500 text-white'
+                            : 'bg-emerald-100 text-emerald-800'
+                        }`}
+                      >
+                        {tieneAjuste ? 'Con Ajuste' : 'Conforme'}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-xs font-extrabold mt-2 line-clamp-2">{pt.rubro}</p>
+                  {pt.vinculadoCon && (
+                    <span className="text-[9px] font-bold text-blue-600 block mt-0.5">
+                      🔗 {pt.vinculadoCon}
+                    </span>
+                  )}
                 </div>
-                <p className="text-xs font-extrabold mt-2 line-clamp-2">{pt.rubro}</p>
                 <div className="mt-2 pt-2 border-t border-current/10 flex justify-between text-[11px] font-mono">
                   <span>Libros: ${(pt.saldoSegunLibros / 1000).toFixed(0)}k M</span>
                   <span>
@@ -224,10 +264,12 @@ export default function Etapa2EjecucionView({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {activePT.procedimientosEjecutados.map((proc) => {
               const hasIssue = proc.marca.includes('⊗');
+              const elementId = proc.ref.toLowerCase().replace(/[^a-z0-9_-]/g, '');
               return (
                 <div
                   key={proc.ref}
-                  className={`p-4 rounded-xl border ${
+                  id={elementId}
+                  className={`p-4 rounded-xl border transition-all duration-300 scroll-mt-24 ${
                     hasIssue
                       ? 'border-red-200 bg-red-50/30'
                       : 'border-slate-200 bg-slate-50/50'

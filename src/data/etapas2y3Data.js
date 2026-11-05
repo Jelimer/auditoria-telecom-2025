@@ -77,7 +77,7 @@ export const equipoTrabajoInicial = [
   {
     id: "eq-6",
     solicitud: "PT-D: Prueba Global ARPU, Interfaces Legacy/SAP y Neteo Flow",
-    rubro: "Ingresos por Servicios",
+    rubro: "Ventas",
     etapa: "Ejecución",
     responsable: "Ing. M. Valdés (Esp. CGTI / Sistemas)",
     rol: "Especialista Auditoría TI",
@@ -89,7 +89,7 @@ export const equipoTrabajoInicial = [
   },
   {
     id: "eq-7",
-    solicitud: "PT-E: Licencias 5G ENACOM y Test Deterioro Llave ($12.774.695M)",
+    solicitud: "PT-E: Licencias 5G ENACOM, Marcas y Software NIC 38",
     rubro: "Activos Intangibles",
     etapa: "Ejecución",
     responsable: "Lic. R. Moretti (Esp. Valuaciones)",
@@ -97,7 +97,20 @@ export const equipoTrabajoInicial = [
     fecha: "02/02/2026",
     estado: "Aprobado",
     colorEstado: "blue",
-    avance: "3/3",
+    avance: "2/2",
+    porcentaje: 100
+  },
+  {
+    id: "eq-7b",
+    solicitud: "PT-F: Test de Deterioro de Llaves de Negocio ($12.774.695M)",
+    rubro: "Llaves de Negocio",
+    etapa: "Ejecución",
+    responsable: "Lic. R. Moretti / Grebe",
+    rol: "Especialista Finanzas & Co-Encargado",
+    fecha: "04/02/2026",
+    estado: "Aprobado",
+    colorEstado: "green",
+    avance: "1/1",
     porcentaje: 100
   },
   {
@@ -121,6 +134,7 @@ export const papelesTrabajo = [
     codigo: "PT-A",
     programa: "PROGRAMA A",
     rubro: "Bienes de Uso (PP&E — Nota 9)",
+    esPrioritario: true,
     refLegajo: "Legajo Corriente — Sección A (Cédula Sumaria A-1 y Analíticas A-2 a A-5)",
     elaboradoPor: "Grebe",
     revisadoPor: "Pisonero De Biase",
@@ -174,6 +188,8 @@ export const papelesTrabajo = [
     codigo: "PT-B",
     programa: "PROGRAMA B",
     rubro: "Créditos por Ventas (Nota 5: $799.188M Cte + $940M No Cte = $800.128M)",
+    esPrioritario: true,
+    vinculadoCon: "PT-D (Ventas)",
     refLegajo: "Legajo Corriente — Sección B (Cédula Sumaria B-1 y Analíticas B-2 a B-4)",
     elaboradoPor: "Pisonero De Biase",
     revisadoPor: "Grebe",
@@ -273,7 +289,8 @@ export const papelesTrabajo = [
     id: "pt-d",
     codigo: "PT-D",
     programa: "PROGRAMA D",
-    rubro: "Ingresos por Servicios (Ventas Netas)",
+    rubro: "Ventas (Nota 24)",
+    vinculadoCon: "PT-B (Créditos por Ventas)",
     refLegajo: "Legajo Corriente — Sección D (Cédula Sumaria D-1 y Analíticas D-2 a D-4)",
     elaboradoPor: "Ing. M. Valdés / Pisonero De Biase",
     revisadoPor: "Grebe",
@@ -283,9 +300,9 @@ export const papelesTrabajo = [
     saldoAuditado: 8332194,
     estadoPT: "Con Ajustes de Corte y Reclasificación NIIF 15",
     cedulaSumaria: [
-      { subcuenta: "4.1.01 - Ingresos Servicios Móviles (Personal 4G/5G)", saldoLibros: 3498100, debe: 0, haber: 0, saldoAuditado: 3498100, marca: "§ ∑" },
-      { subcuenta: "4.1.02 - Ingresos Internet Fija (FTTH / HFC Banda Ancha)", saldoLibros: 2415350, debe: 0, haber: 0, saldoAuditado: 2415350, marca: "§ ∑" },
-      { subcuenta: "4.1.03 - Ingresos TV Paga, Streaming y Contenidos (Flow)", saldoLibros: 1332610, debe: 11240, haber: 0, saldoAuditado: 1321370, marca: "§ ⊗" },
+      { subcuenta: "4.1.01 - Ventas Servicios Móviles (Personal 4G/5G)", saldoLibros: 3498100, debe: 0, haber: 0, saldoAuditado: 3498100, marca: "§ ∑" },
+      { subcuenta: "4.1.02 - Ventas Internet Fija (FTTH / HFC Banda Ancha)", saldoLibros: 2415350, debe: 0, haber: 0, saldoAuditado: 2415350, marca: "§ ∑" },
+      { subcuenta: "4.1.03 - Ventas TV Paga, Streaming y Contenidos (Flow)", saldoLibros: 1332610, debe: 11240, haber: 0, saldoAuditado: 1321370, marca: "§ ⊗" },
       { subcuenta: "4.1.04 - Soluciones Digitales Corporativas B2B (Personal Tech) y Fija", saldoLibros: 1082754, debe: 0, haber: 14620, saldoAuditado: 1097374, marca: "✓ ⊗" }
     ],
     procedimientosEjecutados: [
@@ -293,7 +310,7 @@ export const papelesTrabajo = [
         ref: "PT-D1",
         nombre: "Prueba Analítica Sustantiva Global (Parque Promedio de Clientes × ARPU Ponderado)",
         afirmaciones: ["Integridad", "Medición"],
-        muestra: "100% de los ingresos recurrentes mensuales de los 12 meses de 2025 expresados en moneda homogénea al 31/12/2025.",
+        muestra: "100% de las ventas recurrentes mensuales de los 12 meses de 2025 expresadas en moneda homogénea al 31/12/2025.",
         resultado: "La estimación independiente (21,1M de accesos móviles, 4,1M banda ancha y 3,5M Flow multiplicados por sus respectivos ARPU mensuales reexpresados por IPC) arrojó una desviación inferior al 0,68% respecto al saldo contable, dentro del umbral de precisión aceptable (∑).",
         marca: "∑ ✓"
       },
@@ -302,7 +319,7 @@ export const papelesTrabajo = [
         nombre: "Auditoría de Interfaces Comerciales Legacy vs. ERP SAP, Asignación NIIF 15 y Tasación de CDRs",
         afirmaciones: ["Existencia", "Integridad", "Medición"],
         muestra: "Logs de interfaces diarias de los 12 meses + 120 facturas convergentes B2C y B2B cruzadas contra estado activo (churn) y Call Detail Records (CDR).",
-        resultado: "Los comprobantes de la muestra corresponden a líneas activas, coinciden con el tráfico tasado, asignan razonablemente las bonificaciones de paquetes convergentes (NIIF 15), netean el IVA de la línea de ingresos y devengan la Tasa de Control ENACOM (0,50%) y Fondo de Servicio Universal (1,00% - Ley 27.078) en Gastos Operativos (✓). Se verificó que las interfaces heredadas ex Cablevisión requieren conciliaciones manuales mensuales (CCI-05 preg. 19), habiéndose validado los ajustes de cuadre al cierre.",
+        resultado: "Los comprobantes de la muestra corresponden a líneas activas, coinciden con el tráfico tasado, asignan razonablemente las bonificaciones de paquetes convergentes (NIIF 15), netean el IVA de la línea de ventas y devengan la Tasa de Control ENACOM (0,50%) y Fondo de Servicio Universal (1,00% - Ley 27.078) en Gastos Operativos (✓). Se verificó que las interfaces heredadas ex Cablevisión requieren conciliaciones manuales mensuales (CCI-05 preg. 19), habiéndose validado los ajustes de cuadre al cierre.",
         marca: "✓ §"
       },
       {
@@ -310,29 +327,29 @@ export const papelesTrabajo = [
         nombre: "Revisión de Reconocimiento Principal vs. Agente en Plataformas de Streaming (Flow)",
         afirmaciones: ["Propiedad", "Exposición"],
         muestra: "100% de los contratos de distribución de OTTs y plataformas de streaming de terceros integradas en decodificadores Flow.",
-        resultado: "Se identificó que en 2 nuevos acuerdos promocionales lanzados en el 4° trimestre de 2025, la facturación cobrada por cuenta y orden del proveedor externo de streaming fue contabilizada por su importe bruto ($14.050M) en lugar de reconocer únicamente la comisión comercial de Telecom ($2.810M), sobreestimando en $11.240 millones tanto los Ingresos por Servicios como los Costos Operativos (sin impacto en el resultado neto, pero requiriendo reclasificación por NIIF 15) (⊗).",
+        resultado: "Se identificó que en 2 nuevos acuerdos promocionales lanzados en el 4° trimestre de 2025, la facturación cobrada por cuenta y orden del proveedor externo de streaming fue contabilizada por su importe bruto ($14.050M) en lugar de reconocer únicamente la comisión comercial de Telecom ($2.810M), sobreestimando en $11.240 millones tanto las Ventas como los Costos Operativos (sin impacto en el resultado neto, pero requiriendo reclasificación por NIIF 15) (⊗).",
         marca: "✓ ⊗"
       }
     ],
-    conclusionRubro: "Incorporando el ajuste de corte B2B (+$14.620M de PT-B2) y la reclasificación por neteo de ingresos de terceros en Flow (-$11.240M en Ventas contra Costos Operativos, AJ-04), los Ingresos por Servicios quedan expuestos conforme a NIIF 15 y NIIF 8."
+    conclusionRubro: "Incorporando el ajuste de corte B2B (+$14.620M de PT-B2) y la reclasificación por neteo de cobros de terceros en Flow (-$11.240M en Ventas contra Costos Operativos, AJ-04), las Ventas quedan expuestas razonablemente conforme a NIIF 15 y NIIF 8."
   },
   {
     id: "pt-e",
     codigo: "PT-E",
     programa: "PROGRAMA E",
-    rubro: "Llaves de Negocio (Nota 8) y Activos Intangibles (Nota 10)",
-    refLegajo: "Legajo Corriente — Sección E (Cédula Sumaria E-1 y Analíticas E-2 a E-4)",
+    rubro: "Activos Intangibles (Nota 10)",
+    esPrioritario: true,
+    refLegajo: "Legajo Corriente — Sección E (Cédula Sumaria E-1 y Analíticas E-2 a E-3)",
     elaboradoPor: "Lic. R. Moretti / Grebe",
     revisadoPor: "Pisonero De Biase",
     fecha: "02/02/2026",
-    saldoSegunLibros: 7115523,
+    saldoSegunLibros: 2671525,
     ajustePropuestoNeto: 0,
-    saldoAuditado: 7115523,
-    estadoPT: "Conforme (Con Énfasis en Revelación de Sensibilidad NIC 36)",
+    saldoAuditado: 2671525,
+    estadoPT: "Conforme (Validación Regulatoria y NIC 38)",
     cedulaSumaria: [
-      { subcuenta: "1.3.01 - Llaves de Negocio (Nota 8 — Fusión Cablevisión / UGE Redes Personal)", saldoLibros: 4443998, debe: 0, haber: 0, saldoAuditado: 4443998, marca: "§ ∑" },
-      { subcuenta: "1.3.02 - Licencias de Espectro 4G/5G (Banda 3.400-3.500 MHz) y Concesiones (Nota 10)", saldoLibros: 1985420, debe: 0, haber: 0, saldoAuditado: 1985420, marca: "© ✓ ∑" },
-      { subcuenta: "1.3.03 - Desarrollos de Software Capitalizados, Marcas y Otros Intangibles (Nota 10)", saldoLibros: 686105, debe: 0, haber: 0, saldoAuditado: 686105, marca: "✓ ∑" }
+      { subcuenta: "1.3.01 - Licencias de Espectro 4G/5G (Banda 3.400-3.500 MHz) y Concesiones (Nota 10)", saldoLibros: 1985420, debe: 0, haber: 0, saldoAuditado: 1985420, marca: "© ✓ ∑" },
+      { subcuenta: "1.3.02 - Desarrollos de Software Capitalizados, Marcas y Otros Intangibles (Nota 10)", saldoLibros: 686105, debe: 0, haber: 0, saldoAuditado: 686105, marca: "✓ ∑" }
     ],
     procedimientosEjecutados: [
       {
@@ -345,14 +362,6 @@ export const papelesTrabajo = [
       },
       {
         ref: "PT-E2",
-        nombre: "Evaluación con Especialistas del Test de Deterioro (Impairment) — UGE Redes Personal",
-        afirmaciones: ["Medición", "Exposición"],
-        muestra: "100% del modelo de Flujos de Fondos Descontados (DCF) de la UGE Redes Personal (Valor Recuperable: $12.774.695 millones).",
-        resultado: "Nuestro equipo de especialistas en valuación auditó las premisas clave: WACC en términos reales después de impuestos (11,85%), crecimiento a perpetuidad (1,5%) y evolución del margen EBITDA y CAPEX 5G. El Valor Recuperable estimado de la UGE Redes Personal ($12.774.695M) supera el valor en libros de los activos netos asignados a la UGE ($12.439.729M de red fija/móvil más intangibles asignados), determinando un margen de cobertura positivo (headroom) de $334.966M (∑). Se solicitó ampliar en la Nota a los EECC la matriz de sensibilidad ante incrementos de +100 bps en la tasa WACC.",
-        marca: "∑ ✓"
-      },
-      {
-        ref: "PT-E3",
         nombre: "Prueba de Proyectos de Software (NIC 38 — Existencia e Integridad) y Recálculo de Amortizaciones",
         afirmaciones: ["Existencia", "Integridad", "Medición", "Exposición"],
         muestra: "100% del portafolio de proyectos de IT en SAP PS (18 proyectos evolutivos de Flow, App Mi Personal e IA) + Muestra de cuentas de gastos tecnológicos.",
@@ -360,7 +369,36 @@ export const papelesTrabajo = [
         marca: "✓ ∑"
       }
     ],
-    conclusionRubro: "Los Activos Intangibles y la Llave de Negocio están adecuadamente medidos y respaldados por el Test de Recuperabilidad al 31/12/2025, habiéndose incluido la apertura de sensibilidad en Notas."
+    conclusionRubro: "Los Activos Intangibles ($2.671.525 millones) se encuentran debidamente respaldados por títulos de concesión ENACOM, registros marcarios INPI y proyectos de software bajo NIC 38 con amortizaciones recalculadas conforme a sus vidas útiles."
+  },
+  {
+    id: "pt-f",
+    codigo: "PT-F",
+    programa: "PROGRAMA F",
+    rubro: "Llaves de Negocio (Nota 8)",
+    esPrioritario: false,
+    refLegajo: "Legajo Corriente — Sección F (Cédula Sumaria F-1 y Analítica F-2)",
+    elaboradoPor: "Lic. R. Moretti / Grebe",
+    revisadoPor: "Pisonero De Biase",
+    fecha: "04/02/2026",
+    saldoSegunLibros: 4443998,
+    ajustePropuestoNeto: 0,
+    saldoAuditado: 4443998,
+    estadoPT: "Conforme (Con Énfasis en Revelación de Sensibilidad NIC 36)",
+    cedulaSumaria: [
+      { subcuenta: "1.4.01 - Llaves de Negocio (Nota 8 — Fusión Cablevisión / UGE Redes Personal y TMA)", saldoLibros: 4443998, debe: 0, haber: 0, saldoAuditado: 4443998, marca: "§ ∑" }
+    ],
+    procedimientosEjecutados: [
+      {
+        ref: "PT-F1",
+        nombre: "Evaluación con Especialistas del Test de Deterioro (Impairment NIC 36) — UGE Redes Personal",
+        afirmaciones: ["Medición", "Exposición"],
+        muestra: "100% del modelo de Flujos de Fondos Descontados (DCF) de la UGE Redes Personal (Valor Recuperable: $12.774.695 millones).",
+        resultado: "Nuestro equipo de especialistas en valuación auditó las premisas clave: WACC en términos reales después de impuestos (11,85%), crecimiento a perpetuidad (1,5%) y evolución del margen EBITDA y CAPEX 5G. El Valor Recuperable estimado de la UGE Redes Personal ($12.774.695M) supera el valor en libros de los activos netos asignados a la UGE ($12.439.729M de red fija/móvil más intangibles asignados), determinando un margen de cobertura positivo (headroom) de $334.966M (∑). Se solicitó ampliar en la Nota 8 la matriz de sensibilidad ante incrementos de +100 bps en la tasa WACC.",
+        marca: "∑ ✓"
+      }
+    ],
+    conclusionRubro: "La Llave de Negocio ($4.443.998 millones) no presenta indicios de deterioro al 31/12/2025 conforme a la NIC 36, confirmándose un margen de cobertura positivo (headroom) de $334.966M en la UGE Redes Personal y revelándose la matriz de sensibilidad en Notas (Cuestión Clave de Auditoría - KAM)."
   }
 ];
 
@@ -390,7 +428,7 @@ export const hallazgosYAjustes = [
     codigoHallazgo: "H-02",
     codigoAjuste: "AJ-02",
     refPT: "PT-B2 / PT-D2",
-    rubro: "Créditos por Ventas e Ingresos por Servicios",
+    rubro: "Créditos por Ventas y Ventas",
     afirmacionAfectada: "Integridad (Corte / Cut-off) y Existencia",
     origenCCI: "CCI-02 (Preg. 5 y 16) — Demoras de facturación B2B al cierre y desfasaje de 24-48 hs en cobranzas externas",
     tipo: "Ajuste de Corte de Operaciones",
@@ -401,7 +439,7 @@ export const hallazgosYAjustes = [
     asientoContable: [
       { cuenta: "Deudores Corporativos B2B - Facturas a Emitir (+A)", debe: 14620, haber: 0 },
       { cuenta: "Caja y Bancos - Recaudaciones a Depositar / En Tránsito (+A)", debe: 4180, haber: 0 },
-      { cuenta: "Ingresos por Servicios B2B - Personal Tech (R+)", debe: 0, haber: 14620 },
+      { cuenta: "Ventas B2B - Personal Tech (R+)", debe: 0, haber: 14620 },
       { cuenta: "Deudores por Servicios Masivos B2C (-A)", debe: 0, haber: 4180 }
     ],
     aceptadoPorGerenciaInicial: true
@@ -430,7 +468,7 @@ export const hallazgosYAjustes = [
     codigoHallazgo: "H-04",
     codigoAjuste: "AJ-04",
     refPT: "PT-D3",
-    rubro: "Ingresos por Servicios (Ventas Netas)",
+    rubro: "Ventas (Nota 24)",
     afirmacionAfectada: "Propiedad y Exposición (Agente vs. Principal - NIIF 15)",
     origenCCI: "CCI-05 (Preg. 19) — Parametrización de acuerdos comerciales de terceros en plataforma Flow",
     tipo: "Asiento de Reclasificación (Efecto Neutro en PN)",
@@ -439,7 +477,7 @@ export const hallazgosYAjustes = [
     superaPAE: true,
     impactoPatrimonial: { activo: 0, pasivo: 0, patrimonioNeto: 0, resultadoEjercicio: 0 },
     asientoContable: [
-      { cuenta: "Ingresos por Servicios - TV Paga y Streaming Flow (R+)", debe: 11240, haber: 0 },
+      { cuenta: "Ventas - TV Paga y Streaming Flow (R+)", debe: 11240, haber: 0 },
       { cuenta: "Costos Operativos - Derechos de Contenido y Terceros (R-)", debe: 0, haber: 11240 }
     ],
     aceptadoPorGerenciaInicial: true
@@ -480,8 +518,8 @@ export const documentosEtapa3 = {
         contenido: "Hemos completado la auditoría externa de los Estados Contables de Telecom Argentina S.A. al 31/12/2025 siguiendo las 3 etapas secuenciales del proceso de auditoría (Planificación, Ejecución y Conclusión). En virtud de que la evaluación de los 5 componentes del Control Interno arrojó Niveles de Confianza Bajos (entre 15,38% y 23,33%) y Riesgos de Control Altos, aplicamos un enfoque predominantemente sustantivo, fijando la Materialidad Global en $166.225 millones (1% del Activo Total de $16.622.552 millones), el Error Tolerable en $83.112 millones y el umbral mínimo de ajustes (PAE) en $8.311 millones."
       },
       {
-        subtitulo: "2. Resumen de Resultados de los Programas A, B, C, D y E",
-        contenido: "Se ejecutaron en su totalidad los procedimientos previstos en el Trabajo Interino (Oct-Nov 2025), Pre-Cierre (Dic 2025) y Cierre Final (Ene-Feb 2026). Se validaron las cinco afirmaciones (Existencia, Integridad, Propiedad, Medición y Exposición) en los 5 rubros críticos del Balance Consolidado: PP&E / Bienes de Uso ($6.789.118M en Nota 9; $14.085.143M en UGEs Nota 3.v), Créditos por Ventas ($800.128M en Nota 5: $799.188M Cte + $940M No Cte), Préstamos y Deuda Financiera ($5.436.615M en Nota 14: $1.616.544M Cte + $3.820.071M No Cte convertidos al TC BNA $/US$ 1.455,00), Ingresos por Servicios / Ventas ($8.328.814M en Nota 24) y Llaves de Negocio ($4.443.998M en Nota 8) + Activos Intangibles ($2.671.525M en Nota 10, con Valor Recuperable de la UGE Redes Personal verificado en $12.774.695M)."
+        subtitulo: "2. Resumen de Resultados de los Programas A, B, C, D, E y F",
+        contenido: "Se ejecutaron en su totalidad los procedimientos previstos en el Trabajo Interino (Oct-Nov 2025), Pre-Cierre (Dic 2025) y Cierre Final (Ene-Feb 2026). Se validaron las cinco afirmaciones (Existencia, Integridad, Propiedad, Medición y Exposición) en los rubros críticos del Balance Consolidado, con foco prioritario en los 3 rubros principales de la cátedra: Bienes de Uso (PP&E $6.789.118M en Nota 9), Créditos por Ventas ($800.128M en Nota 5) y Activos Intangibles ($2.671.525M en Nota 10), junto a Préstamos y Deuda Financiera ($5.436.615M en Nota 14), Ventas ($8.328.814M en Nota 24) y Llaves de Negocio ($4.443.998M en Nota 8 con Valor Recuperable UGE Redes Personal $12.774.695M verificado en PT-F1)."
       },
       {
         subtitulo: "3. Evaluación de Hallazgos, Ajustes Propuestos y Empresa en Marcha",

@@ -283,7 +283,7 @@ export const cuestionariosControlInterno = [
     nivelConfianza: "BAJO",
     riesgoInherente: "ALTO",
     riesgoControl: "ALTO",
-    cuentasAfectadas: "Créditos por Ventas (Deudores por Servicios), Caja y Bancos, Ingresos por Servicios y Bienes de Uso",
+    cuentasAfectadas: "Créditos por Ventas (Deudores por Servicios), Caja y Bancos, Ventas y Bienes de Uso",
     comentario: "El sistema contable presenta solidez técnica apoyado en el ERP SAP. No obstante, se detectan fallas relevantes en el control interno: desfasajes temporales de 24 a 48 hs. en la acreditación de cobranzas de agentes externos, demoras en la facturación de contratos corporativos B2B (Personal Tech), subestimación de la previsión de incobrables al omitir mora mayor a 180 días y la falta de baja contable oportuna sobre centrales analógicas obsoletas, generando un Nivel de Confianza BAJO (20,00%) y un Riesgo de Control ALTO.",
     enfoquePlanificacion: "Pruebas de corte de facturación al cierre B2B, recálculo de la previsión para deudores de dudoso cobro, arqueos e inspección física de bienes de uso/red dados de baja y conciliaciones bancarias de cobros externos.",
     preguntas: [
@@ -428,7 +428,7 @@ export const cuestionariosControlInterno = [
     nivelConfianza: "BAJO",
     riesgoInherente: "ALTO",
     riesgoControl: "ALTO",
-    cuentasAfectadas: "Ingresos por Servicios (Ventas Netas), Créditos por Ventas, Bienes de Uso y Activos Intangibles (Software/Licencias)",
+    cuentasAfectadas: "Ventas, Créditos por Ventas, Bienes de Uso y Activos Intangibles (Software/Licencias)",
     comentario: "Aunque la Dirección de Tecnología opera 16 Data Centers propios y un SOC de ciberseguridad, persisten vulnerabilidades clave: dependencia de equipos importados sin garantía local inmediata por restricciones de comercio exterior, ausencia de pruebas integrales del Plan de Continuidad (BCP) ante cortes físicos de fibra en la vía pública e inconsistencias en las interfaces entre sistemas comerciales heredados y el ERP contable, concluyendo en un Nivel de Confianza BAJO (19,05%) y un Riesgo de Control ALTO.",
     enfoquePlanificacion: "Pruebas de validación de interfaces automáticas entre sistemas comerciales y el ERP SAP. Auditoría de ciberseguridad sobre accesos/privilegios y revisión del plan de mantenimiento/contingencia de red.",
     preguntas: [
@@ -540,6 +540,7 @@ export const rubrosSignificativos = [
     numero: 1,
     codigoPrograma: "PROGRAMA A",
     nombre: "Bienes de Uso (PP&E — Nota 9)",
+    esPrioritario: true,
     naturaleza: "Activo No Corriente",
     saldoContable: 6789118,
     composicionSaldo: "$6.789.118 millones en PP&E Nota 9 (2024: $5.696.731M, +19,18%). Integrado en UGEs Nota 3.v: $12.439.729M Redes Personal + $1.645.414M Redes TMA",
@@ -612,6 +613,8 @@ export const rubrosSignificativos = [
     numero: 2,
     codigoPrograma: "PROGRAMA B",
     nombre: "Créditos por Ventas (Nota 5)",
+    esPrioritario: true,
+    vinculadoCon: "Ventas (Programa D)",
     naturaleza: "Activo Corriente / No Corriente",
     saldoContable: 800128,
     composicionSaldo: "$799.188M Corriente (Créditos brutos $1.070.107M —comunes $1.067.130M— menos Previsión NIIF 9 $(270.919)M) + $940M No Corriente = $800.128M (Incluye incorporación TMA $421.919M bajo NIIF 3)",
@@ -754,20 +757,21 @@ export const rubrosSignificativos = [
     id: "rubro-4",
     numero: 4,
     codigoPrograma: "PROGRAMA D",
-    nombre: "Ingresos por Servicios (Ventas Netas)",
+    nombre: "Ventas (Nota 24)",
+    vinculadoCon: "Créditos por Ventas (Programa B)",
     naturaleza: "Estado de Resultados (Ingresos Operativos)",
     saldoContable: 8328814,
     composicionSaldo: "$8.328.814 millones consolidados (Servicios Móviles Personal, Internet FTTH/HFC, Flow TV/Streaming y Soluciones B2B Personal Tech)",
-    participacionActivo: "100% de los Ingresos Operativos por Servicios",
+    participacionActivo: "100% del Estado de Resultados (Crecimiento real +53,02%)",
     riesgoInherente: "ALTO",
     riesgoControl: "ALTO",
     riesgoDeteccion: "BAJO",
-    importancia: "Representa la fuente principal de resultados ($8.328.814 millones consolidados). Presenta Riesgo de Control ALTO por la complejidad de la facturación convergente B2C (móvil, internet, Flow) e interfaces manuales entre sistemas heredados y el ERP SAP, así como demoras de facturación B2B.",
+    importancia: "Representa la fuente principal de resultados ($8.328.814 millones consolidados). Se relaciona de forma directa e indivisible con Créditos por Ventas (Programa B). Presenta Riesgo de Control ALTO por la complejidad de la facturación convergente B2C (móvil, internet, Flow) e interfaces manuales entre sistemas heredados y el ERP SAP, así como demoras de facturación B2B.",
     afirmaciones: [
       {
         afirmacion: "Existencia",
-        objetivo: "Garantizar que los ingresos reconocidos corresponden a prestaciones de conectividad, tráfico, entretenimiento o soluciones digitales B2B efectivamente brindadas o disponibles para clientes activos (NIIF 15).",
-        riesgo: "Registro de ingresos por proyectos B2B no ejecutados, facturación de líneas/abonos masivos ya dados de baja (churn no procesado) o tasación de tráfico excedente inexistente.",
+        objetivo: "Garantizar que las ventas reconocidas corresponden a prestaciones de conectividad, tráfico, entretenimiento o soluciones digitales B2B efectivamente brindadas o disponibles para clientes activos (NIIF 15).",
+        riesgo: "Registro de ventas por proyectos B2B no ejecutados, facturación de líneas/abonos masivos ya dados de baja (churn no procesado) o tasación de tráfico excedente inexistente.",
         controlClave: "Validación cruzada automatizada entre el padrón de líneas activas en la red (HLR/switching), logs de tráfico y los registros del sistema de facturación.",
         naturalezaProc: "Pruebas sustantivas de detalle, cruce con padrón de bajas (churn) y conciliación de CDRs (Call Detail Records).",
         instrumento: "Seleccionar una muestra de facturas de abonos masivos B2C y proyectos corporativos B2B y cotejarlas contra el estado activo del servicio en red, tasaciones de tráfico excedente (CDRs) y actas de conformidad vigentes.",
@@ -777,20 +781,20 @@ export const rubrosSignificativos = [
       {
         afirmacion: "Integridad",
         objetivo: "Asegurar que la totalidad de los ciclos de facturación masiva, tráficos tasados y servicios corporativos B2B devengados en el período estén íntegramente contabilizados en el ejercicio correcto.",
-        riesgo: "Omisión en la contabilización de ciclos de facturación masiva mensual, fallas en el traspaso de interfaces desde los sistemas de tasación/facturación al ERP SAP, o servicios B2B prestados en diciembre y facturados en el ejercicio siguiente (corte).",
+        riesgo: "Omisión en la contabilización de ciclos de facturación masiva mensual, fallas en el traspaso de interfaces desde los sistemas de tasación/facturación al ERP SAP, o servicios B2B prestados en diciembre y facturados en el ejercicio siguiente (corte de ventas).",
         controlClave: "Cuadre diario automatizado de interfaces informáticas con reporte de excepciones entre los facturadores comerciales y el libro mayor en SAP.",
         naturalezaProc: "Prueba analítica sustantiva global, auditoría de logs de interfaces y prueba de corte (cut-off).",
-        instrumento: "Desarrollar una prueba global del ingreso multiplicando el parque promedio de clientes activos por el ingreso medio por usuario (ARPU) ponderado por segmento, comparando el valor estimado en moneda homogénea con el ingreso contabilizado. Auditar las bitácoras (logs) de interfaces comerciales al 31/12 y vincular con la prueba de corte de actas B2B.",
+        instrumento: "Desarrollar una prueba global de ventas multiplicando el parque promedio de clientes activos por el ingreso medio por usuario (ARPU) ponderado por segmento, comparando el valor estimado en moneda homogénea con las ventas contabilizadas. Auditar las bitácoras (logs) de interfaces comerciales al 31/12 y vincular con la prueba de corte de actas B2B.",
         oportunidad: "Cierre de ejercicio.",
-        alcance: "100% de la masa de ingresos por abonos recurrentes B2C y ventana de corte B2B (+/- 15 días del cierre)."
+        alcance: "100% de la masa de ventas por abonos recurrentes B2C y ventana de corte B2B (+/- 15 días del cierre)."
       },
       {
         afirmacion: "Propiedad",
-        objetivo: "Verificar que los ingresos reconocidos correspondan a prestaciones donde Telecom actúa como Principal bajo NIIF 15, excluyendo recaudaciones por cuenta y orden de terceros.",
+        objetivo: "Verificar que las ventas reconocidas correspondan a prestaciones donde Telecom actúa como Principal bajo NIIF 15, excluyendo recaudaciones por cuenta y orden de terceros.",
         riesgo: "Reconocimiento por su importe bruto como ventas propias de suscripciones cobradas por cuenta y orden de terceros (rol de Agente vs. Principal según NIIF 15) sin netear la obligación hacia el proveedor del contenido.",
         controlClave: "Mapeo parametrizado de cuentas en SAP para segregar cobros de terceros y reconocer únicamente la comisión comercial.",
         naturalezaProc: "Inspección de contratos comerciales con terceros y análisis NIIF 15 (Principal vs. Agente).",
-        instrumento: "Revisar los contratos con proveedores externos de contenido OTT (ej. suscripciones a plataformas de streaming facturadas en la boleta de Flow) para verificar que bajo NIIF 15 solo se registre en Ingresos por Servicios el margen o comisión neta acordada.",
+        instrumento: "Revisar los contratos con proveedores externos de contenido OTT (ej. suscripciones a plataformas de streaming facturadas en la boleta de Flow) para verificar que bajo NIIF 15 solo se registre en Ventas el margen o comisión neta acordada.",
         oportunidad: "Interina y cierre.",
         alcance: "100% de los contratos de servicios de valor agregado y contenidos de terceros integrados en Flow."
       },
@@ -806,90 +810,162 @@ export const rubrosSignificativos = [
       },
       {
         afirmacion: "Exposición",
-        objetivo: "Confirmar la presentación neta de IVA e Impuestos Internos, la desagregación de ingresos por línea de negocio (NIIF 15) y la apertura por segmentos reportables (NIIF 8) en el Estado de Resultados y Notas.",
-        riesgo: "Exposición bruta de impuestos indirectos o de ingresos en rol de Agente, o inadecuada apertura de ingresos desagregados (Nota 24 - NIIF 15) y segmentos operativos (NIIF 8).",
-        controlClave: "Revisión por la Gerencia de Contabilidad de las Notas de Ingresos y Segmentos conciliadas con los reportes elevados al CEO (CODM) y Comité Ejecutivo.",
+        objetivo: "Confirmar la presentación neta de IVA e Impuestos Internos, la desagregación de ventas por línea de negocio (NIIF 15) y la apertura por segmentos reportables (NIIF 8) en el Estado de Resultados y Notas.",
+        riesgo: "Exposición bruta de impuestos indirectos o de ventas en rol de Agente, o inadecuada apertura de ventas desagregadas (Nota 24 - NIIF 15) y segmentos operativos (NIIF 8).",
+        controlClave: "Revisión por la Gerencia de Contabilidad de las Notas de Ventas y Segmentos conciliadas con los reportes elevados al CEO (CODM) y Comité Ejecutivo.",
         naturalezaProc: "Revisión de presentación y revelaciones en los Estados Contables.",
-        instrumento: "Cotejar la Nota 24 (Ingresos por Servicios) y la Nota de Información por Segmentos (NIIF 8) con el mayor de SAP y los reportes de gestión recibidos por la Máxima Autoridad en la Toma de Decisiones de Operación (CEO), verificando el neteo de IVA/Impuestos Internos y que los cargos regulatorios (Tasa ENACOM 0,5% y SU 1%) se expongan en Gastos Operativos.",
+        instrumento: "Cotejar la Nota 24 (Ventas) y la Nota de Información por Segmentos (NIIF 8) con el mayor de SAP y los reportes de gestión recibidos por la Máxima Autoridad en la Toma de Decisiones de Operación (CEO), verificando el neteo de IVA/Impuestos Internos y que los cargos regulatorios (Tasa ENACOM 0,5% y SU 1%) se expongan en Gastos Operativos.",
         oportunidad: "Cierre definitivo de balance.",
-        alcance: "Revisión del 100% de la Nota 24 de Ingresos (NIIF 15) y la Nota de Segmentos Operativos (NIIF 8)."
+        alcance: "Revisión del 100% de la Nota 24 de Ventas (NIIF 15) y la Nota de Segmentos Operativos (NIIF 8)."
       }
     ],
     programaTrabajo: [
-      { Bloque: "Prueba Analítica Sustantiva Global y NIC 29 (Integridad y Medición)", Pasos: ["Estimar el volumen de ingresos teóricos multiplicando el parque promedio de clientes activos por el ARPU (ingreso medio por usuario) ponderado por segmento (Personal, Flow, Internet) reexpresado a moneda de cierre (NIC 29).", "Comparar la estimación global independiente con el saldo contabilizado en la Nota 24."] },
+      { Bloque: "Prueba Analítica Sustantiva Global y NIC 29 (Integridad y Medición)", Pasos: ["Estimar el volumen de ventas teóricas multiplicando el parque promedio de clientes activos por el ARPU (ingreso medio por usuario) ponderado por segmento (Personal, Flow, Internet) reexpresado a moneda de cierre (NIC 29).", "Comparar la estimación global independiente con el saldo contabilizado en la Nota 24."] },
       { Bloque: "Auditoría de Interfaces, CDRs y Combos NIIF 15 (Existencia y Medición)", Pasos: ["Auditar los reportes de cuadre de las interfaces diarias entre los sistemas de tasación/facturación y el ERP SAP.", "Seleccionar una muestra de facturas y conciliar los montos contra registros de tráfico (CDR), estado activo de la línea (control de churn) y asignación de precios independientes en paquetes convergentes (NIIF 15)."] },
-      { Bloque: "Análisis Principal vs. Agente y Desagregación (Propiedad y Exposición)", Pasos: ["Verificar bajo NIIF 15 el neteo de ingresos por suscripciones de streaming de terceros facturadas en Flow, asegurando que solo se reconozca como venta la comisión comercial.", "Comprobar al 100% la apertura de la Nota 24 (NIIF 15) y la Nota de Segmentos (NIIF 8)."] }
+      { Bloque: "Análisis Principal vs. Agente y Desagregación (Propiedad y Exposición)", Pasos: ["Verificar bajo NIIF 15 el neteo de importes cobrados por suscripciones de streaming de terceros facturadas en Flow, asegurando que solo se reconozca como venta la comisión comercial (Ajuste AJ-04).", "Comprobar al 100% la apertura de la Nota 24 (NIIF 15) y la Nota de Segmentos (NIIF 8)."] }
     ]
   },
   {
     id: "rubro-5",
     numero: 5,
     codigoPrograma: "PROGRAMA E",
-    nombre: "Activos Intangibles (Nota 10) y Llaves de Negocio (Nota 8)",
+    nombre: "Activos Intangibles (Nota 10)",
+    esPrioritario: true,
     naturaleza: "Activo No Corriente",
-    saldoContable: 7115523,
-    composicionSaldo: "$4.443.998M Llaves de Negocio (Nota 8) + $2.671.525M Activos Intangibles (Nota 10: Licencias Espectro 4G/5G, Marcas y Software). Valor Recuperable UGE Redes Personal: $12.774.695M",
-    participacionActivo: "42,81% del Activo Total (26,73% Llaves + 16,07% Intangibles)",
+    saldoContable: 2671525,
+    composicionSaldo: "$2.671.525 millones en Activos Intangibles (Nota 10: $1.985.420M Concesiones y Licencias de Espectro 4G/5G ENACOM + $686.105M Software Capitalizado NIC 38 y Marcas INPI)",
+    participacionActivo: "16,07% del Activo Total",
     riesgoInherente: "ALTO",
     riesgoControl: "ALTO",
     riesgoDeteccion: "BAJO",
-    importancia: "Agrupa las Llaves de Negocio ($4.443.998 millones en Nota 8) y los Activos Intangibles como licencias de espectro 4G/5G adjudicadas por ENACOM ($2.671.525 millones en Nota 10), totalizando $7.115.523 millones (con Valor Recuperable de la UGE Redes Personal de $12.774.695 millones). Presenta un Riesgo de Control ALTO debido al impacto de variables macroeconómicas complejas (WACC, inflación, tipo de cambio) en los tests de recuperabilidad.",
+    importancia: "Representa el 16,07% del Activo ($2.671.525 millones en Nota 10). Es un rubro de enfoque principal de auditoría diferenciado de las Llaves de Negocio. Comprende las concesiones de espectro 4G y 5G (Banda 3.400-3.500 MHz) adjudicadas por ENACOM ($1.985.420M) y desarrollos de software interno bajo NIC 38 junto a marcas en el INPI ($686.105M). Presenta Riesgo de Control ALTO en la capitalización de horas de desarrollo en SAP PS y en la verificación de cumplimiento de cronogramas de despliegue comprometidos ante el ente regulador.",
     afirmaciones: [
       {
         afirmacion: "Existencia",
-        objetivo: "Verificar la vigencia efectiva de las licencias de espectro radioeléctrico (4G/5G) otorgadas por ENACOM, la validez de los desarrollos de software activados (NIC 38) y la existencia de las operaciones que sustentan el valor llave.",
-        riesgo: "Caducidad o revocación de licencias de espectro (ENACOM) no dadas de baja, capitalización indebida de gastos de investigación o proyectos de software abandonados (NIC 38), o permanencia de valor llave asociado a operaciones discontinuadas.",
-        controlClave: "Seguimiento legal periódico de las obligaciones de despliegue de espectro ante ENACOM y control de hitos de factibilidad técnica de software (NIC 38).",
-        naturalezaProc: "Confirmación legal, inspección de actos administrativos y examen de altas de software.",
-        instrumento: "Solicitar confirmación legal al ENACOM o inspeccionar los actos administrativos y resoluciones (ej. Adjudicación Lote 5G Banda 3.400-3.500 MHz) para validar la vigencia de las licencias. Asimismo, verificar para una muestra de altas de software activadas que cumplan estrictamente los requisitos de activo de la NIC 38 (fase de desarrollo y no investigación).",
+        objetivo: "Verificar la vigencia efectiva de las licencias de espectro radioeléctrico (4G/5G) otorgadas por ENACOM y la validez técnica de los desarrollos de software capitalizados bajo NIC 38.",
+        riesgo: "Caducidad o revocación de licencias de espectro (ENACOM) no dadas de baja, o capitalización indebida de gastos de investigación o proyectos de software abandonados (NIC 38).",
+        controlClave: "Seguimiento legal periódico de las obligaciones de despliegue de espectro ante ENACOM y control de hitos de factibilidad técnica de software en SAP PS.",
+        naturalezaProc: "Confirmación legal, inspección de resoluciones regulatorias y examen de altas de software.",
+        instrumento: "Inspeccionar las resoluciones del ENACOM (ej. Adjudicación Lote 5G Banda 3.400-3.500 MHz) para validar la vigencia de las licencias. Asimismo, auditar una muestra de proyectos de software en SAP PS comprobando que cumplan estrictamente los requisitos de la NIC 38 (fase de desarrollo demostrable).",
         oportunidad: "Cierre de ejercicio.",
         alcance: "100% de las licencias de espectro activas y muestra selectiva de altas de software del ejercicio."
       },
       {
         afirmacion: "Integridad",
-        objetivo: "Comprobar que se hayan incorporado e incluido en el activo todos los costos directos capitalizables asociados a la adquisición o desarrollo interno de licencias y software corporativo sin omisiones.",
-        riesgo: "Omisión de capitalización de costos directos asociados al desarrollo de software evolutivo o licencias (imputados erróneamente a gastos en el Estado de Resultados, subvaluando el activo).",
+        objetivo: "Comprobar que se hayan incorporado al activo todos los costos directos capitalizables asociados a licencias y software corporativo sin omisiones.",
+        riesgo: "Omisión de capitalización de costos directos asociados al desarrollo de software evolutivo (imputados erróneamente a gastos en el Estado de Resultados).",
         controlClave: "Proceso de seguimiento y liquidación contable de órdenes de inversión tecnológica en el módulo de proyectos de SAP (SAP PS).",
         naturalezaProc: "Conciliación del portafolio de proyectos de IT y revisión de cuentas de gastos tecnológicos.",
-        instrumento: "Conciliar el listado de proyectos tecnológicos en etapa de desarrollo (reportados por la Gerencia de IT en el módulo SAP PS) y examinar las cuentas de gastos de mantenimiento y honorarios tecnológicos del Estado de Resultados, para verificar que las erogaciones que cumplen los criterios de la NIC 38 hayan sido íntegramente capitalizadas en el activo y no imputadas a pérdida.",
+        instrumento: "Conciliar el listado de proyectos tecnológicos en desarrollo en SAP PS contra las cuentas de gastos de mantenimiento y honorarios del Estado de Resultados, verificando que los desarrollos elegibles se hayan activado.",
         oportunidad: "Cierre de ejercicio.",
-        alcance: "100% del portafolio de proyectos de IT del ejercicio y muestra de imputaciones significativas en cuentas de gastos tecnológicos."
+        alcance: "100% del portafolio de proyectos de IT del ejercicio y muestra de gastos tecnológicos."
       },
       {
         afirmacion: "Propiedad",
-        objetivo: "Confirmar que los derechos de uso de espectro y marcas estén formalmente otorgados e inscriptos a nombre de la sociedad o sus subsidiarias consolidadas.",
-        riesgo: "Licencias o marcas registradas a nombre de terceros o entidades no consolidadas sin contratos de cesión vigentes, o existencia de gravámenes/restricciones regulatorias sobre los títulos de concesión.",
+        objetivo: "Confirmar que los derechos de uso de espectro y marcas estén formalmente otorgados e inscriptos a nombre de la sociedad o subsidiarias consolidadas.",
+        riesgo: "Licencias o marcas registradas a nombre de terceros o sin títulos vigentes en el INPI.",
         controlClave: "Custodia por la Gerencia de Asuntos Legales de los títulos de concesión ENACOM y certificados marcarios en el INPI.",
         naturalezaProc: "Inspección de registros públicos y títulos de concesión.",
-        instrumento: "Verificar la titularidad legal de los certificados de marcas (Personal, Flow, Personal Tech) en el Instituto Nacional de la Propiedad Industrial (INPI) y comprobar que las bandas de frecuencia estén inscriptas formalmente a nombre de la sociedad o sus subsidiarias consolidadas (ej. TMA).",
+        instrumento: "Verificar la titularidad legal de los certificados de marcas (Personal, Flow, Personal Tech) en el INPI y comprobar que las bandas de frecuencia estén inscriptas formalmente a nombre de Telecom.",
         oportunidad: "Interina y cierre.",
-        alcance: "100% de las marcas y concesiones de espectro significativas."
+        alcance: "100% de marcas y concesiones de espectro significativas."
       },
       {
         afirmacion: "Medición",
-        objetivo: "Evaluar la amortización acumulada de las licencias y software de vida útil definida, la asignación del precio de compra (PPA - NIIF 3) y la prueba de deterioro (NIC 36) sobre la llave de negocio y activos de vida útil indefinida.",
-        riesgo: "Sobrevaluación de la Llave de Negocio por utilizar premisas irrazonables (tasas de descuento WACC o proyecciones de flujo de fondos desalineadas) en el Test de Deterioro (NIC 36) o errores en el cálculo de amortizaciones.",
-        controlClave: "Aprobación por el Directorio del presupuesto proyectado, revisión del informe técnico de valuación independiente y corrida mensual de amortizaciones en SAP.",
-        naturalezaProc: "Recálculo de amortizaciones, evaluación de estimaciones e intervención de especialistas en valuación (NIA 620).",
-        instrumento: "Recalcular globalmente el cargo por amortización de licencias y software según su vida útil remanente y verificar el PPA (NIIF 3) de TMA. Revisar el modelo de flujo de fondos descontados preparado para el Test de Recuperabilidad de la UGE Redes Personal ($12.774.695M), involucrando a especialistas de auditoría en valuación para evaluar la razonabilidad de la tasa de descuento WACC, la tasa de crecimiento a perpetuidad (g) y las pruebas de sensibilidad.",
-        oportunidad: "Trabajo de cierre de balance.",
-        alcance: "100% del test de deterioro sobre Llaves de Negocio y recálculo global del parque de intangibles amortizables."
+        objetivo: "Evaluar la amortización acumulada de licencias y software según su vida útil definida y verificar la ausencia de indicios de desvalorización (NIC 36/NIC 38).",
+        riesgo: "Errores en el cálculo de amortizaciones o vidas útiles inadecuadas ante obsolescencia tecnológica rápida.",
+        controlClave: "Corrida mensual automatizada de amortizaciones en SAP según tablas maestras de vida útil aprobadas.",
+        naturalezaProc: "Recálculo global matemático y revisión de vidas útiles técnicas.",
+        instrumento: "Recalcular globalmente el cargo por amortización de licencias y software según su vida útil remanente y verificar que no existan proyectos tecnológicos discontinuados sin amortizar.",
+        oportunidad: "Cierre de balance.",
+        alcance: "Recálculo global del 100% del parque de intangibles amortizables."
       },
       {
         afirmacion: "Exposición",
-        objetivo: "Verificar la correcta discriminación en el activo no corriente y el detalle de las vidas útiles, criterios de amortización y supuestos clave de recuperabilidad en las notas a los estados contables (Notas 8 y 10).",
-        riesgo: "Omisión de las revelaciones requeridas sobre la vida útil de las licencias, criterios de amortización o análisis de sensibilidad del test de deterioro en Notas (NIC 36 párr. 134 / NIC 38).",
-        controlClave: "Lista de chequeo de la Gerencia de Contabilidad sobre revelaciones de NIIF (NIC 36 / NIC 38).",
+        objetivo: "Verificar la adecuada presentación de los Activos Intangibles en el Activo No Corriente y el desglose de vidas útiles y métodos de amortización en la Nota 10.",
+        riesgo: "Falta de revelación de las vidas útiles, amortizaciones acumuladas o restricciones sobre licencias de espectro en las Notas a los EECC.",
+        controlClave: "Lista de chequeo de revelaciones de la NIC 38 aplicada por la Gerencia de Contabilidad.",
         naturalezaProc: "Revisión de revelaciones en los Estados Financieros.",
-        instrumento: "Verificar que en las Notas a los EECC se expongan con precisión los supuestos clave del test de deterioro de la llave de negocio (WACC, tasa de crecimiento, sensibilidad) y se desglose adecuadamente la amortización acumulada y vida útil del espectro 5G.",
+        instrumento: "Cotejar la Nota 10 de Activos Intangibles con el mayor de SAP, asegurando la separación clara entre concesiones de espectro, software y marcas.",
         oportunidad: "Cierre definitivo.",
-        alcance: "100% de las Notas 8 (Llaves de Negocio) y 10 (Activos Intangibles) de los Estados Financieros."
+        alcance: "100% de la Nota 10 de Activos Intangibles."
       }
     ],
     programaTrabajo: [
-      { Bloque: "Vigencia Legal y Titularidad (Existencia y Propiedad)", Pasos: ["Inspeccionar las resoluciones de ENACOM que respaldan las concesiones de espectro radioeléctrico (incluyendo el Lote 5G Banda 3.400-3.500 MHz) y constatar el cumplimiento de los planes de despliegue.", "Confirmar la inscripción de las marcas registradas (Personal, Flow, Personal Tech) ante el INPI a nombre de la sociedad o subsidiarias consolidadas."] },
-      { Bloque: "Proyectos de Software NIC 38 (Existencia e Integridad)", Pasos: ["Auditar una muestra de altas de software activadas verificando que cumplan los requisitos de desarrollo de la NIC 38 (Existencia).", "Conciliar el portafolio de proyectos de IT en SAP PS y revisar cuentas de gastos tecnológicos del Estado de Resultados para comprobar que no se hayan omitido costos capitalizables (Integridad)."] },
-      { Bloque: "Test de Deterioro de Llave y Amortizaciones (Medición y Exposición)", Pasos: ["Recalcular las amortizaciones del ejercicio sobre licencias y software según sus vidas útiles remanentes.", "Revisar con especialistas en valuación el modelo de Flujos de Fondos Descontados de la UGE Redes Personal ($12.774.695M), auditando WACC, tasa de crecimiento (g) y análisis de sensibilidad, y verificar su revelación íntegra en las Notas 8 y 10 (NIC 36 / NIC 38)."] }
+      { Bloque: "Concesiones de Espectro ENACOM y Marcas INPI (Existencia y Propiedad)", Pasos: ["Inspeccionar las resoluciones de ENACOM de adjudicación del espectro 5G (Banda 3.400-3.500 MHz) y 4G.", "Verificar los certificados de marcas en el INPI a nombre de Telecom Argentina S.A."] },
+      { Bloque: "Proyectos de Software NIC 38 (Existencia e Integridad)", Pasos: ["Auditar proyectos de software en SAP PS verificando factibilidad técnica y beneficio económico futuro (NIC 38).", "Examinar cuentas de gastos tecnológicos para confirmar que no se omitieron desarrollos capitalizables."] },
+      { Bloque: "Amortizaciones y Exposición (Medición y Exposición)", Pasos: ["Efectuar el recálculo independiente de amortizaciones según vidas útiles remanentes.", "Verificar la presentación y revelación integral en la Nota 10 de los Estados Contables."] }
+    ]
+  },
+  {
+    id: "rubro-6",
+    numero: 6,
+    codigoPrograma: "PROGRAMA F",
+    nombre: "Llaves de Negocio (Nota 8)",
+    esPrioritario: false,
+    naturaleza: "Activo No Corriente",
+    saldoContable: 4443998,
+    composicionSaldo: "$4.443.998 millones en Llaves de Negocio (Nota 8 — Fusión Cablevisión y Adquisición Telefónica Móviles Argentina S.A. - TMA). Valor Recuperable UGE Redes Personal: $12.774.695M",
+    participacionActivo: "26,73% del Activo Total",
+    riesgoInherente: "ALTO",
+    riesgoControl: "ALTO",
+    riesgoDeteccion: "BAJO",
+    importancia: "Representa el 26,73% del Activo Total ($4.443.998 millones en Nota 8). Al ser un activo de vida útil indefinida no se amortiza, exigiendo por NIC 36 un Test de Deterioro (Impairment) anual obligatorio sobre la UGE Redes Personal ($12.774.695M). Presenta Riesgo de Control e Inherente ALTO por la sensibilidad extrema a variables macroeconómicas (tasa WACC real 11,85% y proyecciones de EBITDA/CAPEX 5G), con un margen de cobertura positivo (headroom) de $334.966M que constituye una Cuestión Clave de Auditoría (KAM).",
+    afirmaciones: [
+      {
+        afirmacion: "Existencia",
+        objetivo: "Constatar la existencia de las Unidades Generadoras de Efectivo (UGE) y operaciones continuas que dan sustento patrimonial a las llaves de negocio registradas.",
+        riesgo: "Mantenimiento contable de valor llave asociado a negocios o subsidiarias discontinuadas o fusionadas sin actividad económica real.",
+        controlClave: "Seguimiento periódico de la rentabilidad y flujos operativos por UGE por el Comité de Dirección.",
+        naturalezaProc: "Indagación y revisión de operaciones corporativas continuas.",
+        instrumento: "Comprobar que las actividades operativas de la UGE Redes Personal continúen en marcha generando flujos de caja convergentes.",
+        oportunidad: "Cierre de ejercicio.",
+        alcance: "100% de las UGEs a las que se encuentra asignado el valor llave."
+      },
+      {
+        afirmacion: "Integridad",
+        objetivo: "Asegurar que la totalidad de los activos y pasivos identificables de negocios combinados (ej. TMA bajo NIIF 3) hayan sido reconocidos y asignados a las UGEs correspondientes.",
+        riesgo: "Asignación incompleta o incorrecta del valor llave entre UGEs, distorsionando la base de comparación del test de recuperabilidad.",
+        controlClave: "Informes de valuación independiente de combinación de negocios (PPA NIIF 3) aprobados por la Gerencia.",
+        naturalezaProc: "Revisión documental del informe de asignación de precio de compra.",
+        instrumento: "Examinar el informe de PPA (Purchase Price Allocation) de TMA y constatar la adecuada asignación de activos a la UGE Redes Personal.",
+        oportunidad: "Cierre de ejercicio.",
+        alcance: "100% de la asignación del valor llave en Nota 8."
+      },
+      {
+        afirmacion: "Propiedad",
+        objetivo: "Validar que la llave de negocio corresponda a combinaciones de negocios efectivamente controladas y consolidadas por Telecom Argentina S.A.",
+        riesgo: "Inclusión de participaciones sin control societario o sin derechos económicos consolidados.",
+        controlClave: "Dictámenes jurídicos y actas de asamblea de fusión/adquisición en custodia de Asuntos Legales.",
+        naturalezaProc: "Inspección de actas societarias y contratos de adquisición.",
+        instrumento: "Verificar la documentación de cierre de la transacción de adquisición de TMA (24/02/2025) y actas de directorio.",
+        oportunidad: "Interina.",
+        alcance: "100% de las transacciones que dieron origen a las llaves de negocio."
+      },
+      {
+        afirmacion: "Medición",
+        objetivo: "Verificar mediante especialistas en valuación que el Valor Recuperable de la UGE Redes Personal ($12.774.695M) supere su valor en libros, descartando deterioro de la Llave de Negocio (NIC 36).",
+        riesgo: "Sobrevaluación patrimonial masiva por utilizar tasas de descuento WACC subestimadas, proyecciones de EBITDA irreales o tasas de crecimiento a perpetuidad inconsistentes.",
+        controlClave: "Modelo de Flujos de Fondos Descontados (DCF) elaborado por la Gerencia de Finanzas con asesoramiento técnico independiente y aprobado por el Directorio.",
+        naturalezaProc: "Auditoría con especialistas en valuación (NIA 620) del modelo DCF, recálculo de WACC y pruebas de estrés.",
+        instrumento: "Involucrar a especialistas en valuación para auditar el modelo DCF de la UGE Redes Personal: contrastar la tasa WACC real post-impuestos (11,85%), la tasa de crecimiento a perpetuidad (1,5%) y verificar el headroom positivo de $334.966M (2,7% del valor contable de la UGE).",
+        oportunidad: "Cierre de balance.",
+        alcance: "100% del modelo de test de deterioro de la UGE Redes Personal."
+      },
+      {
+        afirmacion: "Exposición",
+        objetivo: "Asegurar que en la Nota 8 se revelen íntegramente los supuestos clave utilizados en el test de recuperabilidad y la matriz de sensibilidad exigida por la NIC 36.",
+        riesgo: "Omisión de la revelación de supuestos clave (WACC, perpetuidad) o de la tabla de sensibilidad ante subas en la tasa de descuento (NIC 36 párr. 134).",
+        controlClave: "Revisión técnica de la Nota 8 por el Comité de Auditoría.",
+        naturalezaProc: "Comprobación de notas explicativas y revelaciones requeridas.",
+        instrumento: "Comprobar que la Nota 8 revele la tasa WACC, el margen de cobertura y la tabla de sensibilidad ante un incremento de +100 bps en WACC, fundamentando su inclusión como Cuestión Clave de Auditoría (KAM).",
+        oportunidad: "Cierre definitivo.",
+        alcance: "100% de la Nota 8 de Llaves de Negocio."
+      }
+    ],
+    programaTrabajo: [
+      { Bloque: "Revisión del Modelo DCF con Especialistas (Medición)", Pasos: ["Auditar junto a especialistas en valuación el modelo de Flujos de Fondos Descontados (DCF) de la UGE Redes Personal ($12.774.695M).", "Evaluar la consistencia de las premisas de WACC real (11,85%) y crecimiento a perpetuidad (1,5%)."] },
+      { Bloque: "Análisis de Sensibilidad y Headroom (Medición y Exposición)", Pasos: ["Comprobar el margen de cobertura positivo (headroom) de $334.966M.", "Exigir la revelación completa en la Nota 8 del análisis de sensibilidad ante variaciones de +100 bps en WACC."] }
     ]
   }
 ];

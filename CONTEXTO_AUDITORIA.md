@@ -78,3 +78,18 @@
 1. **Significatividad (Importancia Relativa) Global de Planeación (`PM`):** **`$166.225 millones`** (`1,00%` sobre el Activo Total de `$16.622.552M`). Se utiliza el Activo Total (rango bibliográfico `0,5% a 2%`) porque Telecom es una industria capital-intensiva (`88,97%` Activo No Corriente) y porque el Resultado antes de Impuestos de 2025 fue negativo (`-$191.736M`), descartando la base de resultados (`5% a 10%`).
 2. **Error Tolerable (`ET`) / Significatividad de Ejecución:** **`$83.112 millones`** (`50%` de la Significatividad Global). Se fija en el límite estricto del `50%` (rango bibliográfico `50% a 75%`) debido a que los **5 Cuestionarios de Control Interno** arrojaron **Nivel de Confianza BAJO (`15,38% a 23,33%`)** y **Riesgo de Control ALTO**, exigiendo mayor prudencia y muestras más amplias por rubro.
 3. **Monto Mínimo para Acumular Ajustes / Umbral de Incorrecciones Claramente Insignificantes (`PAE` — NIA 450):** **`$8.311 millones`** (`5%` de la Significatividad Global). Todo desvío mayor a `$8.311M` se vuelca como asiento de ajuste obligatorio en la **Planilla de Diferencias de Auditoría / Ajustes Propuestos (`PAE`)** (`AJ-01` por `$28.340M`, `AJ-02` por `$18.800M`, `AJ-03` por `$19.850M` y `AJ-04` por `$11.240M`). La diferencia de tasa efectiva en Préstamos por `$3.120M` (`0,018%` del Activo) queda como partida menor no ajustada (`PAE-NC-01`).
+
+---
+
+## 5. Priorización de Rubros de Enfoque y Estructura de Programas (A a F)
+1. **Los 3 Rubros de Enfoque Principal de la Cátedra (Prioridad Absoluta):**
+   - **Bienes de Uso (PP&E — Nota 9):** `$6.789.118M` (`40,84%` del Activo). Programa A (PT-A).
+   - **Activos Intangibles (Nota 10):** `$2.671.525M` (`16,07%` del Activo). Licencias ENACOM 5G/4G, Marcas INPI y Software NIC 38. Programa E (PT-E).
+   - **Créditos por Ventas (Nota 5):** `$800.128M` (`+105,25%` interanual). Programa B (PT-B), íntimamente vinculado con **Ventas** (Programa D).
+2. **Separación Estricta entre Intangibles y Llaves de Negocio:**
+   - **Activos Intangibles (Nota 10):** Programa E / PT-E (`$2.671.525M`, con PT-E1 y PT-E2). ⭐ Prioritario.
+   - **Llaves de Negocio (Nota 8):** Programa F / PT-F (`$4.443.998M`, con PT-F1 para el Test de Deterioro NIC 36 en la UGE Redes Personal `$12.774.695M`).
+3. **Denominación Uniforme:**
+   - Se utiliza **«Ventas»** (o «Ventas (Nota 24)») en reemplazo de «Ingresos por Servicios (Ventas Netas)».
+4. **Navegación e Hipervínculos Cruzados:**
+   - Todas las referencias a Programas o Papeles de Trabajo (ej. `PROGRAMA B (PT-B)`, `PT-C4`, `PT-B2`, `AJ-01`) en tablas, textos analíticos y ratios son botones interactivos que navegan directamente a la cédula sumaria o analítica correspondiente en la Etapa 2 con resaltado visual.

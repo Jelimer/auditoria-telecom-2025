@@ -102,37 +102,38 @@ const NAV_ITEMS = [
       { id: 'er', label: '1.3.B. Estado de Resultados (H/V)', type: 'tab' },
       { id: 'graficas', label: '1.3.C. Gráficas de Variación y Estructura', type: 'tab' },
       { id: 'ratios', label: '1.3.D. Ratios Financieros y Matriz (27)', type: 'tab' },
-      { id: 'vinculacion', label: '1.3.E. Relación con Pruebas (A-E)', type: 'tab' },
+      { id: 'vinculacion', label: '1.3.E. Relación con Pruebas (A-F)', type: 'tab' },
       { id: 'sec-conclusion-final', label: '1.3.F. Conclusión Técnica Final', type: 'scroll' }
     ]
   },
   {
     id: 'etapa1-detallada',
     shortLabel: '1D. Planificación Detallada',
-    label: 'Etapa 1D: Materialidad, 5 Rubros, Afirmaciones y Programas',
+    label: 'Etapa 1D: Materialidad, Rubros Significativos, Afirmaciones y Programas',
     etapaTag: 'Etapa 1: Planificación',
     icon: Calculator,
     subItems: [
       { id: 'sec-1c-materialidad', label: '1.4.A. Materialidad (PM, ET, PAE)', type: 'scroll' },
       { id: 'sec-1c-afirmaciones', label: '1.4.B. Afirmaciones (E, I, P, M, X)', type: 'scroll' },
-      { id: 'sec-1c-rubros', label: '1.5.A. 5 Rubros y Programas A-E', type: 'scroll' },
+      { id: 'sec-1c-rubros', label: '1.5.A. Rubros Críticos y Programas A-F', type: 'scroll' },
       { id: 'sec-1c-cronograma', label: '1.5.B. Cronograma (3 Visitas)', type: 'scroll' },
       { id: 'sec-1c-memorando-planificacion', label: '1.5.C. Memorando de Planificación', type: 'scroll' }
     ]
   },
   {
     id: 'etapa2-ejecucion',
-    shortLabel: '2. Ejecución & PT (A-E)',
+    shortLabel: '2. Ejecución & PT (A-F)',
     label: 'Etapa 2: Ejecución, Papeles de Trabajo y Planilla PAE',
     etapaTag: 'Etapa 2: Ejecución',
     icon: FileSpreadsheet,
     subItems: [
-      { id: 'pt-a', label: '2.1. PT-A: Bienes de Uso', type: 'tab' },
-      { id: 'pt-b', label: '2.2. PT-B: Créditos por Ventas', type: 'tab' },
+      { id: 'pt-a', label: '2.1. PT-A: Bienes de Uso ⭐', type: 'tab' },
+      { id: 'pt-b', label: '2.2. PT-B: Créditos por Ventas ⭐', type: 'tab' },
       { id: 'pt-c', label: '2.3. PT-C: Deuda Financiera', type: 'tab' },
-      { id: 'pt-d', label: '2.4. PT-D: Ingresos por Servicios', type: 'tab' },
-      { id: 'pt-e', label: '2.5. PT-E: Activos Intangibles', type: 'tab' },
-      { id: 'sec-pae', label: '2.6. Planilla de Ajustes (PAE)', type: 'scroll' }
+      { id: 'pt-d', label: '2.4. PT-D: Ventas', type: 'tab' },
+      { id: 'pt-e', label: '2.5. PT-E: Activos Intangibles ⭐', type: 'tab' },
+      { id: 'pt-f', label: '2.6. PT-F: Llaves de Negocio', type: 'tab' },
+      { id: 'sec-pae', label: '2.7. Planilla de Ajustes (PAE)', type: 'scroll' }
     ]
   },
   {

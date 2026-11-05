@@ -17,6 +17,155 @@ import {
 } from 'lucide-react';
 
 // ============================================================================
+// HELPERS PARA REFERENCIAS CRUZADAS Y ENLACES INTERACTIVOS A PAPELES DE TRABAJO
+// ============================================================================
+
+/**
+ * Renderiza texto interactivo reconociendo menciones a:
+ * - PT-[A-F][0-9]? (ej: PT-C4, PT-B2, PT-A, PT-E1, PT-F1)
+ * - PROGRAMA [A-F] (ej: PROGRAMA B (PT-B), PROGRAMA A)
+ * - AJ-[0-9]{2} (ej: AJ-01, AJ-02)
+ * Al hacer clic, navega a la pestaña de Ejecución o a la Planilla PAE haciendo scroll directo.
+ */
+export function renderInteractiveText(text, onNavigate) {
+  if (!text || typeof text !== 'string') return text;
+  if (!onNavigate) return text;
+
+  const regex = /(\b(?:PROGRAMA\s+[A-F](?:\s*\((?:PT-[A-F])\))?|PT-[A-F]\d*|AJ-\d{2})\b)/g;
+  const parts = text.split(regex);
+  if (parts.length <= 1) return text;
+
+  return parts.map((part, index) => {
+    // Caso 1: Procedimiento o Papel de Trabajo (ej. PT-C4, PT-B, PT-A1, PT-F1)
+    if (/^PT-[A-F]\d*$/i.test(part)) {
+      const targetId = part.toLowerCase();
+      return (
+        <button
+          key={index}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onNavigate('etapa2-ejecucion', targetId);
+          }}
+          className="inline-flex items-center gap-0.5 mx-0.5 px-1.5 py-0.2 rounded font-mono font-extrabold text-[11px] bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 cursor-pointer transition-all hover:scale-105 active:scale-95 shadow-2xs"
+          title={`Navegar a Papel de Trabajo / Cédula ${part}`}
+        >
+          <span>{part}</span>
+          <span className="text-[9px] text-amber-700">↗</span>
+        </button>
+      );
+    }
+
+    // Caso 2: Programa de Trabajo (ej. PROGRAMA B (PT-B) o PROGRAMA B)
+    if (/^PROGRAMA\s+[A-F]/i.test(part)) {
+      const match = part.match(/PROGRAMA\s+([A-F])/i);
+      const letter = match ? match[1].toLowerCase() : 'a';
+      const targetId = `pt-${letter}`;
+      return (
+        <button
+          key={index}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onNavigate('etapa2-ejecucion', targetId);
+          }}
+          className="inline-flex items-center gap-1 mx-0.5 px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 hover:bg-teal-200 text-teal-800 border border-teal-300 cursor-pointer transition-all hover:scale-105 active:scale-95 shadow-2xs"
+          title={`Ir al Programa / PT-${letter.toUpperCase()}`}
+        >
+          <span>{part}</span>
+          <span className="text-[9px] text-teal-700">↗</span>
+        </button>
+      );
+    }
+
+    // Caso 3: Asientos de Ajuste Propuestos (ej. AJ-01, AJ-02, AJ-03, AJ-04)
+    if (/^AJ-\d{2}$/i.test(part)) {
+      return (
+        <button
+          key={index}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onNavigate('etapa2-ejecucion', 'sec-pae');
+          }}
+          className="inline-flex items-center gap-0.5 mx-0.5 px-1.5 py-0.2 rounded font-mono font-extrabold text-[10px] bg-rose-100 hover:bg-rose-200 text-rose-800 border border-rose-300 cursor-pointer transition-all hover:scale-105 active:scale-95 shadow-2xs"
+          title={`Ver Asiento de Ajuste ${part} en Planilla PAE`}
+        >
+          <span>{part}</span>
+          <span className="text-[9px]">↗</span>
+        </button>
+      );
+    }
+
+    return part;
+  });
+}
+
+/**
+ * Renderiza el pill de programa vinculado en las tablas de balance con botón interactivo
+ */
+export function renderProgramaBadge(programaStr, onNavigate) {
+  if (!programaStr) return null;
+  if (!onNavigate) {
+    return (
+      <span className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 text-teal-800 border border-teal-300 shrink-0">
+        {programaStr}
+      </span>
+    );
+  }
+
+  // Si tiene varios programas (ej: "PROGRAMA A y E (PT-A / PT-E)")
+  if (programaStr.includes('/')) {
+    return (
+      <div className="flex flex-wrap items-center gap-1 shrink-0">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onNavigate('etapa2-ejecucion', 'pt-a');
+          }}
+          className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 hover:bg-teal-200 text-teal-800 border border-teal-300 cursor-pointer transition-all hover:scale-105 active:scale-95 inline-flex items-center gap-0.5 shadow-2xs"
+          title="Ver PT-A (Bienes de Uso)"
+        >
+          <span>PT-A</span>
+          <span className="text-[8px]">↗</span>
+        </button>
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onNavigate('etapa2-ejecucion', 'pt-e');
+          }}
+          className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 hover:bg-teal-200 text-teal-800 border border-teal-300 cursor-pointer transition-all hover:scale-105 active:scale-95 inline-flex items-center gap-0.5 shadow-2xs"
+          title="Ver PT-E (Activos Intangibles)"
+        >
+          <span>PT-E</span>
+          <span className="text-[8px]">↗</span>
+        </button>
+      </div>
+    );
+  }
+
+  const match = programaStr.match(/PT-([A-F])/i);
+  const targetId = match ? `pt-${match[1].toLowerCase()}` : 'pt-a';
+
+  return (
+    <button
+      type="button"
+      onClick={(e) => {
+        e.stopPropagation();
+        onNavigate('etapa2-ejecucion', targetId);
+      }}
+      className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 hover:bg-teal-200 text-teal-800 border border-teal-300 shrink-0 cursor-pointer transition-all hover:scale-105 active:scale-95 inline-flex items-center gap-1 shadow-2xs"
+      title={`Ir al Papel de Trabajo (${programaStr})`}
+    >
+      <span>{programaStr}</span>
+      <span className="text-[9px] text-teal-700">↗</span>
+    </button>
+  );
+}
+
+// ============================================================================
 // 1. ESTADOS DE SITUACIÓN FINANCIERA CONSOLIDADOS (FUENTE ORIGINAL EECC TELECOM S.A.)
 // En millones de pesos constantes al 31 de diciembre de 2025 y 2024 (Nota 1.d)
 // ============================================================================
@@ -147,8 +296,8 @@ const espFilas = [
     s2025: 4443998,
     s2024: 4436736,
     alerta: 'Crítica',
-    programaVinculado: 'PROGRAMA E (PT-E)',
-    lectura: 'Representa el 26,73% del Activo Total ($4.443.998M, +0,16%). Al no amortizarse, exige auditoría anual obligatoria del Test de Deterioro (NIC 36) sobre la UGE Redes Personal ($12.774.695M).'
+    programaVinculado: 'PROGRAMA F (PT-F)',
+    lectura: 'Representa el 26,73% del Activo Total ($4.443.998M, +0,16%). Al no amortizarse, exige auditoría anual obligatoria del Test de Deterioro (NIC 36) sobre la UGE Redes Personal ($12.774.695M en PT-F1).'
   },
   {
     id: 'anc-ppe',
@@ -730,7 +879,7 @@ const ratiosFinancieros = [
     queRepresenta:
       'Mide la generación de caja operativa bruta antes de depreciaciones, amortizaciones, intereses e impuestos sobre las ventas. Telecom eleva su margen de 28,15% a 30,32% (+2,17 puntos porcentuales) gracias a la recomposición del ARPU real y a la dilución relativa de los costos laborales (que bajaron de 24,74% a 23,55% sobre ventas).',
     impactoAuditoria:
-      'Es el indicador clave utilizado en los modelos de valuación DCF de la UGE Redes Personal (PT-E2) y en el cálculo de los covenants de deuda financiera (PT-C4).'
+      'Es el indicador clave utilizado en los modelos de valuación DCF de la UGE Redes Personal (PT-F1) y en el cálculo de los covenants de deuda financiera (PT-C4).'
   },
 
   // ==========================================================================
@@ -772,7 +921,7 @@ const ratiosFinancieros = [
     queRepresenta:
       'Relaciona el Flujo de Caja Libre (Free Cash Flow = Efectivo operativo menos efectivo aplicado a inversiones en bienes de uso e intangibles) con el EBIAT. Demuestra que luego de financiar la expansión de red 5G y fibra FTTH, Telecom conserva excedente de caja libre para atender el servicio de su deuda financiera.',
     impactoAuditoria:
-      'Se cruza directamente con las proyecciones de Free Cash Flow (FCF) utilizadas por la Gerencia en el Test de Deterioro de la Llave de Negocio (PT-E2, UGE Redes Personal).'
+      'Se cruza directamente con las proyecciones de Free Cash Flow (FCF) utilizadas por la Gerencia en el Test de Deterioro de la Llave de Negocio (PT-F1, UGE Redes Personal).'
   },
   {
     id: 'rat-7',
@@ -1078,7 +1227,7 @@ const ratiosFinancieros = [
     queRepresenta:
       'Mide la autonomía financiera sobre el Capital Invertido Neto (Deuda Financiera Total + Patrimonio Neto = $12.419.923M en 2025). Indica que, aislando los pasivos espontáneos (comerciales, fiscales e impuesto diferido), el 56,23% de la financiación negociada sigue siendo capital propio de los accionistas (frente al 65,79% en 2024) y el 43,77% es deuda financiera.',
     impactoAuditoria:
-      'Se utiliza para ponderar la estructura de capital (We = 56,23% y Wd = 43,77%) en el recálculo de la tasa de descuento WACC del Test de Deterioro en PT-E2.'
+      'Se utiliza para ponderar la estructura de capital (We = 56,23% y Wd = 43,77%) en el recálculo de la tasa de descuento WACC del Test de Deterioro en PT-F1.'
   },
   {
     id: 'rat-22',
@@ -1181,7 +1330,7 @@ const ratiosFinancieros = [
     queRepresenta:
       'El RONA (Return on Net Assets) mide la rentabilidad operativa después de impuestos generada sobre el Activo Neto ($12.419.923M = Activo Total $16.622.552M menos Pasivos Espontáneos $4.202.629M). Pasa de ser negativo en 2024 (-1,13%) a positivo en 2025 (+2,36% aplicando tasa fiscal del 35% al EBIT, o +4,00% sumando al EBIT de $450.047M el beneficio contable por Impuesto a las Ganancias de +$46.432M). Sin embargo, al ser inferior a la tasa WACC real en dólares (11,85%), exige monitorear de cerca el deterioro de activos de larga duración.',
     impactoAuditoria:
-      'Justifica por qué el Test de Deterioro de la Llave de Negocio ($4.443.998M) en PT-E2 presenta un margen de cobertura (headroom) ajustado de $334.966M (2,7% del valor contable de la UGE) y es reportado como Cuestión Clave de Auditoría (KAM) en el Informe del Auditor.'
+      'Justifica por qué el Test de Deterioro de la Llave de Negocio ($4.443.998M) en PT-F1 presenta un margen de cobertura (headroom) ajustado de $334.966M (2,7% del valor contable de la UGE) y es reportado como Cuestión Clave de Auditoría (KAM) en el Informe del Auditor.'
   },
   {
     id: 'rat-27',
@@ -1230,17 +1379,27 @@ const matrizVinculacionAuditoria = [
   },
   {
     alertaAnalitica:
-      '3. Elevada Inmovilización del Activo (88,97%) concentrada en Llaves de Negocio ($4.443.998M, 26,73%) y Activos Intangibles ($2.671.525M, 16,07%), con un RONA de +2,36% (+4,00% contable) y un ROE negativo de -2,08%.',
-    rubroYPrograma: 'Llaves de Negocio y Activos Intangibles — PROGRAMA E (PT-E)',
-    afirmacionesCriticas: 'Medición (Recuperabilidad NIC 36) y Exposición',
+      '3. Activos Intangibles ($2.671.525M en Nota 10, 16,07% del Activo, +7,09% AH) concentrados en Licencias de Espectro 5G/4G ENACOM ($1.985.420M) y Software Capitalizado NIC 38 / Marcas INPI ($686.105M).',
+    rubroYPrograma: 'Activos Intangibles — PROGRAMA E (PT-E) [⭐ Prioritario]',
+    afirmacionesCriticas: 'Existencia, Integridad, Propiedad y Medición (NIC 38)',
     procedimientosAplicados:
-      '• Involucramiento de especialistas en valuación para auditar el modelo de Flujos de Fondos Descontados (DCF) de la UGE Redes Personal ($12.774.695M), estresando la tasa WACC real (11,85%) y crecimiento a perpetuidad (PT-E2).\n• Inspección de resoluciones ENACOM de adjudicación del espectro 5G y prueba de activación de software NIC 38 (PT-E1 y PT-E3).',
+      '• Inspección legal de resoluciones ENACOM de adjudicación del espectro 5G banda 3.400-3.500 MHz y registros marcarios vigentes en el INPI (PT-E1).\n• Prueba documental de activación de proyectos de software evolutivo en SAP PS bajo NIC 38 y recálculo de amortizaciones acumuladas (PT-E2).',
     hallazgoVinculado:
-      'Confirmado headroom positivo de $334.966M en la UGE Redes Personal y exigida la ampliación en Notas de la tabla de sensibilidad ante +100 bps en WACC (incluido como Cuestión Clave de Auditoría - KAM en el Informe Final).'
+      'Validada la vigencia regulatoria de espectro 5G y activación técnica de software; amortizaciones conformes.'
   },
   {
     alertaAnalitica:
-      '4. Salto del +43,60% en Préstamos Totales ($5.436.615M en Nota 14), suba del Endeudamiento Total a 1,38x y del Endeudamiento Financiero a 0,78x (Apalancamiento Total 2,38x y Neto 1,78x), junto a Costos Financieros de -$748.840M (Nota 26).',
+      '4. Elevada concentración en Llaves de Negocio ($4.443.998M en Nota 8, 26,73% del Activo) originadas en la Fusión Cablevisión y TMA, con un RONA de +2,36% (+4,00% contable) y un ROE negativo de -2,08% que exige testear anualmente el deterioro.',
+    rubroYPrograma: 'Llaves de Negocio — PROGRAMA F (PT-F)',
+    afirmacionesCriticas: 'Medición (Recuperabilidad NIC 36) y Exposición',
+    procedimientosAplicados:
+      '• Involucramiento de especialistas en valuación (NIA 620) para auditar el modelo de Flujos de Fondos Descontados (DCF) de la UGE Redes Personal ($12.774.695M), estresando la tasa WACC real post-impuestos (11,85%) y crecimiento a perpetuidad (PT-F1).',
+    hallazgoVinculado:
+      'Confirmado margen de cobertura positivo (headroom) de $334.966M en la UGE Redes Personal; exigida la ampliación en Notas de la tabla de sensibilidad ante +100 bps en WACC (Cuestión Clave de Auditoría - KAM).'
+  },
+  {
+    alertaAnalitica:
+      '5. Salto del +43,60% en Préstamos Totales ($5.436.615M en Nota 14), suba del Endeudamiento Total a 1,38x y del Endeudamiento Financiero a 0,78x (Apalancamiento Total 2,38x y Neto 1,78x), junto a Costos Financieros de -$748.840M (Nota 26).',
     rubroYPrograma: 'Préstamos y Deuda Financiera — PROGRAMA C (PT-C)',
     afirmacionesCriticas: 'Medición (Valuación Moneda Extranjera y TIE), Integridad y Exposición',
     procedimientosAplicados:
@@ -1250,8 +1409,8 @@ const matrizVinculacionAuditoria = [
   },
   {
     alertaAnalitica:
-      '5. Expansión de Ventas del +53,02% ($8.328.814M en Nota 24), mejora de la Rotación del Activo de 0,38x a 0,50x y Margen EBITDA de 30,32%, junto al estiramiento de Días de Proveedores a 69,74 días y aumento de Provisiones (+654,47% en Nota 20).',
-    rubroYPrograma: 'Ingresos por Servicios y Costos — PROGRAMA D (PT-D)',
+      '6. Expansión de Ventas del +53,02% ($8.328.814M en Nota 24), mejora de la Rotación del Activo de 0,38x a 0,50x y Margen EBITDA de 30,32%, junto al estiramiento de Días de Proveedores a 69,74 días y aumento de Provisiones (+654,47% en Nota 20).',
+    rubroYPrograma: 'Ventas y Costos — PROGRAMA D (PT-D) [🔗 Vinculado a PT-B]',
     afirmacionesCriticas: 'Integridad, Propiedad y Exposición (NIIF 15 Principal vs. Agente)',
     procedimientosAplicados:
       '• Prueba analítica sustantiva global cruzando parque activo de abonados (móvil, banda ancha, Flow) por ARPU mensual reexpresado por IPC (PT-D1).\n• Auditoría de logs de interfaces Legacy ex-Cablevisión vs. SAP y tasación de CDRs (PT-D2).\n• Revisión de contratos de plataformas de streaming de terceros facturadas en paquetes Flow bajo NIIF 15 (PT-D3).',
@@ -1472,11 +1631,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                       <td className="py-2.5 px-3">
                         <div className="flex items-center gap-2">
                           <span>{f.rubro}</span>
-                          {f.programaVinculado && (
-                            <span className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 text-teal-800 border border-teal-300 shrink-0">
-                              {f.programaVinculado}
-                            </span>
-                          )}
+                          {f.programaVinculado && renderProgramaBadge(f.programaVinculado, onNavigate)}
                         </div>
                       </td>
                       <td className="py-2.5 px-2 text-center font-mono text-[11px] opacity-75">
@@ -1638,11 +1793,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                       <td className="py-2.5 px-3">
                         <div className="flex items-center gap-2">
                           <span>{f.rubro}</span>
-                          {f.programaVinculado && (
-                            <span className="px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 text-teal-800 border border-teal-300 shrink-0">
-                              {f.programaVinculado}
-                            </span>
-                          )}
+                          {f.programaVinculado && renderProgramaBadge(f.programaVinculado, onNavigate)}
                         </div>
                       </td>
                       <td className="py-2.5 px-2 text-center font-mono text-[11px] opacity-75">
@@ -2199,7 +2350,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                         <strong className="text-slate-900 block mb-0.5">
                           ¿Qué representa el valor obtenido (2025: {r.valor2025} | 2024: {r.valor2024})?
                         </strong>
-                        {r.queRepresenta}
+                        {renderInteractiveText(r.queRepresenta, onNavigate)}
                       </div>
                     </div>
 
@@ -2208,7 +2359,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                       <strong className="text-teal-800 uppercase text-[10px] tracking-wider block mb-0.5">
                         Impacto y Procedimiento de Auditoría Derivado:
                       </strong>
-                      {r.impactoAuditoria}
+                      {renderInteractiveText(r.impactoAuditoria, onNavigate)}
                     </div>
                   </div>
                 );
@@ -2485,21 +2636,21 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                 {matrizVinculacionAuditoria.map((item, idx) => (
                   <tr key={idx} className="hover:bg-slate-50 align-top">
                     <td className="py-3.5 px-3 font-semibold text-slate-800 leading-relaxed">
-                      {item.alertaAnalitica}
+                      {renderInteractiveText(item.alertaAnalitica, onNavigate)}
                     </td>
                     <td className="py-3.5 px-3">
                       <span className="px-2 py-1 rounded bg-teal-100 text-teal-900 font-extrabold text-[11px] inline-block">
-                        {item.rubroYPrograma}
+                        {renderInteractiveText(item.rubroYPrograma, onNavigate)}
                       </span>
                     </td>
                     <td className="py-3.5 px-3 font-bold text-indigo-900 leading-relaxed">
                       {item.afirmacionesCriticas}
                     </td>
                     <td className="py-3.5 px-3 text-slate-700 whitespace-pre-line leading-relaxed">
-                      {item.procedimientosAplicados}
+                      {renderInteractiveText(item.procedimientosAplicados, onNavigate)}
                     </td>
                     <td className="py-3.5 px-3 text-rose-900 bg-rose-50/40 font-medium leading-relaxed">
-                      {item.hallazgoVinculado}
+                      {renderInteractiveText(item.hallazgoVinculado, onNavigate)}
                     </td>
                   </tr>
                 ))}
@@ -2509,7 +2660,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
 
           {/* Comentario Final de Cierre en Pestaña 5 */}
           <div className="p-4 rounded-xl bg-teal-50 border border-teal-200 text-xs text-teal-950">
-            <strong>Articulación Metodológica:</strong> Esta matriz de vinculación alimenta directamente la <strong>Conclusión Técnica Final</strong> expuesta a continuación y fundamenta el alcance de los <strong>Programas de Trabajo A, B, C, D y E</strong> en la Etapa 1D.
+            <strong>Articulación Metodológica:</strong> Esta matriz de vinculación alimenta directamente la <strong>Conclusión Técnica Final</strong> expuesta a continuación y fundamenta el alcance de los <strong>Programas de Trabajo A, B, C, D, E y F</strong> en la Etapa 1D.
           </div>
         </div>
       )}
@@ -2543,26 +2694,31 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                 onClick={() => onNavigate('etapa1-detallada', 'sec-1c-rubros')}
                 className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-600 text-white text-xs font-extrabold hover:bg-teal-500 cursor-pointer"
               >
-                Ver Programas de Trabajo A-E <ArrowUpRight className="w-4 h-4" />
+                Ver Programas de Trabajo A-F <ArrowUpRight className="w-4 h-4" />
               </button>
               <button
                 onClick={() => onNavigate('etapa2-ejecucion')}
                 className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 text-xs font-extrabold hover:bg-amber-400 cursor-pointer"
               >
-                Ver Ejecución en Papeles PT-A a PT-E <ArrowUpRight className="w-4 h-4" />
+                Ver Ejecución en Papeles PT-A a PT-F <ArrowUpRight className="w-4 h-4" />
               </button>
             </div>
           )}
         </div>
 
-        {/* Grilla de los 5 Rubros: Sobre qué rubro, Por qué (H/V + Ratios) y Qué Procedimientos Sustantivos se aplican */}
+        {/* Grilla de los 6 Rubros Críticos (Destacando los 3 Prioritarios de la Cátedra) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs">
           {/* RUBRO 1 - PROGRAMA A */}
-          <div className="p-4 rounded-xl bg-slate-800/90 border border-slate-700 space-y-2.5">
-            <div className="flex items-center justify-between gap-2">
-              <span className="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/40 font-extrabold text-[11px]">
-                1. RUBRO: PP&E / BIENES DE USO (NOTA 9: $6.789.118M) → PROGRAMA A
-              </span>
+          <div className="p-4 rounded-xl bg-slate-800/90 border-2 border-amber-400/80 space-y-2.5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5">
+                <span className="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 border border-teal-500/40 font-extrabold text-[11px]">
+                  1. RUBRO: PP&E / BIENES DE USO (NOTA 9: $6.789.118M) → PROGRAMA A
+                </span>
+                <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-400 text-slate-950">
+                  ⭐ Rubro Prioritario
+                </span>
+              </div>
               <span className="font-mono font-bold text-lime-300 text-[11px]">
                 AV: 40,84% | AH: +19,18%
               </span>
@@ -2575,20 +2731,46 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                 Procedimientos Sustantivos que pasan al Programa de Trabajo A (Existencia, Integridad, Propiedad, Medición):
               </strong>
               <ul className="list-disc pl-4 space-y-1">
-                <li><strong>Inspección ocular física in situ</strong> de los 16 Data Centers y muestra de 85 nodos/radiobases 5G, conciliando los partes técnicos de robos/vandalismo de fibra con las bajas en el módulo SAP AM (<em>PT-A1</em>).</li>
-                <li><strong>Prueba sustantiva de adiciones CAPEX y corte (cut-off) de obras en curso</strong> habilitadas en diciembre 2025 contra certificados de obra, facturas y despachos de aduana (<em>PT-A2</em>).</li>
-                <li><strong>Confirmación dominial externa</strong> ante el Registro de la Propiedad Inmueble (RPI) para inmuebles operativos y desafectados en Nota 12 (<em>PT-A3</em>).</li>
-                <li><strong>Recálculo global independiente de depreciaciones</strong> y revisión del informe de Ingeniería sobre <strong>centrales analógicas de cobre fuera de servicio</strong> para cuantificar el ajuste por obsolescencia (<em>PT-A4 → Ajuste AJ-01 por $28.340M</em>).</li>
+                <li>
+                  <strong>Inspección ocular física in situ</strong> de los 16 Data Centers y muestra de 85 nodos/radiobases 5G, conciliando los partes técnicos de robos/vandalismo de fibra con las bajas en el módulo SAP AM (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-a1')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-A1 ↗</button>
+                  ).
+                </li>
+                <li>
+                  <strong>Prueba sustantiva de adiciones CAPEX y corte (cut-off) de obras en curso</strong> habilitadas en diciembre 2025 contra certificados de obra, facturas y despachos de aduana (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-a2')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-A2 ↗</button>
+                  ).
+                </li>
+                <li>
+                  <strong>Confirmación dominial externa</strong> ante el Registro de la Propiedad Inmueble (RPI) para inmuebles operativos y desafectados en Nota 12 (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-a3')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-A3 ↗</button>
+                  ).
+                </li>
+                <li>
+                  <strong>Recálculo global independiente de depreciaciones</strong> y revisión del informe de Ingeniería sobre <strong>centrales analógicas de cobre fuera de servicio</strong> para cuantificar el ajuste por obsolescencia (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-a4')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-A4 ↗</button>
+                  {' → '}
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'sec-pae')} className="underline text-rose-300 font-bold hover:text-rose-200 cursor-pointer">Ajuste AJ-01 por $28.340M ↗</button>
+                  ).
+                </li>
               </ul>
             </div>
           </div>
 
           {/* RUBRO 2 - PROGRAMA B */}
-          <div className="p-4 rounded-xl bg-slate-800/90 border border-rose-500/40 space-y-2.5">
-            <div className="flex items-center justify-between gap-2">
-              <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 font-extrabold text-[11px]">
-                2. RUBRO: CRÉDITOS POR VENTAS (NOTA 5: $800.128M) → PROGRAMA B
-              </span>
+          <div className="p-4 rounded-xl bg-slate-800/90 border-2 border-rose-500 space-y-2.5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5">
+                <span className="px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40 font-extrabold text-[11px]">
+                  2. RUBRO: CRÉDITOS POR VENTAS (NOTA 5: $800.128M) → PROGRAMA B
+                </span>
+                <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-400 text-slate-950">
+                  ⭐ Rubro Prioritario
+                </span>
+                <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-blue-500 text-white">
+                  🔗 Con Ventas
+                </span>
+              </div>
               <span className="font-mono font-bold text-rose-300 text-[11px]">
                 AV: 4,81% | AH: +105,25% | DSO: 35,1d
               </span>
@@ -2601,9 +2783,25 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                 Procedimientos Sustantivos que pasan al Programa de Trabajo B (Existencia, Integridad, Medición):
               </strong>
               <ul className="list-disc pl-4 space-y-1">
-                <li><strong>Circularización directa positiva</strong> a 65 grandes clientes corporativos y organismos públicos del segmento B2B (<em>Personal Tech</em> y corporativos TMA) y verificación alternativa de <strong>cobros posteriores en extractos de enero 2026</strong> (<em>PT-B1</em>).</li>
-                <li><strong>Prueba de corte de facturación (cut-off)</strong> sobre actas de recepción B2B firmadas entre el 15/12/2025 y el 15/01/2026, y conciliación de recaudaciones en tránsito de <em>Rapipago, Pago Fácil y billeteras virtuales</em> al 31/12 (<em>PT-B2 → Ajuste AJ-02 por $18.800M</em>).</li>
-                <li><strong>Reproceso del 100% del padrón de morosidad ($1.071.047M brutos incluyendo cartera TMA) mediante TAACs</strong> y recálculo de la <strong>Previsión para Deudores Incobrables (NIIF 9, saldo contable $(270.919)M)</strong> para incorporar las carteras con mora &gt; 180 días omitidas en la migración de sistemas (<em>PT-B3 → Ajuste AJ-03 por $19.850M</em>).</li>
+                <li>
+                  <strong>Circularización directa positiva</strong> a 65 grandes clientes corporativos y organismos públicos del segmento B2B (<em>Personal Tech</em> y corporativos TMA) y verificación alternativa de <strong>cobros posteriores en extractos de enero 2026</strong> (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-b1')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-B1 ↗</button>
+                  ).
+                </li>
+                <li>
+                  <strong>Prueba de corte de facturación (cut-off)</strong> sobre actas de recepción B2B firmadas entre el 15/12/2025 y el 15/01/2026, y conciliación de recaudaciones en tránsito de <em>Rapipago, Pago Fácil y billeteras virtuales</em> al 31/12 (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-b2')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-B2 ↗</button>
+                  {' → '}
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'sec-pae')} className="underline text-rose-300 font-bold hover:text-rose-200 cursor-pointer">Ajuste AJ-02 por $18.800M ↗</button>
+                  ).
+                </li>
+                <li>
+                  <strong>Reproceso del 100% del padrón de morosidad ($1.071.047M brutos incluyendo cartera TMA) mediante TAACs</strong> y recálculo de la <strong>Previsión para Deudores Incobrables (NIIF 9, saldo contable $(270.919)M)</strong> para incorporar las carteras con mora &gt; 180 días omitidas en la migración de sistemas (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-b3')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-B3 ↗</button>
+                  {' → '}
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'sec-pae')} className="underline text-rose-300 font-bold hover:text-rose-200 cursor-pointer">Ajuste AJ-03 por $19.850M ↗</button>
+                  ).
+                </li>
               </ul>
             </div>
           </div>
@@ -2626,20 +2824,41 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                 Procedimientos Sustantivos que pasan al Programa de Trabajo C (Existencia, Integridad, Medición, Exposición):
               </strong>
               <ul className="list-disc pl-4 space-y-1">
-                <li><strong>Confirmación externa directa (circularización al 100%)</strong> con bancos acreedores, organismos multilaterales (<em>IFC, BID, Finnvera</em>) y <em>Caja de Valores S.A.</em> como Agente Pagador de las Obligaciones Negociables (<em>PT-C1</em>).</li>
-                <li><strong>Prueba de pasivos omitidos</strong> revisando el 100% de las Actas de Directorio y Asamblea 2025 y los desembolsos en extractos bancarios de enero/febrero 2026 (<em>PT-C2</em>).</li>
-                <li><strong>Recálculo matemático de conversión de moneda extranjera</strong> sobre el 100% de la deuda en dólares (US$ 3.736,5M) aplicando el TC vendedor BNA al 31/12/2025 (<strong>$/US$ 1.455,00</strong>) y recálculo del costo amortizado por Tasa Efectiva (<em>PT-C3</em>).</li>
-                <li><strong>Comprobación de cumplimiento de Covenants financieros</strong> (ratio <em>Deuda Financiera / EBITDA = 2,15x bruta / 1,83x neta</em>) y adecuada clasificación entre corriente y no corriente (<em>PT-C4</em>).</li>
+                <li>
+                  <strong>Confirmación externa directa (circularización al 100%)</strong> con bancos acreedores, organismos multilaterales (<em>IFC, BID, Finnvera</em>) y <em>Caja de Valores S.A.</em> como Agente Pagador de las Obligaciones Negociables (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-c1')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-C1 ↗</button>
+                  ).
+                </li>
+                <li>
+                  <strong>Prueba de pasivos omitidos</strong> revisando el 100% de las Actas de Directorio y Asamblea 2025 y los desembolsos en extractos bancarios de enero/febrero 2026 (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-c2')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-C2 ↗</button>
+                  ).
+                </li>
+                <li>
+                  <strong>Recálculo matemático de conversión de moneda extranjera</strong> sobre el 100% de la deuda en dólares (US$ 3.736,5M) aplicando el TC vendedor BNA al 31/12/2025 (<strong>$/US$ 1.455,00</strong>) y recálculo del costo amortizado por Tasa Efectiva (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-c3')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-C3 ↗</button>
+                  ).
+                </li>
+                <li>
+                  <strong>Comprobación de cumplimiento de Covenants financieros</strong> (ratio <em>Deuda Financiera / EBITDA = 2,15x bruta / 1,83x neta</em>) y adecuada clasificación entre corriente y no corriente (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-c4')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-C4 ↗</button>
+                  ).
+                </li>
               </ul>
             </div>
           </div>
 
           {/* RUBRO 4 - PROGRAMA D */}
           <div className="p-4 rounded-xl bg-slate-800/90 border border-slate-700 space-y-2.5">
-            <div className="flex items-center justify-between gap-2">
-              <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-extrabold text-[11px]">
-                4. RUBRO: VENTAS / INGRESOS POR SERVICIOS (NOTA 24: $8.328.814M) → PROGRAMA D
-              </span>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5">
+                <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-extrabold text-[11px]">
+                  4. RUBRO: VENTAS (NOTA 24: $8.328.814M) → PROGRAMA D
+                </span>
+                <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-blue-500 text-white">
+                  🔗 Con Créditos
+                </span>
+              </div>
               <span className="font-mono font-bold text-emerald-300 text-[11px]">
                 AV: 100% ER | AH: +53,02% | EBITDA: 30,32%
               </span>
@@ -2652,35 +2871,87 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                 Procedimientos Sustantivos que pasan al Programa de Trabajo D (Existencia, Integridad, Propiedad, Exposición):
               </strong>
               <ul className="list-disc pl-4 space-y-1">
-                <li><strong>Prueba analítica sustantiva global de ingresos</strong> multiplicando el parque promedio de clientes activos por línea de negocio (incluyendo los 10 meses de operación consolidada de TMA mar-dic 2025) por el <em>ARPU mensual ponderado</em> reexpresado por IPC (NIC 29), comparando contra el mayor contable (<em>PT-D1</em>).</li>
-                <li><strong>Auditoría de reportes de descuadre de interfaces diarias</strong> entre los facturadores comerciales y SAP, y cotejo de una muestra de facturas contra tasaciones de tráfico (<em>CDRs - Call Detail Records</em>) y alícuotas regulatorias ENACOM 0,5% y FSU 1% (<em>PT-D2</em>).</li>
-                <li><strong>Inspección de contratos con plataformas de streaming de terceros en Flow</strong> para auditar la condición de <em>Principal vs. Agente (NIIF 15)</em> y netear cobros por cuenta de terceros contra Costos de Programación (<em>PT-D3 → Ajuste AJ-04 por $11.240M</em>).</li>
+                <li>
+                  <strong>Prueba analítica sustantiva global de ingresos</strong> multiplicando el parque promedio de clientes activos por línea de negocio (incluyendo los 10 meses de operación consolidada de TMA mar-dic 2025) por el <em>ARPU mensual ponderado</em> reexpresado por IPC (NIC 29), comparando contra el mayor contable (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-d1')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-D1 ↗</button>
+                  ).
+                </li>
+                <li>
+                  <strong>Auditoría de reportes de descuadre de interfaces diarias</strong> entre los facturadores comerciales y SAP, y cotejo de una muestra de facturas contra tasaciones de tráfico (<em>CDRs - Call Detail Records</em>) y alícuotas regulatorias ENACOM 0,5% y FSU 1% (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-d2')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-D2 ↗</button>
+                  ).
+                </li>
+                <li>
+                  <strong>Inspección de contratos con plataformas de streaming de terceros en Flow</strong> para auditar la condición de <em>Principal vs. Agente (NIIF 15)</em> y netear cobros por cuenta de terceros contra Costos de Programación (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-d3')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-D3 ↗</button>
+                  {' → '}
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'sec-pae')} className="underline text-rose-300 font-bold hover:text-rose-200 cursor-pointer">Ajuste AJ-04 por $11.240M ↗</button>
+                  ).
+                </li>
               </ul>
             </div>
           </div>
 
-          {/* RUBRO 5 - PROGRAMA E (Full width on large screens) */}
-          <div className="p-4 rounded-xl bg-slate-800/90 border border-indigo-500/40 lg:col-span-2 space-y-2.5">
+          {/* RUBRO 5 - PROGRAMA E */}
+          <div className="p-4 rounded-xl bg-slate-800/90 border-2 border-indigo-400 space-y-2.5">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-extrabold text-[11px]">
-                5. RUBRO: LLAVES DE NEGOCIO (NOTA 8: $4.443.998M) Y ACTIVOS INTANGIBLES (NOTA 10: $2.671.525M) + PROVISIONES (NOTA 20: $563.085M) → PROGRAMA E
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-extrabold text-[11px]">
+                  5. RUBRO: ACTIVOS INTANGIBLES (NOTA 10: $2.671.525M) → PROGRAMA E
+                </span>
+                <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-400 text-slate-950">
+                  ⭐ Rubro Prioritario
+                </span>
+              </div>
               <span className="font-mono font-bold text-indigo-300 text-[11px]">
-                AV Conjunto: 42,81% del Activo ($7.115.523M) | ROE: -2,08%
+                AV: 16,07% | AH: +7,09%
               </span>
             </div>
             <div className="text-slate-300 leading-relaxed">
-              <strong className="text-indigo-300">¿Por qué se aplica sobre estos rubros?</strong> Entre <strong>Llaves de Negocio (26,73% del Activo)</strong> y <strong>Activos Intangibles (16,07% del Activo, +7,09% AH)</strong> acumulan <strong>$7.115.523 millones (42,81% del Activo Total)</strong>. El hecho de que la Sociedad haya cerrado el ejercicio 2025 con un <strong>Resultado Neto negativo de $(145.304)M (ROS -1,74% y ROE -2,08%)</strong> y una caída de la Solvencia de 2,02x a <strong>1,72x</strong> obliga por <strong>NIC 36 y NIC 38 (NIIF)</strong> a extremar la validación del <em>Valor Recuperable</em> de las Unidades Generadoras de Efectivo para descartar una sobrevaluación patrimonial masiva, además de verificar el salto del <strong>+654,47% en Provisiones para Contingencias (Nota 20)</strong>.
+              <strong className="text-indigo-300">¿Por qué se aplica sobre este rubro?</strong> Constituye un rubro crítico diferenciado de las Llaves de Negocio: representa el <strong>16,07% del Activo Total ($2.671.525M)</strong> y crece <strong>+7,09%</strong> interanual. Integra las <em>Licencias de Espectro 5G y 4G de ENACOM ($1.985.420M)</em> y los desarrollos de <em>Software Capitalizado bajo NIC 38 junto a Marcas registradas en el INPI ($686.105M)</em>. Presenta alto riesgo en la capitalización de horas de desarrollo interno en SAP PS y en el cumplimiento estricto de metas de despliegue ante el regulador.
             </div>
             <div className="p-3 rounded-lg bg-slate-900/90 border border-slate-700/80 text-slate-200 space-y-1">
               <strong className="text-indigo-300 block uppercase text-[10px] tracking-wider">
-                Procedimientos Sustantivos que pasan al Programa de Trabajo E (Existencia, Propiedad, Medición, Exposición):
+                Procedimientos Sustantivos que pasan al Programa de Trabajo E (Existencia, Integridad, Propiedad, Medición):
               </strong>
-              <ul className="list-disc pl-4 space-y-1 grid grid-cols-1 md:grid-cols-2 gap-x-6">
-                <li><strong>Confirmación e inspección legal de licencias ENACOM</strong> (adjudicación de espectro 5G banda 3.400-3.500 MHz y 4G) y vigencia de registros marcarios en el INPI (<em>PT-E1</em>).</li>
-                <li><strong>Auditoría con especialistas en valuación del Test de Deterioro (Impairment NIC 36)</strong> de la UGE Redes Personal (Valor Recuperable: <strong>$12.774.695M</strong>), recalculando la tasa de descuento <strong>WACC real post-impuestos (11,85%)</strong>, la tasa de crecimiento a perpetuidad (1,5%) y exigiendo la revelación de sensibilidad en Notas (<em>PT-E2</em>).</li>
-                <li><strong>Prueba documental de capitalización de software evolutivo (NIC 38)</strong> sobre desarrollos de Flow/App Mi Personal y recálculo global de amortizaciones (<em>PT-E3</em>).</li>
-                <li><strong>Circularización a asesores legales internos y externos</strong> para auditar la integridad y medición de las Provisiones por juicios y reclamos regulatorios en Nota 20 ($133.783M Cte + $429.302M No Cte = $563.085M).</li>
+              <ul className="list-disc pl-4 space-y-1">
+                <li>
+                  <strong>Confirmación e inspección legal de licencias ENACOM</strong> (adjudicación de espectro 5G banda 3.400-3.500 MHz y 4G) y vigencia de registros marcarios en el INPI a nombre de la Sociedad (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-e1')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-E1 ↗</button>
+                  ).
+                </li>
+                <li>
+                  <strong>Prueba documental de capitalización de software evolutivo (NIC 38)</strong> sobre desarrollos de Flow/App Mi Personal en SAP PS, verificación de no omisión de costos elegibles y recálculo global de amortizaciones acumuladas (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-e2')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-E2 ↗</button>
+                  ).
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* RUBRO 6 - PROGRAMA F */}
+          <div className="p-4 rounded-xl bg-slate-800/90 border border-slate-700 space-y-2.5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="px-2 py-0.5 rounded bg-purple-500/20 text-purple-300 border border-purple-500/40 font-extrabold text-[11px]">
+                6. RUBRO: LLAVES DE NEGOCIO (NOTA 8: $4.443.998M) → PROGRAMA F
+              </span>
+              <span className="font-mono font-bold text-purple-300 text-[11px]">
+                AV: 26,73% | Test NIC 36: Headroom +$335k M
+              </span>
+            </div>
+            <div className="text-slate-300 leading-relaxed">
+              <strong className="text-purple-300">¿Por qué se aplica sobre este rubro?</strong> Con <strong>$4.443.998M (26,73% del Activo)</strong>, es el segundo mayor activo del balance. Proviene de la Fusión con Cablevisión y de la adquisición de TMA. Al ser de vida útil indefinida no se amortiza, exigiendo por <strong>NIC 36</strong> auditar anualmente el <em>Test de Deterioro (Impairment)</em> sobre la <strong>UGE Redes Personal ($12.774.695M)</strong>, cuyo margen de cobertura ajustado (headroom) de <strong>$334.966M (2,7%)</strong> es una Cuestión Clave de Auditoría (KAM).
+            </div>
+            <div className="p-3 rounded-lg bg-slate-900/90 border border-slate-700/80 text-slate-200 space-y-1">
+              <strong className="text-purple-300 block uppercase text-[10px] tracking-wider">
+                Procedimientos Sustantivos que pasan al Programa de Trabajo F (Medición y Exposición):
+              </strong>
+              <ul className="list-disc pl-4 space-y-1">
+                <li>
+                  <strong>Auditoría con especialistas en valuación (NIA 620) del Test de Deterioro (Impairment NIC 36)</strong> de la UGE Redes Personal (Valor Recuperable: <strong>$12.774.695M</strong>), recalculando la tasa de descuento <strong>WACC real post-impuestos (11,85%)</strong>, la tasa de crecimiento a perpetuidad (1,5%) y exigiendo la revelación de la matriz de sensibilidad ante subas de +100 bps en Notas a los EECC (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-f1')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-F1 ↗</button>
+                  ).
+                </li>
               </ul>
             </div>
           </div>

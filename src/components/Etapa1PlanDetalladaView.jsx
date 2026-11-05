@@ -344,36 +344,47 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
       {/* MODO 1: EXPLORACIÓN POR RUBRO SIGNIFICATIVO Y SU PROGRAMA DE TRABAJO */}
       {modoVista === 'por-rubro' ? (
         <div id="sec-1c-rubros" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-5 scroll-mt-20">
-          {/* Selector de los 5 Rubros Significativos */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          {/* Selector de los Rubros Significativos (Destacando los 3 de Enfoque Principal) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
             {rubrosSignificativos.map((rubro) => {
               const active = rubro.id === selectedRubroId;
               return (
                 <button
                   key={rubro.id}
                   onClick={() => setSelectedRubroId(rubro.id)}
-                  className={`text-left p-3.5 rounded-xl border transition-all cursor-pointer ${
+                  className={`text-left p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                     active
-                      ? 'bg-slate-900 text-white border-slate-900 shadow-sm'
+                      ? 'bg-slate-900 text-white border-slate-900 shadow-sm ring-2 ring-teal-500'
+                      : rubro.esPrioritario
+                      ? 'bg-amber-50/50 text-slate-800 border-amber-300 hover:bg-white hover:border-amber-400'
                       : 'bg-slate-50 text-slate-800 border-slate-200 hover:bg-white hover:border-teal-400'
                   }`}
                 >
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${
-                        active ? 'bg-teal-500 text-white' : 'bg-teal-100 text-teal-800'
-                      }`}
-                    >
-                      {rubro.codigoPrograma}
+                  <div>
+                    <div className="flex items-center justify-between gap-1">
+                      <span
+                        className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${
+                          active ? 'bg-teal-500 text-white' : 'bg-teal-100 text-teal-800'
+                        }`}
+                      >
+                        {rubro.codigoPrograma}
+                      </span>
+                      {rubro.esPrioritario && (
+                        <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-400 text-slate-950">
+                          ⭐ Prioritario
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs font-extrabold mt-2 line-clamp-2">{rubro.nombre}</p>
+                  </div>
+                  <div className="mt-2 pt-1 border-t border-slate-200/50 flex items-center justify-between">
+                    <span className="text-xs font-mono font-bold text-teal-600">
+                      ${rubro.saldoContable.toLocaleString('es-AR')} M
                     </span>
-                    <span className="text-[10px] font-mono opacity-80">
+                    <span className="text-[10px] font-mono opacity-70">
                       RC: {rubro.riesgoControl}
                     </span>
                   </div>
-                  <p className="text-xs font-extrabold mt-2 line-clamp-2">{rubro.nombre}</p>
-                  <p className="text-xs font-mono font-bold mt-1.5 text-teal-400">
-                    ${rubro.saldoContable.toLocaleString('es-AR')} M
-                  </p>
                 </button>
               );
             })}
@@ -387,6 +398,16 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                   {activeRubro.codigoPrograma} — Rubro {activeRubro.numero}
                 </span>
                 <h3 className="text-lg font-extrabold text-slate-900">{activeRubro.nombre}</h3>
+                {activeRubro.esPrioritario && (
+                  <span className="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold text-xs flex items-center gap-1 shadow-2xs">
+                    ⭐ Rubro de Enfoque Principal (Cátedra)
+                  </span>
+                )}
+                {activeRubro.vinculadoCon && (
+                  <span className="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-xs">
+                    🔗 {activeRubro.vinculadoCon}
+                  </span>
+                )}
                 <span className="px-2 py-0.5 rounded bg-red-100 text-red-700 text-xs font-extrabold">
                   Riesgo de Control: {activeRubro.riesgoControl}
                 </span>
@@ -698,7 +719,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
               1. ¿Qué se empieza haciendo en la Planificación Detallada?
             </strong>
             <p className="text-slate-200">
-              Una vez que en la <em>Planificación Preliminar (1A, 1B y 1C)</em> definimos que el Riesgo de Control de Telecom es ALTO y que aplicaremos un enfoque sustantivo, en la <strong>Planificación Detallada (1D)</strong> bajamos de la visión global a las <strong>cuentas individuales del Balance</strong>. Empezamos fijando los umbrales numéricos de <strong>Materialidad ($166.225M de PM, $83.112M de ET y $8.311M de PAE)</strong> y seleccionando los <strong>5 rubros más significativos y riesgosos</strong>: <em>PP&amp;E (Nota 9), Créditos por Ventas (Nota 5), Préstamos (Nota 14), Ingresos por Servicios (Nota 24) y Llaves/Intangibles (Notas 8 y 10)</em>.
+              Una vez que en la <em>Planificación Preliminar (1A, 1B y 1C)</em> definimos que el Riesgo de Control de Telecom es ALTO y que aplicaremos un enfoque sustantivo, en la <strong>Planificación Detallada (1D)</strong> bajamos de la visión global a las <strong>cuentas individuales del Balance</strong>. Empezamos fijando los umbrales numéricos de <strong>Materialidad ($166.225M de PM, $83.112M de ET y $8.311M de PAE)</strong> y seleccionando los <strong>rubros más significativos y riesgosos</strong>: <em>PP&amp;E (Nota 9), Créditos por Ventas (Nota 5), Préstamos (Nota 14), Ventas (Nota 24), Activos Intangibles (Nota 10) y Llaves de Negocio (Nota 8)</em>, priorizando el enfoque de la cátedra en <strong>Bienes de Uso, Activos Intangibles y Créditos por Ventas</strong>.
             </p>
           </div>
 
@@ -707,7 +728,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
               2. ¿Qué se hace concretamente acá?
             </strong>
             <p className="text-slate-200">
-              Para cada uno de esos 5 rubros críticos identificamos qué <strong>Afirmaciones u Objetivos de Auditoría de Slosse</strong> están en peligro (<em>Existencia, Integridad, Propiedad, Medición y Exposición</em>) y redactamos a medida los <strong>5 Programas de Trabajo (Programas A, B, C, D y E)</strong>. En cada Programa dejamos escrito exactamente <strong>qué procedimiento sustantivo</strong> se va a aplicar, <strong>con qué alcance (muestra)</strong> y <strong>en qué momento del año</strong> (Visita Interina, Pre-Cierre o Visita Final), cerrando todo en el <strong>Memorando de Planificación (LP-01)</strong>.
+              Para cada uno de esos rubros críticos identificamos qué <strong>Afirmaciones u Objetivos de Auditoría de Slosse</strong> están en peligro (<em>Existencia, Integridad, Propiedad, Medición y Exposición</em>) y redactamos a medida los <strong>6 Programas de Trabajo (Programas A a F)</strong>. En cada Programa dejamos escrito exactamente <strong>qué procedimiento sustantivo</strong> se va a aplicar, <strong>con qué alcance (muestra)</strong> y <strong>en qué momento del año</strong> (Visita Interina, Pre-Cierre o Visita Final), cerrando todo en el <strong>Memorando de Planificación (LP-01)</strong>.
             </p>
           </div>
 

@@ -405,7 +405,7 @@ export default function ResumenIntegralView({
                 ETAPA 2 — EJECUCIÓN DE PROCEDIMIENTOS, PAPELES DE TRABAJO Y PLANILLA PAE
               </span>
               <h3 className="text-lg font-extrabold text-slate-900 mt-1">
-                2. Síntesis de Papeles de Trabajo (PT-A a PT-E), Hallazgos y Estado Dinámico de Ajustes Propuestos
+                2. Síntesis de Papeles de Trabajo (PT-A a PT-F), Hallazgos y Estado Dinámico de Ajustes Propuestos
               </h3>
             </div>
             <button
@@ -416,7 +416,7 @@ export default function ResumenIntegralView({
             </button>
           </div>
 
-          {/* Tabla Consolidada de Papeles de Trabajo PT-A a PT-E */}
+          {/* Tabla Consolidada de Papeles de Trabajo PT-A a PT-F */}
           <div className="overflow-x-auto rounded-xl border border-slate-200">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
@@ -433,7 +433,20 @@ export default function ResumenIntegralView({
                 {papelesTrabajo.map((pt) => (
                   <tr key={pt.id} className="hover:bg-slate-50">
                     <td className="py-3 px-3 font-mono font-extrabold text-teal-800">
-                      {pt.codigo}
+                      <button
+                        type="button"
+                        onClick={() => onNavigate('etapa2-ejecucion', pt.id)}
+                        className="underline hover:text-teal-600 cursor-pointer inline-flex items-center gap-0.5"
+                        title={`Ir al Papel de Trabajo ${pt.codigo}`}
+                      >
+                        <span>{pt.codigo}</span>
+                        <span className="text-[9px]">↗</span>
+                      </button>
+                      {pt.esPrioritario && (
+                        <span className="block text-[9px] font-sans font-extrabold text-amber-600">
+                          ⭐ Prioritario
+                        </span>
+                      )}
                       <span className="block text-[10px] font-sans text-slate-400">
                         {pt.fecha}
                       </span>

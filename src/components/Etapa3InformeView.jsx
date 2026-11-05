@@ -428,7 +428,7 @@ export default function Etapa3InformeView({
                 </div>
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
                   <p className="font-extrabold text-teal-900">
-                    b) Reconocimiento de Ingresos por Servicios Convergentes ($8.328.814M), Corte B2B Personal Tech y Previsión NIIF 9
+                    b) Reconocimiento de Ventas Convergentes ($8.328.814M), Corte B2B Personal Tech y Previsión NIIF 9
                   </p>
                   <p className="text-slate-600 mt-1">
                     <strong>Respuesta de auditoría:</strong> Evaluamos los Controles Generales de TI (CGTI) y las interfaces entre los facturadores heredados y el ERP SAP, ejecutamos pruebas globales analíticas (Parque × ARPU), pruebas de corte sobre contratos B2B en diciembre y reprocesamos el 100% del padrón de morosidad superior a 180 días mediante TAACs.
@@ -478,7 +478,7 @@ export default function Etapa3InformeView({
                   Fecha de Emisión del Informe: 20 de febrero de 2026
                 </p>
                 <p className="text-slate-500 mt-0.5">
-                  Papeles de Trabajo referenciados: PT-A, PT-B, PT-C, PT-D y PT-E
+                  Papeles de Trabajo referenciados: PT-A, PT-B, PT-C, PT-D, PT-E y PT-F
                 </p>
               </div>
               <div className="text-right border-t-2 border-slate-800 pt-2 px-4">
