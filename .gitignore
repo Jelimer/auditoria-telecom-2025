@@ -10,6 +10,9 @@ dist-ssr/
 .env.local
 .env.*.local
 
+# Local reference documents (PDFs/Word for local AI context)
+docs/
+
 # Vercel
 .vercel
 

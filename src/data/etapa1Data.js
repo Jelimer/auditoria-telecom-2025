@@ -458,29 +458,79 @@ export const cuestionariosControlInterno = [
 ];
 
 export const materialidadData = {
-  moneda: "Millones de Pesos constantes al 31/12/2025",
+  moneda: "Millones de Pesos constantes al 31/12/2025 (NIC 29)",
   activoTotal: 16622552,
-  criterioBase: "1,00% sobre el Activo Total Consolidado ($16.622.552 millones), dado que Telecom Argentina S.A. es una empresa capital-intensiva en infraestructura de red (FTTH, 5G, 16 Data Centers) y licencias de espectro.",
+  criterioBase: "Se adopta el Activo Total Consolidado ($16.622.552M) como base de referencia (benchmark según Slosse / NIA 320) porque Telecom es una industria capital-intensiva (88,97% Activo No Corriente) y su resultado 2025 dio pérdida (-$191.736M antes de IG).",
   materialidadGlobal: {
-    sigla: "PM / MG",
-    nombre: "Materialidad Global de los Estados Contables (Planeación)",
+    sigla: "Significatividad Global (NIA 320 / RT 37)",
+    nombre: "Significatividad (Importancia Relativa) para los EECC en su Conjunto",
     importe: 166225,
-    formula: "1,00% × $16.622.552M",
-    explicacion: "Umbral máximo de distorsiones acumuladas a partir del cual las decisiones económicas de los usuarios de los EECC (accionistas, CNV, SEC, acreedores de ONs) podrían verse afectadas."
+    formula: "1,00% s/ Activo ($16.622.552M)",
+    explicacion: "Techo máximo de incorrecciones acumuladas para el Balance en su conjunto (Carlos Slosse / RT 37 / NIA 320). Superar este umbral sin ajuste modifica la opinión del auditor.",
+    fundamentoTeorico: {
+      titulo: "Significatividad Global de Planeación — ¿De dónde sale el 1% y cómo incide en el Informe?",
+      normativa: "Carlos A. Slosse (Cap. Planificación y Significatividad) • RT 37 (modif. RT 53) • NIA 320 (Párr. 10 y Guía A4-A8)",
+      puntos: [
+        {
+          subtitulo: "1. ¿Por qué no usamos el Resultado del Ejercicio y sí el Activo Total?",
+          texto: "Según la bibliografía (Slosse, Fowler Newton y NIA 320), en empresas con ganancias estables se suele tomar entre el 5% y el 10% del Resultado antes de Impuestos. Pero en 2025 Telecom arrojó una pérdida antes de impuestos de $(191.736) millones (frente a una ganancia de +$1.897.467 millones en 2024 por efectos cambiarios/RECPAM). Cuando el resultado es volátil o negativo, la doctrina prohíbe usarlo como base y exige optar por una base patrimonial estable: el Activo Total o las Ventas."
+        },
+        {
+          subtitulo: "2. ¿Por qué el 1% del Activo Total ($166.225 millones)?",
+          texto: "En empresas capital-intensivas (donde el 88,97% del Activo son redes FTTH/5G, Data Centers, Espectro y Llaves de Negocio), las tablas bibliográficas de referencia fijan un rango de entre el 0,5% y el 2% del Activo Total. Adoptamos el punto medio técnico del 1,00% ($16.622.552M × 1% = $166.225M). Como validación cruzada, si tomáramos el tope del 2% sobre las Ventas ($8.328.814M), arrojaría $166.576M, confirmando la consistencia absoluta del umbral."
+        },
+        {
+          subtitulo: "3. ¿Cómo incide en el Tipo de Informe del Auditor (RT 37) si la Dirección NO corrige los errores?",
+          texto: "• Si los errores no corregidos son menores al umbral mínimo ($8.311M): Opinión Favorable SIN Salvedades (Limpia).\n• Si los errores no corregidos superan el umbral y son significativos (ej. nuestros ajustes AJ-01 a AJ-04 por $78.230M) pero están acotados a rubros puntuales sin invalidar todo el balance: Opinión Favorable CON Salvedades («Excepto por...»).\n• Si la suma de errores no corregidos supera ampliamente la Significatividad Global ($166.225M) y su efecto es GENERALIZADO en todo el balance: Opinión Adversa (Desfavorable)."
+        }
+      ]
+    }
   },
   errorTolerable: {
-    sigla: "ET / MP",
-    nombre: "Error Tolerable (Materialidad de Ejecución / Desempeño)",
+    sigla: "Error Tolerable — ET (Slosse / NIA 320)",
+    nombre: "Significatividad de Ejecución / Error Tolerable por Rubro",
     importe: 83112,
-    formula: "50,00% × PM ($166.225M)",
-    explicacion: "Se aplica un recorte conservador del 50% sobre la PM debido a que el Riesgo de Control en los 5 componentes evaluados resultó ALTO (Nivel de Confianza Bajo entre 15,38% y 23,33%)."
+    formula: "50,00% de la Significatividad ($166.225M)",
+    explicacion: "Tope máximo de desvío tolerable dentro de un rubro individual. Se fija en el límite estricto del 50% porque el Riesgo de Control en los 5 componentes dio ALTO.",
+    fundamentoTeorico: {
+      titulo: "Error Tolerable (ET) / Significatividad de Ejecución — ¿Por qué se aplica el 50%?",
+      normativa: "Carlos A. Slosse (Riesgo y Muestreo) • NIA 320 (Párr. 9 y 11: Performance Materiality) • RT 37",
+      puntos: [
+        {
+          subtitulo: "1. ¿Por qué no usamos directamente los $166.225M en cada rubro?",
+          texto: "Porque los $166.225M son el techo para TODO el Balance sumado. Si permitiéramos un error de $120.000M en Bienes de Uso y otro de $110.000M en Créditos por Ventas, cada uno por separado sería menor a $166.225M, pero sumados darían $230.000M y perforarían la Significatividad Global. Además, como auditamos por muestreo, necesitamos un margen de seguridad para cubrir posibles errores en las partidas no muestreadas."
+        },
+        {
+          subtitulo: "2. ¿De dónde sale el porcentaje del 50% (vs. 75%)?",
+          texto: "En la bibliografía de auditoría, el Error Tolerable se fija entre el 50% y el 75% de la Significatividad Global según la calidad del Control Interno:\n• Si el Control Interno es FUERTE (Riesgo de Control Bajo): se usa el 75%.\n• Si el Control Interno es DÉBIL (Riesgo de Control Alto): se usa el 50%.\nComo en Telecom S.A. los 5 cuestionarios (CCI) arrojaron Nivel de Confianza BAJO (15% a 23%) y Riesgo de Control ALTO, la doctrina nos obliga a usar el corte más prudente y exigente del 50% ($83.112M), lo que nos lleva a tomar muestras más amplias en la Etapa 2."
+        }
+      ]
+    }
   },
   montoMinimoAjuste: {
-    sigla: "PAE / SAD",
-    nombre: "Monto Mínimo de Reclasificación / Ajustes (Umbral de Trivialidad)",
+    sigla: "Umbral Mínimo (NIA 450 / Planilla Slosse)",
+    nombre: "Monto Mínimo para Acumular Ajustes (Incorrecciones Claramente Insignificantes)",
     importe: 8311,
-    formula: "5,00% × ET ($83.112M)",
-    explicacion: "Todo desvío o diferencia de auditoría que supere los $8.311 millones debe acumularse obligatoriamente en la Planilla de Ajustes y Reclasificaciones Propuestos (PAE)."
+    formula: "5,00% de la Significatividad ($166.225M)",
+    explicacion: "Filtro de desvíos claramente insignificantes (NIA 450). Todo hallazgo mayor a $8.311M se vuelca obligatoriamente en la Planilla de Diferencias de Auditoría / Ajustes Propuestos.",
+    fundamentoTeorico: {
+      titulo: "Umbral Mínimo de Ajustes ($8.311M) y Planilla de Diferencias de Auditoría — ¿Por qué no se exige ajustar los $3.120M?",
+      normativa: "Carlos A. Slosse (Planilla de Diferencias de Auditoría / PAE) • NIA 450 (Párr. 5 y A2-A3: Claramente Insignificante) • RT 37",
+      puntos: [
+        {
+          subtitulo: "1. ¿Qué es este 5% ($8.311 millones) según la NIA 450 y Slosse?",
+          texto: "La bibliografía establece entre un 3% y un 5% de la Significatividad Global como umbral de partidas «claramente insignificantes o triviales». Todo desvío que supere los $8.311M (como nuestros ajustes AJ-01 por $28.340M, AJ-02 por $18.800M, AJ-03 por $19.850M y AJ-04 por $11.240M) debe proponerse formalmente como asiento de ajuste."
+        },
+        {
+          subtitulo: "2. ¿Por qué el desvío de $3.120M en Préstamos (PT-C3) no obliga a modificar el Balance ni da Salvedad?",
+          texto: "Aunque en la vida diaria $3.120 millones parezca mucho dinero, dentro de los Estados Contables Consolidados de Telecom S.A. representa apenas el 0,018% del Activo Total ($16.622.552M) y el 0,057% del rubro Préstamos ($5.436.615M). Proporcionalmente, equivale a $180 pesos en un patrimonio de $1.000.000. Ningún inversor o banco cambiaría su decisión por un 0,018%."
+        },
+        {
+          subtitulo: "3. ¿Se ignora por completo o se informa a la empresa?",
+          texto: "No se oculta: se deja expuesto en nuestros papeles de trabajo (partida PAE-NC-01) y se incluye en la Carta de Recomendaciones a la Gerencia para que depuren la planilla de Tasa Efectiva (TIE) en el próximo período. Pero por principio de economicidad (Slosse), si el Directorio decide no reabrir el cierre consolidado de 4 estados contables e Impuesto Diferido por ese 0,018%, el auditor emite igualmente Opinión Favorable Limpia porque el balance ya es razonable en todos sus aspectos significativos."
+        }
+      ]
+    }
   }
 };
 
