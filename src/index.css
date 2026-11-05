@@ -2,7 +2,7 @@
 
 @layer base {
   html {
-    font-size: 17px; /* Aumento proporcional de 1 punto en toda la escala tipográfica de la web */
+    font-size: 17.5px; /* Aumento proporcional de escala tipográfica y espaciados generales */
   }
   body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -11,6 +11,12 @@
     font-family: 'JetBrains Mono', monospace;
   }
 }
+
+/* Escala tipográfica efectiva: eleva las clases fijas de píxeles pequeños para que el aumento sea 100% visible y cómodo */
+.text-\[8px\] { font-size: 9.5px !important; }
+.text-\[9px\] { font-size: 11px !important; }
+.text-\[10px\] { font-size: 12px !important; }
+.text-\[11px\] { font-size: 13px !important; }
 
 /* Custom subtle scrollbars */
 ::-webkit-scrollbar {
