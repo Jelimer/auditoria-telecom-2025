@@ -223,6 +223,7 @@ export const conocimientoEnte = {
 export const cuestionariosControlInterno = [
   {
     id: "cci-1",
+    rubroPrincipal: "Bienes de Uso (PT-A)",
     codigo: "CCI-01",
     componente: "Archivo de la Documentación Sustentable",
     periodo: "Del 01 de enero al 31 de diciembre del 2025",
@@ -270,6 +271,7 @@ export const cuestionariosControlInterno = [
   },
   {
     id: "cci-2",
+    rubroPrincipal: "Créditos por Ventas (PT-B)",
     codigo: "CCI-02",
     componente: "Evaluación del Sistema Contable",
     periodo: "Del 01 de enero al 31 de diciembre del 2025",
@@ -316,6 +318,7 @@ export const cuestionariosControlInterno = [
   },
   {
     id: "cci-3",
+    rubroPrincipal: "Presupuestos / Bienes de Uso (CAPEX)",
     codigo: "CCI-03",
     componente: "Sistema de Presupuestos",
     periodo: "Del 01 de enero al 31 de diciembre del 2025",
@@ -364,6 +367,7 @@ export const cuestionariosControlInterno = [
   },
   {
     id: "cci-4",
+    rubroPrincipal: "Pasivos Laborales / Operativo",
     codigo: "CCI-04",
     componente: "Sistema Operativo",
     periodo: "Del 01 de enero al 31 de diciembre del 2025",
@@ -415,6 +419,7 @@ export const cuestionariosControlInterno = [
   },
   {
     id: "cci-5",
+    rubroPrincipal: "Activos Intangibles y TIC (PT-E)",
     codigo: "CCI-05",
     componente: "Sistema Tecnológico",
     periodo: "Del 01 de enero al 31 de diciembre del 2025",

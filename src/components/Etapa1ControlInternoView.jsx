@@ -164,7 +164,16 @@ export default function Etapa1ControlInternoView({
                     RC: {cci.rcLabel}
                   </span>
                 </div>
-                <p className="text-xs font-bold mt-2 line-clamp-2">{cci.componente}</p>
+                <div className="mt-1.5">
+                  <span
+                    className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded inline-block ${
+                      isSelected ? 'bg-white/20 text-teal-100' : 'bg-teal-100 text-teal-900'
+                    }`}
+                  >
+                    Rubro: {cci.rubroPrincipal || (cci.id === 'cci-1' ? 'Bienes de Uso (PT-A)' : cci.id === 'cci-2' ? 'Créditos por Ventas (PT-B)' : cci.id === 'cci-3' ? 'Presupuesto' : cci.id === 'cci-4' ? 'Operativo' : 'Intangibles (PT-E)')}
+                  </span>
+                </div>
+                <p className="text-xs font-bold mt-1 line-clamp-2">{cci.componente}</p>
                 <div className="mt-2 pt-2 border-t border-current/10 flex items-center justify-between text-[11px]">
                   <span>NC: <strong>{cci.nc.toFixed(2)}%</strong></span>
                   <span>SI: {cci.positivas}/{cci.total}</span>
@@ -181,12 +190,20 @@ export default function Etapa1ControlInternoView({
         <div className="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
             <div>
-              <span className="text-xs font-extrabold uppercase text-teal-700">
-                {activeCCI.codigo} • {activeCCI.totalPreguntas} Preguntas Evaluadas
-              </span>
+              <div className="flex flex-wrap items-center gap-2 mb-1">
+                <span className="text-xs font-extrabold uppercase text-teal-700">
+                  {activeCCI.codigo} • {activeCCI.totalPreguntas} Preguntas Evaluadas
+                </span>
+                <span className="px-2.5 py-0.5 rounded-md text-xs font-extrabold bg-teal-800 text-white shadow-xs">
+                  Rubro: {activeCCI.rubroPrincipal || (activeCCI.id === 'cci-1' ? 'Bienes de Uso (PT-A)' : activeCCI.id === 'cci-2' ? 'Créditos por Ventas (PT-B)' : activeCCI.id === 'cci-3' ? 'Presupuestos / CAPEX' : activeCCI.id === 'cci-4' ? 'Pasivos Laborales / Operativo' : 'Activos Intangibles y TIC (PT-E)')}
+                </span>
+              </div>
               <h3 className="text-lg font-extrabold text-slate-900">
                 Componente: {activeCCI.componente}
               </h3>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Cuentas Afectadas: <strong className="text-slate-700">{activeCCI.cuentasAfectadas}</strong>
+              </p>
             </div>
 
             {/* Filtros rápidos (Todos / Solo Deficiencias NO / Solo SI) */}
@@ -306,9 +323,14 @@ export default function Etapa1ControlInternoView({
             </div>
 
             <div className="space-y-2 text-xs bg-slate-50 p-3.5 rounded-xl border border-slate-200">
-              <p className="font-bold text-slate-800 border-b border-slate-200 pb-1.5">
-                Datos Obtenidos ({activeCCI.componente}):
-              </p>
+              <div className="border-b border-slate-200 pb-1.5 flex flex-wrap items-center justify-between gap-1">
+                <p className="font-bold text-slate-800">
+                  Datos Obtenidos ({activeCCI.codigo}):
+                </p>
+                <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded bg-teal-100 text-teal-900">
+                  {activeCCI.rubroPrincipal || 'Rubro'}
+                </span>
+              </div>
               <div className="flex justify-between">
                 <span className="text-slate-600">Cantidad de Preguntas (C.P):</span>
                 <span className="font-mono font-bold text-slate-900">{activeCalc.total}</span>
