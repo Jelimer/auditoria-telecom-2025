@@ -93,3 +93,21 @@
    - Se utiliza **«Ventas»** (o «Ventas (Nota 24)») en reemplazo de «Ingresos por Servicios (Ventas Netas)».
 4. **Navegación e Hipervínculos Cruzados:**
    - Todas las referencias a Programas o Papeles de Trabajo (ej. `PROGRAMA B (PT-B)`, `PT-C4`, `PT-B2`, `AJ-01`) en tablas, textos analíticos y ratios son botones interactivos que navegan directamente a la cédula sumaria o analítica correspondiente en la Etapa 2 con resaltado visual.
+
+---
+
+## 6. Duración del Encargo (3 Meses / 12 Semanas) y Presupuesto de Honorarios (Noviembre 2026)
+1. **Duración Normalizada del Encargo:**
+   - **3 Meses / 12 Semanas corridas (Diciembre 2025 a Febrero 2026)**.
+   - **Fundamento Legal:** La Comisión Nacional de Valores (CNV) y la Ley General de Sociedades 19.550 fijan un plazo perentorio de presentación de balances auditados de **70 días corridos post-cierre** (vence entre el 10 y 12 de marzo). Un cronograma de 5 meses generaría incumplimiento normativo. Fecha de emisión del informe: **20 de febrero de 2026**.
+   - **Mes 1 (Diciembre 2025):** Planificación, Trabajo Interino, relevamiento de controles (CCI), inventario físico al 31/12 y circularizaciones preliminares.
+   - **Mes 2 (Enero 2026):** Ejecución sustantiva a fondo en campo, recepción de circularizaciones, corte B2B, recálculo de previsión NIIF 9 con TAACs.
+   - **Mes 3 (Febrero 2026):** Cierre final, Test de Deterioro NIC 36 Llave UGE Personal, hechos posteriores, discusión PAE con Directorio y dictamen.
+2. **Presupuesto de Tiempo y Costos (Aranceles CPCECABA Noviembre 2026 — Módulo $15.980):**
+   - **1 Socio / Auditor Firmante:** 120 horas × 7 mód. ($111.860/h) = **$13.423.200** (16,64% del total).
+   - **2 Auditores Senior (Grebe — Pisonero De Biase):** 400 horas × 5 mód. ($79.900/h) = **$31.960.000** (39,61% del total).
+   - **2 Auditores Junior / Asistentes:** 700 horas × 2,5 mód. ($39.950/h) = **$27.965.000** (34,66% del total).
+   - **Subtotal Horas Labor (1.220 hs):** **$73.348.200**.
+   - **Gastos Directos de Auditoría (10% out-of-pocket):** **$7.334.820** (licencias TAACs, traslados a nodos y circularizaciones postales).
+   - **HONORARIO TOTAL PROPUESTO:** **`$80.683.020`** (aprox. **USD 55.452** al TC BNA $1.455).
+   - **Razonabilidad:** Representa apenas el **0,00096% de las Ventas Consolidadas** ($8.328.814M) y el **0,00048% del Activo Total** ($16.622.552M). Prudentemente austero en comparación con los USD 1,5M a 2,5M que factura una Big Four real para Telecom en NYSE.

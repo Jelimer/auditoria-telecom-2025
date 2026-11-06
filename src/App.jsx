@@ -116,8 +116,9 @@ const NAV_ITEMS = [
       { id: 'sec-1c-materialidad', label: '1.4.A. Materialidad (PM, ET, PAE)', type: 'scroll' },
       { id: 'sec-1c-afirmaciones', label: '1.4.B. Afirmaciones (E, I, P, M, X)', type: 'scroll' },
       { id: 'sec-1c-rubros', label: '1.5.A. Rubros Críticos y Programas A-F', type: 'scroll' },
-      { id: 'sec-1c-cronograma', label: '1.5.B. Cronograma (3 Visitas)', type: 'scroll' },
-      { id: 'sec-1c-memorando-planificacion', label: '1.5.C. Memorando de Planificación', type: 'scroll' }
+      { id: 'sec-1c-cronograma', label: '1.5.B. Cronograma (3 Meses / 12 Sem.)', type: 'scroll' },
+      { id: 'sec-1c-presupuesto-honorarios', label: '1.5.C. Presupuesto Honorarios ($80M)', type: 'scroll' },
+      { id: 'sec-1c-memorando-planificacion', label: '1.5.D. Memorando de Planificación', type: 'scroll' }
     ]
   },
   {

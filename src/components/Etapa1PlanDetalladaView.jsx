@@ -15,6 +15,7 @@ import {
   materialidadData,
   rubrosSignificativos,
   cronogramaAuditoria,
+  presupuestoHonorarios,
   marcoTeoricoSlosse
 } from '../data/etapa1Data';
 
@@ -588,18 +589,27 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
         </div>
       )}
 
-      {/* CRONOGRAMA DE LOS PROCEDIMIENTOS (3 Momentos: Interino, Pre-Cierre, Cierre Final) */}
+      {/* CRONOGRAMA DE LOS PROCEDIMIENTOS (3 Meses / 12 Semanas: Diciembre 2025 a Febrero 2026) */}
       <div id="sec-1c-cronograma" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
-        <div className="flex items-center gap-2 pb-4 border-b border-slate-100 mb-5">
-          <Calendar className="w-5 h-5 text-teal-700" />
-          <div>
-            <h3 className="text-base font-extrabold text-slate-900">
-              3. Cronograma de los Procedimientos de Auditoría (Oportunidad de las Pruebas)
-            </h3>
-            <p className="text-xs text-slate-500">
-              Planificación temporal de las visitas de auditoría externa para el cierre del ejercicio 31/12/2025
-            </p>
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-5">
+          <div className="flex items-center gap-2">
+            <Calendar className="w-5 h-5 text-teal-700" />
+            <div>
+              <h3 className="text-base font-extrabold text-slate-900">
+                3. Cronograma de los Procedimientos de Auditoría (3 Meses / 12 Semanas)
+              </h3>
+              <p className="text-xs text-slate-500">
+                Planificación temporal concentrada en 12 semanas (Diciembre 2025 a Febrero 2026) conforme al plazo legal de la CNV (70 días post-cierre)
+              </p>
+            </div>
           </div>
+          <button
+            onClick={() => setModalTeorico(presupuestoHonorarios.fundamentosTeoricos.cronograma3Meses)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-extrabold transition-colors cursor-pointer"
+          >
+            <Lightbulb className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+            ¿Por qué el cronograma dura 3 meses y no 5 meses? (Normas CNV)
+          </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -617,7 +627,8 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                     {item.estado}
                   </span>
                 </div>
-                <h4 className="text-sm font-extrabold text-slate-900 mb-2">{item.fase}</h4>
+                <h4 className="text-sm font-extrabold text-slate-900 mb-1">{item.fase}</h4>
+                <p className="text-[11px] font-bold text-teal-800 mb-2">{item.semanas}</p>
                 <ul className="space-y-2 text-xs text-slate-600 leading-relaxed">
                   {item.tareas.map((t, j) => (
                     <li key={j} className="flex items-start gap-2">
@@ -635,6 +646,146 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
         </div>
       </div>
 
+      {/* PRESUPUESTO DE TIEMPO Y HONORARIOS PROFESIONALES (Carlos Slosse / Aranceles CPCECABA Noviembre 2026) */}
+      <div id="sec-1c-presupuesto-honorarios" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-5">
+          <div className="flex items-center gap-2.5">
+            <Calculator className="w-5 h-5 text-teal-700 shrink-0" />
+            <div>
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-teal-700 block">
+                Etapa 1.5.C — Presupuesto de Honorarios y Recursos (Slosse / NIA 300)
+              </span>
+              <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
+                4. Presupuesto de Tiempo y Costos de Auditoría (Honorarios Profesionales — Noviembre 2026)
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Valores vigentes a <strong>Noviembre de 2026</strong> • Módulo Oficial CPCECABA: <strong>$15.980</strong> • TC Cierre BNA: <strong>$1.455 / USD</strong>
+              </p>
+            </div>
+          </div>
+          <span className="px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-extrabold">
+            12 Semanas (3 Meses) • 1.220 Horas
+          </span>
+        </div>
+
+        {/* Botones de Consulta Teórica (Las 3 Lamparitas Didácticas solicitadas) */}
+        <div className="flex flex-wrap items-center gap-2 mb-5">
+          <button
+            onClick={() => setModalTeorico(presupuestoHonorarios.fundamentosTeoricos.modulosCPCECABA)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-bold transition-colors cursor-pointer"
+          >
+            <Lightbulb className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+            1. ¿Qué son los Módulos del CPCECABA y cómo se calcula el valor hora?
+          </button>
+          <button
+            onClick={() => setModalTeorico(presupuestoHonorarios.fundamentosTeoricos.presupuestoTiempo)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-bold transition-colors cursor-pointer"
+          >
+            <Lightbulb className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+            2. ¿De dónde salen las 1.220 horas? (Presupuesto de Tiempo)
+          </button>
+          <button
+            onClick={() => setModalTeorico(presupuestoHonorarios.fundamentosTeoricos.rentabilidadYSocio)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-bold transition-colors cursor-pointer"
+          >
+            <Lightbulb className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+            3. ¿El Socio gana menos? y ¿Por qué $80M no es excesivo?
+          </button>
+        </div>
+
+        {/* Tarjetas KPI de Síntesis */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+          <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-50">
+            <span className="text-[11px] font-bold text-slate-500 uppercase block">Horas Totales Equipo</span>
+            <span className="text-xl font-extrabold text-slate-900 font-mono mt-0.5 block">{presupuestoHonorarios.totalHoras} hs</span>
+            <span className="text-[10px] text-slate-500">12 semanas (5 profesionales)</span>
+          </div>
+          <div className="p-3.5 rounded-xl border border-teal-200 bg-teal-50/50">
+            <span className="text-[11px] font-bold text-teal-700 uppercase block">Subtotal Horas Labor</span>
+            <span className="text-xl font-extrabold text-teal-950 font-mono mt-0.5 block">${(presupuestoHonorarios.subtotalHorasPesos / 1000000).toFixed(2)} M</span>
+            <span className="text-[10px] text-teal-700">${presupuestoHonorarios.subtotalHorasPesos.toLocaleString('es-AR')}</span>
+          </div>
+          <div className="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/60">
+            <span className="text-[11px] font-bold text-emerald-800 uppercase block">Honorario Total c/Gastos</span>
+            <span className="text-xl font-extrabold text-emerald-950 font-mono mt-0.5 block">${(presupuestoHonorarios.honorarioTotalPesos / 1000000).toFixed(2)} M</span>
+            <span className="text-[10px] text-emerald-700">Incluye 10% gastos directos</span>
+          </div>
+          <div className="p-3.5 rounded-xl border border-blue-200 bg-blue-50/50">
+            <span className="text-[11px] font-bold text-blue-700 uppercase block">Equivalente USD Oficial</span>
+            <span className="text-xl font-extrabold text-blue-950 font-mono mt-0.5 block">USD {presupuestoHonorarios.honorarioTotalUSD.toLocaleString('es-AR')}</span>
+            <span className="text-[10px] text-blue-700">{presupuestoHonorarios.relacionSobreVentas}</span>
+          </div>
+        </div>
+
+        {/* Tabla Detallada por Categoría de Auditor */}
+        <div className="overflow-x-auto rounded-xl border border-slate-200">
+          <table className="w-full text-left border-collapse text-xs">
+            <thead className="bg-slate-100 text-slate-700 font-bold uppercase border-b border-slate-200">
+              <tr>
+                <th className="py-3 px-3">Categoría y Rol</th>
+                <th className="py-3 px-2 text-center">Cant.</th>
+                <th className="py-3 px-2 text-center">Módulos/h</th>
+                <th className="py-3 px-3 text-right">Valor Hora ($)</th>
+                <th className="py-3 px-3 text-center">Dedicación Semanal</th>
+                <th className="py-3 px-3 text-center">Horas Totales</th>
+                <th className="py-3 px-3 text-right">Subtotal ($)</th>
+                <th className="py-3 px-2 text-center">% Incid.</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200 font-medium">
+              {presupuestoHonorarios.categorias.map((cat, idx) => (
+                <tr key={idx} className="hover:bg-slate-50">
+                  <td className="py-3 px-3">
+                    <strong className="text-slate-900 block">{cat.categoria}</strong>
+                    <span className="text-[11px] text-slate-500 leading-tight block mt-0.5">{cat.rol}</span>
+                  </td>
+                  <td className="py-3 px-2 text-center font-bold text-slate-700">{cat.cantidadMiembros}</td>
+                  <td className="py-3 px-2 text-center font-mono font-bold text-teal-700">{cat.modulosHora.toFixed(1)}</td>
+                  <td className="py-3 px-3 text-right font-mono font-bold text-slate-800">${cat.valorHora.toLocaleString('es-AR')}</td>
+                  <td className="py-3 px-3 text-center text-slate-600">{cat.horasSemanalesPorMiembro}</td>
+                  <td className="py-3 px-3 text-center font-mono font-bold text-slate-900">{cat.horasTotales} hs</td>
+                  <td className="py-3 px-3 text-right font-mono font-bold text-slate-950">${cat.subtotalPesos.toLocaleString('es-AR')}</td>
+                  <td className="py-3 px-2 text-center font-mono text-slate-600">{cat.porcentajeDelTotal.toFixed(1)}%</td>
+                </tr>
+              ))}
+              <tr className="bg-slate-50/80 font-bold border-t border-slate-200">
+                <td colSpan={5} className="py-2.5 px-3 text-right text-slate-700 uppercase text-[11px]">Subtotal Horas Profesionales (1.220 hs):</td>
+                <td className="py-2.5 px-3 text-center font-mono text-slate-900">{presupuestoHonorarios.totalHoras} hs</td>
+                <td className="py-2.5 px-3 text-right font-mono text-teal-900 text-sm">${presupuestoHonorarios.subtotalHorasPesos.toLocaleString('es-AR')}</td>
+                <td className="py-2.5 px-2 text-center font-mono text-slate-600">90,9%</td>
+              </tr>
+              <tr className="bg-slate-50/80 font-medium">
+                <td colSpan={6} className="py-2 px-3 text-slate-600 text-[11px]">
+                  <strong>+ Gastos Directos de Auditoría (10% out-of-pocket):</strong> {presupuestoHonorarios.gastosDirectosConcepto}
+                </td>
+                <td className="py-2 px-3 text-right font-mono font-bold text-slate-800">${presupuestoHonorarios.gastosDirectosPesos.toLocaleString('es-AR')}</td>
+                <td className="py-2 px-2 text-center font-mono text-slate-600">9,1%</td>
+              </tr>
+              <tr className="bg-teal-900 text-white font-extrabold text-xs">
+                <td colSpan={6} className="py-3 px-3 uppercase tracking-wider text-right text-teal-100">
+                  HONORARIO TOTAL PROPUESTO (CARLOS A. SLOSSE / CPCECABA NOV. 2026):
+                </td>
+                <td className="py-3 px-3 text-right font-mono text-base text-lime-300">
+                  ${presupuestoHonorarios.honorarioTotalPesos.toLocaleString('es-AR')}
+                </td>
+                <td className="py-3 px-2 text-center font-mono text-teal-200">100%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        {/* Nota Técnica de Escala y Coherencia para la Cátedra */}
+        <div className="mt-4 p-3.5 rounded-xl bg-slate-900 text-white border border-teal-500/30 text-xs leading-relaxed space-y-1.5">
+          <div className="flex items-center gap-2 text-lime-400 font-extrabold text-[11px] uppercase tracking-wide">
+            <CheckCircle2 className="w-3.5 h-3.5" />
+            Coherencia Económica y Arancelaria frente a la Escala de Telecom Argentina S.A.
+          </div>
+          <p className="text-slate-200">
+            Telecom Argentina S.A. registra un <strong>Activo Total de $16,6 billones</strong> ($16.622.552M) y <strong>Ventas por $8,3 billones</strong> ($8.328.814M). El honorario integral de <strong>$80.683.020 (USD ~55.450)</strong> representa apenas el <strong>0,00096% de la facturación</strong>. En la práctica real, firmas internacionales como PwC perciben entre USD 1,5 y 2,5 millones por una cotizante en NYSE; para este Trabajo Práctico de cátedra, presupuestar $80M con base en las tarifas oficiales del CPCECABA demuestra rigurosidad técnica, realismo profesional y una justificación matemática inexpugnable.
+          </p>
+        </div>
+      </div>
+
       {/* MEMORANDO DE PLANIFICACIÓN DE AUDITORÍA (Documento Formal de Cierre de la Etapa 1 según Carlos Slosse) */}
       <div id="sec-1c-memorando-planificacion" className="bg-white rounded-2xl border border-teal-200 p-6 shadow-xs scroll-mt-20">
         <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-4">
@@ -643,7 +794,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
               DOCUMENTO DE CIERRE DE LA ETAPA 1 — MEMORANDO DE PLANIFICACIÓN (CARLOS SLOSSE)
             </span>
             <h3 className="text-lg font-extrabold text-slate-900 mt-2">
-              4. Memorando de Planificación Estratégica y Detallada (Aprobado el 28/10/2025)
+              5. Memorando de Planificación Estratégica y Detallada (Aprobado el 28/10/2025)
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
               Nota Metodológica (Slosse): Este <strong>Memorando de Planificación</strong> cierra la Etapa 1 antes de iniciar las pruebas de campo (no confundir con el <em>Memorando de Conclusión y Revisión Final</em> de la Etapa 3 que resume los resultados obtenidos tras la ejecución).
@@ -686,10 +837,10 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
 
           <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
             <h4 className="font-extrabold text-teal-900 uppercase">
-              IV. Asignación de Recursos y Cronograma
+              IV. Asignación de Recursos, Presupuesto y Cronograma
             </h4>
             <p className="text-slate-700 leading-relaxed">
-              Encargados: <strong>Grebe — Pisonero De Biase (U.C.P.)</strong> con asistencia de especialistas en Auditoría de Sistemas (CGTI / SAP) y Valuaciones Financieras (WACC / Test Deterioro UGE Personal). Ejecución en 3 visitas: Interina (Oct-Nov 2025), Pre-Cierre (Dic 2025) y Cierre Final (Ene-Feb 2026).
+              Encargados: <strong>Grebe — Pisonero De Biase (U.C.P.)</strong> con asistencia de 2 auditores Junior y dirección de Socio Firmante. Total presupuestado: <strong>1.220 horas</strong> profesionales por un honorario integral de <strong>$80.683.020</strong> (Módulo CPCECABA Nov. 2026: $15.980). Cronograma intensivo de <strong>3 meses (12 semanas: Diciembre 2025 a Febrero 2026)</strong> para cumplir con la presentación ante la CNV (plazo legal perentorio de 70 días) con dictamen final emitido el 20/02/2026.
             </p>
           </div>
         </div>

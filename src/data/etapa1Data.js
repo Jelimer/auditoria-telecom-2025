@@ -972,37 +972,157 @@ export const rubrosSignificativos = [
 
 export const cronogramaAuditoria = [
   {
-    fase: "Trabajo Interino",
-    periodo: "Octubre - Noviembre 2025",
-    etapaVinculada: "Etapa 1 y 2 (Inicial)",
-    estado: "Completado",
-    tareas: [
-      "Pruebas de controles generales de TI (CGTI) e interfaces informáticas (SAP vs. sistemas heredados)",
-      "Inspección física de Bienes de Uso (nodos, sitios 5G y Data Centers en AMBA e interior)",
-      "Verificación de títulos de propiedad (RPI), marcas (INPI) y licencias legalizadas (ENACOM)"
-    ]
-  },
-  {
-    fase: "Pre-Cierre",
+    fase: "Mes 1: Planificación, Trabajo Interino y Pre-Cierre",
     periodo: "Diciembre 2025",
-    etapaVinculada: "Etapa 2 (Ejecución)",
-    estado: "Completado",
+    semanas: "Semanas 1 a 4 (4 semanas de trabajo)",
+    etapaVinculada: "Etapa 1 (Planificación) y Etapa 2 (Inicio)",
+    estado: "Ejecutado",
     tareas: [
+      "Pruebas de controles generales de TI (CGTI) e interfaces informáticas (SAP vs. sistemas heredados).",
+      "Inspección física de Bienes de Uso (nodos, sitios 5G y Data Centers en AMBA e interior).",
+      "Verificación de títulos de propiedad (RPI), marcas (INPI) y licencias legalizadas (ENACOM).",
       "Envío de circularización externa al 100% de entidades financieras, fiduciarios y Caja de Valores S.A.",
-      "Envío de circularización positiva a muestra estratificada de clientes corporativos B2B (Personal Tech)",
-      "Pruebas de corte de documentos preliminares y relevamiento de siniestros de red"
+      "Envío de circularización positiva a muestra estratificada de clientes corporativos B2B (Personal Tech).",
+      "Presencia y observación en el inventario físico anual de Bienes de Cambio y Red al 31/12/2025."
     ]
   },
   {
-    fase: "Cierre Final e Informe",
-    periodo: "Enero - Febrero 2026",
-    etapaVinculada: "Etapa 2 (Final) y Etapa 3 (Conclusión)",
-    estado: "En Cierre Final",
+    fase: "Mes 2: Ejecución Plena y Trabajo de Campo",
+    periodo: "Enero 2026",
+    semanas: "Semanas 5 a 8 (4 semanas de trabajo)",
+    etapaVinculada: "Etapa 2: Ejecución (Trabajo de Campo)",
+    estado: "Ejecutado",
     tareas: [
-      "Procedimientos alternativos de cobros posteriores sobre circularización B2B y B2C",
-      "Prueba de pasivos no registrados y corte definitivo de facturación (15/12/2025 al 15/01/2026)",
-      "Recálculo de valuación de deuda en moneda extranjera (TC BNA $/US$ 1.455,00) y depreciaciones/amortizaciones",
-      "Evaluación del Test de Deterioro de Llave de Negocio (UGE Redes Personal $12.774.695M) y emisión del Informe Final"
+      "Recepción y control de circularizaciones de bancos y clientes B2B; aplicación de pruebas alternativas.",
+      "Procedimientos alternativos de cobros posteriores en extractos bancarios de enero 2026.",
+      "Prueba de corte de facturación definitiva (15/12/2025 al 15/01/2026) y pasivos no registrados.",
+      "Recálculo independiente con TAACs de la Previsión NIIF 9 sobre el padrón masivo de deudores.",
+      "Recálculo de valuación de deuda en moneda extranjera (TC BNA $/US$ 1.455,00) y amortizaciones NIC 16."
+    ]
+  },
+  {
+    fase: "Mes 3: Cierre Final, Conclusión y Dictamen",
+    periodo: "Febrero 2026",
+    semanas: "Semanas 9 a 12 (4 semanas de trabajo)",
+    etapaVinculada: "Etapa 2 (Final) y Etapa 3 (Conclusión)",
+    estado: "En Cierre Final (Dictamen 20/02/2026)",
+    tareas: [
+      "Evaluación del Test de Deterioro de Llave de Negocio (UGE Redes Personal $12.774.695M bajo NIC 36).",
+      "Revisión de Hechos Posteriores al cierre (NIC 10) y confirmación de contingencias legales.",
+      "Discusión y evaluación de la Planilla de Ajustes Propuestos (PAE) frente a la Materialidad Global.",
+      "Obtención de la Carta de Representación de la Dirección (Carta de Gerencia).",
+      "Emisión de la Carta de Recomendaciones de Control Interno y del Informe del Auditor Independiente (20/02/2026)."
     ]
   }
 ];
+
+export const presupuestoHonorarios = {
+  fechaValuacion: "Noviembre 2026",
+  valorModuloCPCECABA: 15980,
+  normativaArancelaria: "CPCECABA — Honorarios Mínimos Sugeridos (HMS) por Locación de Servicios Profesionales por Hora",
+  tipoCambioCierreBNA: 1455,
+  duracionMeses: 3,
+  duracionSemanas: 12,
+  categorias: [
+    {
+      categoria: "Auditor Junior / Asistente",
+      rol: "Tareas operativas, cotejo de comprobantes (vouching), arqueos, circularizaciones, pruebas matemáticas y relevamiento físico de nodos.",
+      cantidadMiembros: 2,
+      modulosHora: 2.5,
+      valorHora: 39950,
+      horasTotales: 700,
+      horasSemanalesPorMiembro: "29 hs/sem c/u (12 semanas)",
+      subtotalPesos: 27965000,
+      porcentajeDelTotal: 34.66
+    },
+    {
+      categoria: "Auditor Senior / Encargado",
+      rol: "Grebe — Pisonero De Biase: Planificación detallada, pruebas complejas de NIIF 9, NIIF 3 (adquisición TMA), corte B2B, WACC y supervisión de campo.",
+      cantidadMiembros: 2,
+      modulosHora: 5.0,
+      valorHora: 79900,
+      horasTotales: 400,
+      horasSemanalesPorMiembro: "17 hs/sem c/u (12 semanas)",
+      subtotalPesos: 31960000,
+      porcentajeDelTotal: 39.61
+    },
+    {
+      categoria: "Socio / Auditor Firmante",
+      rol: "Dirección estratégica, aprobación de programas, revisión de papeles críticos, discusión de ajustes (PAE) con el Directorio y firma del dictamen.",
+      cantidadMiembros: 1,
+      modulosHora: 7.0,
+      valorHora: 111860,
+      horasTotales: 120,
+      horasSemanalesPorMiembro: "10 hs/sem (12 semanas)",
+      subtotalPesos: 13423200,
+      porcentajeDelTotal: 16.64
+    }
+  ],
+  totalHoras: 1220,
+  subtotalHorasPesos: 73348200,
+  porcentajeGastosDirectos: 10,
+  gastosDirectosPesos: 7334820,
+  gastosDirectosConcepto: "Licencias de software de auditoría asistida por computador (TAACs), traslados a Data Centers/nodos y circularizaciones postales/notariales.",
+  honorarioTotalPesos: 80683020,
+  honorarioTotalUSD: 55452,
+  relacionSobreVentas: "0,00096% sobre las Ventas Consolidadas ($8.328.814M)",
+  relacionSobreActivo: "0,00048% sobre el Activo Total ($16.622.552M)",
+  fundamentosTeoricos: {
+    cronograma3Meses: {
+      titulo: "¿Por qué el Cronograma de Auditoría dura 3 meses y no 5 meses?",
+      normativa: "Normas CNV (Título IV, Cap. III) • Ley General de Sociedades N° 19.550 (Art. 234) • NIA 300",
+      puntos: [
+        {
+          subtitulo: "1. El límite legal perentorio de la CNV (70 días corridos post-cierre)",
+          texto: "Telecom Argentina S.A. cotiza en la Comisión Nacional de Valores (CNV) y en la SEC de EE.UU. (NYSE). La reglamentación bursátil exige de manera obligatoria e improrrogable que los Estados Financieros anuales auditados se presenten dentro de los 70 días corridos posteriores al cierre del ejercicio (plazo que vence entre el 10 y 12 de marzo). Si el equipo auditor planificara un trabajo de 5 meses continuos (ej. extendiéndose hasta mayo), Telecom caería en incumplimiento regulatorio con suspensión de cotización."
+        },
+        {
+          subtitulo: "2. La concentración real de las 12 semanas (3 meses)",
+          texto: "Una auditoría de cierre anual se concentra de manera óptima e intensiva en 3 meses corridos (Diciembre 2025 a Febrero 2026):\n• Mes 1 (Diciembre): Pre-cierre, relevamiento de controles, inventarios físicos al 31/12 y circularizaciones preliminares.\n• Mes 2 (Enero): Ejecución sustantiva a fondo en campo, recepción de confirmaciones y corte de operaciones.\n• Mes 3 (Febrero): Conclusión, hechos posteriores, discusión de ajustes y emisión del Informe del Auditor al 20/02/2026."
+        }
+      ]
+    },
+    modulosCPCECABA: {
+      titulo: "¿Qué son los Módulos del CPCECABA y cómo se calcula el valor hora?",
+      normativa: "CPCECABA — Tabla de Honorarios Mínimos Sugeridos (Resolución Mesa Directiva Noviembre 2026)",
+      puntos: [
+        {
+          subtitulo: "1. ¿Qué es un Módulo profesional?",
+          texto: "Debido a la inflación histórica en Argentina, los Consejos Profesionales (CPCECABA / FACPCE) no fijan honorarios en pesos fijos, sino en una unidad abstracta llamada «Módulo». El Consejo actualiza mes a mes el valor del módulo en base al IPC del INDEC. A Noviembre de 2026, 1 Módulo equivale oficialmente a $15.980."
+        },
+        {
+          subtitulo: "2. Escala arancelaria oficial por nivel de valor agregado",
+          texto: "La tabla arancelaria oficial establece los siguientes módulos por hora de labor según la responsabilidad legal y pericia técnica:\n• Socio / Auditor Firmante: 7 módulos/hora ($15.980 × 7 = $111.860 / hora). Asume la responsabilidad penal/civil y firma el dictamen.\n• Senior / Encargado: 5 módulos/hora ($15.980 × 5 = $79.900 / hora). Diseña procedimientos complejos y supervisa la labor de campo.\n• Junior / Asistente: 2,5 módulos/hora ($15.980 × 2,5 = $39.950 / hora). Ejecuta pruebas de cumplimiento y cotejo de comprobantes."
+        }
+      ]
+    },
+    presupuestoTiempo: {
+      titulo: "¿De dónde salen las 1.220 horas presupuestadas? (Presupuesto de Tiempo)",
+      normativa: "Carlos A. Slosse (Capítulo de Planificación - Presupuesto de Tiempo) • NIA 300",
+      puntos: [
+        {
+          subtitulo: "1. Sumatoria técnica de horas por procedimiento",
+          texto: "Las horas no son arbitrarias; surgen del Presupuesto de Tiempo estructurado en los programas de trabajo (A a F):\n• Circularizaciones a bancos y grandes clientes B2B (PT-B): insume 60 hs de Juniors y 20 hs de Senior.\n• Inspección física de radiobases 5G y 16 Data Centers (PT-A): 120 hs de Juniors y 40 hs de Senior.\n• Recálculo de previsión NIIF 9 sobre 1 millón de deudores con TAACs (PT-B3): 40 hs de Senior especializado.\n• Modelo de deterioro de Llave de Negocio UGE Personal (PT-F): 30 hs de Senior y 20 hs de Socio.\n• Discusión de ajustes (PAE) y reunión con Directorio y Comité de Auditoría: 40 hs de Socio."
+        },
+        {
+          subtitulo: "2. Distribución en el equipo de 5 profesionales durante 12 semanas (3 meses)",
+          texto: "• 1 Socio Firmante: 10 horas semanales × 12 semanas = 120 horas.\n• 2 Seniors (Grebe - Pisonero): ~17 horas semanales cada uno = 400 horas en total.\n• 2 Juniors: ~29 horas semanales cada uno = 700 horas en total.\nTotal acumulado: 1.220 horas de labor profesional efectiva."
+        }
+      ]
+    },
+    rentabilidadYSocio: {
+      titulo: "¿Por qué el Socio parece ganar menos y por qué $80M no es excesivo?",
+      normativa: "Economía del Estudio Profesional • Estados Contables Telecom 2025 (Nota 24 y Balance)",
+      puntos: [
+        {
+          subtitulo: "1. Tarifa horaria vs. Volumen de trabajo (Apalancamiento del Estudio)",
+          texto: "El Socio es quien MÁS gana por hora ($111.860/h vs $39.950/h del Junior, casi el triple). El monto total del Socio ($13,4M) es menor que el de Juniors ($27,9M) porque el Socio no hace tareas mecánicas repetitivas. Además, en un estudio de auditoría, las horas facturadas por Juniors y Seniors no son sus sueldos netos: el estudio les paga un sueldo de empleado y la diferencia (margen de ganancia) queda para el Socio/Firma."
+        },
+        {
+          subtitulo: "2. Dimensión de Telecom: $80 millones es una cifra sumamente austera",
+          texto: "Telecom Argentina S.A. tiene un Activo Total de $16,6 billones ($16.622.552M) y Ventas anuales por $8,3 billones ($8.328.814M).\n• El honorario presupuestado de $80.683.020 representa apenas el 0,00096% de las ventas anuales (menos de una milésima porcentual).\n• En dólares oficiales ($1.455), equivale a aprox. USD 55.450.\n• En la práctica real, una firma Big Four (como PwC) factura por la auditoría consolidada de Telecom entre USD 1,5M y USD 2,5M. Nuestro presupuesto de $80M para un equipo de 5 personas es sumamente prudente, defendible y acorde a un Trabajo Práctico de excelencia."
+        }
+      ]
+    }
+  }
+};
