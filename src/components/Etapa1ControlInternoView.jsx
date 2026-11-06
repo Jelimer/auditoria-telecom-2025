@@ -12,12 +12,60 @@ import {
 } from 'lucide-react';
 
 const CCI_PT_TARGETS = {
-  'cci-1': { targetPT: 'pt-a', label: 'PT-A: Bienes de Uso' },
-  'cci-2': { targetPT: 'pt-b', label: 'PT-B: Créditos por Ventas' },
+  'cci-1': { targetPT: 'pt-a', label: 'PT-A: Bienes de Uso (420 hs)' },
+  'cci-2': { targetPT: 'pt-b', label: 'PT-B: Créditos por Ventas (120 hs)' },
   'cci-3': { targetPT: 'pt-a', label: 'PT-A: Bienes de Uso / CAPEX' },
   'cci-4': { targetPT: 'pt-c', label: 'PT-C: Préstamos' },
-  'cci-5': { targetPT: 'pt-d', label: 'PT-D: Ventas' }
+  'cci-5': { targetPT: 'pt-e', label: 'PT-E: Activos Intangibles (50 hs)' }
 };
+
+const GUIA_CORRESPONDENCIA = [
+  {
+    id: 'cci-1',
+    codigo: 'CCI-01',
+    componente: 'Archivo y Legajos de Obra',
+    rubroPrincipal: 'Bienes de Uso',
+    ptLabel: 'PT-A (420 hs)',
+    targetPT: 'pt-a',
+    isClickable: true,
+  },
+  {
+    id: 'cci-2',
+    codigo: 'CCI-02',
+    componente: 'Sistema Contable y Facturación',
+    rubroPrincipal: 'Créditos por Ventas',
+    ptLabel: 'PT-B (120 hs)',
+    targetPT: 'pt-b',
+    isClickable: true,
+  },
+  {
+    id: 'cci-3',
+    codigo: 'CCI-03',
+    componente: 'Presupuestos y Desvíos',
+    rubroPrincipal: 'Presupuestos / Pasivos',
+    ptLabel: 'Procedimientos analíticos',
+    targetPT: null,
+    isClickable: false,
+  },
+  {
+    id: 'cci-4',
+    codigo: 'CCI-04',
+    componente: 'Operativo y Personal',
+    rubroPrincipal: 'Pasivos Laborales / Gestión',
+    ptLabel: 'Procedimientos analíticos',
+    targetPT: null,
+    isClickable: false,
+  },
+  {
+    id: 'cci-5',
+    codigo: 'CCI-05',
+    componente: 'Entorno Tecnológico y Red',
+    rubroPrincipal: 'Activos Intangibles / TIC',
+    ptLabel: 'PT-E (50 hs)',
+    targetPT: 'pt-e',
+    isClickable: true,
+  },
+];
 
 // Helper para que la observación se adapte dinámicamente si el usuario cambia entre SI y NO
 const formatObservacion = (p) => {
@@ -480,6 +528,88 @@ export default function Etapa1ControlInternoView({
               </p>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* GUÍA RÁPIDA DE CORRESPONDENCIA: COMPONENTE -> RIESGO DE CONTROL -> PAPEL DE TRABAJO (ETAPA 2) */}
+      <div id="sec-guia-correspondencia" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
+        <div className="pb-4 border-b border-slate-100 mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-teal-700 text-white">
+              GUÍA DE DERIVACIÓN DIRECTA A ETAPA 2
+            </span>
+            <h3 className="text-lg font-extrabold text-slate-900 mt-2">
+              Correspondencia: Componente Evaluado → Riesgo de Control → Papel de Trabajo (Etapa 2)
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Hacé clic en cualquier celda interactiva de la columna <strong className="text-teal-700">«Papel de Trabajo (Etapa 2)»</strong> para saltar de inmediato al programa de pruebas sustantivas correspondiente.
+            </p>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto rounded-xl border border-slate-200">
+          <table className="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr className="bg-slate-100/90 text-slate-700 font-bold uppercase border-b border-slate-200">
+                <th className="py-3 px-4">Cuestionario</th>
+                <th className="py-3 px-4">Componente</th>
+                <th className="py-3 px-4">Rubro Principal Asociado</th>
+                <th className="py-3 px-4">Nivel de Confianza (NC)</th>
+                <th className="py-3 px-4">Riesgo de Control (RC)</th>
+                <th className="py-3 px-4">Papel de Trabajo (Etapa 2)</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200">
+              {GUIA_CORRESPONDENCIA.map((item) => {
+                const calc = cciCalculados.find((c) => c.id === item.id);
+                const ncVal = calc ? calc.nc.toFixed(2).replace('.', ',') : '0,00';
+                const ncLabel = calc ? calc.ncLabel : 'BAJO';
+                const rcVal = calc ? calc.rc.toFixed(2).replace('.', ',') : '100,00';
+                const rcLabel = calc ? calc.rcLabel : 'ALTO';
+                const rcDot = rcLabel === 'ALTO' ? '🔴' : rcLabel === 'MEDIO' ? '🟡' : '🟢';
+
+                return (
+                  <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
+                    <td className="py-3.5 px-4 font-semibold text-slate-700">
+                      {item.codigo}
+                    </td>
+                    <td className="py-3.5 px-4 text-slate-700">
+                      {item.componente}
+                    </td>
+                    <td className="py-3.5 px-4 font-bold text-slate-900">
+                      {item.rubroPrincipal}
+                    </td>
+                    <td className="py-3.5 px-4 font-bold text-slate-900">
+                      {ncVal}% ({ncLabel})
+                    </td>
+                    <td className="py-3.5 px-4 font-bold text-slate-900 whitespace-nowrap">
+                      {rcVal}% ({rcLabel}) <span className="ml-1 text-sm">{rcDot}</span>
+                    </td>
+                    {item.isClickable ? (
+                      <td
+                        onClick={() => {
+                          if (onNavigate) {
+                            onNavigate('etapa2-ejecucion', item.targetPT);
+                          }
+                        }}
+                        className="py-3.5 px-4 font-bold text-teal-800 bg-teal-50/40 hover:bg-teal-100 hover:text-teal-950 transition-all cursor-pointer group select-none border-l border-teal-200/50"
+                        title={`Hacé clic para saltar directamente a ${item.ptLabel} en la Etapa 2 (Ejecución)`}
+                      >
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="group-hover:underline">{item.ptLabel}</span>
+                          <ArrowUpRight className="w-4 h-4 text-teal-600 group-hover:text-teal-900 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                        </div>
+                      </td>
+                    ) : (
+                      <td className="py-3.5 px-4 text-slate-600 font-medium bg-slate-50/20 border-l border-slate-200/40">
+                        <span>{item.ptLabel}</span>
+                      </td>
+                    )}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
 
