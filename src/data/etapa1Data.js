@@ -1021,7 +1021,7 @@ export const presupuestoHonorarios = {
   categorias: [
     {
       categoria: "Auditor Junior / Asistente",
-      rol: "Tareas operativas, cotejo de comprobantes (vouching), arqueos, circularizaciones, pruebas matemáticas y relevamiento físico de nodos.",
+      rol: "Tareas operativas, cotejo de comprobantes de respaldo, arqueos, circularizaciones, pruebas matemáticas y relevamiento físico de nodos.",
       cantidadMiembros: 2,
       modulosHora: 2.5,
       valorHora: 39950,
@@ -1096,8 +1096,8 @@ export const presupuestoHonorarios = {
       normativa: "Carlos A. Slosse (Capítulo de Planificación - Presupuesto de Tiempo) • NIA 300",
       puntos: [
         {
-          subtitulo: "1. Sumatoria técnica de horas por procedimiento",
-          texto: "Las horas no son arbitrarias; surgen del Presupuesto de Tiempo estructurado en los programas de trabajo (A a F):\n• Circularizaciones a bancos y grandes clientes B2B (PT-B): insume 60 hs de Juniors y 20 hs de Senior.\n• Inspección física de radiobases 5G y 16 Data Centers (PT-A): 120 hs de Juniors y 40 hs de Senior.\n• Recálculo de previsión NIIF 9 sobre 1 millón de deudores con TAACs (PT-B3): 40 hs de Senior especializado.\n• Modelo de deterioro de Llave de Negocio UGE Personal (PT-F): 30 hs de Senior y 20 hs de Socio.\n• Discusión de ajustes (PAE) y reunión con Directorio y Comité de Auditoría: 40 hs de Socio."
+          subtitulo: "1. Sumatoria técnica de horas por procedimiento (3 Rubros Principales)",
+          texto: "Las horas no son arbitrarias; surgen del Presupuesto de Tiempo estructurado en los programas de los 3 rubros clave de auditoría:\n• Circularizaciones a grandes clientes corporativos B2B y corte de facturación (PT-B - Créditos por Ventas): insume 60 hs de Juniors y 20 hs de Senior.\n• Inspección física de radiobases 5G y 16 Data Centers (PT-A - Bienes de Uso): 120 hs de Juniors y 40 hs de Senior.\n• Recálculo de previsión NIIF 9 sobre deudores con software de auditoría TAACs (PT-B3): 40 hs de Senior especializado.\n• Auditoría de Activos Intangibles (PT-E - Licencias 5G ENACOM, marcas y software NIC 38): 30 hs de Senior y 20 hs de Socio.\n• Discusión de ajustes (PAE) y reunión de cierre con Directorio y Comité de Auditoría: 40 hs de Socio."
         },
         {
           subtitulo: "2. Distribución en el equipo de 5 profesionales durante 12 semanas (3 meses)",

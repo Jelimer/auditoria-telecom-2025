@@ -187,51 +187,52 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
         </div>
 
         {/* Ventana Flotante (Modal Teórico de la Lamparita 💡) */}
+        {/* Ventana Flotante Ampliada (Modal Teórico de la Lamparita 💡) */}
         {modalTeorico && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/85 backdrop-blur-sm"
             onClick={() => setModalTeorico(null)}
           >
             <div
-              className="bg-slate-900 border border-amber-400/50 text-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4 max-h-[88vh] overflow-y-auto"
+              className="bg-slate-900 border border-amber-400/60 text-white rounded-2xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-start justify-between gap-3 pb-3 border-b border-slate-700">
-                <div className="flex items-center gap-2.5">
-                  <div className="p-2 rounded-xl bg-amber-400/20 border border-amber-400/40 text-amber-300">
-                    <Lightbulb className="w-5 h-5" />
+              <div className="flex items-start justify-between gap-4 pb-4 border-b border-slate-700/80">
+                <div className="flex items-center gap-3.5">
+                  <div className="p-3 rounded-xl bg-amber-400/20 border border-amber-400/40 text-amber-300 shrink-0">
+                    <Lightbulb className="w-6 h-6" />
                   </div>
                   <div>
-                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-300 block">
+                    <span className="text-xs font-extrabold uppercase tracking-wider text-amber-300 block mb-0.5">
                       Fundamento Doctrinario y Normativo — {modalTeorico.normativa}
                     </span>
-                    <h4 className="text-base font-extrabold text-white mt-0.5">
+                    <h4 className="text-lg sm:text-xl font-extrabold text-white leading-tight">
                       {modalTeorico.titulo}
                     </h4>
                   </div>
                 </div>
                 <button
                   onClick={() => setModalTeorico(null)}
-                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
-                  title="Cerrar"
+                  className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer shrink-0"
+                  title="Cerrar ventana"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="space-y-3 text-xs leading-relaxed">
+              <div className="space-y-4 text-xs sm:text-sm leading-relaxed">
                 {modalTeorico.puntos.map((pt, idx) => (
-                  <div key={idx} className="p-3.5 rounded-xl bg-slate-800/90 border border-slate-700 space-y-1">
-                    <strong className="text-lime-300 block text-xs">{pt.subtitulo}</strong>
-                    <p className="text-slate-200 whitespace-pre-line">{pt.texto}</p>
+                  <div key={idx} className="p-4 sm:p-5 rounded-xl bg-slate-800/90 border border-slate-700/80 space-y-2">
+                    <strong className="text-lime-300 block text-sm sm:text-base font-bold">{pt.subtitulo}</strong>
+                    <p className="text-slate-200 whitespace-pre-line leading-relaxed">{pt.texto}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="pt-2 flex justify-end">
+              <div className="pt-3 border-t border-slate-800 flex justify-end">
                 <button
                   onClick={() => setModalTeorico(null)}
-                  className="px-4 py-2 rounded-xl bg-amber-400 text-slate-950 text-xs font-extrabold hover:bg-amber-300 cursor-pointer"
+                  className="px-6 py-2.5 rounded-xl bg-amber-400 text-slate-950 text-xs sm:text-sm font-extrabold hover:bg-amber-300 transition-colors shadow-sm cursor-pointer"
                 >
                   Entendido — Cerrar ventana
                 </button>
