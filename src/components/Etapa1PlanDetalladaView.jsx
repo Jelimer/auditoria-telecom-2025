@@ -725,7 +725,10 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                 <th className="py-3 px-3">Categoría y Rol</th>
                 <th className="py-3 px-2 text-center">Cant.</th>
                 <th className="py-3 px-2 text-center">Módulos/h</th>
-                <th className="py-3 px-3 text-right">Valor Hora ($)</th>
+                <th className="py-3 px-3 text-right">
+                  Valor Hora ($)
+                  <span className="text-[9px] text-slate-500 font-normal block normal-case">(módulos × $15.980)</span>
+                </th>
                 <th className="py-3 px-3 text-center">Dedicación Semanal</th>
                 <th className="py-3 px-3 text-center">Horas Totales</th>
                 <th className="py-3 px-3 text-right">Subtotal ($)</th>
@@ -740,8 +743,11 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                     <span className="text-[11px] text-slate-500 leading-tight block mt-0.5">{cat.rol}</span>
                   </td>
                   <td className="py-3 px-2 text-center font-bold text-slate-700">{cat.cantidadMiembros}</td>
-                  <td className="py-3 px-2 text-center font-mono font-bold text-teal-700">{cat.modulosHora.toFixed(1)}</td>
-                  <td className="py-3 px-3 text-right font-mono font-bold text-slate-800">${cat.valorHora.toLocaleString('es-AR')}</td>
+                  <td className="py-3 px-2 text-center font-mono font-bold text-teal-700">{cat.modulosHora.toFixed(1)} mód.</td>
+                  <td className="py-3 px-3 text-right">
+                    <span className="font-mono font-bold text-slate-900 block">${cat.valorHora.toLocaleString('es-AR')}</span>
+                    <span className="text-[10px] font-mono text-slate-400 block">({cat.modulosHora} × $15.980)</span>
+                  </td>
                   <td className="py-3 px-3 text-center text-slate-600">{cat.horasSemanalesPorMiembro}</td>
                   <td className="py-3 px-3 text-center font-mono font-bold text-slate-900">{cat.horasTotales} hs</td>
                   <td className="py-3 px-3 text-right font-mono font-bold text-slate-950">${cat.subtotalPesos.toLocaleString('es-AR')}</td>

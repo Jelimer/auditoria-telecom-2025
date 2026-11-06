@@ -972,46 +972,41 @@ export const rubrosSignificativos = [
 
 export const cronogramaAuditoria = [
   {
-    fase: "Mes 1: Planificación, Trabajo Interino y Pre-Cierre",
+    fase: "Mes 1: Planificación y Pre-Cierre",
     periodo: "Diciembre 2025",
     semanas: "Semanas 1 a 4 (4 semanas de trabajo)",
     etapaVinculada: "Etapa 1 (Planificación) y Etapa 2 (Inicio)",
     estado: "Ejecutado",
     tareas: [
-      "Pruebas de controles generales de TI (CGTI) e interfaces informáticas (SAP vs. sistemas heredados).",
-      "Inspección física de Bienes de Uso (nodos, sitios 5G y Data Centers en AMBA e interior).",
-      "Verificación de títulos de propiedad (RPI), marcas (INPI) y licencias legalizadas (ENACOM).",
-      "Envío de circularización externa al 100% de entidades financieras, fiduciarios y Caja de Valores S.A.",
-      "Envío de circularización positiva a muestra estratificada de clientes corporativos B2B (Personal Tech).",
-      "Presencia y observación en el inventario físico anual de Bienes de Cambio y Red al 31/12/2025."
+      "Relevamiento del control interno y pruebas de sistemas (SAP).",
+      "Inspección física de Bienes de Uso (nodos y Data Centers).",
+      "Verificación de títulos de propiedad, marcas y licencias (Bienes de Uso e Intangibles).",
+      "Envío de circularización externa a clientes corporativos B2B (Créditos por Ventas).",
+      "Pruebas de corte de documentos preliminares."
     ]
   },
   {
-    fase: "Mes 2: Ejecución Plena y Trabajo de Campo",
+    fase: "Mes 2: Ejecución y Trabajo de Campo",
     periodo: "Enero 2026",
     semanas: "Semanas 5 a 8 (4 semanas de trabajo)",
     etapaVinculada: "Etapa 2: Ejecución (Trabajo de Campo)",
     estado: "Ejecutado",
     tareas: [
-      "Recepción y control de circularizaciones de bancos y clientes B2B; aplicación de pruebas alternativas.",
-      "Procedimientos alternativos de cobros posteriores en extractos bancarios de enero 2026.",
-      "Prueba de corte de facturación definitiva (15/12/2025 al 15/01/2026) y pasivos no registrados.",
-      "Recálculo independiente con TAACs de la Previsión NIIF 9 sobre el padrón masivo de deudores.",
-      "Recálculo de valuación de deuda en moneda extranjera (TC BNA $/US$ 1.455,00) y amortizaciones NIC 16."
+      "Recepción de confirmaciones de clientes B2B y procedimientos alternativos de cobros posteriores.",
+      "Corte definitivo de facturación y servicios de diciembre.",
+      "Recálculo de amortizaciones (Bienes de Uso e Intangibles) y previsión de incobrables."
     ]
   },
   {
-    fase: "Mes 3: Cierre Final, Conclusión y Dictamen",
+    fase: "Mes 3: Cierre y Conclusión",
     periodo: "Febrero 2026",
     semanas: "Semanas 9 a 12 (4 semanas de trabajo)",
     etapaVinculada: "Etapa 2 (Final) y Etapa 3 (Conclusión)",
     estado: "En Cierre Final (Dictamen 20/02/2026)",
     tareas: [
-      "Evaluación del Test de Deterioro de Llave de Negocio (UGE Redes Personal $12.774.695M bajo NIC 36).",
-      "Revisión de Hechos Posteriores al cierre (NIC 10) y confirmación de contingencias legales.",
-      "Discusión y evaluación de la Planilla de Ajustes Propuestos (PAE) frente a la Materialidad Global.",
-      "Obtención de la Carta de Representación de la Dirección (Carta de Gerencia).",
-      "Emisión de la Carta de Recomendaciones de Control Interno y del Informe del Auditor Independiente (20/02/2026)."
+      "Revisión de hechos posteriores al cierre.",
+      "Evaluación de las diferencias de auditoría encontradas frente a la Materialidad.",
+      "Discusión de ajustes con la empresa y emisión del Informe del Auditor Independiente (20/02/2026)."
     ]
   }
 ];
