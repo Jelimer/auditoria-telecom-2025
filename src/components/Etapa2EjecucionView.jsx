@@ -9,7 +9,7 @@ import {
   Scale
 } from 'lucide-react';
 import { papelesTrabajo, marcasAuditoria } from '../data/etapas2y3Data';
-import { materialidadData } from '../data/etapa1Data';
+import { materialidadData, rubrosSignificativos } from '../data/etapa1Data';
 
 export default function Etapa2EjecucionView({
   ajustesState,
@@ -19,6 +19,8 @@ export default function Etapa2EjecucionView({
   subTargetTick
 }) {
   const [selectedPTId, setSelectedPTId] = useState('pt-a');
+  const [expandedProcedimientos, setExpandedProcedimientos] = useState({});
+  const [expandAllProcedimientos, setExpandAllProcedimientos] = useState(false);
 
   useEffect(() => {
     if (!subTarget) return;
@@ -57,6 +59,10 @@ export default function Etapa2EjecucionView({
   }, [subTarget, subTargetTick]);
 
   const activePT = papelesTrabajo.find((pt) => pt.id === selectedPTId) || papelesTrabajo[0];
+  const activeRubro =
+    rubrosSignificativos.find(
+      (r) => r.codigoPrograma.toLowerCase().replace('programa ', 'pt-') === activePT.id.toLowerCase()
+    ) || rubrosSignificativos[0];
 
   // Cálculo del efecto acumulado de ajustes NO aceptados por la Gerencia
   const ajustesSuperanPAE = ajustesState.filter((a) => a.superaPAE);
@@ -153,6 +159,108 @@ export default function Etapa2EjecucionView({
           })}
         </div>
       </div>
+
+      {/* PROGRAMA DE TRABAJO FORMALIZADO Y GUÍA PRÁCTICA DEL PAPEL DE TRABAJO ACTIVO */}
+      {activeRubro && activeRubro.programaTrabajo && (
+        <div className="p-5 rounded-2xl bg-teal-950 text-white shadow-xs border border-teal-900 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-teal-800">
+            <div>
+              <span className="text-xs font-extrabold uppercase text-lime-400">
+                Programa de Auditoría en Ejecución (Carlos A. Slosse)
+              </span>
+              <h4 className="text-base font-extrabold text-white mt-0.5">
+                {activePT.codigo}: {activePT.programa} — {activePT.rubro}
+              </h4>
+            </div>
+            <button
+              type="button"
+              onClick={() => setExpandAllProcedimientos((prev) => !prev)}
+              className="px-3 py-1.5 rounded-lg bg-teal-800 hover:bg-teal-700 text-lime-300 text-xs font-extrabold transition-colors cursor-pointer border border-teal-600/60 shadow-xs"
+            >
+              {expandAllProcedimientos ? '▲ Ocultar Explicaciones Prácticas' : '▼ Expandir Explicación de Cada Procedimiento'}
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {activeRubro.programaTrabajo.map((bloque, i) => (
+              <div
+                key={i}
+                className="p-3.5 rounded-xl bg-teal-900/70 border border-teal-800 space-y-3"
+              >
+                <h5 className="text-xs font-extrabold uppercase text-lime-300">
+                  {i + 1}. {bloque.Bloque}
+                </h5>
+                <ul className="space-y-2.5 text-xs text-teal-50 leading-relaxed">
+                  {bloque.Pasos.map((paso, j) => {
+                    const isObj = typeof paso === 'object' && paso !== null;
+                    const texto = isObj ? paso.texto : paso;
+                    const comoSeHace = isObj
+                      ? paso.comoSeHace
+                      : `Procedimiento sustantivo de auditoría: el equipo auditor coteja la documentación de respaldo en SAP, comprobantes físicos e informes técnicos de gerencia para validar las afirmaciones del bloque ${bloque.Bloque}.`;
+                    const fuentes = isObj
+                      ? paso.fuentes
+                      : 'Módulos SAP ERP (FI/CO/AA), legajos de comprobantes e informes operativos de gerencia.';
+                    const valores = isObj
+                      ? paso.valores
+                      : `Saldo contable auditado en el rubro ${activePT.rubro}.`;
+                    const isExpanded = expandAllProcedimientos || !!expandedProcedimientos[`${activePT.id}-${i}-${j}`];
+
+                    return (
+                      <li key={j} className="space-y-1.5 list-none">
+                        <div className="flex items-start justify-between gap-2">
+                          <span className="flex items-start gap-1.5">
+                            <span className="text-lime-400 font-bold shrink-0">•</span>
+                            <span className="font-medium text-slate-100">{texto}</span>
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setExpandedProcedimientos((prev) => ({
+                                ...prev,
+                                [`${activePT.id}-${i}-${j}`]: !prev[`${activePT.id}-${i}-${j}`],
+                              }))
+                            }
+                            className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold bg-teal-800/90 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer"
+                          >
+                            {isExpanded ? '▲ Ocultar' : '▼ ¿Cómo se hace?'}
+                          </button>
+                        </div>
+
+                        {isExpanded && (
+                          <div className="p-3 rounded-xl bg-slate-900/95 border border-lime-400/40 text-[11px] text-slate-200 space-y-2 mt-2 leading-relaxed shadow-md">
+                            <div>
+                              <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                🛠️ ¿Cómo se ejecuta en la práctica?
+                              </strong>
+                              <p className="text-slate-300 mt-0.5">{comoSeHace}</p>
+                            </div>
+                            {fuentes && (
+                              <div>
+                                <strong className="text-teal-300 text-[10px] uppercase tracking-wide">
+                                  📂 Fuentes de Información y Sistemas:
+                                </strong>
+                                <p className="text-slate-300 mt-0.5">{fuentes}</p>
+                              </div>
+                            )}
+                            {valores && (
+                              <div>
+                                <strong className="text-amber-300 text-[10px] uppercase tracking-wide">
+                                  🔢 Valores y Bases de Cálculo:
+                                </strong>
+                                <p className="text-slate-300 mt-0.5">{valores}</p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* VISOR DETALLADO DEL PAPEL DE TRABAJO ACTIVO (Cédula Sumaria + Analíticas) */}
       <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-5">
