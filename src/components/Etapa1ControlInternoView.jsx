@@ -44,8 +44,12 @@ const formatObservacion = (p) => {
 
 // Helper para que el comentario técnico de conclusión sea 100% dinámico
 const formatComentarioDinamico = (cci, calc) => {
-  // Limpiamos cualquier frase previa de conclusión cuantitativa
-  const baseTexto = (cci.comentario || '').replace(/,?\s*generando un Nivel de Confianza.*$/i, '').trim();
+  // Limpiamos cualquier frase previa de conclusión cuantitativa para evitar duplicaciones
+  const baseTexto = (cci.comentario || '')
+    .replace(/,?\s*(?:generando|lo que determina|resultando en|configurando|concluyendo en)\s+un Nivel de Confianza.*$/i, '')
+    .replace(/\.\s*(?:La solidez de los controles|En función de las deficiencias|Los controles evaluados).*$/i, '')
+    .replace(/\.+$/, '')
+    .trim();
 
   let dictamenTecnico = '';
   if (calc.rcLabel === 'ALTO') {

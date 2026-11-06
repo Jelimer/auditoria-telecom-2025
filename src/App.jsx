@@ -204,7 +204,7 @@ export default function App() {
   // Estado interactivo de los 5 Cuestionarios de Control Interno
   const [cuestionariosState, setCuestionariosState] = useState(() => {
     try {
-      const saved = localStorage.getItem('audiia_cci_v3');
+      const saved = localStorage.getItem('audiia_cci_v4');
       return saved ? JSON.parse(saved) : cuestionariosControlInterno;
     } catch {
       return cuestionariosControlInterno;
@@ -237,7 +237,7 @@ export default function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('audiia_cci_v3', JSON.stringify(cuestionariosState));
+      localStorage.setItem('audiia_cci_v4', JSON.stringify(cuestionariosState));
     } catch {
       // ignore
     }
@@ -365,7 +365,7 @@ export default function App() {
 
   const handleResetCuestionarios = () => {
     try {
-      localStorage.removeItem('audiia_cci_v3');
+      localStorage.removeItem('audiia_cci_v4');
     } catch {
       // ignore
     }
