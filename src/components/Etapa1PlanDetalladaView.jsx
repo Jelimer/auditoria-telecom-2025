@@ -782,14 +782,49 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
         </div>
 
         {/* Nota Técnica de Escala y Coherencia para la Cátedra */}
-        <div className="mt-4 p-3.5 rounded-xl bg-slate-900 text-white border border-teal-500/30 text-xs leading-relaxed space-y-1.5">
+        <div className="mt-4 p-4 rounded-xl bg-slate-900 text-white border border-teal-500/30 text-xs leading-relaxed space-y-3">
           <div className="flex items-center gap-2 text-lime-400 font-extrabold text-[11px] uppercase tracking-wide">
-            <CheckCircle2 className="w-3.5 h-3.5" />
+            <CheckCircle2 className="w-4 h-4 text-lime-400" />
             Coherencia Económica y Arancelaria frente a la Escala de Telecom Argentina S.A.
           </div>
           <p className="text-slate-200">
             Telecom Argentina S.A. registra un <strong>Activo Total de $16,6 billones</strong> ($16.622.552M) y <strong>Ventas por $8,3 billones</strong> ($8.328.814M). El honorario integral de <strong>$80.683.020 (USD ~55.450)</strong> representa apenas el <strong>0,00096% de la facturación</strong>. En la práctica real, firmas internacionales como PwC perciben entre USD 1,5 y 2,5 millones por una cotizante en NYSE; para este Trabajo Práctico de cátedra, presupuestar $80M con base en las tarifas oficiales del CPCECABA demuestra rigurosidad técnica, realismo profesional y una justificación matemática inexpugnable.
           </p>
+
+          {/* Guión Guiado de Exposición Oral para Defensa ante el Tribunal */}
+          <div className="pt-3 border-t border-slate-700/80 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-lime-300 font-extrabold text-[11px] uppercase tracking-wider flex items-center gap-1.5">
+                🗣️ Guión de Exposición Oral: ¿Cómo explicar y defender este cálculo paso a paso?
+              </span>
+              <span className="text-[10px] text-slate-300 bg-slate-800 px-2 py-0.5 rounded border border-slate-700 font-medium">
+                Lectura recomendada para el coloquio
+              </span>
+            </div>
+
+            <div className="space-y-2 text-slate-300 text-[11px]">
+              <p>
+                <strong className="text-white">1. El porqué de las 12 semanas (3 meses):</strong>{' '}
+                <em>«Planificamos un cronograma de 12 semanas corridas (Diciembre a Febrero) porque Telecom cotiza en la CNV y en la Bolsa de Nueva York (SEC), lo que le impone un plazo legal perentorio de 70 días corridos post-cierre para presentar sus estados contables auditados. Extender el encargo a 5 meses significaría caer en incumplimiento normativo con suspensión de cotización.»</em>
+              </p>
+              <p>
+                <strong className="text-white">2. La estructura del equipo (5 profesionales):</strong>{' '}
+                <em>«Conformamos un equipo piramidal de 5 miembros: 1 Socio a cargo de la dirección estratégica y firma del dictamen (120 hs, 10 hs/sem), 2 Seniors —Grebe y Pisonero— a cargo del trabajo de campo, programas y supervisión (400 hs en total, 17 hs/sem cada uno), y 2 Juniors dedicados a relevamientos físicos y tareas operativas (700 hs en total, 29 hs/sem cada uno). Esto totaliza exactamente 1.220 horas profesionales.»</em>
+              </p>
+              <p>
+                <strong className="text-white">3. La aplicación del arancel oficial del CPCECABA:</strong>{' '}
+                <em>«Para dotar de realismo y rigurosidad técnica al presupuesto, no inventamos valores arbitrarios: adoptamos la tabla arancelaria oficial del Consejo Profesional de Ciencias Económicas (CPCECABA) a Noviembre de 2026, donde 1 Módulo equivale a $15.980. La tarifa horaria surge de multiplicar los módulos de cada jerarquía: 2,5 módulos para el Junior ($39.950/h), 5,0 módulos para el Senior ($79.900/h) y 7,0 módulos para el Socio ($111.860/h). La sumatoria de las 1.220 horas arroja un subtotal de honorarios de $73.348.200.»</em>
+              </p>
+              <p>
+                <strong className="text-white">4. Los gastos directos (10% out-of-pocket):</strong>{' '}
+                <em>«Sumamos un 10% de gastos directos de bolsillo ($7.334.820) destinados específicamente a la auditoría: licencias temporales de software TAACs (IDEA/ACL) para procesar millones de registros de facturación masiva, traslados y viáticos para inspeccionar los 16 Data Centers y radiobases 5G en el interior, y circularizaciones postales y notariales. Con esto alcanzamos el Presupuesto Total de $80.683.020 (aprox. USD 55.452).»</em>
+              </p>
+              <p>
+                <strong className="text-white">5. Conclusión de razonabilidad frente a la empresa:</strong>{' '}
+                <em>«Frente a una compañía que factura más de $8,3 billones y posee un activo de $16,6 billones, un honorario de $80M representa el 0,00096% de las ventas. Mientras que firmas como PwC cobran más de USD 1,5 millones por un encargo corporativo de esta envergadura, presupuestar $80M con aranceles del Consejo para un equipo de 5 auditores demuestra máxima prudencia, respaldo matemático y excelencia académica.»</em>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -857,13 +857,13 @@ export const rubrosSignificativos = [
       },
       {
         afirmacion: "Integridad",
-        objetivo: "Comprobar que se hayan incorporado al activo todos los costos directos capitalizables asociados a licencias y software corporativo sin omisiones.",
+        objetivo: "Comprobar que se hayan incorporado al activo todos los costos directos capitalizables asociados a licencias y software corporativo sin omisiones. Todas las transacciones y saldos por bienes intangibles están adecuada e íntegramente contabilizados y acumulados en los registros correspondientes. El corte de transacciones es correcto.",
         riesgo: "Omisión de capitalización de costos directos asociados al desarrollo de software evolutivo (imputados erróneamente a gastos en el Estado de Resultados).",
         controlClave: "Proceso de seguimiento y liquidación contable de órdenes de inversión tecnológica en el módulo de proyectos de SAP (SAP PS).",
-        naturalezaProc: "Conciliación del portafolio de proyectos de IT y revisión de cuentas de gastos tecnológicos.",
+        naturalezaProc: "Conciliación del portafolio de proyectos de I.T. (Tecnología de la Información) y revisión de cuentas de gastos tecnológicos.",
         instrumento: "Conciliar el listado de proyectos tecnológicos en desarrollo en SAP PS contra las cuentas de gastos de mantenimiento y honorarios del Estado de Resultados, verificando que los desarrollos elegibles se hayan activado.",
         oportunidad: "Cierre de ejercicio.",
-        alcance: "100% del portafolio de proyectos de IT del ejercicio y muestra de gastos tecnológicos."
+        alcance: "100% del portafolio de proyectos de I.T. del ejercicio y muestra de gastos tecnológicos."
       },
       {
         afirmacion: "Propiedad",
