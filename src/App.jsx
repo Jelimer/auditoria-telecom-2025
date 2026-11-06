@@ -204,7 +204,7 @@ export default function App() {
   // Estado interactivo de los 5 Cuestionarios de Control Interno
   const [cuestionariosState, setCuestionariosState] = useState(() => {
     try {
-      const saved = localStorage.getItem('audiia_cci_v2');
+      const saved = localStorage.getItem('audiia_cci_v3');
       return saved ? JSON.parse(saved) : cuestionariosControlInterno;
     } catch {
       return cuestionariosControlInterno;
@@ -237,7 +237,7 @@ export default function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('audiia_cci_v2', JSON.stringify(cuestionariosState));
+      localStorage.setItem('audiia_cci_v3', JSON.stringify(cuestionariosState));
     } catch {
       // ignore
     }
@@ -259,21 +259,26 @@ export default function App() {
     }
   }, [equipoTasks]);
 
-  // Cálculo dinámico de las Matrices de Confianza y Riesgo de cada CCI
+  // Cálculo dinámico de las Matrices de Confianza y Riesgo de cada CCI (Opción A: Lógica Natural de Auditoría)
   const cciCalculados = useMemo(() => {
     return cuestionariosState.map((cci) => {
       const total = cci.preguntas.length;
       const positivas = cci.preguntas.filter((p) => p.respuesta === 'SI').length;
       const negativas = cci.preguntas.filter((p) => p.respuesta === 'NO').length;
-      const ri = (positivas / Math.max(1, total)) * 100;
-      const nc = 100 - ri;
+      
+      // Enfoque natural de auditoría (Opción A):
+      // Confianza (NC) = % de controles positivos (respuestas SÍ que funcionan adecuadamente)
+      // Riesgo de Control (RC) = complemento de deficiencias (respuestas NO)
+      const nc = (positivas / Math.max(1, total)) * 100;
+      const rc = 100 - nc;
+      const ri = rc; // Riesgo asociado
 
       let ncLabel = 'BAJO';
       let rcLabel = 'ALTO';
       if (nc > 75) {
         ncLabel = 'ALTO';
         rcLabel = 'BAJO';
-      } else if (nc > 50) {
+      } else if (nc >= 51) {
         ncLabel = 'MEDIO';
         rcLabel = 'MEDIO';
       }
@@ -284,6 +289,7 @@ export default function App() {
         positivas,
         negativas,
         ri,
+        rc,
         nc,
         ncLabel,
         rcLabel
@@ -358,6 +364,11 @@ export default function App() {
   };
 
   const handleResetCuestionarios = () => {
+    try {
+      localStorage.removeItem('audiia_cci_v3');
+    } catch {
+      // ignore
+    }
     setCuestionariosState(cuestionariosControlInterno);
   };
 

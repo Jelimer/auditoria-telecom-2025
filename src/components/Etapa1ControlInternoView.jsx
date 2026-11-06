@@ -108,7 +108,13 @@ export default function Etapa1ControlInternoView({
                         ? isSelected
                           ? 'bg-red-500 text-white'
                           : 'bg-red-100 text-red-700'
-                        : 'bg-amber-100 text-amber-800'
+                        : cci.rcLabel === 'MEDIO'
+                        ? isSelected
+                          ? 'bg-amber-500 text-white'
+                          : 'bg-amber-100 text-amber-800'
+                        : isSelected
+                        ? 'bg-emerald-600 text-white'
+                        : 'bg-emerald-100 text-emerald-800'
                     }`}
                   >
                     RC: {cci.rcLabel}
@@ -273,35 +279,35 @@ export default function Etapa1ControlInternoView({
               </div>
             </div>
 
-            {/* Desarrollo Matemático Exacto del Trabajo Práctico */}
+            {/* Desarrollo Matemático de Evaluación del Control Interno (Opción A: Lógica Natural de Auditoría) */}
             <div className="mt-3 grid grid-cols-2 gap-3">
-              <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200 text-xs">
-                <p className="font-extrabold text-amber-900 text-[11px] uppercase">
-                  Nivel del Riesgo Inherente (RI)
-                </p>
-                <p className="font-mono text-[11px] text-slate-600 mt-1">
-                  RI = (C.P.P / C.P) × 100
-                </p>
-                <p className="font-mono text-[11px] text-slate-600">
-                  RI = ({activeCalc.positivas} / {activeCalc.total}) × 100
-                </p>
-                <p className="text-base font-extrabold text-amber-900 mt-1 font-mono">
-                  RI = {activeCalc.ri.toFixed(2)}%
-                </p>
-              </div>
-
               <div className="p-3 rounded-xl bg-teal-50/70 border border-teal-200 text-xs">
                 <p className="font-extrabold text-teal-900 text-[11px] uppercase">
                   Nivel de Confianza (NC)
                 </p>
                 <p className="font-mono text-[11px] text-slate-600 mt-1">
-                  NC = 100% - RI
+                  NC = (C.P.P / C.P) × 100
                 </p>
                 <p className="font-mono text-[11px] text-slate-600">
-                  NC = 100% - {activeCalc.ri.toFixed(2)}%
+                  NC = ({activeCalc.positivas} / {activeCalc.total}) × 100
                 </p>
                 <p className="text-base font-extrabold text-teal-900 mt-1 font-mono">
                   NC = {activeCalc.nc.toFixed(2)}%
+                </p>
+              </div>
+
+              <div className="p-3 rounded-xl bg-amber-50/70 border border-amber-200 text-xs">
+                <p className="font-extrabold text-amber-900 text-[11px] uppercase">
+                  Riesgo de Control (RC)
+                </p>
+                <p className="font-mono text-[11px] text-slate-600 mt-1">
+                  RC = 100% - NC
+                </p>
+                <p className="font-mono text-[11px] text-slate-600">
+                  RC = 100% - {activeCalc.nc.toFixed(2)}%
+                </p>
+                <p className="text-base font-extrabold text-amber-900 mt-1 font-mono">
+                  RC = {activeCalc.rc.toFixed(2)}%
                 </p>
               </div>
             </div>
@@ -348,16 +354,54 @@ export default function Etapa1ControlInternoView({
               </div>
             </div>
 
-            {/* Resultado Cuantitativo y Comentario Técnico */}
-            <div className="mt-4 p-3.5 rounded-xl bg-red-50 border border-red-200 space-y-1.5 text-xs">
-              <p className="font-extrabold text-red-900 uppercase text-[11px]">
+            {/* Resultado Cuantitativo y Comentario Técnico Dinámico */}
+            <div
+              className={`mt-4 p-3.5 rounded-xl border space-y-1.5 text-xs transition-colors ${
+                activeCalc.rcLabel === 'ALTO'
+                  ? 'bg-red-50 border-red-200 text-red-950'
+                  : activeCalc.rcLabel === 'MEDIO'
+                  ? 'bg-amber-50 border-amber-200 text-amber-950'
+                  : 'bg-emerald-50 border-emerald-200 text-emerald-950'
+              }`}
+            >
+              <p
+                className={`font-extrabold uppercase text-[11px] ${
+                  activeCalc.rcLabel === 'ALTO'
+                    ? 'text-red-900'
+                    : activeCalc.rcLabel === 'MEDIO'
+                    ? 'text-amber-900'
+                    : 'text-emerald-900'
+                }`}
+              >
                 Resultado Cuantitativo Obtenido:
               </p>
               <p className="font-bold text-slate-900">
-                • Nivel de Confianza (NC): <span className="text-red-700">{activeCalc.nc.toFixed(2)}% ({activeCalc.ncLabel})</span>
+                • Nivel de Confianza (NC):{' '}
+                <span
+                  className={
+                    activeCalc.ncLabel === 'ALTO'
+                      ? 'text-emerald-700 font-extrabold'
+                      : activeCalc.ncLabel === 'MEDIO'
+                      ? 'text-amber-700 font-extrabold'
+                      : 'text-red-700 font-extrabold'
+                  }
+                >
+                  {activeCalc.nc.toFixed(2)}% ({activeCalc.ncLabel})
+                </span>
               </p>
               <p className="font-bold text-slate-900">
-                • Riesgo de Control (RC): <span className="text-red-700">({activeCalc.rcLabel})</span>
+                • Riesgo de Control (RC):{' '}
+                <span
+                  className={
+                    activeCalc.rcLabel === 'ALTO'
+                      ? 'text-red-700 font-extrabold'
+                      : activeCalc.rcLabel === 'MEDIO'
+                      ? 'text-amber-700 font-extrabold'
+                      : 'text-emerald-700 font-extrabold'
+                  }
+                >
+                  {activeCalc.rc.toFixed(2)}% ({activeCalc.rcLabel})
+                </span>
               </p>
             </div>
 
@@ -404,7 +448,17 @@ export default function Etapa1ControlInternoView({
                     </div>
                   </td>
                   <td className="py-3.5 px-3 text-center font-mono font-bold text-slate-800">
-                    {cci.nc.toFixed(2)}% ({cci.ncLabel})
+                    <span
+                      className={`px-2 py-0.5 rounded text-[11px] ${
+                        cci.ncLabel === 'ALTO'
+                          ? 'bg-emerald-100 text-emerald-800 font-extrabold'
+                          : cci.ncLabel === 'MEDIO'
+                          ? 'bg-amber-100 text-amber-800 font-extrabold'
+                          : 'bg-red-100 text-red-800 font-extrabold'
+                      }`}
+                    >
+                      {cci.nc.toFixed(2)}% ({cci.ncLabel})
+                    </span>
                   </td>
                   <td className="py-3.5 px-3 text-center">
                     <span className="px-2.5 py-0.5 rounded-full bg-red-100 text-red-700 font-extrabold">
@@ -412,7 +466,15 @@ export default function Etapa1ControlInternoView({
                     </span>
                   </td>
                   <td className="py-3.5 px-3 text-center">
-                    <span className="px-2.5 py-0.5 rounded-full bg-red-600 text-white font-extrabold">
+                    <span
+                      className={`px-2.5 py-0.5 rounded-full text-white font-extrabold ${
+                        cci.rcLabel === 'ALTO'
+                          ? 'bg-red-600'
+                          : cci.rcLabel === 'MEDIO'
+                          ? 'bg-amber-500'
+                          : 'bg-emerald-600'
+                      }`}
+                    >
                       {cci.rcLabel}
                     </span>
                   </td>
