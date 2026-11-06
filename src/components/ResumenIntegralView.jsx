@@ -380,7 +380,7 @@ export default function ResumenIntegralView({
                         <ul className="list-disc pl-4 space-y-0.5">
                           {r.programaTrabajo.map((b, i) => (
                             <li key={i}>
-                              <strong>{b.Bloque}:</strong> {b.Pasos[0]}
+                              <strong>{b.Bloque}:</strong> {typeof b.Pasos[0] === 'object' ? b.Pasos[0].texto : b.Pasos[0]}
                             </li>
                           ))}
                         </ul>

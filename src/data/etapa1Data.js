@@ -857,7 +857,7 @@ export const rubrosSignificativos = [
       },
       {
         afirmacion: "Integridad",
-        objetivo: "Comprobar que se hayan incorporado al activo todos los costos directos capitalizables asociados a licencias y software corporativo sin omisiones. Todas las transacciones y saldos por bienes intangibles están adecuada e íntegramente contabilizados y acumulados en los registros correspondientes. El corte de transacciones es correcto.",
+        objetivo: "1. Objetivo Específico del Rubro (Telecom): Comprobar que se hayan incorporado al activo todos los costos directos capitalizables asociados a licencias y software corporativo sin omisiones.\n\n2. Objetivo Doctrinal de Integridad y Corte (Slosse): Todas las transacciones y saldos por bienes intangibles están adecuada e íntegramente contabilizados y acumulados en los registros correspondientes. El corte de transacciones es correcto.",
         riesgo: "Omisión de capitalización de costos directos asociados al desarrollo de software evolutivo (imputados erróneamente a gastos en el Estado de Resultados).",
         controlClave: "Proceso de seguimiento y liquidación contable de órdenes de inversión tecnológica en el módulo de proyectos de SAP (SAP PS).",
         naturalezaProc: "Conciliación del portafolio de proyectos de I.T. (Tecnología de la Información) y revisión de cuentas de gastos tecnológicos.",
@@ -897,9 +897,57 @@ export const rubrosSignificativos = [
       }
     ],
     programaTrabajo: [
-      { Bloque: "Concesiones de Espectro ENACOM y Marcas INPI (Existencia y Propiedad)", Pasos: ["Inspeccionar las resoluciones de ENACOM de adjudicación del espectro 5G (Banda 3.400-3.500 MHz) y 4G.", "Verificar los certificados de marcas en el INPI a nombre de Telecom Argentina S.A."] },
-      { Bloque: "Proyectos de Software NIC 38 (Existencia e Integridad)", Pasos: ["Auditar proyectos de software en SAP PS verificando factibilidad técnica y beneficio económico futuro (NIC 38).", "Examinar cuentas de gastos tecnológicos para confirmar que no se omitieron desarrollos capitalizables."] },
-      { Bloque: "Amortizaciones y Exposición (Medición y Exposición)", Pasos: ["Efectuar el recálculo independiente de amortizaciones según vidas útiles remanentes.", "Verificar la presentación y revelación integral en la Nota 10 de los Estados Contables."] }
+      {
+        Bloque: "Concesiones de Espectro ENACOM y Marcas INPI (Existencia y Propiedad)",
+        Pasos: [
+          {
+            texto: "Inspeccionar las resoluciones de ENACOM de adjudicación del espectro 5G (Banda 3.400-3.500 MHz) y 4G.",
+            comoSeHace: "El auditor solicita a la Gerencia de Asuntos Legales y Regulatorios copia auténtica de las resoluciones de adjudicación (ej. Res. ENACOM 1289/23 por el Lote 5G) y coteja contra las publicaciones oficiales del Boletín Oficial. Se valida que la adjudicación esté formalmente a nombre de Telecom Argentina S.A., que la concesión esté plenamente vigente (concesión a 20 años) y que se cumplan las garantías y cronogramas de despliegue de radiobases comprometidos.",
+            fuentes: "Expediente regulatorio ENACOM, Boletín Oficial de la República Argentina y pólizas de caución de cumplimiento.",
+            valores: "Saldo de Licencias y Concesiones en Nota 10: $1.985.420 millones."
+          },
+          {
+            texto: "Verificar los certificados de marcas en el INPI a nombre de Telecom Argentina S.A.",
+            comoSeHace: "El auditor accede a la base pública del Instituto Nacional de la Propiedad Industrial (INPI) con el CUIT de Telecom (30-63945373-8). Se realiza una búsqueda registral de las marcas comerciales clave (Personal, Flow, Personal Pay, Telecom), verificando su estado ('Concedida'), fecha de vigencia (renovables cada 10 años) y que no existan litigios marcarios ni gravámenes que restrinjan su titularidad.",
+            fuentes: "Títulos de propiedad marcaria del INPI y confirmación de litigios marcarios de asesores legales externos (NIA 501).",
+            valores: "Marcas y otros intangibles en Nota 10: $686.105 millones."
+          }
+        ]
+      },
+      {
+        Bloque: "Proyectos de Software NIC 38 (Existencia e Integridad)",
+        Pasos: [
+          {
+            texto: "Auditar proyectos de software en SAP PS verificando factibilidad técnica y beneficio económico futuro (NIC 38).",
+            comoSeHace: "El auditor extrae del módulo SAP PS (Project System) el portafolio de órdenes de inversión de IT. Para una muestra de proyectos clave (Flow, App Mi Personal e IA), se revisa el Business Case aprobado por el CIO. Se verifica que los costos activados correspondan exclusivamente a la Fase de Desarrollo (programación, arquitectura, pruebas) y que NO se hayan activado gastos de Investigación previa ni de soporte/capacitación rutinaria (que deben imputarse a pérdida según NIC 38.57).",
+            fuentes: "Módulo SAP PS, horas cargadas en partes de tiempo (SAP CATS), facturas de consultoras de software externas y actas de pase a producción (UAT).",
+            valores: "Proyectos capitalizados en el ejercicio bajo NIC 38 por más de $150.000 millones."
+          },
+          {
+            texto: "Examinar cuentas de gastos tecnológicos para confirmar que no se omitieron desarrollos capitalizables.",
+            comoSeHace: "Prueba de Integridad y Corte (Cut-off). El auditor analiza el mayor general de las cuentas de pérdida (Honorarios de sistemas, Mantenimiento de software, Consultoría IT). Se toma una muestra de facturas y contratos de fin de año (noviembre/diciembre 2025) para confirmar que no se hayan mandado erróneamente a resultados desarrollos que cumplían los criterios de la NIC 38 para ser activados en el balance.",
+            fuentes: "Mayor general de gastos de IT en SAP FI, contratos marco de desarrollo y órdenes de servicio de proveedores tecnológicos.",
+            valores: "Muestra de transacciones que superan el umbral de auditoría (PAE: $8.311 millones)."
+          }
+        ]
+      },
+      {
+        Bloque: "Amortizaciones y Exposición (Medición y Exposición)",
+        Pasos: [
+          {
+            texto: "Efectuar el recálculo independiente de amortizaciones según vidas útiles remanentes.",
+            comoSeHace: "Procedimiento analítico sustantivo de recálculo matemático independiente: 1) Se solicita a Contabilidad el Subdiario de Bienes de Uso e Intangibles de SAP (FI-AA) y la Nota 10. 2) Se toman los Valores de Origen reexpresados por inflación (NIC 29) y las vidas útiles de la política contable (Licencias 4G/5G: 15 a 20 años lineal; Software: 3 a 5 años). 3) Se aplica la fórmula matemática: Amortización Teórica = (Valor Origen Reexpresado / Vida Útil en Meses) × Meses de uso en 2025. 4) Se compara la sumatoria contra el cargo contable ($274.320M en Anexo de Intangibles). Al no superar el Error Tolerable ($ET = $83.112M), el cálculo queda validado.",
+            fuentes: "Subdiario SAP FI-AA (reporte AR02), tablas de vida útil aprobadas por Directorio, Nota 10 y Nota 3.k.",
+            valores: "Cargo anual a amortizaciones de $274.320 millones sobre un parque de intangibles de $2.671.525 millones."
+          },
+          {
+            texto: "Verificar la presentación y revelación integral en la Nota 10 de los Estados Contables.",
+            comoSeHace: "El auditor coteja el balance de sumas y saldos final contra la Nota 10 (Activos Intangibles) y sus cuadros anexos. Se verifica el cumplimiento estricto de las revelaciones exigidas por la NIC 38 (párrafos 118-128): desagregación por clase de intangible, conciliación de saldos iniciales y finales, vidas útiles, métodos de amortización lineal y restricciones o garantías legales sobre las licencias.",
+            fuentes: "Borrador de Estados Financieros Consolidados al 31/12/2025, Nota 10 y Checklist de revelaciones IFRS / NIC 38.",
+            valores: "Saldo neto expuesto en el Activo No Corriente: $2.671.525 millones."
+          }
+        ]
+      }
     ]
   },
   {

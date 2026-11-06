@@ -24,6 +24,8 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
   const [filtroAfirmacion, setFiltroAfirmacion] = useState('TODAS'); // 'TODAS' | 'Existencia' | 'Integridad' | 'Propiedad' | 'Medición' | 'Exposición'
   const [modoVista, setModoVista] = useState('por-rubro'); // 'por-rubro' | 'transversal-afirmacion'
   const [modalTeorico, setModalTeorico] = useState(null); // null | materialidadData.materialidadGlobal.fundamentoTeorico | etc.
+  const [expandedProcedimientos, setExpandedProcedimientos] = useState({});
+  const [expandAllProcedimientos, setExpandAllProcedimientos] = useState(false);
 
   useEffect(() => {
     if (!subTarget) return;
@@ -456,7 +458,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                           {af.afirmacion}
                         </span>
                       </td>
-                      <td className="py-4 px-4 align-top font-medium text-slate-800 leading-relaxed">
+                      <td className="py-4 px-4 align-top font-medium text-slate-800 leading-relaxed whitespace-pre-line">
                         {af.objetivo}
                       </td>
                       <td className="py-4 px-4 align-top space-y-2 leading-relaxed">
@@ -501,32 +503,95 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                   {activeRubro.codigoPrograma}: {activeRubro.nombre}
                 </h4>
               </div>
-              <button
-                onClick={() =>
-                  onNavigate(
-                    'etapa2-ejecucion',
-                    activeRubro.codigoPrograma.replace('PROGRAMA ', 'pt-').toLowerCase()
-                  )
-                }
-                className="px-3 py-1.5 rounded-lg bg-lime-500 text-slate-950 text-xs font-extrabold hover:bg-lime-400 transition-colors cursor-pointer"
-              >
-                Ejecutar / Ver Papel de Trabajo {activeRubro.codigoPrograma.replace('PROGRAMA ', 'PT-')} →
-              </button>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setExpandAllProcedimientos((prev) => !prev)}
+                  className="px-3 py-1.5 rounded-lg bg-teal-800 hover:bg-teal-700 text-lime-300 text-xs font-extrabold transition-colors cursor-pointer border border-teal-600/60 shadow-xs"
+                >
+                  {expandAllProcedimientos ? '▲ Ocultar Explicaciones Detalladas' : '▼ Expandir Explicación de Cada Procedimiento'}
+                </button>
+                <button
+                  onClick={() =>
+                    onNavigate(
+                      'etapa2-ejecucion',
+                      activeRubro.codigoPrograma.replace('PROGRAMA ', 'pt-').toLowerCase()
+                    )
+                  }
+                  className="px-3 py-1.5 rounded-lg bg-lime-500 text-slate-950 text-xs font-extrabold hover:bg-lime-400 transition-colors cursor-pointer shadow-xs"
+                >
+                  Ejecutar / Ver Papel de Trabajo {activeRubro.codigoPrograma.replace('PROGRAMA ', 'PT-')} →
+                </button>
+              </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {activeRubro.programaTrabajo.map((bloque, i) => (
                 <div
                   key={i}
-                  className="p-3.5 rounded-xl bg-teal-900/70 border border-teal-800 space-y-2"
+                  className="p-3.5 rounded-xl bg-teal-900/70 border border-teal-800 space-y-3"
                 >
                   <h5 className="text-xs font-extrabold uppercase text-lime-300">
                     {i + 1}. {bloque.Bloque}
                   </h5>
-                  <ul className="space-y-1.5 text-xs text-teal-50 list-disc pl-4 leading-relaxed">
-                    {bloque.Pasos.map((paso, j) => (
-                      <li key={j}>{paso}</li>
-                    ))}
+                  <ul className="space-y-2.5 text-xs text-teal-50 leading-relaxed">
+                    {bloque.Pasos.map((paso, j) => {
+                      const isObj = typeof paso === 'object' && paso !== null;
+                      const texto = isObj ? paso.texto : paso;
+                      const isExpanded = expandAllProcedimientos || !!expandedProcedimientos[`${activeRubro.id}-${i}-${j}`];
+
+                      return (
+                        <li key={j} className="space-y-1.5 list-none">
+                          <div className="flex items-start justify-between gap-2">
+                            <span className="flex items-start gap-1.5">
+                              <span className="text-lime-400 font-bold shrink-0">•</span>
+                              <span className="font-medium text-slate-100">{texto}</span>
+                            </span>
+                            {isObj && (paso.comoSeHace || paso.fuentes) && (
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  setExpandedProcedimientos((prev) => ({
+                                    ...prev,
+                                    [`${activeRubro.id}-${i}-${j}`]: !prev[`${activeRubro.id}-${i}-${j}`],
+                                  }))
+                                }
+                                className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold bg-teal-800/90 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer"
+                              >
+                                {isExpanded ? '▲ Ocultar' : '▼ ¿Cómo se hace?'}
+                              </button>
+                            )}
+                          </div>
+
+                          {isObj && isExpanded && (
+                            <div className="p-3 rounded-xl bg-slate-900/95 border border-lime-400/40 text-[11px] text-slate-200 space-y-2 mt-2 leading-relaxed shadow-md">
+                              <div>
+                                <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                  🛠️ ¿Cómo se ejecuta en la práctica?
+                                </strong>
+                                <p className="text-slate-300 mt-0.5">{paso.comoSeHace}</p>
+                              </div>
+                              {paso.fuentes && (
+                                <div>
+                                  <strong className="text-teal-300 text-[10px] uppercase tracking-wide">
+                                    📂 Fuentes de Información y Sistemas:
+                                  </strong>
+                                  <p className="text-slate-300 mt-0.5">{paso.fuentes}</p>
+                                </div>
+                              )}
+                              {paso.valores && (
+                                <div>
+                                  <strong className="text-amber-300 text-[10px] uppercase tracking-wide">
+                                    🔢 Valores y Bases de Cálculo:
+                                  </strong>
+                                  <p className="text-slate-300 mt-0.5">{paso.valores}</p>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </div>
               ))}
