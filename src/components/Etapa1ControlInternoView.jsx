@@ -19,6 +19,46 @@ const CCI_PT_TARGETS = {
   'cci-5': { targetPT: 'pt-d', label: 'PT-D: Ventas' }
 };
 
+// Helper para que la observación se adapte dinámicamente si el usuario cambia entre SI y NO
+const formatObservacion = (p) => {
+  if (p.respuesta === 'NO') {
+    if (p.observacion.startsWith('Se cumple.')) {
+      return p.observacion.replace('Se cumple.', 'No se cumple. Se detectan desvíos, demoras o falta de aplicación periódica.');
+    }
+    if (p.observacion.startsWith('Se cumple')) {
+      return p.observacion.replace(/^Se cumple[^.]*\./, 'No se cumple. Se identifican debilidades en la ejecución del control.');
+    }
+    return p.observacion;
+  }
+  if (p.respuesta === 'SI') {
+    if (p.observacion.startsWith('No se cumple a cabalidad.')) {
+      return p.observacion.replace('No se cumple a cabalidad.', 'Se cumple. Se verifica la existencia y aplicación adecuada del control.');
+    }
+    if (p.observacion.startsWith('No se cumple')) {
+      return p.observacion.replace(/^No se cumple[^.]*\./, 'Se cumple. Se verifica la existencia y aplicación adecuada del control.');
+    }
+    return p.observacion;
+  }
+  return p.observacion;
+};
+
+// Helper para que el comentario técnico de conclusión sea 100% dinámico
+const formatComentarioDinamico = (cci, calc) => {
+  // Limpiamos cualquier frase previa de conclusión cuantitativa
+  const baseTexto = (cci.comentario || '').replace(/,?\s*generando un Nivel de Confianza.*$/i, '').trim();
+
+  let dictamenTecnico = '';
+  if (calc.rcLabel === 'ALTO') {
+    dictamenTecnico = ` En función de las deficiencias identificadas (${calc.negativas} de ${calc.total} preguntas), se determina un Nivel de Confianza ${calc.ncLabel} (${calc.nc.toFixed(2)}%) y un Riesgo de Control ALTO (${calc.rc.toFixed(2)}%), lo que exige un enfoque de auditoría eminentemente sustantivo con inspección física directa y validación documental exhaustiva.`;
+  } else if (calc.rcLabel === 'MEDIO') {
+    dictamenTecnico = ` Los controles evaluados muestran un desempeño moderado (${calc.positivas} respuestas positivas sobre ${calc.total}), arrojando un Nivel de Confianza ${calc.ncLabel} (${calc.nc.toFixed(2)}%) y un Riesgo de Control MEDIO (${calc.rc.toFixed(2)}%), habilitando un enfoque mixto con pruebas sustantivas selectivas (circularizaciones a grandes cuentas y corte de operaciones).`;
+  } else {
+    dictamenTecnico = ` La solidez de los controles internos relevados (${calc.positivas} de ${calc.total} respuestas positivas) arroja un Nivel de Confianza ${calc.ncLabel} (${calc.nc.toFixed(2)}%) y un Riesgo de Control BAJO (${calc.rc.toFixed(2)}%), lo que permite depositar confianza en los sistemas de la sociedad y acotar sustancialmente las pruebas de detalle.`;
+  }
+
+  return `${baseTexto}.${dictamenTecnico}`;
+};
+
 export default function Etapa1ControlInternoView({
   cuestionariosState,
   cciCalculados,
@@ -237,7 +277,7 @@ export default function Etapa1ControlInternoView({
                             DEFICIENCIA
                           </span>
                         )}
-                        {p.observacion}
+                        {formatObservacion(p)}
                       </td>
                     </tr>
                   );
@@ -409,7 +449,9 @@ export default function Etapa1ControlInternoView({
               <p className="font-extrabold text-slate-800 uppercase text-[11px] mb-1">
                 Comentario y Dictamen Preliminar del Componente:
               </p>
-              <p className="text-slate-600 leading-relaxed">{activeCCI.comentario}</p>
+              <p className="text-slate-600 leading-relaxed">
+                {formatComentarioDinamico(activeCCI, activeCalc)}
+              </p>
             </div>
           </div>
         </div>
@@ -479,7 +521,7 @@ export default function Etapa1ControlInternoView({
                     </span>
                   </td>
                   <td className="py-3.5 px-4 text-slate-600 leading-relaxed">
-                    {cci.comentario}
+                    {formatComentarioDinamico(cci, cci)}
                   </td>
                   <td
                     onClick={() => {
