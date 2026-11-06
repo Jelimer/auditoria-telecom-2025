@@ -457,8 +457,8 @@ export default function DashboardView({
               </div>
               <p className="text-[11px] text-slate-500 mt-2 text-center">
                 {riskTab === 'inherente'
-                  ? 'Riesgo ponderado por componente según Cuestionarios de Control Interno (Rango 76,67% a 84,62% — ALTO)'
-                  : 'Nivel de Confianza obtenido (15,38% a 23,33% — BAJO) compensado con Pruebas Sustantivas de Detalle y Globales'}
+                  ? `Riesgo de Control (RC %) ponderado por componente según Cuestionarios de Control Interno (Calibrado de ${Math.min(...(cciCalculados || []).map(c => c.rc)).toFixed(1)}% a ${Math.max(...(cciCalculados || []).map(c => c.rc)).toFixed(1)}%)`
+                  : `Nivel de Confianza (NC %) obtenido de las respuestas afirmativas de control interno (${Math.min(...(cciCalculados || []).map(c => c.nc)).toFixed(1)}% a ${Math.max(...(cciCalculados || []).map(c => c.nc)).toFixed(1)}%)`}
               </p>
             </div>
 
@@ -470,10 +470,10 @@ export default function DashboardView({
                 </span>
                 <div className="flex items-center gap-4 text-xs font-semibold">
                   <span className="flex items-center gap-1.5 text-lime-700">
-                    <i className="w-3 h-1 bg-lime-500 inline-block rounded" /> Nivel de Riesgo (76,7% - 84,6% ALTO)
+                    <i className="w-3 h-1 bg-lime-500 inline-block rounded" /> Nivel de Riesgo de Control (RC %)
                   </span>
                   <span className="flex items-center gap-1.5 text-teal-800">
-                    <i className="w-3 h-1 bg-teal-700 inline-block rounded" /> Nivel de Confianza (15,4% - 23,3% BAJO)
+                    <i className="w-3 h-1 bg-teal-700 inline-block rounded" /> Nivel de Confianza (NC %)
                   </span>
                 </div>
               </div>

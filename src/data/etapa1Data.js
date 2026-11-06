@@ -607,10 +607,74 @@ export const rubrosSignificativos = [
       }
     ],
     programaTrabajo: [
-      { Bloque: "Inspección Física", Pasos: ["Seleccionar del auxiliar contable de Activo Fijo (SAP) una muestra de nodos de red, sitios 5G y servidores en los Data Centers principales de AMBA e interior.", "Verificar in situ la existencia física y el estado de operatividad de los activos seleccionados.", "Cruzar el auxiliar contable de activos vigentes contra los informes operativos de siniestros, robo de cableado y vandalismo de fibra para comprobar que los bienes destruidos hayan sido dados de baja."] },
-      { Bloque: "Prueba de Altas y Obras en Curso", Pasos: ["Cotejar las adiciones del ejercicio (CAPEX) contra certificados de obra aprobados, facturas de proveedores importados y despachos de aduana.", "Ejecutar prueba de corte sobre las obras en curso habilitadas en diciembre de 2025 para comprobar la oportuna activación e inicio de depreciación."] },
-      { Bloque: "Validación de Titularidad", Pasos: ["Solicitar al Registro de la Propiedad Inmueble (RPI) los informes de dominio para los inmuebles adquiridos o fusionados en el ejercicio."] },
-      { Bloque: "Prueba de Depreciaciones y Obsolescencia", Pasos: ["Recalcular globalmente el cargo por depreciación del ejercicio en función de las vidas útiles por categoría.", "Solicitar el informe técnico del área de Operaciones sobre las centrales analógicas fuera de servicio y verificar la contabilización de la baja por obsolescencia."] }
+      {
+        Bloque: "Inspección Física (Existencia)",
+        Pasos: [
+          {
+            texto: "Seleccionar del auxiliar contable de Activo Fijo (SAP) una muestra de nodos de red, sitios 5G y servidores en los Data Centers principales de AMBA e interior.",
+            comoSeHace: "El auditor extrae del módulo SAP FI-AA el maestro de activos fijos con sus coordenadas geográficas e ID de sitio. Se estratifica la muestra enfocándose en los 16 Data Centers y radiobases 5G desplegadas en el año. El equipo auditor viaja in situ y coteja la placa identificatoria del activo contra el número de inventario de SAP.",
+            fuentes: "Módulo SAP FI-AA, informe de ingeniería de red y geolocalización de radiobases.",
+            valores: "Muestra sobre un total de Bienes de Uso de $6.789.118 millones (Nota 9)."
+          },
+          {
+            texto: "Verificar in situ la existencia física y el estado de operatividad de los activos seleccionados.",
+            comoSeHace: "Durante la visita al Data Center o torre de telecomunicaciones, se comprueba que el equipo esté energizado, conectado a la red de fibra y operando tráfico real. Se documenta la inspección con fotografías, planillas de campo y firma conjunta con el jefe de nodo de Telecom.",
+            fuentes: "Planilla de relevamiento físico de campo y actas de visita técnica.",
+            valores: "Validación de bienes operativos vs. bienes en desuso."
+          },
+          {
+            texto: "Cruzar el auxiliar contable de activos vigentes contra los informes operativos de siniestros, robo de cableado y vandalismo de fibra para comprobar que los bienes destruidos hayan sido dados de baja.",
+            comoSeHace: "Se solicita a la Gerencia de Seguridad Patrimonial el registro de incidentes de robo de cobre, vandalismo de tendidos de fibra y siniestros del ejercicio. Se cruzan los tramos afectados contra las bajas registradas en SAP FI-AA para verificar que ningún activo destruido siga figurando en el balance.",
+            fuentes: "Libro de siniestros de Seguridad Patrimonial, denuncias policiales y asientos de baja contable en SAP FI.",
+            valores: "Umbral de significatividad de auditoría (PAE: $8.311 millones)."
+          }
+        ]
+      },
+      {
+        Bloque: "Prueba de Altas y Obras en Curso (Existencia y Propiedad)",
+        Pasos: [
+          {
+            texto: "Cotejar las adiciones del ejercicio (CAPEX) contra certificados de obra aprobados, facturas de proveedores importados y despachos de aduana.",
+            comoSeHace: "Se audita una muestra de adiciones de CAPEX tecnológico (inversiones en red 5G y fibra FTTH). Se verifica el circuito completo: Orden de Compra aprobada en SAP MM, Factura del proveedor (ej. Huawei, Nokia, Ericsson), Despacho aduanero de importación y Acta de Aceptación Provisoria de Obra (PAC).",
+            fuentes: "Legajo de importación aduanera, órdenes de compra en SAP MM y certificados de avance de obra civil.",
+            valores: "Adiciones anuales de Bienes de Uso por más de $1,3 billones en Nota 9."
+          },
+          {
+            texto: "Ejecutar prueba de corte sobre las obras en curso habilitadas en diciembre de 2025 para comprobar la oportuna activación e inicio de depreciación.",
+            comoSeHace: "Prueba de Integridad y Corte. Se revisan las órdenes de inversión en curso (AUC) en SAP PS con fecha de habilitación comercial entre el 15/12/2025 y el 15/01/2026. Se constata que aquellas habilitadas en diciembre se hayan transferido a bienes en servicio y comenzado a amortizar oportunamente.",
+            fuentes: "Módulo SAP PS (órdenes de inversión de capital) y módulo SAP FI-AA.",
+            valores: "Obras en curso acumuladas al cierre: $1.285.410 millones."
+          }
+        ]
+      },
+      {
+        Bloque: "Validación de Titularidad (Propiedad)",
+        Pasos: [
+          {
+            texto: "Solicitar al Registro de la Propiedad Inmueble (RPI) los informes de dominio para los inmuebles adquiridos o fusionados en el ejercicio.",
+            comoSeHace: "Para una muestra de inmuebles clave (edificios centrales, Data Centers y predios de antenas), se solicitan informes de dominio e inhibición ante el RPI para constatar la titularidad registral a nombre de Telecom Argentina S.A. y la inexistencia de hipotecas o gravámenes no revelados en notas.",
+            fuentes: "Informes de dominio del Registro de la Propiedad Inmueble y escrituras traslativas de dominio.",
+            valores: "Terrenos y edificios propios por más de $450.000 millones."
+          }
+        ]
+      },
+      {
+        Bloque: "Prueba de Depreciaciones y Obsolescencia (Medición)",
+        Pasos: [
+          {
+            texto: "Recalcular globalmente el cargo por depreciación del ejercicio en función de las vidas útiles por categoría.",
+            comoSeHace: "Prueba Global de Amortizaciones: se multiplica el valor de origen reexpresado por inflación (NIC 29) de cada clase de bien por su alícuota de depreciación (redes: 10 a 20 años; equipos de computación: 3 a 5 años; centrales: 10 años). Se compara la sumatoria teórica con el cargo en resultados ($854.120M) validando que la variación sea menor al Error Tolerable ($83.112M).",
+            fuentes: "Subdiario SAP FI-AA, tabla de vidas útiles y Anexo de Bienes de Uso.",
+            valores: "Depreciación anual del ejercicio por $854.120 millones en Nota 9."
+          },
+          {
+            texto: "Solicitar el informe técnico del área de Operaciones sobre las centrales analógicas fuera de servicio y verificar la contabilización de la baja por obsolescencia.",
+            comoSeHace: "El auditor solicita al Director de Tecnología el informe del plan de apagado de centrales de cobre analógicas. Se verifica que los equipos retirados del servicio hayan sido dados de baja contablemente o amortizados al 100%, evitando la sobreestimación del activo.",
+            fuentes: "Plan técnico de migración a fibra de la Gerencia de Operaciones y libro mayor de SAP.",
+            valores: "Ajuste propuesto por obsolescencia en PT-A de $18.450 millones."
+          }
+        ]
+      }
     ]
   },
   {

@@ -538,6 +538,15 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                     {bloque.Pasos.map((paso, j) => {
                       const isObj = typeof paso === 'object' && paso !== null;
                       const texto = isObj ? paso.texto : paso;
+                      const comoSeHace = isObj
+                        ? paso.comoSeHace
+                        : `Procedimiento sustantivo de auditoría: el equipo auditor coteja la documentación de respaldo en SAP, comprobantes físicos e informes técnicos de gerencia para validar las afirmaciones del bloque ${bloque.Bloque}.`;
+                      const fuentes = isObj
+                        ? paso.fuentes
+                        : 'Módulos SAP ERP (FI/CO/AA), legajos de comprobantes e informes operativos de gerencia.';
+                      const valores = isObj
+                        ? paso.valores
+                        : `Saldo contable auditado en el rubro ${activeRubro.nombre}.`;
                       const isExpanded = expandAllProcedimientos || !!expandedProcedimientos[`${activeRubro.id}-${i}-${j}`];
 
                       return (
@@ -547,44 +556,42 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                               <span className="text-lime-400 font-bold shrink-0">•</span>
                               <span className="font-medium text-slate-100">{texto}</span>
                             </span>
-                            {isObj && (paso.comoSeHace || paso.fuentes) && (
-                              <button
-                                type="button"
-                                onClick={() =>
-                                  setExpandedProcedimientos((prev) => ({
-                                    ...prev,
-                                    [`${activeRubro.id}-${i}-${j}`]: !prev[`${activeRubro.id}-${i}-${j}`],
-                                  }))
-                                }
-                                className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold bg-teal-800/90 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer"
-                              >
-                                {isExpanded ? '▲ Ocultar' : '▼ ¿Cómo se hace?'}
-                              </button>
-                            )}
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setExpandedProcedimientos((prev) => ({
+                                  ...prev,
+                                  [`${activeRubro.id}-${i}-${j}`]: !prev[`${activeRubro.id}-${i}-${j}`],
+                                }))
+                              }
+                              className="shrink-0 px-2 py-0.5 rounded text-[10px] font-bold bg-teal-800/90 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer"
+                            >
+                              {isExpanded ? '▲ Ocultar' : '▼ ¿Cómo se hace?'}
+                            </button>
                           </div>
 
-                          {isObj && isExpanded && (
+                          {isExpanded && (
                             <div className="p-3 rounded-xl bg-slate-900/95 border border-lime-400/40 text-[11px] text-slate-200 space-y-2 mt-2 leading-relaxed shadow-md">
                               <div>
                                 <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
                                   🛠️ ¿Cómo se ejecuta en la práctica?
                                 </strong>
-                                <p className="text-slate-300 mt-0.5">{paso.comoSeHace}</p>
+                                <p className="text-slate-300 mt-0.5">{comoSeHace}</p>
                               </div>
-                              {paso.fuentes && (
+                              {fuentes && (
                                 <div>
                                   <strong className="text-teal-300 text-[10px] uppercase tracking-wide">
                                     📂 Fuentes de Información y Sistemas:
                                   </strong>
-                                  <p className="text-slate-300 mt-0.5">{paso.fuentes}</p>
+                                  <p className="text-slate-300 mt-0.5">{fuentes}</p>
                                 </div>
                               )}
-                              {paso.valores && (
+                              {valores && (
                                 <div>
                                   <strong className="text-amber-300 text-[10px] uppercase tracking-wide">
                                     🔢 Valores y Bases de Cálculo:
                                   </strong>
-                                  <p className="text-slate-300 mt-0.5">{paso.valores}</p>
+                                  <p className="text-slate-300 mt-0.5">{valores}</p>
                                 </div>
                               )}
                             </div>
