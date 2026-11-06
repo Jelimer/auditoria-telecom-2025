@@ -612,8 +612,8 @@ export const rubrosSignificativos = [
         Pasos: [
           {
             texto: "Seleccionar del auxiliar contable de Activo Fijo (SAP FI-AA) una muestra de nodos de red, sitios 5G y servidores en los Data Centers principales de AMBA e interior.",
-            comoSeHace: "El auditor extrae del módulo contable SAP FI-AA (Financial Accounting - Asset Accounting / Subdiario Contable de Activos Fijos) el maestro de bienes con sus códigos de inventario y geolocalización. Se seleccionan los 16 Data Centers principales (Pacheco, Barracas, Córdoba, Rosario, etc.) y una muestra de 85 radiobases 5G desplegadas en el año. El equipo auditor inspecciona in situ verificando que la chapa o código de inventario coincida con el registro contable.",
-            fuentes: "Módulo SAP FI-AA (Subdiario Contable de Activos Fijos), inventario técnico georreferenciado y actas de visita de auditoría.",
+            comoSeHace: "El auditor extrae del módulo contable SAP FI-AA (Subdiario de Activos Fijos) el maestro de bienes con sus códigos de inventario y geolocalización. Se seleccionan los 16 Data Centers principales (Pacheco, Barracas, Córdoba, Rosario, etc.) y una muestra de 85 radiobases 5G desplegadas en el año. El equipo auditor inspecciona in situ verificando que la chapa o código de inventario coincida con el registro contable.",
+            fuentes: "Módulo SAP FI-AA (Subdiario de Activos Fijos), inventario técnico georreferenciado y actas de visita de auditoría.",
             valores: "Muestra sobre un total de Bienes de Uso de $6.789.118 millones (Nota 9)."
           },
           {
@@ -635,14 +635,14 @@ export const rubrosSignificativos = [
         Pasos: [
           {
             texto: "Cotejar las altas del ejercicio (CAPEX) contra órdenes de compra en SAP MM, facturas comerciales, despachos aduaneros y actas de recepción de obra.",
-            comoSeHace: "Circuito de Vouching de Altas (de libros a terreno en 6 pasos): 1) Población y Muestra: Se extrae del subdiario contable SAP FI-AA (Financial Accounting - Asset Accounting / Subdiario Contable de Activos Fijos) el reporte de altas del año, seleccionando las partidas > PAE ($8.311M). 2) Trazabilidad a Compras: Del asiento contable se rastrea a SAP MM (Materials Management / Módulo de Compras y Almacenes) para verificar la Orden de Compra aprobada según la matriz de firmas (DOA - Delegation of Authority). 3) Factura Comercial: Se coteja la factura del fabricante tecnológico (Nokia, Huawei, Ericsson) y su conversión de USD según NIC 21. 4) Despacho Aduanero: Se audita el despacho oficial de AFIP/DGA validando que fletes y aranceles se hayan activado como mayor costo del activo (NIC 16.16). 5) Entrada a Depósito: Se verifica el remito de recepción física en almacén (movimiento MIGO en SAP). 6) Acta PAC: Se exige el Acta de Aceptación Provisoria de Obra (PAC / Provisional Acceptance Certificate) firmada por ingenieros de campo, que acredita que el activo está instalado, conectado a la red y listo para operar, habilitando legalmente su amortización.",
-            fuentes: "Módulo SAP FI-AA (Activos Fijos), SAP MM (Compras y Almacenes), despachos aduaneros de AFIP/DGA y Actas PAC de ingeniería de red.",
+            comoSeHace: "Circuito de Cotejo Documental de Altas (de libros a terreno en 6 pasos): 1) Población y Muestra: Se extrae del subdiario contable SAP FI-AA (Subdiario de Activos Fijos) el reporte de altas del año, seleccionando las partidas > PAE ($8.311M). 2) Trazabilidad a Compras: Del asiento contable se rastrea al módulo SAP MM (Compras y Almacenes) para verificar la Orden de Compra aprobada según la matriz de firmas y autorizaciones. 3) Factura Comercial: Se coteja la factura del fabricante tecnológico (Nokia, Huawei, Ericsson) y su conversión de moneda extranjera (NIC 21). 4) Despacho Aduanero: Se audita el despacho oficial aduanero validando que fletes y aranceles se hayan activado como mayor costo del bien (NIC 16.16). 5) Entrada a Depósito: Se verifica el remito de recepción física en almacén (movimiento MIGO en SAP). 6) Acta PAC: Se exige el Acta de Puesta en Servicio de Obra (PAC) firmada por ingenieros de campo, que acredita que el activo está instalado, conectado a la red y listo para operar, habilitando legalmente su amortización.",
+            fuentes: "Módulo SAP FI-AA (Activos Fijos), SAP MM (Compras y Almacenes), despachos aduaneros y Actas PAC de ingeniería de red.",
             valores: "Altas anuales de Bienes de Uso por más de $1,3 billones en Nota 9. Umbral de selección PAE: $8.311 millones."
           },
           {
-            texto: "Ejecutar prueba de corte (cut-off) sobre las obras en curso habilitadas en diciembre de 2025 para comprobar la oportuna activación e inicio de depreciación.",
-            comoSeHace: "¿Por qué y cómo se hace la prueba de corte? La NIC 16 (párrafo 55) exige comenzar a depreciar en cuanto el bien esté en condiciones de operar. Un truco contable común a fin de año es 'dormir la activación': mantener una antena o red de fibra ya terminada en diciembre como 'Obra en Curso' (cuenta AUC en SAP PS) para postergar la amortización a enero 2026 y no reducir las ganancias del balance anual. Para auditarlo: 1) Se toma el listado de Obras en Curso al 31/12/2025 en SAP PS (Project System / Módulo de Obras). 2) Se cruza contra los registros de tráfico del NOC (Network Operations Center / Centro de Control y Monitoreo de Red). 3) Si el NOC muestra que el nodo ya transmitía datos o llamadas de clientes en diciembre, se obliga a la empresa a reclasificar la obra a Bienes en Servicio y registrar de inmediato el gasto de amortización en el ejercicio 2025.",
-            fuentes: "Módulo SAP PS (Project System / Obras en Curso AUC), Subdiario SAP FI-AA y Logs de tráfico de red del NOC (Network Operations Center).",
+            texto: "Ejecutar prueba de corte sobre las obras en curso habilitadas en diciembre de 2025 para comprobar la oportuna activación e inicio de depreciación.",
+            comoSeHace: "Procedimiento de corte sobre obras en curso: Según la NIC 16 (párrafo 55), la depreciación comienza cuando el activo está en condiciones de operar. Se audita que no existan obras terminadas que continúen expuestas indebidamente como 'Obras en Curso' al cierre del ejercicio: 1) Se extrae el listado de proyectos en curso de SAP PS (Módulo de Proyectos y Obras) al 31/12/2025. 2) Se cruzan las fechas de habilitación técnica contra los registros de tráfico del centro de monitoreo de red (NOC). 3) Si el nodo o tendido ya operaba tráfico comercial en diciembre, se constata su traspaso a Bienes en Servicio y el registro del cargo de amortización en el ejercicio 2025.",
+            fuentes: "Módulo SAP PS (Obras en Curso), Subdiario SAP FI-AA y registros de tráfico de red del NOC (Centro de Monitoreo).",
             valores: "Obras en curso acumuladas al cierre: $1.285.410 millones en Nota 9."
           }
         ]
@@ -662,14 +662,14 @@ export const rubrosSignificativos = [
         Bloque: "Prueba de Depreciaciones y Obsolescencia (Medición)",
         Pasos: [
           {
-            texto: "Recalcular globalmente el cargo por depreciación del ejercicio en función de las vidas útiles por categoría.",
+            texto: "Recalcular globalmente el cargo por depreciación del ejercicio en función de las vidas útiles por categoría (Prueba Global de Amortizaciones).",
             comoSeHace: "Prueba Global de Amortizaciones: se multiplica el valor de origen reexpresado por inflación (NIC 29) de cada clase de bien por su alícuota de depreciación (redes: 10 a 20 años; equipos de computación: 3 a 5 años; centrales: 10 años). Se compara la sumatoria teórica con el cargo en resultados ($854.120M) validando que la variación sea menor al Error Tolerable ($83.112M).",
-            fuentes: "Subdiario SAP FI-AA (Asset Accounting), tabla de vidas útiles y Anexo de Bienes de Uso.",
+            fuentes: "Subdiario SAP FI-AA (Activos Fijos), tabla de vidas útiles y Anexo de Bienes de Uso.",
             valores: "Depreciación anual del ejercicio por $854.120 millones en Nota 9."
           },
           {
             texto: "Solicitar el informe técnico del área de Operaciones sobre las centrales analógicas fuera de servicio y verificar la contabilización de la baja por obsolescencia.",
-            comoSeHace: "El auditor solicita al Director de Tecnología el informe del plan de apagado de centrales telefónicas de cobre analógicas obsoletas (migradas a FTTH - Fiber to the Home). Se verifica que los equipos retirados del servicio hayan sido dados de baja contablemente o amortizados al 100%, evitando la sobreestimación del activo. Al detectarse centrales en desuso sin dar de baja, se originó el ajuste propuesto AJ-01 por $21.450 millones.",
+            comoSeHace: "El auditor solicita al Director de Tecnología el informe del plan de apagado de centrales telefónicas de cobre analógicas obsoletas (migradas a la red de fibra óptica FTTH). Se verifica que los equipos retirados del servicio hayan sido dados de baja contablemente o amortizados al 100%, evitando la sobreestimación del activo. Al detectarse centrales en desuso sin dar de baja, se originó el ajuste propuesto AJ-01 por $21.450 millones.",
             fuentes: "Plan técnico de migración a fibra de la Gerencia de Operaciones y Libro Mayor de SAP FI-AA.",
             valores: "Ajuste propuesto AJ-01 (Obsolescencia de centrales de cobre): $21.450 millones en PT-A."
           }
@@ -982,15 +982,15 @@ export const rubrosSignificativos = [
         Bloque: "Proyectos de Software NIC 38 (Existencia e Integridad)",
         Pasos: [
           {
-            texto: "Auditar proyectos de software en SAP PS (Project System / Módulo de Proyectos IT) verificando factibilidad técnica y beneficio económico futuro (NIC 38).",
-            comoSeHace: "El auditor extrae del módulo SAP PS (Project System / Módulo de Proyectos de Desarrollo de Software) el portafolio de órdenes de inversión de IT. Para una muestra de proyectos clave (Flow, App Mi Personal e IA), se revisa el Business Case aprobado por el CIO. Se verifica que los costos activados correspondan exclusivamente a la Fase de Desarrollo (programación, arquitectura, pruebas) y que NO se hayan activado gastos de Investigación previa ni de soporte/capacitación rutinaria (que deben imputarse a pérdida según NIC 38.57).",
-            fuentes: "Módulo SAP PS, horas cargadas en partes de tiempo (SAP CATS - Cross Application Time Sheet), facturas de consultoras de software externas y actas de pase a producción (UAT - User Acceptance Testing).",
+            texto: "Auditar proyectos de software en SAP PS (Módulo de Proyectos de IT) verificando factibilidad técnica y beneficio económico futuro (NIC 38).",
+            comoSeHace: "El auditor extrae del módulo SAP PS (Módulo de Proyectos de Desarrollo de Software) el portafolio de órdenes de inversión de IT. Para una muestra de proyectos clave (Flow, App Mi Personal e IA), se revisa el plan de negocios aprobado por la Dirección de Tecnología. Se verifica que los costos activados correspondan exclusivamente a la Fase de Desarrollo (programación, arquitectura, pruebas) y que NO se hayan activado gastos de Investigación previa ni de soporte o mantenimiento rutinario (que deben imputarse a pérdida según NIC 38.57).",
+            fuentes: "Módulo SAP PS, horas cargadas en partes de tiempo (SAP CATS - Registro de Horas), facturas de consultoras de software externas y actas de aprobación de usuarios (UAT).",
             valores: "Proyectos capitalizados en el ejercicio bajo NIC 38 por más de $150.000 millones."
           },
           {
             texto: "Examinar cuentas de gastos tecnológicos para confirmar que no se omitieron desarrollos capitalizables.",
-            comoSeHace: "Prueba de Integridad y Corte (Cut-off). El auditor analiza el mayor general de las cuentas de pérdida (Honorarios de sistemas, Mantenimiento de software, Consultoría IT). Se toma una muestra de facturas y contratos de fin de año (noviembre/diciembre 2025) para confirmar que no se hayan mandado erróneamente a resultados desarrollos que cumplían los criterios de la NIC 38 para ser activados en el balance.",
-            fuentes: "Mayor general de gastos de IT en SAP FI (Financial Accounting), contratos marco de desarrollo y órdenes de servicio de proveedores tecnológicos.",
+            comoSeHace: "Prueba de Integridad y Corte: El auditor analiza el mayor general de las cuentas de pérdida (Honorarios de sistemas, Mantenimiento de software, Consultoría IT). Se toma una muestra de facturas y contratos de fin de año (noviembre/diciembre 2025) para confirmar que no se hayan mandado erróneamente a resultados desarrollos que cumplían los criterios de la NIC 38 para ser activados en el balance.",
+            fuentes: "Mayor general de gastos de IT en SAP FI (Contabilidad General), contratos marco de desarrollo y órdenes de servicio de proveedores tecnológicos.",
             valores: "Muestra de transacciones que superan el umbral de auditoría (PAE: $8.311 millones)."
           }
         ]
@@ -1000,8 +1000,8 @@ export const rubrosSignificativos = [
         Pasos: [
           {
             texto: "Efectuar el recálculo independiente de amortizaciones según vidas útiles remanentes.",
-            comoSeHace: "Procedimiento analítico sustantivo de recálculo matemático independiente: 1) Se solicita a Contabilidad el Subdiario de Bienes de Uso e Intangibles de SAP FI-AA (Asset Accounting / Activos Fijos) y la Nota 10. 2) Se toman los Valores de Origen reexpresados por inflación (NIC 29) y las vidas útiles de la política contable (Licencias 4G/5G: 15 a 20 años lineal; Software: 3 a 5 años). 3) Se aplica la fórmula matemática: Amortización Teórica = (Valor Origen Reexpresado / Vida Útil en Meses) × Meses de uso en 2025. 4) Se compara la sumatoria contra el cargo contable ($274.320M en Anexo de Intangibles). Al no superar el Error Tolerable ($ET = $83.112M), el cálculo queda validado.",
-            fuentes: "Subdiario SAP FI-AA (reporte AR02), tablas de vida útil aprobadas por Directorio, Nota 10 y Nota 3.k.",
+            comoSeHace: "Procedimiento analítico sustantivo de recálculo matemático independiente: 1) Se solicita a Contabilidad el Subdiario de Bienes de Uso e Intangibles de SAP FI-AA (Subdiario de Activos Fijos) y la Nota 10. 2) Se toman los Valores de Origen reexpresados por inflación (NIC 29) y las vidas útiles de la política contable (Licencias 4G/5G: 15 a 20 años lineal; Software: 3 a 5 años). 3) Se aplica la fórmula matemática: Amortización Teórica = (Valor Origen Reexpresado / Vida Útil en Meses) × Meses de uso en 2025. 4) Se compara la sumatoria contra el cargo contable ($274.320M en Anexo de Intangibles). Al no superar el Error Tolerable ($ET = $83.112M), el cálculo queda validado.",
+            fuentes: "Subdiario SAP FI-AA, tablas de vida útil aprobadas por Directorio, Nota 10 y Nota 3.k.",
             valores: "Cargo anual a amortizaciones de $274.320 millones sobre un parque de intangibles de $2.671.525 millones."
           },
           {
