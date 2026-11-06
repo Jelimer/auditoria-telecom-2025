@@ -21,6 +21,8 @@ export default function Etapa2EjecucionView({
   const [selectedPTId, setSelectedPTId] = useState('pt-a');
   const [expandedProcedimientos, setExpandedProcedimientos] = useState({});
   const [expandAllProcedimientos, setExpandAllProcedimientos] = useState(false);
+  const [expandedCedulas, setExpandedCedulas] = useState({});
+  const [expandAllCedulas, setExpandAllCedulas] = useState(false);
 
   useEffect(() => {
     if (!subTarget) return;
@@ -366,13 +368,25 @@ export default function Etapa2EjecucionView({
 
         {/* Cédulas Analíticas (Procedimientos Ejecutados en el Papel de Trabajo) */}
         <div>
-          <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-600 mb-2">
-            2. Cédulas Analíticas y Pruebas Sustantivas Ejecutadas
-          </h4>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+            <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-700">
+              2. Cédulas Analíticas y Pruebas Sustantivas Ejecutadas
+            </h4>
+            <button
+              type="button"
+              onClick={() => setExpandAllCedulas(!expandAllCedulas)}
+              className="self-start sm:self-auto px-2.5 py-1 rounded-lg text-[10px] font-bold bg-teal-800 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer"
+            >
+              {expandAllCedulas ? '▲ Ocultar Todas las Guías Orales' : '▼ Expandir Todas las Guías Orales y Prácticas'}
+            </button>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {activePT.procedimientosEjecutados.map((proc) => {
               const hasIssue = proc.marca.includes('⊗');
               const elementId = proc.ref.toLowerCase().replace(/[^a-z0-9_-]/g, '');
+              const isExpanded = expandAllCedulas || !!expandedCedulas[proc.ref];
+
               return (
                 <div
                   key={proc.ref}
@@ -408,6 +422,58 @@ export default function Etapa2EjecucionView({
                   <p className="text-xs text-slate-700 leading-relaxed bg-white p-2.5 rounded-lg border border-slate-200/80">
                     {proc.resultado}
                   </p>
+
+                  {/* Botón para expandir guía práctica y defensa oral */}
+                  {(proc.procedimientoDetalle || proc.defensaOral) && (
+                    <div className="mt-3 pt-2.5 border-t border-slate-200/70 flex items-center justify-between">
+                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">
+                        Guía Técnica y Defensa Oral
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setExpandedCedulas((prev) => ({
+                            ...prev,
+                            [proc.ref]: !prev[proc.ref],
+                          }))
+                        }
+                        className="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-800 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer"
+                      >
+                        {isExpanded ? '▲ Ocultar' : '▼ ¿Cómo se audita y defiende?'}
+                      </button>
+                    </div>
+                  )}
+
+                  {isExpanded && (proc.procedimientoDetalle || proc.defensaOral) && (
+                    <div className="mt-2.5 p-3 rounded-xl bg-slate-900 text-slate-100 border border-teal-500/40 text-[11px] space-y-2.5 shadow-md">
+                      {proc.procedimientoDetalle && (
+                        <div>
+                          <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                            🛠️ ¿Cómo se ejecuta la prueba en la práctica?
+                          </strong>
+                          <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.procedimientoDetalle}</p>
+                        </div>
+                      )}
+                      {proc.defensaOral && (
+                        <div>
+                          <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                            🎓 Para la Defensa Oral ante el Profesor:
+                          </strong>
+                          <p className="text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-2.5 rounded-lg border border-amber-500/30 italic">
+                            "{proc.defensaOral}"
+                          </p>
+                        </div>
+                      )}
+                      {proc.afirmacionesDetalle && (
+                        <div>
+                          <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                            ⚖️ Afirmaciones y Normas Validadas:
+                          </strong>
+                          <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.afirmacionesDetalle}</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               );
             })}
