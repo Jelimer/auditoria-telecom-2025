@@ -443,12 +443,23 @@ export default function Etapa2EjecucionView({
                     </div>
                   )}
 
-                  <p className="text-[11px] text-slate-500 mb-2">
-                    <strong>Muestra examinada:</strong> {proc.muestra}
-                  </p>
-                  <p className="text-xs text-slate-700 leading-relaxed bg-white p-2.5 rounded-lg border border-slate-200/80">
-                    {proc.resultado}
-                  </p>
+                  <div className="mb-2.5">
+                    <strong className="text-[11px] text-slate-800 block mb-1">
+                      Muestra examinada:
+                    </strong>
+                    <p className="text-[11px] text-slate-600 leading-relaxed bg-slate-100/80 p-2 rounded-lg border border-slate-200">
+                      {proc.muestra}
+                    </p>
+                  </div>
+
+                  <div className="mb-2.5">
+                    <strong className="text-[11px] text-slate-800 block mb-1 flex items-center gap-1">
+                      📌 Resultado de la Ejecución y Hallazgos (Marcas de Auditoría):
+                    </strong>
+                    <p className="text-xs text-slate-700 leading-relaxed bg-white p-2.5 rounded-lg border border-slate-200/90 shadow-xs">
+                      {proc.resultado}
+                    </p>
+                  </div>
 
                   {/* Botón para expandir guía práctica y defensa oral */}
                   {(proc.procedimientoDetalle || proc.defensaOral) && (
@@ -472,7 +483,7 @@ export default function Etapa2EjecucionView({
                   )}
 
                   {isExpanded && (proc.procedimientoDetalle || proc.defensaOral) && (
-                    <div className="mt-2.5 p-3 rounded-xl bg-slate-900 text-slate-100 border border-teal-500/40 text-[11px] space-y-2.5 shadow-md">
+                    <div className="mt-2.5 p-3.5 rounded-xl bg-slate-900 text-slate-100 border border-teal-500/40 text-[11px] space-y-2.5 shadow-md">
                       {proc.procedimientoDetalle && (
                         <div>
                           <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
@@ -481,10 +492,26 @@ export default function Etapa2EjecucionView({
                           <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.procedimientoDetalle}</p>
                         </div>
                       )}
+                      {proc.fuentes && (
+                        <div>
+                          <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                            📂 Fuentes de Información y Sistemas:
+                          </strong>
+                          <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.fuentes}</p>
+                        </div>
+                      )}
+                      {proc.valores && (
+                        <div>
+                          <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                            🔢 Valores y Bases de Cálculo:
+                          </strong>
+                          <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.valores}</p>
+                        </div>
+                      )}
                       {proc.defensaOral && (
                         <div>
                           <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
-                            🎓 Para la Defensa Oral ante el Profesor:
+                            🎓 Para la Defensa Oral ante el Profesor (Libreto sugerido):
                           </strong>
                           <p className="text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-2.5 rounded-lg border border-amber-500/30 italic">
                             "{proc.defensaOral}"
