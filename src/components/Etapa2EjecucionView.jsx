@@ -426,23 +426,6 @@ export default function Etapa2EjecucionView({
 
                   <h5 className="text-xs font-extrabold text-slate-900 mb-2">{proc.nombre}</h5>
 
-                  {/* Procedimientos específicos del programa formalizado integrados */}
-                  {proc.pasosPrograma && proc.pasosPrograma.length > 0 && (
-                    <div className="mb-2.5 p-2.5 rounded-lg bg-teal-950 text-teal-50 border border-teal-800/90 shadow-xs">
-                      <span className="text-[10px] font-extrabold uppercase tracking-wide text-lime-400 block mb-1.5 flex items-center gap-1">
-                        📋 Procedimientos del Programa Formalizado:
-                      </span>
-                      <ul className="space-y-1.5 text-[11px] leading-relaxed">
-                        {proc.pasosPrograma.map((p, idx) => (
-                          <li key={idx} className="flex items-start gap-1.5 text-slate-200">
-                            <span className="text-lime-400 font-bold shrink-0">•</span>
-                            <span>{p}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
                   <div className="mb-2.5">
                     <strong className="text-[11px] text-slate-800 block mb-1">
                       Muestra examinada:
@@ -452,25 +435,75 @@ export default function Etapa2EjecucionView({
                     </p>
                   </div>
 
-                  <div className="mb-2.5">
-                    <strong className="text-[11px] text-slate-800 block mb-1 flex items-center gap-1">
-                      📌 Resultado de la Ejecución y Hallazgos por Procedimiento (Marcas de Auditoría):
-                    </strong>
-                    {Array.isArray(proc.resultado) ? (
-                      <ul className="space-y-1.5 text-xs text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200/90 shadow-xs">
-                        {proc.resultado.map((r, rIdx) => (
-                          <li key={rIdx} className="flex items-start gap-1.5 leading-relaxed">
-                            <span className="text-teal-700 font-bold shrink-0">•</span>
-                            <span>{r}</span>
-                          </li>
+                  {/* Procedimientos emparejados con su resultado y marcas */}
+                  {proc.pasosConResultado && proc.pasosConResultado.length > 0 ? (
+                    <div className="mb-2.5 space-y-2">
+                      <strong className="text-[11px] text-slate-800 block mb-1 flex items-center gap-1">
+                        📌 Procedimientos del Programa y Hallazgos (Marcas de Auditoría):
+                      </strong>
+                      <div className="space-y-2">
+                        {proc.pasosConResultado.map((item, pIdx) => (
+                          <div
+                            key={pIdx}
+                            className="p-2.5 rounded-lg bg-white border border-slate-200/90 shadow-xs space-y-1.5"
+                          >
+                            <div className="flex items-start gap-1.5">
+                              <span className="px-1.5 py-0.5 rounded bg-teal-800 text-lime-300 font-mono font-bold text-[10px] shrink-0">
+                                Paso {pIdx + 1}
+                              </span>
+                              <span className="text-[11px] font-bold text-slate-800 leading-snug">
+                                {item.paso}
+                              </span>
+                            </div>
+                            <div className="pl-2 text-xs text-slate-700 leading-relaxed bg-slate-50/80 p-2 rounded border border-slate-200/60">
+                              <strong className="text-[10px] uppercase text-teal-800 font-bold block mb-0.5">
+                                Resultado y Hallazgo:
+                              </strong>
+                              <span>{item.resultado}</span>
+                            </div>
+                          </div>
                         ))}
-                      </ul>
-                    ) : (
-                      <p className="text-xs text-slate-700 leading-relaxed bg-white p-2.5 rounded-lg border border-slate-200/90 shadow-xs">
-                        {proc.resultado}
-                      </p>
-                    )}
-                  </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {proc.pasosPrograma && proc.pasosPrograma.length > 0 && (
+                        <div className="mb-2.5 p-2.5 rounded-lg bg-teal-950 text-teal-50 border border-teal-800/90 shadow-xs">
+                          <span className="text-[10px] font-extrabold uppercase tracking-wide text-lime-400 block mb-1.5 flex items-center gap-1">
+                            📋 Procedimientos del Programa Formalizado:
+                          </span>
+                          <ul className="space-y-1.5 text-[11px] leading-relaxed">
+                            {proc.pasosPrograma.map((p, idx) => (
+                              <li key={idx} className="flex items-start gap-1.5 text-slate-200">
+                                <span className="text-lime-400 font-bold shrink-0">•</span>
+                                <span>{p}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      <div className="mb-2.5">
+                        <strong className="text-[11px] text-slate-800 block mb-1 flex items-center gap-1">
+                          📌 Resultado de la Ejecución y Hallazgos por Procedimiento (Marcas de Auditoría):
+                        </strong>
+                        {Array.isArray(proc.resultado) ? (
+                          <ul className="space-y-1.5 text-xs text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200/90 shadow-xs">
+                            {proc.resultado.map((r, rIdx) => (
+                              <li key={rIdx} className="flex items-start gap-1.5 leading-relaxed">
+                                <span className="text-teal-700 font-bold shrink-0">•</span>
+                                <span>{r}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : (
+                          <p className="text-xs text-slate-700 leading-relaxed bg-white p-2.5 rounded-lg border border-slate-200/90 shadow-xs">
+                            {proc.resultado}
+                          </p>
+                        )}
+                      </div>
+                    </>
+                  )}
 
                   {/* Botón para expandir guía práctica y defensa oral */}
                   {(proc.procedimientoDetalle || proc.defensaOral) && (
