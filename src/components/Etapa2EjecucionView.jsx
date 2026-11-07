@@ -23,6 +23,7 @@ export default function Etapa2EjecucionView({
   const [expandAllProcedimientos, setExpandAllProcedimientos] = useState(false);
   const [expandedCedulas, setExpandedCedulas] = useState({});
   const [expandAllCedulas, setExpandAllCedulas] = useState(false);
+  const [expandedSteps, setExpandedSteps] = useState({});
 
   useEffect(() => {
     if (!subTarget) return;
@@ -435,34 +436,93 @@ export default function Etapa2EjecucionView({
                     </p>
                   </div>
 
-                  {/* Procedimientos emparejados con su resultado y marcas */}
+                  {/* Procedimientos emparejados con su detalle técnico y resultado */}
                   {proc.pasosConResultado && proc.pasosConResultado.length > 0 ? (
                     <div className="mb-2.5 space-y-2">
-                      <strong className="text-[11px] text-slate-800 block mb-1 flex items-center gap-1">
-                        📌 Procedimientos del Programa y Hallazgos (Marcas de Auditoría):
-                      </strong>
-                      <div className="space-y-2">
-                        {proc.pasosConResultado.map((item, pIdx) => (
-                          <div
-                            key={pIdx}
-                            className="p-2.5 rounded-lg bg-white border border-slate-200/90 shadow-xs space-y-1.5"
-                          >
-                            <div className="flex items-start gap-1.5">
-                              <span className="px-1.5 py-0.5 rounded bg-teal-800 text-lime-300 font-mono font-bold text-[10px] shrink-0">
-                                Paso {pIdx + 1}
-                              </span>
-                              <span className="text-[11px] font-bold text-slate-800 leading-snug">
-                                {item.paso}
-                              </span>
+                      <div className="flex items-center justify-between">
+                        <strong className="text-[11px] text-slate-800 flex items-center gap-1 font-bold">
+                          📌 Procedimientos del Programa y Hallazgos (Marcas de Auditoría):
+                        </strong>
+                      </div>
+                      <div className="space-y-3">
+                        {proc.pasosConResultado.map((item, pIdx) => {
+                          const stepKey = `${proc.ref}-p${pIdx}`;
+                          const hasDetail = !!(item.comoSeEjecuta || item.fuentes || item.valores);
+                          const isStepExpanded = expandedSteps[stepKey] !== undefined ? expandedSteps[stepKey] : true;
+
+                          return (
+                            <div
+                              key={pIdx}
+                              className="p-3 rounded-xl bg-white border border-slate-200 shadow-xs space-y-2.5"
+                            >
+                              {/* 1. Cabecera del Paso */}
+                              <div className="flex items-start justify-between gap-2">
+                                <div className="flex items-start gap-1.5 flex-1">
+                                  <span className="px-2 py-0.5 rounded bg-teal-900 text-lime-300 font-mono font-bold text-[10px] shrink-0">
+                                    Paso {pIdx + 1}
+                                  </span>
+                                  <span className="text-[11px] font-bold text-slate-800 leading-snug">
+                                    {item.paso}
+                                  </span>
+                                </div>
+                                {hasDetail && (
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setExpandedSteps((prev) => ({
+                                        ...prev,
+                                        [stepKey]: prev[stepKey] !== undefined ? !prev[stepKey] : false,
+                                      }))
+                                    }
+                                    className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-teal-800 hover:bg-teal-50 border border-slate-200 transition-colors shrink-0 cursor-pointer"
+                                  >
+                                    {isStepExpanded ? '▲ Ocultar Detalle' : '▼ Detalle Técnico'}
+                                  </button>
+                                )}
+                              </div>
+
+                              {/* 2. [ Desplegable / Detalle técnico ] primero en cada paso, luego Fuentes..., luego valores... */}
+                              {hasDetail && isStepExpanded && (
+                                <div className="p-3 rounded-lg bg-slate-900 text-slate-100 border border-teal-500/40 text-[11px] space-y-2">
+                                  {item.comoSeEjecuta && (
+                                    <div>
+                                      <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                        🛠️ ¿Cómo se ejecuta la prueba en la práctica?
+                                      </strong>
+                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{item.comoSeEjecuta}</p>
+                                    </div>
+                                  )}
+
+                                  {item.fuentes && (
+                                    <div>
+                                      <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                        📂 Fuentes de Información y Sistemas:
+                                      </strong>
+                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{item.fuentes}</p>
+                                    </div>
+                                  )}
+
+                                  {item.valores && (
+                                    <div>
+                                      <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                        🔢 Valores y Bases de Cálculo:
+                                      </strong>
+                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{item.valores}</p>
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+
+                              {/* 3. y finalmente Resultado y Hallazgos con Marcas de Auditoría */}
+                              <div className="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 text-xs text-slate-800 leading-relaxed space-y-1">
+                                <strong className="text-[10px] uppercase text-emerald-900 font-extrabold flex items-center gap-1">
+                                  📌 Resultado de la Ejecución y Hallazgo (Marcas de Auditoría):
+                                </strong>
+                                <p className="text-slate-700 leading-relaxed">{item.resultado}</p>
+                              </div>
                             </div>
-                            <div className="pl-2 text-xs text-slate-700 leading-relaxed bg-slate-50/80 p-2 rounded border border-slate-200/60">
-                              <strong className="text-[10px] uppercase text-teal-800 font-bold block mb-0.5">
-                                Resultado y Hallazgo:
-                              </strong>
-                              <span>{item.resultado}</span>
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   ) : (
@@ -506,72 +566,82 @@ export default function Etapa2EjecucionView({
                   )}
 
                   {/* Botón para expandir guía práctica y defensa oral */}
-                  {(proc.procedimientoDetalle || proc.defensaOral) && (
-                    <div className="mt-3 pt-2.5 border-t border-slate-200/70 flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">
-                        Guía Técnica y Defensa Oral
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setExpandedCedulas((prev) => ({
-                            ...prev,
-                            [proc.ref]: !prev[proc.ref],
-                          }))
-                        }
-                        className="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-800 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer"
-                      >
-                        {isExpanded ? '▲ Ocultar' : '▼ ¿Cómo se audita y defiende?'}
-                      </button>
-                    </div>
-                  )}
+                  {(proc.procedimientoDetalle || proc.defensaOral) && (() => {
+                    const stepsHaveDetail = proc.pasosConResultado && proc.pasosConResultado.some((p) => p.comoSeEjecuta);
 
-                  {isExpanded && (proc.procedimientoDetalle || proc.defensaOral) && (
-                    <div className="mt-2.5 p-3.5 rounded-xl bg-slate-900 text-slate-100 border border-teal-500/40 text-[11px] space-y-2.5 shadow-md">
-                      {proc.procedimientoDetalle && (
-                        <div>
-                          <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
-                            🛠️ ¿Cómo se ejecuta la prueba en la práctica?
-                          </strong>
-                          <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.procedimientoDetalle}</p>
+                    return (
+                      <>
+                        <div className="mt-3 pt-2.5 border-t border-slate-200/70 flex items-center justify-between">
+                          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">
+                            {stepsHaveDetail ? '🎓 Libreto de Defensa Oral y Normas' : 'Guía Técnica y Defensa Oral'}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setExpandedCedulas((prev) => ({
+                                ...prev,
+                                [proc.ref]: !prev[proc.ref],
+                              }))
+                            }
+                            className="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-800 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer"
+                          >
+                            {isExpanded
+                              ? '▲ Ocultar'
+                              : stepsHaveDetail
+                              ? '▼ Libreto de Defensa ante el Profesor'
+                              : '▼ ¿Cómo se audita y defiende?'}
+                          </button>
                         </div>
-                      )}
-                      {proc.fuentes && (
-                        <div>
-                          <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
-                            📂 Fuentes de Información y Sistemas:
-                          </strong>
-                          <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.fuentes}</p>
-                        </div>
-                      )}
-                      {proc.valores && (
-                        <div>
-                          <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
-                            🔢 Valores y Bases de Cálculo:
-                          </strong>
-                          <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.valores}</p>
-                        </div>
-                      )}
-                      {proc.defensaOral && (
-                        <div>
-                          <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
-                            🎓 Para la Defensa Oral ante el Profesor (Libreto sugerido):
-                          </strong>
-                          <p className="text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-2.5 rounded-lg border border-amber-500/30 italic">
-                            "{proc.defensaOral}"
-                          </p>
-                        </div>
-                      )}
-                      {proc.afirmacionesDetalle && (
-                        <div>
-                          <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
-                            ⚖️ Afirmaciones y Normas Validadas:
-                          </strong>
-                          <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.afirmacionesDetalle}</p>
-                        </div>
-                      )}
-                    </div>
-                  )}
+
+                        {isExpanded && (
+                          <div className="mt-2.5 p-3.5 rounded-xl bg-slate-900 text-slate-100 border border-teal-500/40 text-[11px] space-y-2.5 shadow-md">
+                            {!stepsHaveDetail && proc.procedimientoDetalle && (
+                              <div>
+                                <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                  🛠️ ¿Cómo se ejecuta la prueba en la práctica?
+                                </strong>
+                                <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.procedimientoDetalle}</p>
+                              </div>
+                            )}
+                            {!stepsHaveDetail && proc.fuentes && (
+                              <div>
+                                <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                  📂 Fuentes de Información y Sistemas:
+                                </strong>
+                                <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.fuentes}</p>
+                              </div>
+                            )}
+                            {!stepsHaveDetail && proc.valores && (
+                              <div>
+                                <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                  🔢 Valores y Bases de Cálculo:
+                                </strong>
+                                <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.valores}</p>
+                              </div>
+                            )}
+                            {proc.defensaOral && (
+                              <div>
+                                <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                  🎓 Para la Defensa Oral ante el Profesor (Libreto sugerido):
+                                </strong>
+                                <p className="text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-2.5 rounded-lg border border-amber-500/30 italic">
+                                  "{proc.defensaOral}"
+                                </p>
+                              </div>
+                            )}
+                            {proc.afirmacionesDetalle && (
+                              <div>
+                                <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                  ⚖️ Afirmaciones y Normas Validadas:
+                                </strong>
+                                <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.afirmacionesDetalle}</p>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </>
+                    );
+                  })()}
                 </div>
               );
             })}

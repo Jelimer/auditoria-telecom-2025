@@ -158,15 +158,24 @@ export const papelesTrabajo = [
         pasosConResultado: [
           {
             paso: "Seleccionar del auxiliar contable de Activo Fijo (SAP FI-AA) una muestra de nodos de red, sitios 5G y servidores en los Data Centers principales de AMBA e interior.",
-            resultado: "Se extrajo la población completa desde el auxiliar contable de SAP FI-AA y se estratificó seleccionando el 100% de los 16 Data Centers principales y 85 radiobases 5G desplegadas en el año sobre un total de Bienes de Uso de $6.789.118 millones."
+            comoSeEjecuta: "El auditor extrae del módulo contable SAP FI-AA (Subdiario de Activos Fijos) el maestro de bienes con sus códigos de inventario y geolocalización. Se seleccionan los 16 Data Centers principales (Pacheco, Barracas, Córdoba, Rosario, etc.) y una muestra de 85 radiobases 5G desplegadas en el año. El equipo auditor inspecciona in situ verificando que la chapa o código de inventario coincida con el registro contable.",
+            fuentes: "Módulo SAP FI-AA (Subdiario de Activos Fijos), inventario técnico georreferenciado y actas de visita de auditoría.",
+            valores: "Muestra sobre un total de Bienes de Uso de $6.789.118 millones (Nota 9).",
+            resultado: "Se extrajo la población completa desde el auxiliar contable de SAP FI-AA y se estratificó seleccionando el 100% de los 16 Data Centers principales y 85 radiobases 5G desplegadas en el año (✓)."
           },
           {
             paso: "Verificar in situ la existencia física y el estado de operatividad de los activos seleccionados.",
+            comoSeEjecuta: "Durante la visita al Data Center o torre de telecomunicaciones, se comprueba que el equipo esté energizado, conectado a la red de fibra y operando tráfico real. Se documenta la inspección con fotografías, planillas de campo y firma conjunta con el jefe de nodo de Telecom.",
+            fuentes: "Planilla de relevamiento físico de campo y actas de visita técnica.",
+            valores: "Validación de bienes operativos vs. bienes en desuso sobre la muestra de 16 Data Centers y 85 sitios 5G.",
             resultado: "Verificación técnica satisfactoria en terreno; el equipo auditor constató in situ la existencia física, conexión a fibra óptica y operatividad de todos los sitios inspeccionados (✓)."
           },
           {
             paso: "Cruzar el auxiliar contable de activos vigentes contra los informes operativos de siniestros, robo de cableado y vandalismo de fibra para comprobar que los bienes destruidos hayan sido dados de baja.",
-            resultado: "Al cruzar los registros contables contra las denuncias policiales y reportes de Seguridad Patrimonial, se hallaron tendidos de fibra óptica y nodos vandalizados/robados en el 4° trimestre por $6.890 millones que continuaban activados sin darse de baja en el balance (⊗ — Requiere Ajuste AJ-01)."
+            comoSeEjecuta: "Se solicita a la Gerencia de Seguridad Patrimonial el registro de incidentes de robo de cobre, vandalismo de tendidos de fibra óptica y siniestros del ejercicio. Se cruzan los tramos afectados contra las bajas registradas en SAP FI-AA para verificar que ningún activo destruido siga figurando en el balance. Al detectarse redes destruidas sin dar de baja, se originó el ajuste propuesto AJ-01 por $6.890 millones.",
+            fuentes: "Libro de siniestros de Seguridad Patrimonial, denuncias policiales y asientos de baja contable en SAP FI.",
+            valores: "Ajuste propuesto AJ-01 (Baja de activos siniestrados): $6.890 millones (supera el PAE de $8.311M en conjunto con obsolescencia).",
+            resultado: "Al cruzar los registros contables contra las denuncias policiales y reportes de Seguridad Patrimonial, se hallaron tendidos de fibra óptica y nodos vandalizados/robados en el 4° trimestre por $6.890 millones que continuaban activados sin haberse dado de baja en el balance (⊗ — Requiere Ajuste AJ-01)."
           }
         ],
         procedimientoDetalle: "1) Población y Terreno: Se extrae del Subdiario de Activos Fijos (SAP FI-AA) el maestro de bienes con geolocalización. Se inspeccionan in situ 16 Data Centers (Pacheco, Barracas, etc.) y 85 sitios 5G verificando que el hardware esté instalado, conectado a la red y con su chapa de inventario coincidente. 2) Cruce con siniestros: Se solicita a la Gerencia de Seguridad Patrimonial el libro de siniestros y denuncias policiales de robo de cables de cobre y vandalismo de fibra del 4° trimestre. Al cruzarlo contra el subdiario contable, se detectaron redes destruidas por $6.890 millones que continuaban figurando activadas como bienes operativos.",
