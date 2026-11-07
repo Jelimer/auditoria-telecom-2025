@@ -415,7 +415,34 @@ export default function Etapa2EjecucionView({
                       </span>
                     </div>
                   </div>
-                  <h5 className="text-xs font-extrabold text-slate-900 mb-1.5">{proc.nombre}</h5>
+
+                  {proc.bloquePrograma && (
+                    <div className="mb-1.5">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wide text-teal-900 bg-teal-100/90 px-2 py-0.5 rounded border border-teal-300 inline-block">
+                        {proc.bloquePrograma}
+                      </span>
+                    </div>
+                  )}
+
+                  <h5 className="text-xs font-extrabold text-slate-900 mb-2">{proc.nombre}</h5>
+
+                  {/* Procedimientos específicos del programa formalizado integrados */}
+                  {proc.pasosPrograma && proc.pasosPrograma.length > 0 && (
+                    <div className="mb-2.5 p-2.5 rounded-lg bg-teal-950 text-teal-50 border border-teal-800/90 shadow-xs">
+                      <span className="text-[10px] font-extrabold uppercase tracking-wide text-lime-400 block mb-1.5 flex items-center gap-1">
+                        📋 Procedimientos del Programa Formalizado:
+                      </span>
+                      <ul className="space-y-1.5 text-[11px] leading-relaxed">
+                        {proc.pasosPrograma.map((p, idx) => (
+                          <li key={idx} className="flex items-start gap-1.5 text-slate-200">
+                            <span className="text-lime-400 font-bold shrink-0">•</span>
+                            <span>{p}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
                   <p className="text-[11px] text-slate-500 mb-2">
                     <strong>Muestra examinada:</strong> {proc.muestra}
                   </p>

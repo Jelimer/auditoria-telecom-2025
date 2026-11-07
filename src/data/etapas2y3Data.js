@@ -150,11 +150,17 @@ export const papelesTrabajo = [
     procedimientosEjecutados: [
       {
         ref: "PT-A1",
+        bloquePrograma: "1. Inspección Física (Existencia e Integridad)",
         nombre: "Inspección Física de Nodos, Sitios 5G y 16 Data Centers + Siniestros de Fibra",
         afirmaciones: ["Existencia", "Medición"],
+        marca: "✓ ⊗",
+        pasosPrograma: [
+          "Seleccionar del auxiliar contable de Activo Fijo (SAP FI-AA) una muestra de nodos de red, sitios 5G y servidores en los Data Centers principales de AMBA e interior.",
+          "Verificar in situ la existencia física y el estado de operatividad de los activos seleccionados.",
+          "Cruzar el auxiliar contable de activos vigentes contra los informes operativos de siniestros, robo de cableado y vandalismo de fibra para comprobar que los bienes destruidos hayan sido dados de baja."
+        ],
         muestra: "Seleccionada desde el auxiliar contable de SAP (FI-AA): 16 Data Centers propios (Pacheco, Barracas, Córdoba, Rosario, etc.) + 85 nodos ópticos/radiobases 5G.",
         resultado: "Partiendo del auxiliar contable hacia el terreno, se verificó in situ la existencia y operatividad de los 16 Data Centers y sitios 5G inspeccionados (✓). Sin embargo, al cruzar el listado de activos vigentes en SAP contra los reportes operativos de siniestros del área de Operaciones, se detectaron tendidos de fibra óptica y nodos vandalizados/robados en vía pública en el 4° trimestre por $6.890 millones que permanecían activados sin haberse dado de baja (⊗).",
-        marca: "✓ ⊗",
         procedimientoDetalle: "1) Población y Terreno: Se extrae del Subdiario de Activos Fijos (SAP FI-AA) el maestro de bienes con geolocalización. Se inspeccionan in situ 16 Data Centers (Pacheco, Barracas, etc.) y 85 sitios 5G verificando que el hardware esté instalado, conectado a la red y con su chapa de inventario coincidente. 2) Cruce con siniestros: Se solicita a la Gerencia de Seguridad Patrimonial el libro de siniestros y denuncias policiales de robo de cables de cobre y vandalismo de fibra del 4° trimestre. Al cruzarlo contra el subdiario contable, se detectaron redes destruidas por $6.890 millones que continuaban figurando activadas como bienes operativos.",
         defensaOral: "Profesor, en PT-A1 partimos del subdiario contable de SAP FI-AA hacia el terreno para validar Existencia física. Luego, para validar Medición, cruzamos los activos vigentes contra las denuncias policiales y reportes de siniestros de Seguridad Patrimonial. Al detectar $6.890 millones de fibra y nodos destruidos sin dar de baja, exigimos el ajuste contable AJ-01 para evitar sobrevaluar el activo.",
         afirmacionesDetalle: "Valida Existencia (inspección in situ de bienes operativos) y Medición (corrección de saldos por bienes destruidos mediante baja contable según NIC 16)."
