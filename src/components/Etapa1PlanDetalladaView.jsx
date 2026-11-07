@@ -29,6 +29,21 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
 
   useEffect(() => {
     if (!subTarget) return;
+    if (subTarget.startsWith('afirmacion:')) {
+      const parts = subTarget.split(':');
+      const rubroId = parts[1];
+      const afNombre = parts[2];
+      if (rubroId) setSelectedRubroId(rubroId);
+      if (afNombre) setFiltroAfirmacion(afNombre);
+      setModoVista('por-rubro');
+      setTimeout(() => {
+        const el = document.getElementById('sec-1c-rubros');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 80);
+      return;
+    }
     if (subTarget === 'sec-1c-rubros') {
       setModoVista('por-rubro');
     }
@@ -428,6 +443,39 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
               <p className="text-[11px] text-slate-600 mt-1">{activeRubro.composicionSaldo}</p>
             </div>
           </div>
+
+          {/* Banner de filtrado activo cuando viene de Cédula Analítica */}
+          {filtroAfirmacion !== 'TODAS' && (
+            <div className="p-3 rounded-xl bg-teal-50 border border-teal-200 flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2">
+                <span className="font-extrabold text-teal-900">
+                  🎯 Afirmación Seleccionada:
+                </span>
+                <span className="px-2.5 py-0.5 rounded font-extrabold bg-teal-700 text-white text-xs shadow-2xs">
+                  {filtroAfirmacion}
+                </span>
+                <span className="text-slate-600 font-medium">
+                  en {activeRubro.nombre} ({activeRubro.codigoPrograma})
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setFiltroAfirmacion('TODAS')}
+                  className="px-2.5 py-1 rounded-lg bg-white border border-slate-300 text-slate-700 font-bold hover:bg-slate-50 transition-colors cursor-pointer text-xs"
+                >
+                  Ver Todas las Afirmaciones
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onNavigate && onNavigate('etapa2-ejecucion')}
+                  className="px-2.5 py-1 rounded-lg bg-teal-800 text-lime-300 font-bold hover:bg-teal-700 hover:text-white transition-colors cursor-pointer text-xs inline-flex items-center gap-1 shadow-2xs"
+                >
+                  Volver a Ejecución (Papeles de Trabajo) ➔
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Tabla de Vinculación Directa: Afirmación | Objetivo | Riesgo y Control Clave | Instrumento de Validación */}
           <div className="overflow-x-auto rounded-xl border border-slate-200">

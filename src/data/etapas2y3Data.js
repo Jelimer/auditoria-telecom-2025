@@ -194,10 +194,16 @@ export const papelesTrabajo = [
         pasosConResultado: [
           {
             paso: "Cotejar las altas del ejercicio (CAPEX) contra órdenes de compra en SAP MM, facturas comerciales, despachos aduaneros y actas de recepción de obra.",
+            comoSeEjecuta: "Circuito de Cotejo Documental de Altas (6 pasos): 1) Población: Se seleccionan de SAP FI-AA las incorporaciones > PAE ($8.311M). 2) Trazabilidad a Compras: En SAP MM se verifica la Orden de Compra aprobada con firmas facultadas. 3) Factura comercial: Se coteja la factura del fabricante tecnológico (Nokia, Huawei, Ericsson) y su conversión de moneda extranjera (NIC 21). 4) Despacho aduanero: Se constata el pago de aranceles y fletes aduaneros capitalizados al costo (NIC 16.16). 5) Entrada a depósito: Se verifica el remito de recepción física en almacén (MIGO en SAP). 6) Acta PAC: Se exige el Acta de Puesta en Servicio de Obra firmada por ingenieros de campo.",
+            fuentes: "Subdiario SAP FI-AA (Activos Fijos), módulo SAP MM (Compras y Almacenes), despachos aduaneros oficiales de importación y Actas PAC de ingeniería de red.",
+            valores: "Altas anuales de Bienes de Uso por más de $1,3 billones en Nota 9. Umbral de selección PAE: $8.311 millones.",
             resultado: "Las incorporaciones de equipamiento importado cuentan con Orden de Compra aprobada en SAP MM, factura comercial del fabricante (Nokia/Huawei/Ericsson), despacho aduanero con aranceles capitalizados (NIC 16.16) y Acta PAC de puesta en servicio (✓)."
           },
           {
             paso: "Ejecutar prueba de corte sobre las obras en curso habilitadas en diciembre de 2025 para comprobar la oportuna activación e inicio de depreciación.",
+            comoSeEjecuta: "Procedimiento de corte sobre obras en curso: Según la NIC 16 (párrafo 55), la depreciación comienza cuando el activo está en condiciones de operar. Se audita que no existan obras terminadas que continúen expuestas indebidamente como 'Obras en Curso' al cierre del ejercicio: 1) Se extrae el listado de proyectos en curso de SAP PS (Módulo de Proyectos y Obras) al 31/12/2025. 2) Se cruzan las fechas de habilitación técnica contra los registros de tráfico del centro de monitoreo de red (NOC). 3) Si el nodo o tendido ya operaba tráfico comercial en diciembre, se constata su traspaso a Bienes en Servicio y el registro del cargo de amortización en el ejercicio 2025.",
+            fuentes: "Módulo SAP PS (Obras en Curso), Subdiario SAP FI-AA y registros de tráfico de red del NOC (Centro de Monitoreo).",
+            valores: "Obras en curso acumuladas al cierre: $1.285.410 millones en Nota 9.",
             resultado: "El cruce contra los logs de tráfico del NOC confirmó que las obras habilitadas y operativas al 31/12/2025 fueron oportunamente transferidas a bienes en servicio y comenzaron su depreciación en 2025 según NIC 16.55 (✓ ∑)."
           }
         ],
@@ -217,10 +223,16 @@ export const papelesTrabajo = [
         pasosConResultado: [
           {
             paso: "Solicitar al Registro de la Propiedad Inmueble (RPI) los informes de dominio e inhibición para los inmuebles de la Sociedad.",
+            comoSeEjecuta: "Inmuebles propios: Para edificios técnicos, Data Centers y predios de radiobases, se solicitan informes de dominio e inhibición ante el RPI (Registro de la Propiedad Inmueble) para comprobar la inscripción registral a nombre de Telecom Argentina S.A. y la inexistencia de gravámenes o hipotecas no reveladas.",
+            fuentes: "Informes de dominio del Registro de la Propiedad Inmueble (RPI), títulos dominiales y contratos de locación de predios técnicos.",
+            valores: "Terrenos y edificios propios por más de $450.000 millones.",
             resultado: "Confirmación registral directa con el RPI (©); títulos dominiales de Data Centers y edificios corporativos inscriptos a nombre de Telecom Argentina S.A. libre de gravámenes o hipotecas no reveladas en Notas (✓)."
           },
           {
             paso: "Solicitar a la Dirección Nacional del Registro Automotor (DNRPA) los informes de dominio de la flota vehicular técnica.",
+            comoSeEjecuta: "Flota Vehicular: Para camionetas y utilitarios técnicos de cuadrilla de guardia, se solicitan informes de dominio ante la DNRPA (Dirección Nacional del Registro de la Propiedad Automotor) constatando la titularidad jurídica y libre de prendas.",
+            fuentes: "Títulos, cédulas y constancias registrales de la DNRPA (Dirección Nacional del Registro del Automotor).",
+            valores: "Flota vehicular técnica operativa de más de 3.500 unidades.",
             resultado: "Se constató la titularidad registral y libre prenda de las camionetas y utilitarios técnicos de cuadrilla ante la DNRPA (✓)."
           }
         ],
@@ -240,10 +252,16 @@ export const papelesTrabajo = [
         pasosConResultado: [
           {
             paso: "Recalcular globalmente el cargo por depreciación del ejercicio en función de las vidas útiles por categoría (Prueba Global de Amortizaciones).",
+            comoSeEjecuta: "Prueba Global de Amortizaciones: se multiplica el valor de origen reexpresado por inflación (NIC 29) de cada clase de bien por su alícuota de depreciación (redes: 10 a 20 años; equipos de computación: 3 a 5 años; centrales: 10 años). Se compara la sumatoria teórica con el cargo en resultados ($854.120M) validando que la variación sea menor al Error Tolerable ($83.112M).",
+            fuentes: "Subdiario SAP FI-AA (Activos Fijos), tablas maestras de vida útil aprobadas por Directorio y Anexo de Bienes de Uso.",
+            valores: "Depreciación anual del ejercicio: $854.120 millones en Nota 9. Error Tolerable: $83.112 millones.",
             resultado: "El recálculo global de alícuotas lineales sobre valores de origen reexpresados por inflación (NIC 29) arrojó una variación menor al Error Tolerable ($83.112M), validando el cargo a resultados de $854.120M (∑)."
           },
           {
             paso: "Solicitar el informe técnico del área de Operaciones sobre las centrales analógicas fuera de servicio y verificar la contabilización de la baja por obsolescencia.",
+            comoSeEjecuta: "El auditor solicita al Director de Tecnología el informe del plan de apagado de centrales telefónicas de cobre analógicas obsoletas (migradas a FTTH - Fiber to the Home). Se verifica que los equipos retirados del servicio hayan sido dados de baja contablemente o amortizados al 100%, evitando la sobreestimación del activo. Al detectarse centrales en desuso sin dar de baja, se originó el ajuste propuesto AJ-01 por $21.450 millones.",
+            fuentes: "Plan técnico de migración a fibra de la Gerencia de Operaciones y Libro Mayor de SAP FI-AA.",
+            valores: "Ajuste propuesto AJ-01 (Obsolescencia de centrales de cobre): $21.450 millones en PT-A.",
             resultado: "Del informe técnico de ingeniería se constató la existencia de centrales telefónicas de cobre analógicas fuera de servicio (migradas a FTTH) con un valor en libros de $21.450 millones sin dar de baja por obsolescencia (⊗ — Requiere Ajuste AJ-01)."
           }
         ],

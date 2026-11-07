@@ -404,12 +404,19 @@ export default function Etapa2EjecucionView({
                     </span>
                     <div className="flex items-center gap-1.5">
                       {proc.afirmaciones.map((af, i) => (
-                        <span
+                        <button
                           key={i}
-                          className="px-2 py-0.5 rounded bg-teal-100 text-teal-800 font-bold text-[10px]"
+                          type="button"
+                          onClick={() =>
+                            onNavigate &&
+                            onNavigate('etapa1-detallada', `afirmacion:${activeRubro.id}:${af}`)
+                          }
+                          title={`Ver objetivo, riesgo y control de la afirmación '${af}' de este rubro en Planificación Detallada`}
+                          className="px-2 py-0.5 rounded bg-teal-100 hover:bg-teal-200 text-teal-800 hover:text-teal-950 font-bold text-[10px] transition-all cursor-pointer inline-flex items-center gap-1 border border-teal-200/80 shadow-2xs hover:scale-105 active:scale-95"
                         >
-                          {af}
-                        </span>
+                          <span>{af}</span>
+                          <span className="text-[9px] opacity-60 font-mono">↗</span>
+                        </button>
                       ))}
                       <span className="px-2 py-0.5 rounded bg-white border border-slate-300 font-mono font-extrabold text-xs text-teal-800">
                         {proc.marca}
