@@ -160,7 +160,11 @@ export const papelesTrabajo = [
           "Cruzar el auxiliar contable de activos vigentes contra los informes operativos de siniestros, robo de cableado y vandalismo de fibra para comprobar que los bienes destruidos hayan sido dados de baja."
         ],
         muestra: "Seleccionada desde el auxiliar contable de SAP (FI-AA): 16 Data Centers propios (Pacheco, Barracas, Córdoba, Rosario, etc.) + 85 nodos ópticos/radiobases 5G.",
-        resultado: "Partiendo del auxiliar contable hacia el terreno, se verificó in situ la existencia y operatividad de los 16 Data Centers y sitios 5G inspeccionados (✓). Sin embargo, al cruzar el listado de activos vigentes en SAP contra los reportes operativos de siniestros del área de Operaciones, se detectaron tendidos de fibra óptica y nodos vandalizados/robados en vía pública en el 4° trimestre por $6.890 millones que permanecían activados sin haberse dado de baja (⊗).",
+        resultado: [
+          "Sobre Selección de Muestra (Paso 1): Se extrajo la base completa de SAP FI-AA estratificando 16 Data Centers principales y 85 radiobases 5G desplegadas en el año.",
+          "Sobre Inspección Física in situ (Paso 2): Se verificó en terreno la existencia física, conexión a fibra y operatividad de todos los sitios inspeccionados (✓).",
+          "Sobre Cruce con Siniestros (Paso 3): Al cruzar contra las denuncias policiales y Seguridad Patrimonial, se hallaron tendidos de fibra óptica y nodos vandalizados/robados en el 4° trimestre por $6.890 millones no dados de baja en el balance (⊗ — Requiere Ajuste AJ-01)."
+        ],
         procedimientoDetalle: "1) Población y Terreno: Se extrae del Subdiario de Activos Fijos (SAP FI-AA) el maestro de bienes con geolocalización. Se inspeccionan in situ 16 Data Centers (Pacheco, Barracas, etc.) y 85 sitios 5G verificando que el hardware esté instalado, conectado a la red y con su chapa de inventario coincidente. 2) Cruce con siniestros: Se solicita a la Gerencia de Seguridad Patrimonial el libro de siniestros y denuncias policiales de robo de cables de cobre y vandalismo de fibra del 4° trimestre. Al cruzarlo contra el subdiario contable, se detectaron redes destruidas por $6.890 millones que continuaban figurando activadas como bienes operativos.",
         fuentes: "Módulo contable SAP FI-AA (Subdiario de Activos Fijos), inventario técnico georreferenciado, actas de visita de campo, libro de siniestros de Seguridad Patrimonial y denuncias policiales.",
         valores: "Total rubro Bienes de Uso: $6.789.118 millones (Nota 9). Muestra estratificada: 16 Data Centers + 85 radiobases 5G. Ajuste propuesto AJ-01: $6.890 millones (baja de activos siniestrados).",
@@ -178,7 +182,10 @@ export const papelesTrabajo = [
           "Ejecutar prueba de corte sobre las obras en curso habilitadas en diciembre de 2025 para comprobar la oportuna activación e inicio de depreciación."
         ],
         muestra: "42 adiciones superiores a $8.311M (equipos Nokia/Huawei 5G, fibra óptica y contratos de obra civil).",
-        resultado: "Las adiciones de equipamiento importado cuentan con despacho de aduana y factura conformada (✓). Se detectó en sucursales provinciales demora en el archivo digital de 6 certificados de obra (debilidad CCI-01 preg. 7 y CCI-03 preg. 15), aunque las obras habilitadas al 31/12/2025 fueron correctamente activadas y depreciadas.",
+        resultado: [
+          "Sobre Cotejo de Altas CAPEX (Paso 1): Las adiciones de equipamiento importado cuentan con Orden de Compra aprobada en SAP MM, factura conformada del fabricante (Nokia/Huawei/Ericsson), despacho de aduana con aranceles capitalizados (NIC 16.16) y Acta PAC (✓).",
+          "Sobre Corte de Obras en Curso (Paso 2): El cruce contra los logs de tráfico del NOC confirmó que las obras habilitadas al 31/12/2025 fueron oportunamente activadas y comenzaron su depreciación dentro del ejercicio 2025 (✓ ∑)."
+        ],
         procedimientoDetalle: "Circuito de Cotejo Documental de Altas (6 pasos): 1) Población: Se seleccionan de SAP FI-AA las incorporaciones > PAE ($8.311M). 2) Trazabilidad a Compras: En SAP MM se verifica la Orden de Compra aprobada con firmas facultadas. 3) Factura comercial: Se coteja la factura del fabricante tecnológico (Nokia, Huawei, Ericsson) y su conversión de moneda extranjera (NIC 21). 4) Despacho aduanero: Se constata el pago de aranceles y fletes aduaneros capitalizados al costo (NIC 16.16). 5) Entrada a depósito: Se verifica el remito de recepción física en almacén (MIGO en SAP). 6) Acta PAC: Se exige el Acta de Puesta en Servicio de Obra firmada por ingenieros de campo. Prueba de corte: Se cruza el listado de Obras en Curso de SAP PS con los registros de tráfico del Centro de Monitoreo de Red (NOC), verificando que ninguna antena operativa en diciembre postergue su amortización.",
         fuentes: "Subdiario SAP FI-AA (Activos Fijos), módulo SAP MM (Compras y Almacenes), despachos aduaneros oficiales de importación y registros de tráfico de red del NOC.",
         valores: "Altas anuales de Bienes de Uso por más de $1,3 billones en Nota 9. Umbral de selección PAE: $8.311 millones. Obras en curso al cierre: $1.285.410 millones.",
@@ -195,7 +202,10 @@ export const papelesTrabajo = [
           "Solicitar al Registro de la Propiedad Inmueble (RPI) y al DNRPA los informes de dominio para inmuebles y flota vehicular adquiridos en el ejercicio."
         ],
         muestra: "100% de los edificios técnicos, predios de Data Centers y muestra de 60 vehículos de flota técnica.",
-        resultado: "Confirmación directa con el RPI (©): títulos dominiales inscriptos a nombre de Telecom Argentina S.A. libre de gravámenes no revelados en Notas.",
+        resultado: [
+          "Sobre Informes de Dominio RPI (Paso 1): Confirmación registral directa con el Registro de la Propiedad Inmueble (©); títulos dominiales de Data Centers y edificios inscriptos a nombre de Telecom Argentina S.A. libre de gravámenes (✓).",
+          "Sobre Informes DNRPA Flota Vehicular (Paso 2): Se validó la titularidad dominial de camionetas y utilitarios técnicos de cuadrilla ante el Registro Automotor sin prendas ocultas (✓)."
+        ],
         procedimientoDetalle: "1) Inmuebles propios: Para los predios de Data Centers y edificios corporativos de AMBA e interior, se solicitan informes de dominio e inhibición ante el Registro de la Propiedad Inmueble (RPI) para comprobar la inscripción registral a nombre de Telecom Argentina S.A. y la inexistencia de gravámenes o hipotecas ocultas. 2) Flota vehicular: Para camionetas y utilitarios técnicos de cuadrilla, se solicitan informes ante la Dirección Nacional del Registro de la Propiedad Automotor (DNRPA) constatando titularidad y libre prenda.",
         fuentes: "Informes de dominio del Registro de la Propiedad Inmueble (RPI), títulos y cédulas de la DNRPA (Rodados) y contratos de locación de predios técnicos.",
         valores: "Terrenos y edificios propios por más de $450.000 millones y flota vehicular técnica de más de 3.500 unidades.",
@@ -213,7 +223,10 @@ export const papelesTrabajo = [
           "Solicitar el informe técnico del área de Operaciones sobre las centrales analógicas fuera de servicio y verificar la contabilización de la baja por obsolescencia."
         ],
         muestra: "100% de la base de activos fijos en SAP + Informe Técnico de Ingeniería de Red al 31/12/2025.",
-        resultado: "El recálculo global de tasas de depreciación resultó satisfactorio (∑). No obstante, se constató la existencia de centrales telefónicas analógicas de conmutación por cobre totalmente fuera de servicio (migradas a FTTH) cuyo valor residual contable en libros asciende a $21.450 millones sin haberse registrado su baja por obsolescencia (CCI-02 preg. 23) (⊗).",
+        resultado: [
+          "Sobre Prueba Global de Depreciaciones (Paso 1): El recálculo global de tasas lineales sobre valores de origen reexpresados (NIC 29) arrojó una variación menor al Error Tolerable ($83.112M), validando el cargo a resultados de $854.120M (∑).",
+          "Sobre Revisión de Centrales Analógicas (Paso 2): Del informe técnico de ingeniería se constató la existencia de centrales telefónicas de cobre analógicas fuera de servicio (migradas a FTTH) con valor en libros de $21.450 millones sin dar de baja por obsolescencia (⊗ — Requiere Ajuste AJ-01)."
+        ],
         procedimientoDetalle: "1) Prueba Global de Amortizaciones: Se multiplica el valor de origen reexpresado por inflación (NIC 29) de cada clase de bien por su alícuota de vida útil (redes 10-20 años, computación 3-5 años). Se compara el resultado teórico contra el cargo contable de $854.120 millones en el Estado de Resultados; al diferir en menos del Error Tolerable ($83.112M), el cálculo queda validado. 2) Obsolescencia técnica: Se solicita al Director de Tecnología el informe del plan de apagado de la red de cobre analógica (migrada a fibra óptica FTTH). Se constata que existen centrales analógicas totalmente fuera de servicio que continúan activadas por $21.450 millones. Se propone el ajuste AJ-01 para darlas de baja al 100%.",
         fuentes: "Subdiario SAP FI-AA (Activos Fijos), tablas maestras de vida útil aprobadas por Directorio y plan técnico de migración a fibra de la Gerencia de Operaciones.",
         valores: "Depreciación anual del ejercicio: $854.120 millones en Nota 9. Error Tolerable: $83.112 millones. Ajuste propuesto AJ-01 por obsolescencia: $21.450 millones.",

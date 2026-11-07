@@ -454,11 +454,22 @@ export default function Etapa2EjecucionView({
 
                   <div className="mb-2.5">
                     <strong className="text-[11px] text-slate-800 block mb-1 flex items-center gap-1">
-                      📌 Resultado de la Ejecución y Hallazgos (Marcas de Auditoría):
+                      📌 Resultado de la Ejecución y Hallazgos por Procedimiento (Marcas de Auditoría):
                     </strong>
-                    <p className="text-xs text-slate-700 leading-relaxed bg-white p-2.5 rounded-lg border border-slate-200/90 shadow-xs">
-                      {proc.resultado}
-                    </p>
+                    {Array.isArray(proc.resultado) ? (
+                      <ul className="space-y-1.5 text-xs text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200/90 shadow-xs">
+                        {proc.resultado.map((r, rIdx) => (
+                          <li key={rIdx} className="flex items-start gap-1.5 leading-relaxed">
+                            <span className="text-teal-700 font-bold shrink-0">•</span>
+                            <span>{r}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p className="text-xs text-slate-700 leading-relaxed bg-white p-2.5 rounded-lg border border-slate-200/90 shadow-xs">
+                        {proc.resultado}
+                      </p>
+                    )}
                   </div>
 
                   {/* Botón para expandir guía práctica y defensa oral */}
