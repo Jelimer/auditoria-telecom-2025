@@ -11,6 +11,191 @@ import {
 import { papelesTrabajo, marcasAuditoria } from '../data/etapas2y3Data';
 import { materialidadData, rubrosSignificativos } from '../data/etapa1Data';
 
+export const NORMAS_DICCIONARIO = {
+  'NIA 450': {
+    codigo: 'NIA 450',
+    titulo: 'Evaluación de las Incorrecciones Identificadas durante la Auditoría',
+    emisor: 'IAASB / FACPCE',
+    queTrata: 'Obliga al auditor a acumular todas las incorrecciones identificadas durante la auditoría (excepto las que sean claramente insignificantes o triviales). Exige evaluar el efecto acumulado de las incorrecciones no corregidas sobre los estados contables.',
+    aplicacion: 'Regla de acumulación: si un desvío individual (como los $6.890M de fibra destruida en PT-A1) está por debajo del umbral mínimo PAE ($8.311M), debe sumarse con las demás incorrecciones del mismo rubro ($21.450M de centrales obsoletas en PT-A4). Al totalizar $28.340M, supera ampliamente el PAE y exige obligatoriamente proponer el ajuste contable AJ-01.'
+  },
+  'NIA 320': {
+    codigo: 'NIA 320',
+    titulo: 'Importancia Relativa o Materialidad en la Planificación y Ejecución de la Auditoría',
+    emisor: 'IAASB / FACPCE',
+    queTrata: 'Establece los criterios para determinar la Materialidad Global, la Materialidad de Ejecución (Error Tolerable) y el umbral para desvíos claramente no triviales (PAE).',
+    aplicacion: 'En Telecom fijamos: Materialidad Global $166.225M (1% del Activo Total), Error Tolerable $83.112M (50% de MG) y Umbral PAE $8.311M (5% de MG).'
+  },
+  'NIA 500': {
+    codigo: 'NIA 500',
+    titulo: 'Evidencia de Auditoría',
+    emisor: 'IAASB / FACPCE',
+    queTrata: 'Exige diseñar y aplicar procedimientos de auditoría de forma que se obtengan elementos de juicio válidos y suficientes (evidencia suficiente y adecuada) para sustentar la opinión del informe.',
+    aplicacion: 'En Telecom se obtienen mediante inspección física in situ (16 Data Centers), confirmación externa directa (RPI, bancos) y recálculos matemáticos independientes.'
+  },
+  'NIA 520': {
+    codigo: 'NIA 520',
+    titulo: 'Procedimientos Analíticos Sustantivos',
+    emisor: 'IAASB / FACPCE',
+    queTrata: 'Evaluación de la información financiera mediante análisis de relaciones plausibles entre datos financieros y no financieros, y comparaciones globales de saldos.',
+    aplicacion: 'En PT-A4 se aplica la Prueba Global de Amortizaciones: se multiplica el valor de origen reexpresado por la vida útil teórica para validar la razonabilidad del cargo contable de $854.120M.'
+  },
+  'NIA 700': {
+    codigo: 'NIA 700',
+    titulo: 'Formación de la Opinión y Emisión del Informe de Auditoría sobre los Estados Contables',
+    emisor: 'IAASB / FACPCE',
+    queTrata: 'Norma la redacción y estructura del dictamen profesional del auditor independiente (opinión favorable sin salvedades, opinión con salvedades, opinión adversa o abstención).',
+    aplicacion: 'Si la Gerencia de Telecom acepta registrar los ajustes que superan el PAE (AJ-01 a AJ-04), el auditor puede emitir una Opinión Limpia sin salvedades.'
+  },
+  'NIA 501': {
+    codigo: 'NIA 501',
+    titulo: 'Evidencia de Auditoría - Consideraciones Específicas para Partidas Seleccionadas',
+    emisor: 'IAASB / FACPCE',
+    queTrata: 'Procedimientos sustantivos requeridos para inventarios físicos, litigios, reclamaciones de asesoría jurídica externa e información por segmentos.',
+    aplicacion: 'Se utiliza en la circularización a los asesores legales externos para auditar las contingencias de $563.085M en Nota 20.'
+  },
+  'NIA 620': {
+    codigo: 'NIA 620',
+    titulo: 'Utilización del Trabajo de un Experto del Auditor',
+    emisor: 'IAASB / FACPCE',
+    queTrata: 'Regula las condiciones y evaluación de competencia cuando el auditor recurre al informe de un especialista o perito externo independiente.',
+    aplicacion: 'Se utiliza en el Test de Deterioro de la UGE Redes Personal ($12.774.695M) auditando el informe de peritos en valuación financiera (WACC).'
+  },
+  'NIC 16': {
+    codigo: 'NIC 16',
+    titulo: 'Propiedades, Planta y Equipo (Bienes de Uso)',
+    emisor: 'IASB (NIIF)',
+    queTrata: 'Estipula el reconocimiento inicial al costo, los aranceles capitalizables (párrafo 16), el inicio de depreciación cuando el bien está disponible para su uso (párrafo 55) y la baja obligatoria en cuentas de activos que no generarán beneficios económicos futuros (párrafo 67).',
+    aplicacion: 'Fundamenta la baja contable de las centrales de cobre obsoletas ($21.450M) y de las redes de fibra siniestradas ($6.890M), ya que no producirán beneficios económicos.'
+  },
+  'NIC 29': {
+    codigo: 'NIC 29',
+    titulo: 'Información Financiera en Economías Hiperinflacionarias',
+    emisor: 'IASB (NIIF)',
+    queTrata: 'Exige reexpresar los estados financieros en moneda homogénea de poder adquisitivo al cierre del período sobre el que se informa mediante índices generales de precios (IPC).',
+    aplicacion: 'Se audita que todos los saldos de Bienes de Uso estén reexpresados por inflación antes de calcular la amortización anual y el valor recuperable.'
+  },
+  'NIC 36': {
+    codigo: 'NIC 36',
+    titulo: 'Deterioro del Valor de los Activos',
+    emisor: 'IASB (NIIF)',
+    queTrata: 'Exige realizar anualmente un Test de Deterioro sobre activos con vida útil indefinida (como la Llave de Negocio Redes Personal de $4.443.998M en Nota 8).',
+    aplicacion: 'Verificación del valor recuperable por Flujos de Fondos Descontados (DCF), confirmando un margen de cobertura positivo (headroom) de $334.966M.'
+  },
+  'NIC 38': {
+    codigo: 'NIC 38',
+    titulo: 'Activos Intangibles',
+    emisor: 'IASB (NIIF)',
+    queTrata: 'Diferencia los gastos de investigación (a resultados) de los costos de desarrollo (capitalizables), y fija pautas para licencias de espectro radioeléctrico.',
+    aplicacion: 'Auditoría de licencias de espectro 5G ENACOM ($1.985.420M) y software capitalizado en SAP PS ($686.105M) en Nota 10.'
+  },
+  'NIIF 3': {
+    codigo: 'NIIF 3',
+    titulo: 'Combinaciones de Negocios',
+    emisor: 'IASB (NIIF)',
+    queTrata: 'Regula el método de adquisición y la medición a valor razonable (PPA) de todos los activos incorporados en fusiones o adquisiciones corporativas.',
+    aplicacion: 'Explica la incorporación de la cartera de Telefónica Móviles Argentina S.A. (TMA) por $421.919M al 24/02/2025.'
+  },
+  'NIIF 9': {
+    codigo: 'NIIF 9',
+    titulo: 'Instrumentos Financieros',
+    emisor: 'IASB (NIIF)',
+    queTrata: 'Establece el modelo prospectivo de Pérdida Crediticia Esperada (PCE) para medir la previsión para deudores incobrables.',
+    aplicacion: 'Recálculo de la matriz de morosidad >180 días en Créditos por Ventas, determinando el refuerzo de previsión por $19.850M en AJ-03.'
+  },
+  'RT 37': {
+    codigo: 'RT 37 (FACPCE)',
+    titulo: 'Normas de Auditoría, Revisión, Otros Encargos de Aseguramiento y Servicios Relacionados',
+    emisor: 'FACPCE (Argentina)',
+    queTrata: 'Marco normativo profesional emitido por los Consejos Profesionales en Ciencias Económicas de Argentina, armonizado con las Normas Internacionales de Auditoría (NIAs).',
+    aplicacion: 'Es la norma que regula nuestro encargo de auditoría independiente sobre los estados contables consolidados de Telecom Argentina S.A.'
+  }
+};
+
+function NormaTooltip({ code, info }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <span
+      className="relative inline-block my-0.5"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <span
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen((prev) => !prev);
+        }}
+        className="inline-flex items-center gap-1 mx-1 px-1.5 py-0.5 rounded font-extrabold text-[11px] bg-teal-950 text-lime-300 border border-teal-500/70 hover:border-lime-400 hover:bg-slate-900 cursor-help transition-all shadow-xs underline decoration-dotted decoration-lime-400 underline-offset-2 not-italic"
+        title={`Pasa el mouse para ver qué trata la ${info.codigo}`}
+      >
+        <span>📘 {code}</span>
+        <span className="text-[9px] text-lime-400 opacity-80">ℹ️</span>
+      </span>
+
+      {isOpen && (
+        <span
+          className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 sm:w-92 p-3.5 bg-slate-950 text-slate-100 text-[11px] rounded-xl shadow-2xl border-2 border-teal-400 z-50 block text-left not-italic font-normal normal-case pointer-events-auto leading-normal animate-in fade-in zoom-in-95 duration-150"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Encabezado */}
+          <span className="flex items-center justify-between gap-1 pb-1.5 border-b border-slate-800 mb-2">
+            <span className="font-mono font-extrabold text-lime-300 text-xs flex items-center gap-1">
+              📘 {info.codigo}
+            </span>
+            <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-teal-900 text-teal-200 uppercase tracking-wider">
+              {info.emisor}
+            </span>
+          </span>
+
+          {/* Título de la norma */}
+          <span className="font-bold text-white text-xs block mb-1.5 leading-snug">
+            {info.titulo}
+          </span>
+
+          {/* ¿De qué trata? */}
+          <span className="block text-slate-300 text-[11px] mb-2 leading-relaxed">
+            <strong className="text-teal-400 font-bold">📜 ¿De qué trata?: </strong>
+            {info.queTrata}
+          </span>
+
+          {/* Aplicación en Telecom */}
+          {info.aplicacion && (
+            <span className="block p-2 rounded-lg bg-teal-950/90 border border-teal-500/50 text-teal-100 text-[10.5px] leading-relaxed">
+              <strong className="text-amber-300 font-extrabold block mb-0.5">
+                🎯 Aplicación en Telecom:
+              </strong>
+              {info.aplicacion}
+            </span>
+          )}
+
+          {/* Flechita decorativa apuntando hacia abajo */}
+          <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-teal-400" />
+        </span>
+      )}
+    </span>
+  );
+}
+
+export function renderTextWithNormas(text) {
+  if (!text || typeof text !== 'string') return text;
+
+  const regex = /\b(NIA\s*(?:450|320|500|520|700|240|501|620)|NIC\s*(?:16|29|36|38)|NIIF\s*(?:3|9|15|16)|RT\s*37)\b/gi;
+  const parts = text.split(regex);
+  if (parts.length <= 1) return text;
+
+  return parts.map((part, index) => {
+    const normalizedKey = part.replace(/\s+/g, ' ').toUpperCase();
+    const info = NORMAS_DICCIONARIO[normalizedKey];
+
+    if (info) {
+      return <NormaTooltip key={index} code={part} info={info} />;
+    }
+
+    return part;
+  });
+}
+
 export default function Etapa2EjecucionView({
   ajustesState,
   onToggleAjusteAceptado,
@@ -496,7 +681,7 @@ export default function Etapa2EjecucionView({
                                       <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
                                         🛠️ ¿Cómo se ejecuta la prueba en la práctica?
                                       </strong>
-                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{item.comoSeEjecuta}</p>
+                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(item.comoSeEjecuta)}</p>
                                     </div>
                                   )}
 
@@ -505,7 +690,7 @@ export default function Etapa2EjecucionView({
                                       <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
                                         📂 Fuentes de Información y Sistemas:
                                       </strong>
-                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{item.fuentes}</p>
+                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(item.fuentes)}</p>
                                     </div>
                                   )}
 
@@ -514,7 +699,7 @@ export default function Etapa2EjecucionView({
                                       <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
                                         🔢 Valores y Bases de Cálculo:
                                       </strong>
-                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{item.valores}</p>
+                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(item.valores)}</p>
                                     </div>
                                   )}
                                 </div>
@@ -525,7 +710,7 @@ export default function Etapa2EjecucionView({
                                 <strong className="text-[10px] uppercase text-emerald-900 font-extrabold flex items-center gap-1">
                                   📌 Resultado de la Ejecución y Hallazgo (Marcas de Auditoría):
                                 </strong>
-                                <p className="text-slate-700 leading-relaxed">{item.resultado}</p>
+                                <p className="text-slate-700 leading-relaxed">{renderTextWithNormas(item.resultado)}</p>
                               </div>
                             </div>
                           );
@@ -607,7 +792,7 @@ export default function Etapa2EjecucionView({
                                 <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
                                   🛠️ ¿Cómo se ejecuta la prueba en la práctica?
                                 </strong>
-                                <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.procedimientoDetalle}</p>
+                                <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(proc.procedimientoDetalle)}</p>
                               </div>
                             )}
                             {!stepsHaveDetail && proc.fuentes && (
@@ -615,7 +800,7 @@ export default function Etapa2EjecucionView({
                                 <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
                                   📂 Fuentes de Información y Sistemas:
                                 </strong>
-                                <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.fuentes}</p>
+                                <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(proc.fuentes)}</p>
                               </div>
                             )}
                             {!stepsHaveDetail && proc.valores && (
@@ -623,7 +808,7 @@ export default function Etapa2EjecucionView({
                                 <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
                                   🔢 Valores y Bases de Cálculo:
                                 </strong>
-                                <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.valores}</p>
+                                <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(proc.valores)}</p>
                               </div>
                             )}
                             {proc.defensaOral && (
@@ -631,9 +816,9 @@ export default function Etapa2EjecucionView({
                                 <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
                                   🎓 Para la Defensa Oral ante el Profesor (Libreto sugerido):
                                 </strong>
-                                <p className="text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-2.5 rounded-lg border border-amber-500/30 italic">
-                                  "{proc.defensaOral}"
-                                </p>
+                                <div className="text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-3 rounded-lg border border-amber-500/30 italic text-xs">
+                                  "{renderTextWithNormas(proc.defensaOral)}"
+                                </div>
                               </div>
                             )}
                             {proc.afirmacionesDetalle && (
@@ -641,7 +826,7 @@ export default function Etapa2EjecucionView({
                                 <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
                                   ⚖️ Afirmaciones y Normas Validadas:
                                 </strong>
-                                <p className="text-slate-300 mt-0.5 leading-relaxed">{proc.afirmacionesDetalle}</p>
+                                <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(proc.afirmacionesDetalle)}</p>
                               </div>
                             )}
                           </div>
@@ -661,9 +846,9 @@ export default function Etapa2EjecucionView({
             <span className="text-xs font-extrabold uppercase text-teal-900 block">
               Conclusión del Auditor sobre {activePT.rubro}:
             </span>
-            <p className="text-xs text-slate-800 mt-1 font-medium leading-relaxed">
-              {activePT.conclusionRubro}
-            </p>
+            <div className="text-xs text-slate-800 mt-1 font-medium leading-relaxed">
+              {renderTextWithNormas(activePT.conclusionRubro)}
+            </div>
           </div>
 
           <div className="pt-3 border-t border-teal-200/80">
