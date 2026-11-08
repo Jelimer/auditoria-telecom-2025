@@ -248,6 +248,7 @@ export default function Etapa2EjecucionView({
   }, [subTarget, subTargetTick]);
 
   const activePT = papelesTrabajo.find((pt) => pt.id === selectedPTId) || papelesTrabajo[0];
+  const isPTA = activePT.id === 'pt-a';
   const activeRubro =
     rubrosSignificativos.find(
       (r) => r.codigoPrograma.toLowerCase().replace('programa ', 'pt-') === activePT.id.toLowerCase()
@@ -308,7 +309,6 @@ export default function Etapa2EjecucionView({
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 mt-4">
           {papelesTrabajo.map((pt) => {
             const isSelected = pt.id === selectedPTId;
-            const tieneAjuste = pt.ajustePropuestoNeto !== 0;
             return (
               <button
                 key={pt.id}
@@ -316,8 +316,6 @@ export default function Etapa2EjecucionView({
                 className={`text-left p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
                     ? 'bg-slate-900 text-white border-slate-900 shadow-sm ring-2 ring-amber-400'
-                    : pt.esPrioritario
-                    ? 'bg-amber-50/40 text-slate-800 border-amber-300 hover:bg-white hover:border-amber-400'
                     : 'bg-slate-50 text-slate-800 border-slate-200 hover:bg-white hover:border-teal-400'
                 }`}
               >
@@ -330,26 +328,6 @@ export default function Etapa2EjecucionView({
                     >
                       {pt.codigo}
                     </span>
-                    <div className="flex items-center gap-1">
-                      {pt.esPrioritario && (
-                        <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-400 text-slate-950">
-                          ⭐ Prioritario
-                        </span>
-                      )}
-                      <span
-                        className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                          tieneAjuste
-                            ? isSelected
-                              ? 'bg-red-500 text-white'
-                              : 'bg-red-100 text-red-700'
-                            : isSelected
-                            ? 'bg-emerald-500 text-white'
-                            : 'bg-emerald-100 text-emerald-800'
-                        }`}
-                      >
-                        {tieneAjuste ? 'Con Ajuste' : 'Conforme'}
-                      </span>
-                    </div>
                   </div>
                   <p className="text-xs font-extrabold mt-2 line-clamp-2">{pt.rubro}</p>
                   {pt.vinculadoCon && (
@@ -370,8 +348,8 @@ export default function Etapa2EjecucionView({
         </div>
       </div>
 
-      {/* PROGRAMA DE TRABAJO FORMALIZADO Y GUÍA PRÁCTICA DEL PAPEL DE TRABAJO ACTIVO */}
-      {activeRubro && activeRubro.programaTrabajo && (
+      {/* PROGRAMA DE TRABAJO FORMALIZADO Y GUÍA PRÁCTICA DEL PAPEL DE TRABAJO ACTIVO (Oculto en Bienes de Uso porque ya está integrado en cada cédula) */}
+      {activeRubro && activeRubro.programaTrabajo && activePT.id !== 'pt-a' && (
         <div className="p-5 rounded-2xl bg-teal-950 text-white shadow-xs border border-teal-900 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-teal-800">
             <div>
@@ -549,22 +527,22 @@ export default function Etapa2EjecucionView({
               <tbody className="divide-y divide-slate-200 font-mono">
                 {activePT.cedulaSumaria.map((row, idx) => (
                   <tr key={idx} className="hover:bg-slate-50">
-                    <td className="py-2.5 px-4 font-sans font-semibold text-slate-800">
+                    <td className={`py-2.5 px-4 font-sans font-semibold text-slate-800 ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'}`}>
                       {row.subcuenta}
                     </td>
-                    <td className="py-2.5 px-4 text-right text-slate-700">
+                    <td className={`py-2.5 px-4 text-right text-slate-700 ${isPTA ? 'text-sm' : 'text-xs'}`}>
                       ${row.saldoLibros.toLocaleString('es-AR')}
                     </td>
-                    <td className="py-2.5 px-4 text-right text-emerald-700 font-bold">
+                    <td className={`py-2.5 px-4 text-right text-emerald-700 font-bold ${isPTA ? 'text-sm' : 'text-xs'}`}>
                       {row.debe > 0 ? `$${row.debe.toLocaleString('es-AR')}` : '-'}
                     </td>
-                    <td className="py-2.5 px-4 text-right text-red-600 font-bold">
+                    <td className={`py-2.5 px-4 text-right text-red-600 font-bold ${isPTA ? 'text-sm' : 'text-xs'}`}>
                       {row.haber > 0 ? `$${row.haber.toLocaleString('es-AR')}` : '-'}
                     </td>
-                    <td className="py-2.5 px-4 text-right font-extrabold text-slate-900 bg-teal-50/30">
+                    <td className={`py-2.5 px-4 text-right font-extrabold text-slate-900 bg-teal-50/30 ${isPTA ? 'text-sm' : 'text-xs'}`}>
                       ${row.saldoAuditado.toLocaleString('es-AR')}
                     </td>
-                    <td className="py-2.5 px-4 text-center font-bold text-teal-700 text-sm">
+                    <td className={`py-2.5 px-4 text-center font-bold text-teal-700 ${isPTA ? 'text-base' : 'text-sm'}`}>
                       {row.marca}
                     </td>
                   </tr>
@@ -577,17 +555,45 @@ export default function Etapa2EjecucionView({
         {/* Cédulas Analíticas (Procedimientos Ejecutados en el Papel de Trabajo) */}
         <div>
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-            <h4 className="text-xs font-extrabold uppercase tracking-wider text-slate-700">
+            <h4 className={`${isPTA ? 'text-sm' : 'text-xs'} font-extrabold uppercase tracking-wider text-slate-700`}>
               2. Cédulas Analíticas y Pruebas Sustantivas Ejecutadas
             </h4>
             <button
               type="button"
               onClick={() => setExpandAllCedulas(!expandAllCedulas)}
-              className="self-start sm:self-auto px-2.5 py-1 rounded-lg text-[10px] font-bold bg-teal-800 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer"
+              className={`self-start sm:self-auto px-2.5 py-1 rounded-lg ${isPTA ? 'text-xs' : 'text-[10px]'} font-bold bg-teal-800 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer`}
             >
               {expandAllCedulas ? '▲ Ocultar Todas las Guías Orales' : '▼ Expandir Todas las Guías Orales y Prácticas'}
             </button>
           </div>
+
+          {/* Enlaces de acceso directo a las Cédulas Analíticas de Bienes de Uso */}
+          {isPTA && (
+            <div className="flex flex-wrap items-center gap-2 mb-4 p-3 rounded-xl bg-teal-50/70 border border-teal-200 shadow-2xs">
+              <span className="text-xs font-extrabold text-teal-900 flex items-center gap-1">
+                🧭 Acceso directo a cédulas:
+              </span>
+              {activePT.procedimientosEjecutados.map((proc) => {
+                const elementId = proc.ref.toLowerCase().replace(/[^a-z0-9_-]/g, '');
+                return (
+                  <button
+                    key={proc.ref}
+                    type="button"
+                    onClick={() => {
+                      const el = document.getElementById(elementId);
+                      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }}
+                    className="px-2.5 py-1 rounded-lg text-xs font-bold bg-white hover:bg-teal-800 hover:text-lime-300 text-teal-900 border border-teal-300 transition-all cursor-pointer shadow-2xs inline-flex items-center gap-1.5"
+                  >
+                    <span>📍 {proc.ref}</span>
+                    <span className="text-[11px] font-normal opacity-75">
+                      ({proc.ref === 'PT-A1' ? 'Inspección Física' : proc.ref === 'PT-A2' ? 'Altas CAPEX' : proc.ref === 'PT-A3' ? 'Titularidad RPI' : 'Depreciaciones'})
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {activePT.procedimientosEjecutados.map((proc) => {
@@ -606,7 +612,7 @@ export default function Etapa2EjecucionView({
                   }`}
                 >
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="px-2 py-0.5 rounded bg-slate-800 text-white font-mono text-xs font-bold">
+                    <span className={`px-2 py-0.5 rounded bg-slate-800 text-white font-mono ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'} font-bold`}>
                       {proc.ref}
                     </span>
                     <div className="flex items-center gap-1.5">
@@ -619,13 +625,13 @@ export default function Etapa2EjecucionView({
                             onNavigate('etapa1-detallada', `afirmacion:${activeRubro.id}:${af}`)
                           }
                           title={`Ver objetivo, riesgo y control de la afirmación '${af}' de este rubro en Planificación Detallada`}
-                          className="px-2 py-0.5 rounded bg-teal-100 hover:bg-teal-200 text-teal-800 hover:text-teal-950 font-bold text-[10px] transition-all cursor-pointer inline-flex items-center gap-1 border border-teal-200/80 shadow-2xs hover:scale-105 active:scale-95"
+                          className={`px-2 py-0.5 rounded bg-teal-100 hover:bg-teal-200 text-teal-800 hover:text-teal-950 font-bold ${isPTA ? 'text-[11px]' : 'text-[10px]'} transition-all cursor-pointer inline-flex items-center gap-1 border border-teal-200/80 shadow-2xs hover:scale-105 active:scale-95`}
                         >
                           <span>{af}</span>
                           <span className="text-[9px] opacity-60 font-mono">↗</span>
                         </button>
                       ))}
-                      <span className="px-2 py-0.5 rounded bg-white border border-slate-300 font-mono font-extrabold text-xs text-teal-800">
+                      <span className={`px-2 py-0.5 rounded bg-white border border-slate-300 font-mono font-extrabold ${isPTA ? 'text-sm' : 'text-xs'} text-teal-800`}>
                         {proc.marca}
                       </span>
                     </div>
@@ -633,19 +639,19 @@ export default function Etapa2EjecucionView({
 
                   {proc.bloquePrograma && (
                     <div className="mb-1.5">
-                      <span className="text-[10px] font-extrabold uppercase tracking-wide text-teal-900 bg-teal-100/90 px-2 py-0.5 rounded border border-teal-300 inline-block">
+                      <span className={`${isPTA ? 'text-xs' : 'text-[10px]'} font-extrabold uppercase tracking-wide text-teal-900 bg-teal-100/90 px-2 py-0.5 rounded border border-teal-300 inline-block`}>
                         {proc.bloquePrograma}
                       </span>
                     </div>
                   )}
 
-                  <h5 className="text-xs font-extrabold text-slate-900 mb-2">{proc.nombre}</h5>
+                  <h5 className={`${isPTA ? 'text-sm sm:text-base' : 'text-xs'} font-extrabold text-slate-900 mb-2`}>{proc.nombre}</h5>
 
                   <div className="mb-2.5">
-                    <strong className="text-[11px] text-slate-800 block mb-1">
+                    <strong className={`${isPTA ? 'text-xs' : 'text-[11px]'} text-slate-800 block mb-1 font-bold`}>
                       Muestra examinada:
                     </strong>
-                    <p className="text-[11px] text-slate-600 leading-relaxed bg-slate-100/80 p-2 rounded-lg border border-slate-200">
+                    <p className={`${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'} text-slate-700 leading-relaxed bg-slate-100/80 p-2.5 rounded-lg border border-slate-200`}>
                       {proc.muestra}
                     </p>
                   </div>
@@ -654,7 +660,7 @@ export default function Etapa2EjecucionView({
                   {proc.pasosConResultado && proc.pasosConResultado.length > 0 ? (
                     <div className="mb-2.5 space-y-2">
                       <div className="flex items-center justify-between">
-                        <strong className="text-[11px] text-slate-800 flex items-center gap-1 font-bold">
+                        <strong className={`${isPTA ? 'text-xs sm:text-sm' : 'text-[11px]'} text-slate-800 flex items-center gap-1 font-bold`}>
                           📌 Procedimientos del Programa y Hallazgos (Marcas de Auditoría):
                         </strong>
                       </div>
@@ -672,10 +678,10 @@ export default function Etapa2EjecucionView({
                               {/* 1. Cabecera del Paso */}
                               <div className="flex items-start justify-between gap-2">
                                 <div className="flex items-start gap-1.5 flex-1">
-                                  <span className="px-2 py-0.5 rounded bg-teal-900 text-lime-300 font-mono font-bold text-[10px] shrink-0">
+                                  <span className={`px-2 py-0.5 rounded bg-teal-900 text-lime-300 font-mono font-bold ${isPTA ? 'text-xs' : 'text-[10px]'} shrink-0`}>
                                     Paso {pIdx + 1}
                                   </span>
-                                  <span className="text-[11px] font-bold text-slate-800 leading-snug">
+                                  <span className={`${isPTA ? 'text-xs sm:text-sm' : 'text-[11px]'} font-bold text-slate-800 leading-snug`}>
                                     {item.paso}
                                   </span>
                                 </div>
@@ -688,7 +694,7 @@ export default function Etapa2EjecucionView({
                                         [stepKey]: prev[stepKey] !== undefined ? !prev[stepKey] : false,
                                       }))
                                     }
-                                    className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-teal-800 hover:bg-teal-50 border border-slate-200 transition-colors shrink-0 cursor-pointer"
+                                    className={`px-2 py-0.5 rounded ${isPTA ? 'text-xs' : 'text-[10px]'} font-bold bg-slate-100 text-teal-800 hover:bg-teal-50 border border-slate-200 transition-colors shrink-0 cursor-pointer`}
                                   >
                                     {isStepExpanded ? '▲ Ocultar Detalle' : '▼ Detalle Técnico'}
                                   </button>
@@ -697,42 +703,42 @@ export default function Etapa2EjecucionView({
 
                               {/* 2. [ Desplegable / Detalle técnico ] primero en cada paso, luego Fuentes..., luego valores... */}
                               {hasDetail && isStepExpanded && (
-                                <div className="p-3 rounded-lg bg-slate-900 text-slate-100 border border-teal-500/40 text-[11px] space-y-2">
+                                <div className={`p-3 rounded-lg bg-slate-900 text-slate-100 border border-teal-500/40 ${isPTA ? 'text-xs sm:text-[13px] leading-relaxed' : 'text-[11px]'} space-y-2`}>
                                   {item.comoSeEjecuta && (
                                     <div>
-                                      <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                      <strong className={`text-lime-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
                                         🛠️ ¿Cómo se ejecuta la prueba en la práctica?
                                       </strong>
-                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(item.comoSeEjecuta)}</p>
+                                      <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(item.comoSeEjecuta)}</p>
                                     </div>
                                   )}
 
                                   {item.fuentes && (
                                     <div>
-                                      <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                      <strong className={`text-teal-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
                                         📂 Fuentes de Información y Sistemas:
                                       </strong>
-                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(item.fuentes)}</p>
+                                      <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(item.fuentes)}</p>
                                     </div>
                                   )}
 
                                   {item.valores && (
                                     <div>
-                                      <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                      <strong className={`text-amber-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
                                         🔢 Valores y Bases de Cálculo:
                                       </strong>
-                                      <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(item.valores)}</p>
+                                      <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(item.valores)}</p>
                                     </div>
                                   )}
                                 </div>
                               )}
 
                               {/* 3. y finalmente Resultado y Hallazgos con Marcas de Auditoría */}
-                              <div className="p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 text-xs text-slate-800 leading-relaxed space-y-1">
-                                <strong className="text-[10px] uppercase text-emerald-900 font-extrabold flex items-center gap-1">
+                              <div className={`p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 ${isPTA ? 'text-xs sm:text-[13px]' : 'text-xs'} text-slate-800 leading-relaxed space-y-1`}>
+                                <strong className={`${isPTA ? 'text-xs' : 'text-[10px]'} uppercase text-emerald-900 font-extrabold flex items-center gap-1`}>
                                   📌 Resultado de la Ejecución y Hallazgo (Marcas de Auditoría):
                                 </strong>
-                                <p className="text-slate-700 leading-relaxed">{renderTextWithNormas(item.resultado)}</p>
+                                <p className={`text-slate-700 leading-relaxed ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'}`}>{renderTextWithNormas(item.resultado)}</p>
                               </div>
                             </div>
                           );
@@ -786,7 +792,7 @@ export default function Etapa2EjecucionView({
                     return (
                       <>
                         <div className="mt-3 pt-2.5 border-t border-slate-200/70 flex items-center justify-between">
-                          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">
+                          <span className={`${isPTA ? 'text-xs' : 'text-[10px]'} font-bold text-slate-500 uppercase tracking-wide`}>
                             {stepsHaveDetail ? '🎓 Libreto de Defensa Oral y Normas' : 'Guía Técnica y Defensa Oral'}
                           </span>
                           <button
@@ -797,7 +803,7 @@ export default function Etapa2EjecucionView({
                                 [proc.ref]: !prev[proc.ref],
                               }))
                             }
-                            className="px-2 py-0.5 rounded text-[10px] font-bold bg-teal-800 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer"
+                            className={`px-2 py-0.5 rounded ${isPTA ? 'text-xs' : 'text-[10px]'} font-bold bg-teal-800 text-lime-300 hover:bg-teal-700 hover:text-white border border-teal-600/50 transition-colors cursor-pointer`}
                           >
                             {isExpanded
                               ? '▲ Ocultar'
@@ -808,47 +814,47 @@ export default function Etapa2EjecucionView({
                         </div>
 
                         {isExpanded && (
-                          <div className="mt-2.5 p-3.5 rounded-xl bg-slate-900 text-slate-100 border border-teal-500/40 text-[11px] space-y-2.5 shadow-md">
+                          <div className={`mt-2.5 p-3.5 rounded-xl bg-slate-900 text-slate-100 border border-teal-500/40 ${isPTA ? 'text-xs sm:text-[13px] leading-relaxed' : 'text-[11px]'} space-y-2.5 shadow-md`}>
                             {!stepsHaveDetail && proc.procedimientoDetalle && (
                               <div>
-                                <strong className="text-lime-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                <strong className={`text-lime-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
                                   🛠️ ¿Cómo se ejecuta la prueba en la práctica?
                                 </strong>
-                                <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(proc.procedimientoDetalle)}</p>
+                                <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(proc.procedimientoDetalle)}</p>
                               </div>
                             )}
                             {!stepsHaveDetail && proc.fuentes && (
                               <div>
-                                <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                <strong className={`text-teal-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
                                   📂 Fuentes de Información y Sistemas:
                                 </strong>
-                                <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(proc.fuentes)}</p>
+                                <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(proc.fuentes)}</p>
                               </div>
                             )}
                             {!stepsHaveDetail && proc.valores && (
                               <div>
-                                <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                <strong className={`text-amber-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
                                   🔢 Valores y Bases de Cálculo:
                                 </strong>
-                                <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(proc.valores)}</p>
+                                <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(proc.valores)}</p>
                               </div>
                             )}
                             {proc.defensaOral && (
                               <div>
-                                <strong className="text-amber-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                <strong className={`text-amber-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
                                   🎓 Para la Defensa Oral ante el Profesor (Libreto sugerido):
                                 </strong>
-                                <div className="text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-3 rounded-lg border border-amber-500/30 italic text-xs">
+                                <div className={`text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-3 rounded-lg border border-amber-500/30 italic ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'}`}>
                                   "{renderTextWithNormas(proc.defensaOral)}"
                                 </div>
                               </div>
                             )}
                             {proc.afirmacionesDetalle && (
                               <div>
-                                <strong className="text-teal-300 flex items-center gap-1 text-[10px] uppercase tracking-wide">
+                                <strong className={`text-teal-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
                                   ⚖️ Afirmaciones y Normas Validadas:
                                 </strong>
-                                <p className="text-slate-300 mt-0.5 leading-relaxed">{renderTextWithNormas(proc.afirmacionesDetalle)}</p>
+                                <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(proc.afirmacionesDetalle)}</p>
                               </div>
                             )}
                           </div>
@@ -865,10 +871,10 @@ export default function Etapa2EjecucionView({
         {/* Conclusión Técnica del Papel de Trabajo + Leyenda de Marcas */}
         <div className="p-4 rounded-xl bg-teal-50/60 border border-teal-200 space-y-3">
           <div>
-            <span className="text-xs font-extrabold uppercase text-teal-900 block">
+            <span className={`${isPTA ? 'text-sm' : 'text-xs'} font-extrabold uppercase text-teal-900 block`}>
               Conclusión del Auditor sobre {activePT.rubro}:
             </span>
-            <div className="text-xs text-slate-800 mt-1 font-medium leading-relaxed">
+            <div className={`${isPTA ? 'text-xs sm:text-sm font-medium' : 'text-xs'} text-slate-800 mt-1 leading-relaxed`}>
               {renderTextWithNormas(activePT.conclusionRubro)}
             </div>
           </div>
