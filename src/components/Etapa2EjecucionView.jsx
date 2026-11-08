@@ -209,6 +209,7 @@ export default function Etapa2EjecucionView({
   const [expandedCedulas, setExpandedCedulas] = useState({});
   const [expandAllCedulas, setExpandAllCedulas] = useState(false);
   const [expandedSteps, setExpandedSteps] = useState({});
+  const [mostrarTodosAjustes, setMostrarTodosAjustes] = useState(false);
 
   useEffect(() => {
     if (!subTarget) return;
@@ -252,10 +253,31 @@ export default function Etapa2EjecucionView({
       (r) => r.codigoPrograma.toLowerCase().replace('programa ', 'pt-') === activePT.id.toLowerCase()
     ) || rubrosSignificativos[0];
 
-  // Cálculo del efecto acumulado de ajustes NO aceptados por la Gerencia
-  const ajustesSuperanPAE = ajustesState.filter((a) => a.superaPAE);
-  const montoAjustesNoRegistrados = ajustesSuperanPAE
-    .filter((a) => !a.aceptado)
+  // Filtro de ajustes según el rubro activo (por defecto muestra sólo los ajustes del rubro activo, ej. Bienes de Uso = AJ-01)
+  const ajustesDelRubroActivo = ajustesState.filter((a) => {
+    if (activePT.id === 'pt-a') {
+      return a.rubro.toLowerCase().includes('bienes de uso') || a.refPT.includes('PT-A');
+    }
+    if (activePT.id === 'pt-b') {
+      return a.refPT.includes('PT-B') || a.rubro.toLowerCase().includes('créditos');
+    }
+    if (activePT.id === 'pt-d') {
+      return a.refPT.includes('PT-D') || a.rubro.toLowerCase().includes('ventas');
+    }
+    return a.refPT.toLowerCase().includes(activePT.codigo.toLowerCase());
+  });
+
+  const ajustesAMostrar = mostrarTodosAjustes
+    ? ajustesState
+    : ajustesDelRubroActivo;
+
+  // Cálculo del efecto acumulado de ajustes NO aceptados por la Gerencia (sobre los visibles o sobre el rubro)
+  const montoAjustesNoRegistrados = ajustesAMostrar
+    .filter((a) => a.superaPAE && !a.aceptado)
+    .reduce((acc, a) => acc + a.montoMillones, 0);
+
+  const totalAjustesGlobalNoRegistrados = ajustesState
+    .filter((a) => a.superaPAE && !a.aceptado)
     .reduce((acc, a) => acc + a.montoMillones, 0);
 
   return (
@@ -889,7 +911,9 @@ export default function Etapa2EjecucionView({
           <div className="p-3.5 rounded-xl bg-slate-900 text-white shrink-0 flex items-center gap-4">
             <div>
               <span className="text-[10px] font-bold uppercase text-slate-400 block">
-                Desvíos Materiales No Registrados
+                {!mostrarTodosAjustes && activePT.id === 'pt-a'
+                  ? 'Desvío en Bienes de Uso (AJ-01)'
+                  : 'Desvíos Materiales No Registrados'}
               </span>
               <span
                 className={`text-lg font-extrabold font-mono ${
@@ -905,15 +929,72 @@ export default function Etapa2EjecucionView({
               </span>
               <span className="text-xs font-extrabold text-lime-400">
                 {montoAjustesNoRegistrados === 0
-                  ? 'Opinión Favorable Limpia'
-                  : 'Con Salvedades por Valuación/Corte'}
+                  ? 'Opinión Favorable Limpia ✓'
+                  : 'Con Salvedades por Valuación'}
               </span>
             </div>
           </div>
         </div>
 
+        {/* Barra de alternancia de visualización de ajustes */}
+        <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-xs font-bold text-slate-700">
+              Visualización de Ajustes:
+            </span>
+            {!mostrarTodosAjustes ? (
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-teal-100 text-teal-800 border border-teal-300">
+                🎯 Solo Ajustes de {activePT.rubro} ({ajustesDelRubroActivo.length})
+              </span>
+            ) : (
+              <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900 border border-amber-300">
+                👁️ Todos los Ajustes de la Auditoría ({ajustesState.length})
+              </span>
+            )}
+            {!mostrarTodosAjustes && activePT.id === 'pt-a' && (
+              <span className="text-[11px] text-slate-500 font-medium">
+                — Enfoque Cátedra: Bienes de Uso es el único rubro con recomendación de ajuste (AJ-01 por $28.340M).
+              </span>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setMostrarTodosAjustes((prev) => !prev)}
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer shadow-xs border bg-white hover:bg-slate-100 text-slate-800 border-slate-300 active:scale-95"
+          >
+            {mostrarTodosAjustes ? (
+              <>
+                <span>🎯 Ocultar y ver solo ajustes de {activePT.rubro}</span>
+              </>
+            ) : (
+              <>
+                <span>👁️ Desplegar los otros ajustes de la auditoría (AJ-02 a AJ-04)</span>
+              </>
+            )}
+          </button>
+        </div>
+
         <div className="space-y-4">
-          {ajustesState.map((item) => (
+          {ajustesAMostrar.length === 0 ? (
+            <div className="p-8 text-center rounded-xl bg-slate-50 border border-dashed border-slate-300 space-y-2">
+              <span className="text-2xl block">✅</span>
+              <h4 className="text-sm font-extrabold text-slate-800">
+                Sin Ajustes Propuestos para {activePT.rubro}
+              </h4>
+              <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+                Este rubro no arrojó desvíos materiales ni recomendaciones de ajuste al cierre del ejercicio (saldos validados y conformes).
+              </p>
+              <button
+                type="button"
+                onClick={() => setMostrarTodosAjustes(true)}
+                className="mt-2 px-3 py-1.5 rounded-lg bg-teal-700 text-white text-xs font-bold hover:bg-teal-800 transition-colors cursor-pointer"
+              >
+                👁️ Desplegar todos los ajustes de la auditoría
+              </button>
+            </div>
+          ) : (
+            ajustesAMostrar.map((item) => (
             <div
               key={item.id}
               className={`rounded-xl border p-4 transition-all ${
@@ -1003,7 +1084,7 @@ export default function Etapa2EjecucionView({
                 </div>
               </div>
             </div>
-          ))}
+          )))}
         </div>
       </div>
 
