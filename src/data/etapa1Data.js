@@ -663,15 +663,15 @@ export const rubrosSignificativos = [
         Pasos: [
           {
             texto: "Recalcular globalmente el cargo por depreciación del ejercicio en función de las variaciones interanuales (Prueba Global de Amortizaciones).",
-            comoSeHace: "Prueba Global de Amortizaciones: Amortización ejercicio anterior ($785.400M) + Amortización de altas del ejercicio ($112.500M) - Amortización de bienes extinguidos el año anterior ($35.180M) - Amortización de bajas del ejercicio ($8.600M) = Amortización teórica del ejercicio de $854.120M. Se compara con el cargo contable en Nota 9 ($854.120M), validando que la variación sea menor al Error Tolerable ($83.112M).",
-            fuentes: "Subdiario SAP FI-AA (Activos Fijos), Anexo de Bienes de Uso (Nota 9) y reportes de bienes totalmente amortizados.",
-            valores: "Depreciación anual del ejercicio calculada: $854.120M vs contabilidad $854.120M (desvío $0 < ET $83.112M)."
+            comoSeHace: "Prueba Global de Amortizaciones: Depreciación ejercicio anterior 2024 ($1.312.898M) + Depreciación de altas de CAPEX y redes TMA ($315.840M) - Depreciación de activos extinguidos ($72.450M) - Depreciación de bajas ($23.197M) = Depreciación teórica de $1.533.091M. Se compara contra la columna 'Del ejercicio' de la Nota 9 pág. 50 ($1.533.091M), validando que la variación sea menor al Error Tolerable ($83.112M).",
+            fuentes: "Estados Financieros 2025 — Nota 9 (Páginas 49 a 51: Cuadros de Depreciaciones) y Subdiario SAP FI-AA.",
+            valores: "Depreciación anual del ejercicio calculada: $1.533.091M vs contabilidad $1.533.091M (desvío $0 < ET $83.112M)."
           },
           {
             texto: "Efectuar la Prueba Global de Valor Residual para comprobar el saldo patrimonial neto al cierre.",
-            comoSeHace: "Prueba Global de Valor Residual: Valor residual inicial ($5.696.731M) + Nuevas adquisiciones/altas CAPEX ($1.993.423M) - Valor residual de bienes dados de baja ($46.916M) - Amortización del ejercicio ($854.120M) = Valor residual teórico al cierre de $6.789.118M. Coincide exactamente con el saldo expuesto en el Estado de Situación Financiera.",
-            fuentes: "Estados Financieros 2024 y 2025 (Nota 9), Subdiario SAP FI-AA y altas auditadas en PT-A2.",
-            valores: "Valor residual al cierre según auditoría: $6.789.118M vs Balance General $6.789.118M (diferencia $0)."
+            comoSeHace: "Prueba Global de Valor Residual: Valor residual inicial ($5.757.248M en pág. 49) + Incorporación de redes TMA ($1.332.961M) + Altas de CAPEX ($1.351.105M) + Conversión/Reclasificaciones netas ($73.691M) - Valor residual de bajas netas ($122.296M) - Depreciación del ejercicio ($1.533.091M) = PP&E antes de previsiones de $6.859.618M. Deduciendo las previsiones de obsolescencia ($42.217M y $28.283M), cierra en $6.789.118M neto en Balance.",
+            fuentes: "Estados Financieros 2025 — Nota 9 (Págs. 49 y 50), Subdiario SAP FI-AA y altas auditadas en PT-A2.",
+            valores: "PP&E antes de previsiones: $6.859.618M vs Nota 9 $6.859.618M. Saldo Neto en Balance: $6.789.118M (diferencia $0)."
           },
           {
             texto: "Solicitar el informe técnico del área de Operaciones sobre las centrales analógicas fuera de servicio y verificar la contabilización de la baja por obsolescencia.",
