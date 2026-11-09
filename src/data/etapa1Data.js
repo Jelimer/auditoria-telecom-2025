@@ -669,7 +669,7 @@ export const rubrosSignificativos = [
           },
           {
             texto: "Efectuar la Prueba Global de Valor Residual para comprobar el saldo patrimonial neto al cierre.",
-            comoSeHace: "Prueba Global de Valor Residual: Valor residual inicial ($5.757.248M en pág. 49) + Incorporación de redes TMA ($1.332.961M) + Altas de CAPEX ($1.351.105M) + Conversión/Reclasificaciones netas ($73.691M) - Valor residual de bajas netas ($122.296M) - Depreciación del ejercicio ($1.533.091M) = PP&E antes de previsiones de $6.859.618M. Deduciendo las previsiones de obsolescencia ($42.217M y $28.283M), cierra en $6.789.118M neto en Balance.",
+            comoSeHace: "Prueba Global de Valor Residual: Valor residual inicial ($5.757.248M en pág. 49) + Incorporación de redes TMA ($1.332.961M) + Altas de CAPEX ($1.351.105M) + Conversión/Reclasificaciones netas ($73.691M) - Valor residual de bajas netas ($122.296M) - Depreciación del ejercicio ($1.533.091M) = Valor Residual de Bienes de Uso al Cierre de $6.859.618M (coincidencia exacta con Nota 9). Para conciliar con el Balance General ($6.789.118M), se deducen por separado las previsiones para obsolescencia y desvalorización ($70.500M).",
             fuentes: "Estados Financieros 2025 — Nota 9 (Págs. 49 y 50), Subdiario SAP FI-AA y altas auditadas en PT-A2.",
             valores: "PP&E antes de previsiones: $6.859.618M vs Nota 9 $6.859.618M. Saldo Neto en Balance: $6.789.118M (diferencia $0)."
           },
