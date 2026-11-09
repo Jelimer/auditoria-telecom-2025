@@ -612,7 +612,7 @@ export const documentosEtapa3 = {
     secciones: [
       {
         subtitulo: "1. Alcance del Trabajo y Enfoque Aplicado (Doctrina Carlos Slosse y RT 37 / RT 53)",
-        contenido: "Hemos completado la auditoría externa de los Estados Contables de Telecom Argentina S.A. al 31/12/2025 siguiendo las 3 etapas secuenciales del proceso de auditoría (Planificación, Ejecución y Conclusión). En virtud de que la evaluación de los 5 componentes del Control Interno arrojó Niveles de Confianza Bajos (entre 15,38% y 23,33%) y Riesgos de Control Altos, aplicamos un enfoque predominantemente sustantivo, fijando la Materialidad Global en $166.225 millones (1% del Activo Total de $16.622.552 millones), el Error Tolerable en $83.112 millones y el umbral mínimo de ajustes (PAE) en $8.311 millones."
+        contenido: "Hemos completado la auditoría externa de los Estados Contables de Telecom Argentina S.A. al 31/12/2025 siguiendo las 3 etapas secuenciales del proceso de auditoría (Planificación, Ejecución y Conclusión). En virtud de que la evaluación del Control Interno arrojó Riesgo de Control ALTO en los componentes clave de infraestructura y tecnología (Archivo Documental NC 38,46% y Sistema Tecnológico NC 47,62%), aplicamos un enfoque predominantemente sustantivo focalizado en los rubros críticos (Bienes de Uso, Activos Intangibles y Créditos por Ventas), fijando la Materialidad Global en $166.225 millones (1% del Activo Total de $16.622.552 millones), el Error Tolerable en $83.112 millones (50% de PM) y el umbral mínimo de ajustes (PAE) en $8.311 millones."
       },
       {
         subtitulo: "2. Resumen de Resultados de los Programas A, B, C, D, E y F",
@@ -631,29 +631,29 @@ export const documentosEtapa3 = {
     introduccion: "Como resultado de nuestra evaluación del sistema de control interno efectuada durante la Etapa de Planificación y corroborada en la Etapa de Ejecución de la auditoría de los Estados Contables al 31/12/2025, exponemos las principales debilidades detectadas y nuestras recomendaciones de mejora:",
     recomendaciones: [
       {
-        componente: "1. Archivo de la Documentación Sustentable (NC: 15,38% - RC: Alto)",
+        componente: "1. Archivo de la Documentación Sustentable (NC: 38,46% - RC: Alto)",
         observacion: "Ausencia de auditorías internas específicas bajo la Norma ISO 15.489, demoras y falta de estandarización en la digitalización de certificados de obra de red en sucursales del interior y falta de difusión escrita al personal técnico de campo.",
         recomendacion: "Implementar un protocolo obligatorio de carga digital en SAP dentro de las 48 hs. de firmado cada certificado de avance de obra en todas las regionales e incorporar revisiones anuales ISO 15.489 en el plan de Auditoría Interna."
       },
       {
-        componente: "2. Evaluación del Sistema Contable (NC: 20,00% - RC: Alto)",
-        observacion: "Desfasajes de 24 a 48 hs. en la conciliación de cobranzas externas (Rapipago, Pago Fácil y billeteras), demoras de corte en facturación corporativa B2B (Personal Tech), omisión de mora > 180 días en sub-carteras masivas y permanencia contable de centrales analógicas fuera de servicio.",
-        recomendacion: "Automatizar vía API en tiempo real la rendición de recaudadores externos, vincular electrónicamente el acta de recepción técnica B2B con la emisión automática de la factura en SAP, unificar el padrón de morosidad NIIF 9 y establecer un comité trimestral entre Ingeniería y Contabilidad para dar de baja activos obsoletos."
+        componente: "2. Evaluación del Sistema Contable (NC: 80,00% - RC: Bajo)",
+        observacion: "Desfasajes operativos de 24 a 48 hs. en la conciliación de cobranzas externas (Rapipago, Pago Fácil y billeteras) y demoras administrativas menores en facturación corporativa B2B (Personal Tech), sin comprometer la eficacia general del ERP SAP.",
+        recomendacion: "Automatizar vía API en tiempo real la rendición de recaudadores externos y vincular electrónicamente el acta de recepción técnica B2B con la emisión automática de la factura en SAP."
       },
       {
-        componente: "3. Sistema de Presupuestos (NC: 22,22% - RC: Alto)",
-        observacion: "Emisión de órdenes de trabajo de emergencia sin partida presupuestaria previa, falta de vinculación plurianual automatizada en el despliegue 5G y omisión de aislar el efecto del ajuste por inflación en moneda homogénea (NIC 29) en los reportes mensuales de variaciones.",
+        componente: "3. Sistema de Presupuestos (NC: 77,78% - RC: Bajo)",
+        observacion: "Emisión de órdenes de trabajo de emergencia sin partida presupuestaria previa y falta de vinculación plurianual automatizada en el despliegue 5G.",
         recomendacion: "Bloquear en el módulo SAP FM/CO la emisión de órdenes sin reserva presupuestaria (habilitando un flujo electrónico de aprobación de urgencia en 2 horas) y parametrizar los reportes de gestión FP&A tanto en moneda nominal como en moneda homogénea (NIC 29)."
       },
       {
-        componente: "4. Sistema Operativo y Talento Humano (NC: 23,33% - RC: Alto)",
-        observacion: "Legajos físicos incompletos en personal técnico del interior, acumulación de licencias/vacaciones no gozadas en personal crítico de TI/5G, demoras en actualizar centros de costo tras fusiones y ausencia de rotación obligatoria en puestos clave de Compras e Inventarios.",
-        recomendacion: "Digitalizar el 100% de los legajos del interior, establecer un cronograma escalonado de goce de licencias con back-ups cruzados en Ingeniería y fijar por política de Compliance la rotación cada 3 años de compradores de tecnología."
+        componente: "4. Sistema Operativo y Talento Humano (NC: 80,00% - RC: Bajo)",
+        observacion: "Legajos físicos incompletos en personal técnico del interior y acumulación de licencias/vacaciones no gozadas en personal clave de TI/5G.",
+        recomendacion: "Digitalizar el 100% de los legajos del interior y establecer un cronograma escalonado de goce de licencias con back-ups cruzados en Ingeniería."
       },
       {
-        componente: "5. Sistema Tecnológico (NC: 19,05% - RC: Alto)",
-        observacion: "Persistencia de interfaces manuales entre sistemas comerciales heredados (ex Cablevisión/Fibertel) y el ERP SAP, dependencia de repuestos importados con demoras aduaneras y falta de pruebas integrales del Plan de Continuidad (BCP) ante cortes físicos de fibra por vandalismo.",
-        recomendacion: "Culminar la migración definitiva de los facturadores heredados al core convergente único, constituir un stock crítico de seguridad de repuestos ópticos en almacenes locales y ejecutar simulacros semestrales de contingencia física de red."
+        componente: "5. Sistema Tecnológico (NC: 47,62% - RC: Alto)",
+        observacion: "Persistencia de interfaces manuales entre sistemas comerciales heredados y el ERP SAP, dependencia de licenciamiento y cronogramas de despliegue de espectro 5G ante el ENACOM, y necesidad de pruebas integrales del Plan de Continuidad (BCP) ante cortes físicos de fibra por vandalismo.",
+        recomendacion: "Culminar la migración definitiva de los facturadores heredados al core convergente único, dar seguimiento continuo a las obligaciones del espectro 5G y ejecutar simulacros semestrales de contingencia física de red."
       }
     ]
   },

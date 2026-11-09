@@ -507,7 +507,7 @@ export const materialidadData = {
         },
         {
           subtitulo: "2. ¿De dónde sale el porcentaje del 50% (vs. 75%)?",
-          texto: "En la bibliografía de auditoría, el Error Tolerable se fija entre el 50% y el 75% de la Significatividad Global según la calidad del Control Interno:\n• Si el Control Interno es FUERTE (Riesgo de Control Bajo): se usa el 75%.\n• Si el Control Interno es DÉBIL (Riesgo de Control Alto): se usa el 50%.\nComo en Telecom S.A. los 5 cuestionarios (CCI) arrojaron Nivel de Confianza BAJO (15% a 23%) y Riesgo de Control ALTO, la doctrina nos obliga a usar el corte más prudente y exigente del 50% ($83.112M), lo que nos lleva a tomar muestras más amplias en la Etapa 2."
+          texto: "En la bibliografía de auditoría (Slosse / NIA 320), el Error Tolerable se fija entre el 50% y el 75% de la Significatividad Global según la calidad del Control Interno:\n• Si el Control Interno es FUERTE (Riesgo de Control Bajo): se usa el 75%.\n• Si el Control Interno es DÉBIL (Riesgo de Control Alto): se usa el 50%.\nComo en Telecom S.A. los dos activos más representativos del balance (Bienes de Uso y Activos Intangibles) arrojaron Nivel de Confianza BAJO (38,46% y 47,62%) y Riesgo de Control ALTO en sus componentes de Archivo y Tecnología, la doctrina nos obliga a adoptar el corte más prudente y exigente del 50% ($83.112M), llevando a tomar muestras más amplias y pruebas de detalle exhaustivas en la Etapa 2."
         }
       ]
     }

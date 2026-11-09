@@ -982,7 +982,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
               II. Síntesis de Riesgos y Enfoque Determinado
             </h4>
             <p className="text-slate-700 leading-relaxed">
-              Habiendo relevado los 5 componentes de Control Interno (Archivo Documental NC 15,38%, Sistema Contable NC 20,00%, Presupuestos NC 22,22%, Operativo NC 23,33% y Tecnológico NC 19,05%), el Riesgo de Control resulta <strong>ALTO</strong>. En consecuencia, se define un <strong>Enfoque Predominantemente Sustantivo</strong> con pruebas de detalle y analíticas de alto alcance.
+              Habiendo relevado los 5 componentes de Control Interno (Archivo Documental NC 38,46% - RC ALTO; Sistema Tecnológico NC 47,62% - RC ALTO; Sistema Contable NC 80,00% - RC BAJO; Presupuestos NC 77,78% - RC BAJO y Operativo NC 80,00% - RC BAJO), el Riesgo de Control resulta <strong>ALTO</strong> en los rubros críticos de infraestructura y tecnología. En consecuencia, se define un <strong>Enfoque Predominantemente Sustantivo</strong> con pruebas de detalle exhaustivas focalizadas en Bienes de Uso (PT-A), Activos Intangibles (PT-E) y Créditos por Ventas (PT-B), aplicando procedimientos analíticos sustantivos sobre los restantes.
             </p>
           </div>
 

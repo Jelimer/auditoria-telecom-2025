@@ -742,7 +742,7 @@ export default function Etapa1ControlInternoView({
               2. ¿Qué se hace concretamente acá?
             </strong>
             <p className="text-slate-200">
-              Aplicamos los <strong>5 Cuestionarios de Control Interno (CCI)</strong> verificando qué controles se cumplen («SÍ») y cuáles fallan («NO»). Con esas respuestas calculamos matemáticamente la <strong>Matriz de Confianza y Riesgo</strong> de cada componente. Al detectar fallas críticas (como falta de bajas contables de centrales obsoletas y cables robados en SAP, omisión de mora &gt; 180 días en la previsión de incobrables e interfaces manuales entre los facturadores y SAP), el <strong>Nivel de Confianza (NC) resultó BAJO (entre 15,38% y 23,33%)</strong> y, por espejo inverso, el <strong>Riesgo de Control (RC) dio ALTO en los 5 componentes</strong>.
+              Aplicamos los <strong>5 Cuestionarios de Control Interno (CCI)</strong> verificando qué controles se cumplen («SÍ») y cuáles fallan («NO»). Con esas respuestas calculamos matemáticamente la <strong>Matriz de Confianza y Riesgo</strong> de cada componente. Al detectar fallas críticas en legajos de obras físicas, radiobases 5G y tecnología (CCI-01 con NC 38,46% y CCI-05 con NC 47,62%), el <strong>Riesgo de Control (RC) resultó ALTO</strong> en los rubros estructurales de infraestructura y tecnología (Bienes de Uso e Intangibles), mientras que en los sistemas contable, presupuestario y operativo el <strong>Riesgo de Control resultó BAJO (NC entre 77,78% y 80,00%)</strong>.
             </p>
           </div>
 
