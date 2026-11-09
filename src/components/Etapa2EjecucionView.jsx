@@ -9,7 +9,11 @@ import {
   Scale,
   ChevronDown,
   ChevronUp,
-  BookOpen
+  BookOpen,
+  Pencil,
+  Check,
+  X,
+  RotateCcw
 } from 'lucide-react';
 import { papelesTrabajo, marcasAuditoria } from '../data/etapas2y3Data';
 import { materialidadData, rubrosSignificativos } from '../data/etapa1Data';
@@ -214,6 +218,84 @@ export default function Etapa2EjecucionView({
   const [expandedSteps, setExpandedSteps] = useState({});
   const [mostrarTodosAjustes, setMostrarTodosAjustes] = useState(false);
   const [expandResumenGeneral, setExpandResumenGeneral] = useState(false);
+
+  // Estados para textos editables de conclusiones y notas personales del usuario (con persistencia en localStorage)
+  const [conclusionesCustom, setConclusionesCustom] = useState(() => {
+    try {
+      const saved = localStorage.getItem('audiia_conclusiones_rubros_v1');
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      return {};
+    }
+  });
+
+  const [pasosNarrativosCustom, setPasosNarrativosCustom] = useState(() => {
+    try {
+      const saved = localStorage.getItem('audiia_pasos_narrativos_v1');
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      return {};
+    }
+  });
+
+  const [editingField, setEditingField] = useState(null);
+  const [tempEditText, setTempEditText] = useState('');
+
+  const handleStartEdit = (fieldKey, initialText) => {
+    setEditingField(fieldKey);
+    setTempEditText(initialText);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingField(null);
+    setTempEditText('');
+  };
+
+  const handleSaveConclusion = (ptId) => {
+    const updated = { ...conclusionesCustom, [ptId]: tempEditText };
+    setConclusionesCustom(updated);
+    try {
+      localStorage.setItem('audiia_conclusiones_rubros_v1', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    setEditingField(null);
+  };
+
+  const handleResetConclusion = (ptId) => {
+    const updated = { ...conclusionesCustom };
+    delete updated[ptId];
+    setConclusionesCustom(updated);
+    try {
+      localStorage.setItem('audiia_conclusiones_rubros_v1', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    setEditingField(null);
+  };
+
+  const handleSavePaso = (stepKey) => {
+    const updated = { ...pasosNarrativosCustom, [stepKey]: tempEditText };
+    setPasosNarrativosCustom(updated);
+    try {
+      localStorage.setItem('audiia_pasos_narrativos_v1', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    setEditingField(null);
+  };
+
+  const handleResetPaso = (stepKey) => {
+    const updated = { ...pasosNarrativosCustom };
+    delete updated[stepKey];
+    setPasosNarrativosCustom(updated);
+    try {
+      localStorage.setItem('audiia_pasos_narrativos_v1', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    setEditingField(null);
+  };
 
   useEffect(() => {
     if (!subTarget) return;
@@ -898,12 +980,78 @@ export default function Etapa2EjecucionView({
         {/* Conclusión Técnica del Papel de Trabajo + Leyenda de Marcas */}
         <div className="p-4 rounded-xl bg-teal-50/60 border border-teal-200 space-y-3">
           <div>
-            <span className={`${isPTA ? 'text-sm' : 'text-xs'} font-extrabold uppercase text-teal-900 block`}>
-              Conclusión del Auditor sobre {activePT.rubro}:
-            </span>
-            <div className={`${isPTA ? 'text-sm sm:text-base font-medium' : 'text-xs sm:text-sm'} text-slate-800 mt-1 leading-relaxed`}>
-              {renderTextWithNormas(activePT.conclusionRubro)}
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <span className={`${isPTA ? 'text-sm' : 'text-xs'} font-extrabold uppercase text-teal-900 block`}>
+                  Conclusión del Auditor sobre {activePT.rubro}:
+                </span>
+                {conclusionesCustom[activePT.id] && (
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300">
+                    ✏️ Editado
+                  </span>
+                )}
+              </div>
+              {editingField !== `conclusion-${activePT.id}` && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleStartEdit(
+                      `conclusion-${activePT.id}`,
+                      conclusionesCustom[activePT.id] || activePT.conclusionRubro
+                    )
+                  }
+                  title="Editar o agregar anotaciones personales a la conclusión"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg bg-teal-100 hover:bg-teal-200 text-teal-900 border border-teal-300 transition-colors cursor-pointer"
+                >
+                  <Pencil className="w-3.5 h-3.5" />
+                  <span>Editar conclusión</span>
+                </button>
+              )}
             </div>
+
+            {editingField === `conclusion-${activePT.id}` ? (
+              <div className="mt-2.5 space-y-2">
+                <textarea
+                  value={tempEditText}
+                  onChange={(e) => setTempEditText(e.target.value)}
+                  rows={4}
+                  className="w-full p-3 rounded-xl border border-teal-400 bg-white text-slate-800 text-sm focus:ring-2 focus:ring-teal-500 focus:outline-none shadow-inner leading-relaxed"
+                  placeholder="Escribí aquí tus anotaciones o correcciones sobre la conclusión del rubro..."
+                />
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleSaveConclusion(activePT.id)}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold transition-colors cursor-pointer"
+                    >
+                      <Check className="w-3.5 h-3.5" /> Guardar cambios
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCancelEdit}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+                    >
+                      <X className="w-3.5 h-3.5" /> Cancelar
+                    </button>
+                  </div>
+                  {conclusionesCustom[activePT.id] && (
+                    <button
+                      type="button"
+                      onClick={() => handleResetConclusion(activePT.id)}
+                      title="Restablecer al texto original del modelo"
+                      className="inline-flex items-center gap-1 text-xs text-rose-600 hover:text-rose-800 font-bold underline cursor-pointer"
+                    >
+                      <RotateCcw className="w-3 h-3" /> Restablecer original
+                    </button>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className={`${isPTA ? 'text-sm sm:text-base font-medium' : 'text-xs sm:text-sm'} text-slate-800 mt-1 leading-relaxed`}>
+                {renderTextWithNormas(conclusionesCustom[activePT.id] || activePT.conclusionRubro)}
+              </div>
+            )}
 
             {/* Resumen Metodológico General Expandible de los 4 PT y Conclusión */}
             {activePT.resumenMetodologicoRubro && (
@@ -948,52 +1096,187 @@ export default function Etapa2EjecucionView({
                       </p>
                     </div>
 
-                    {/* Secuencia Narrativa Continua de los 4 Pasos de Auditoría */}
+                    {/* Secuencia Narrativa Continua de los 4 Pasos de Auditoría con Lapicito Editable */}
                     <div className="space-y-3.5">
-                      {activePT.resumenMetodologicoRubro.pasosNarrativos.map((paso, idx) => (
-                        <div
-                          key={idx}
-                          className="p-4 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-teal-300 transition-colors space-y-2"
-                        >
-                          <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-200/70">
-                            <div className="flex items-center gap-2">
-                              <span className="px-2.5 py-1 rounded-md bg-teal-800 text-white font-mono text-xs font-extrabold shadow-xs">
-                                {paso.pt}
-                              </span>
-                              <span className="text-xs font-bold uppercase tracking-wide text-teal-900 bg-teal-100/90 px-2 py-0.5 rounded border border-teal-300">
-                                {paso.etiqueta}
-                              </span>
+                      {activePT.resumenMetodologicoRubro.pasosNarrativos.map((paso, idx) => {
+                        const stepKey = `${activePT.id}-paso-${idx}`;
+                        const isEditingThisStep = editingField === stepKey;
+                        const currentRelato = pasosNarrativosCustom[stepKey] || paso.relato;
+                        const isCustom = !!pasosNarrativosCustom[stepKey];
+
+                        return (
+                          <div
+                            key={idx}
+                            className="p-4 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-teal-300 transition-colors space-y-2"
+                          >
+                            <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-200/70">
+                              <div className="flex items-center gap-2">
+                                <span className="px-2.5 py-1 rounded-md bg-teal-800 text-white font-mono text-xs font-extrabold shadow-xs">
+                                  {paso.pt}
+                                </span>
+                                <span className="text-xs font-bold uppercase tracking-wide text-teal-900 bg-teal-100/90 px-2 py-0.5 rounded border border-teal-300">
+                                  {paso.etiqueta}
+                                </span>
+                                {isCustom && (
+                                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300">
+                                    ✏️ Editado
+                                  </span>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs font-semibold text-slate-600 italic">
+                                  {paso.afirmacion}
+                                </span>
+                                {!isEditingThisStep && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleStartEdit(stepKey, currentRelato)}
+                                    title="Editar o agregar anotaciones personales a este paso"
+                                    className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md bg-white hover:bg-teal-100 text-slate-600 hover:text-teal-900 border border-slate-300 transition-colors cursor-pointer"
+                                  >
+                                    <Pencil className="w-3.5 h-3.5 text-teal-700" />
+                                    <span className="text-[11px] font-bold">Editar</span>
+                                  </button>
+                                )}
+                              </div>
                             </div>
-                            <span className="text-xs font-semibold text-slate-600 italic">
-                              {paso.afirmacion}
-                            </span>
+
+                            <h5 className="text-sm sm:text-base font-extrabold text-slate-900">
+                              {paso.titulo}
+                            </h5>
+
+                            {isEditingThisStep ? (
+                              <div className="space-y-2">
+                                <textarea
+                                  value={tempEditText}
+                                  onChange={(e) => setTempEditText(e.target.value)}
+                                  rows={6}
+                                  className="w-full p-3 rounded-xl border border-teal-400 bg-white text-slate-800 text-sm focus:ring-2 focus:ring-teal-500 focus:outline-none shadow-inner leading-relaxed"
+                                  placeholder="Escribí aquí tus anotaciones o correcciones para este paso..."
+                                />
+                                <div className="flex flex-wrap items-center justify-between gap-2">
+                                  <div className="flex items-center gap-2">
+                                    <button
+                                      type="button"
+                                      onClick={() => handleSavePaso(stepKey)}
+                                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold transition-colors cursor-pointer"
+                                    >
+                                      <Check className="w-3.5 h-3.5" /> Guardar cambios
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={handleCancelEdit}
+                                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+                                    >
+                                      <X className="w-3.5 h-3.5" /> Cancelar
+                                    </button>
+                                  </div>
+                                  {isCustom && (
+                                    <button
+                                      type="button"
+                                      onClick={() => handleResetPaso(stepKey)}
+                                      title="Restablecer al texto original"
+                                      className="inline-flex items-center gap-1 text-xs text-rose-600 hover:text-rose-800 font-bold underline cursor-pointer"
+                                    >
+                                      <RotateCcw className="w-3 h-3" /> Restablecer original
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                            ) : (
+                              <p className="text-sm text-slate-700 leading-relaxed text-justify">
+                                {currentRelato}
+                              </p>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {/* El Broche de Cierre y Conclusión Integradora con Lapicito Editable */}
+                    {(() => {
+                      const synthKey = `${activePT.id}-synth`;
+                      const isEditingSynth = editingField === synthKey;
+                      const currentSynth =
+                        pasosNarrativosCustom[synthKey] ||
+                        activePT.resumenMetodologicoRubro.conclusionNarrativa;
+                      const isCustom = !!pasosNarrativosCustom[synthKey];
+
+                      return (
+                        <div className="p-4 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-300 text-slate-900 space-y-2 shadow-xs">
+                          <div className="flex flex-wrap items-center justify-between gap-2">
+                            <div className="flex items-center gap-2">
+                              <span className="px-2.5 py-0.5 rounded bg-amber-600 text-white text-xs font-extrabold uppercase tracking-wide">
+                                Síntesis Integradora
+                              </span>
+                              <h5 className="text-sm sm:text-base font-extrabold text-amber-950">
+                                Fundamentación del Ajuste AJ-01 por $28.340M bajo la NIA 450 y Evaluación de Materialidad
+                              </h5>
+                              {isCustom && (
+                                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-200 text-amber-900 border border-amber-400">
+                                  ✏️ Editado
+                                </span>
+                              )}
+                            </div>
+                            {!isEditingSynth && (
+                              <button
+                                type="button"
+                                onClick={() => handleStartEdit(synthKey, currentSynth)}
+                                title="Editar o agregar notas a la síntesis integradora"
+                                className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md bg-white hover:bg-amber-200 text-amber-950 border border-amber-300 transition-colors cursor-pointer"
+                              >
+                                <Pencil className="w-3.5 h-3.5 text-amber-800" />
+                                <span className="text-[11px] font-bold">Editar</span>
+                              </button>
+                            )}
                           </div>
 
-                          <h5 className="text-sm sm:text-base font-extrabold text-slate-900">
-                            {paso.titulo}
-                          </h5>
-
-                          <p className="text-sm text-slate-700 leading-relaxed text-justify">
-                            {paso.relato}
-                          </p>
+                          {isEditingSynth ? (
+                            <div className="space-y-2">
+                              <textarea
+                                value={tempEditText}
+                                onChange={(e) => setTempEditText(e.target.value)}
+                                rows={5}
+                                className="w-full p-3 rounded-xl border border-amber-400 bg-white text-slate-800 text-sm focus:ring-2 focus:ring-amber-500 focus:outline-none shadow-inner leading-relaxed"
+                                placeholder="Escribí aquí tus anotaciones o correcciones para la síntesis integradora..."
+                              />
+                              <div className="flex flex-wrap items-center justify-between gap-2">
+                                <div className="flex items-center gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => handleSavePaso(synthKey)}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-700 hover:bg-amber-800 text-white text-xs font-bold transition-colors cursor-pointer"
+                                  >
+                                    <Check className="w-3.5 h-3.5" /> Guardar cambios
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={handleCancelEdit}
+                                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition-colors cursor-pointer"
+                                  >
+                                    <X className="w-3.5 h-3.5" /> Cancelar
+                                  </button>
+                                </div>
+                                {isCustom && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleResetPaso(synthKey)}
+                                    title="Restablecer al texto original"
+                                    className="inline-flex items-center gap-1 text-xs text-rose-600 hover:text-rose-800 font-bold underline cursor-pointer"
+                                  >
+                                    <RotateCcw className="w-3 h-3" /> Restablecer original
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          ) : (
+                            <p className="text-sm text-slate-800 leading-relaxed text-justify">
+                              {currentSynth}
+                            </p>
+                          )}
                         </div>
-                      ))}
-                    </div>
-
-                    {/* El Broche de Cierre y Conclusión Integradora */}
-                    <div className="p-4 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-300 text-slate-900 space-y-2 shadow-xs">
-                      <div className="flex items-center gap-2">
-                        <span className="px-2.5 py-0.5 rounded bg-amber-600 text-white text-xs font-extrabold uppercase tracking-wide">
-                          Síntesis Integradora
-                        </span>
-                        <h5 className="text-sm sm:text-base font-extrabold text-amber-950">
-                          Fundamentación del Ajuste AJ-01 por $28.340M bajo la NIA 450 y Evaluación de Materialidad
-                        </h5>
-                      </div>
-                      <p className="text-sm text-slate-800 leading-relaxed text-justify">
-                        {activePT.resumenMetodologicoRubro.conclusionNarrativa}
-                      </p>
-                    </div>
+                      );
+                    })()}
                   </div>
                 )}
               </div>
