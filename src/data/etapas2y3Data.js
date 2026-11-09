@@ -303,43 +303,40 @@ export const papelesTrabajo = [
     ],
     conclusionRubro: "Salvo por la falta de desincorporación contable de las centrales analógicas obsoletas ($21.450M en PT-A4) y nodos vandalizados ($6.890M en PT-A1) por un total acumulado de $28.340M (acumulados bajo NIA 450 y propuestos en Ajuste AJ-01 según NIC 16), el rubro Bienes de Uso expone razonablemente su saldo al 31/12/2025.",
     resumenMetodologicoRubro: {
-      titulo: "Comentario General y Síntesis Metodológica de los 4 Papeles de Trabajo (PT-A1 a PT-A4)",
-      alcance: "Auditoría integral del rubro Bienes de Uso (Nota 9: $6.789.118 millones netos en Balance al 31/12/2025). Respuesta al Riesgo de Control Alto en CCI-01 (NC 38,46%) y cumplimiento de NIC 16, NIC 36, RT 37 / RT 53.",
-      cedulas: [
+      titulo: "Relato Metodológico Integral: Cómo auditamos los Bienes de Uso de Telecom paso a paso",
+      subtitulo: "Narración continua de la estrategia de auditoría: qué fuimos a buscar en cada procedimiento, qué comprobamos con certeza, qué anomalías descubrimos y por qué se tomaron estas decisiones profesionales.",
+      introduccion: "Auditar los Bienes de Uso de Telecom Argentina S.A. representó el desafío sustantivo más importante del encargo: el rubro concentra casi $6,8 billones netos en el balance (el 40,84% del activo total) y acumulaba un año histórico marcado por la compra millonaria de Telefónica Móviles Argentina (TMA) y el despliegue de 5G. Además, en la Etapa 1 el cuestionario de control interno (CCI-01) nos había encendido una luz roja con un Riesgo de Control Alto (NC 38,46%) por falta de recuentos periódicos en la vía pública y atrasos en denuncias de siniestros. Para blindar nuestra opinión bajo la RT 37 y las NIA, diseñamos una secuencia lógica de cuatro pasos que fue desde el trabajo de campo físico hasta el recálculo matemático de gabinete.",
+      pasosNarrativos: [
         {
-          ref: "PT-A1",
-          nombre: "Inspección Física Ocular de Activos y Control de Siniestros en Vía Pública",
-          afirmacion: "Existencia e Integridad Física",
-          cobertura: "100% de los 16 Data Centers principales (Pacheco, Barracas, Córdoba, Rosario) + Muestra dirigida de 85 nodos ópticos y sitios 5G neurálgicos.",
-          procedimiento: "Inspección in situ de la existencia real y funcionamiento operativo de servidores, equipos de transmisión y radiobases 5G. Cruce con denuncias policiales y partes de siniestros de la Gerencia de Seguridad Patrimonial.",
-          resultadoHallazgo: "Se comprobó la existencia física de las instalaciones troncales, pero se detectaron tramos de red y equipamiento siniestrado/vandalizado por $6.890 millones que la empresa mantenía indebidamente activados en SAP sin dar de baja."
+          pt: "PT-A1",
+          etiqueta: "Paso 1 • En el Terreno",
+          titulo: "Inspección Ocular: Salir a constatar los fierros y cruzar con la realidad de la calle",
+          afirmacion: "Afirmación Central: Existencia e Integridad Física",
+          relato: "Arrancamos el trabajo directamente en el campo. Cuando una empresa tiene $16 billones en activos fijos brutos, el auditor no puede quedarse sentado en una oficina dando por hecho que las cosas existen. Fuimos en persona a los 16 Data Centers principales del país (como Pacheco, Barracas, Córdoba y Rosario) y a una muestra de 85 nodos ópticos y radiobases 5G. Constatamos con nuestros propios ojos que los servidores troncales, las antenas y los equipos de transmisión existen físicamente, están encendidos y operan con normalidad. Pero como en Argentina el tendido de red en la calle sufre robos constantes, no nos conformamos con mirar los edificios cerrados: solicitamos a Seguridad Patrimonial los partes de siniestros y copias de denuncias policiales por robo de cables y vandalismo en la vía pública. Al cruzar esos partes de bajas físicas contra el sistema contable SAP, descubrimos la primera falla: había $6.890 millones en tramos de fibra óptica y equipos robados durante el último trimestre que ya no estaban en la realidad, pero que Telecom seguía manteniendo activados en su balance como si nada hubiera pasado."
         },
         {
-          ref: "PT-A2",
-          nombre: "Auditoría de Altas del Ejercicio (CAPEX) e Incorporación Telefónica Móviles Argentina (TMA)",
-          afirmacion: "Integridad y Medición (Costo Histórico / NIC 16)",
-          cobertura: "100% de las adiciones superiores al PAE ($8.311M) totalizando $1.351.105M de CAPEX + 100% del PPA de la red adquirida de TMA ($1.332.961M).",
-          procedimiento: "Cotejo documental de 6 pasos: Órdenes de compra aprobadas en SAP MM, facturas de fabricantes (Nokia, Huawei, Ericsson), despachos aduaneros con aranceles capitalizados (NIC 16.16) y Actas PAC de puesta en servicio de obras.",
-          resultadoHallazgo: "Sin desvíos. La totalidad de las altas cuenta con respaldo documental fehaciente y fue activada en la fecha técnica de puesta en funcionamiento."
+          pt: "PT-A2",
+          etiqueta: "Paso 2 • Rastro del Dinero",
+          titulo: "Auditoría del CAPEX y la Adquisición Histórica de Telefónica Móviles (TMA)",
+          afirmacion: "Afirmaciones Centrales: Integridad y Medición (Costo Histórico / NIIF 3)",
+          relato: "Habiendo probado la existencia física, el segundo paso fue seguirle el rastro al dinero de las inversiones del año: más de $1,35 billones en adiciones (CAPEX) y la incorporación colosal de la red de Telefónica Móviles Argentina (TMA). Para ser eficientes y no perder tiempo revisando compras menores, pusimos el foco en todas las adiciones que superaban nuestro umbral de $8.311 millones. Rastreé el circuito comercial y documental de punta a punta: verificamos la orden de compra aprobada con firmas autorizadas en SAP MM, la factura en dólares del fabricante tecnológico (Nokia, Huawei, Ericsson), el despacho de aduana oficial donde se constató el pago de fletes y aranceles de importación (que la NIC 16 permite capitalizar al costo del bien), la entrada física al almacén y el Acta PAC de Puesta en Servicio firmada por los ingenieros de red. ¿Qué logramos validar con esto? Dos cosas fundamentales: primero, que las obras que se activaron durante 2025 realmente se habían terminado y comenzaron a amortizarse en la fecha correcta (sin inflar indebidamente las obras en curso); y segundo, que los $1,33 billones de fierros heredados de TMA quedaron incorporados al valor razonable exigido por la NIIF 3 de combinación de negocios."
         },
         {
-          ref: "PT-A3",
-          nombre: "Verificación de Títulos de Propiedad, Gravámenes y Flota Técnica",
-          afirmacion: "Propiedad, Derechos y Obligaciones",
-          cobertura: "100% de los edificios técnicos centrales y predios de Data Centers + Muestra selectiva de 60 vehículos de flota operativa.",
-          procedimiento: "Revisión de escrituras traslativas de dominio contra informes de dominio del Registro de la Propiedad Inmueble y circularización de registros de automotores. Verificación de restricciones a la propiedad.",
-          resultadoHallazgo: "Sin observaciones. Se constató la titularidad legal de Telecom y la inexistencia de hipotecas, prendas o gravámenes no revelados en Nota 9 y Nota 14."
+          pt: "PT-A3",
+          etiqueta: "Paso 3 • Seguridad Jurídica",
+          titulo: "Verificación Registral: Confirmar que los bienes realmente le pertenecen a Telecom",
+          afirmacion: "Afirmación Central: Derechos y Obligaciones (Propiedad Legal)",
+          relato: "Carlos Slosse siempre enfatiza que no alcanza con que un edificio exista y esté lleno de antenas: el auditor tiene que asegurarse de que la empresa sea legalmente la dueña y de que ningún banco pueda ejecutar esos bienes por deudas no reveladas. Por eso, en el tercer paso fuimos a buscar evidencia externa e independiente. Pedimos certificados de dominio al Registro de la Propiedad Inmueble para el 100% de los edificios centrales y predios donde operan los Data Centers, y cotejamos una muestra selectiva de 60 camionetas de las cuadrillas técnicas en los Registros del Automotor. ¿Qué comprobamos? Que todas las escrituras y títulos están en perfecta regla a nombre de Telecom Argentina S.A. y que sobre estos activos no pesan hipotecas, embargos judiciales ni prendas de ningún tipo que hubieran sido omitidas en las Notas 9 y 14 de los estados contables."
         },
         {
-          ref: "PT-A4",
-          nombre: "Pruebas Globales Analíticas de Depreciación y Validación de Obsolescencia en Red de Cobre",
-          afirmacion: "Medición (NIC 16 / NIC 36) y Exposición",
-          cobertura: "100% de las cuentas del auxiliar contable SAP FI-AA ($16.124.796M valor origen y $9.265.178M amortizaciones) + Informe Técnico de Ingeniería de Operaciones.",
-          procedimiento: "1) Recálculo de la amortización anual teórica ($1.533.091M) y valor residual ($6.859.618M), coincidiendo exacto con Nota 9. 2) Prueba de detalle sobre el informe técnico de desmantelamiento de red de cobre por migración a fibra óptica (FTTH).",
-          resultadoHallazgo: "Se detectó que centrales telefónicas analógicas de conmutación obsoletas por $21.450 millones ya no cursaban tráfico pero continuaban figurando activadas a valor residual positivo en libros sin registrarse la pérdida por desvalorización."
+          pt: "PT-A4",
+          etiqueta: "Paso 4 • Cierre Analítico y Técnico",
+          titulo: "Recálculo Global de Amortizaciones y la Detección de Obsolescencia en la Red de Cobre",
+          afirmacion: "Afirmaciones Centrales: Medición (NIC 16 / NIC 36) y Exposición",
+          relato: "Con los fierros vistos, el dinero rastreado y la propiedad comprobada, nos sentamos en el gabinete a realizar el cierre cuantitativo del rubro. Ejecutamos una Prueba Global Analítica independiente recalculando la amortización teórica del ejercicio ($1.533.091 millones) y el valor residual final ($6.859.618 millones bruto de previsiones), comprobando que ambos cálculos cerraban con exactitud matemática contra los cuadros oficiales de la Nota 9 de Telecom. Pero un recálculo contable solo procesa lo que la máquina tiene registrado; no sabe si la tecnología se volvió obsoleta. Por eso dimos el golpe de gracia: pedimos el informe confidencial de ingeniería de operaciones sobre el plan de desmantelamiento de la red fija histórica. Al cruzarlo con el inventario contable, saltó el gran hallazgo del año: centrales analógicas de conmutación de cobre por $21.450 millones que ya habían sido desconectadas y no tenían ni un solo usuario porque toda la zona se migró a fibra óptica (FTTH). Esos equipos estaban muertos comercialmente, con valor recuperable cero, pero en los libros de Telecom seguían figurando con valor positivo porque la empresa no había registrado el cargo por desvalorización según la NIC 36."
         }
       ],
-      conclusionSintetica: "Conforme a la NIA 450 (párrafo 5), los dos desvíos del rubro —el de Existencia de PT-A1 ($6.890M) y el de Medición de PT-A4 ($21.450M)— se acumularon por afectar al mismo rubro Bienes de Uso, superando el umbral PAE ($8.311M) y conformando el Ajuste Propuesto AJ-01 por $28.340 millones. Al situarse ampliamente por debajo de la Materialidad Global ($166.225M), si la Gerencia acepta el ajuste o no lo registra, el rubro Bienes de Uso expone razonablemente su saldo en los estados contables al 31/12/2025."
+      conclusionNarrativa: "Aquí es donde la auditoría se vuelve una disciplina apasionante y cobra pleno sentido profesional. Si hubiéramos analizado el faltante de la fibra destruida en la calle ($6.890M de PT-A1) de forma aislada, un auditor descuidado lo habría descartado por estar por debajo del umbral mínimo PAE ($8.311M). Pero la NIA 450 y la RT 37 prohíben mirar los desvíos del mismo rubro como islas separadas: al sumar la inexistencia de la fibra vandalizada con la obsolescencia técnica de las centrales analógicas ($21.450M de PT-A4), el desvío acumulado ascendió a $28.340 millones. Ese importe supera holgadamente el umbral y nos dio el sustento irrefutable para exigirle a la Gerencia el Asiento de Ajuste AJ-01. Como ese monto total no llega a la Materialidad Global ($166.225M), si la empresa acepta registrarlo o no lo hace, el balance no sufre una distorsión significativa y no requiere una opinión con salvedades. Concluimos así un trabajo exhaustivo, donde cada procedimiento respondió a un riesgo real y logramos validar con elementos de juicio válidos y suficientes que los Bienes de Uso de Telecom reflejan razonablemente su realidad económica."
     }
   },
   {

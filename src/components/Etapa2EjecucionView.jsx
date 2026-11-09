@@ -937,57 +937,61 @@ export default function Etapa2EjecucionView({
                 </button>
 
                 {expandResumenGeneral && (
-                  <div className="mt-3 p-4 rounded-xl bg-white border border-teal-200 shadow-sm space-y-3.5 animate-in fade-in duration-200">
-                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-                      <strong className="text-xs font-extrabold text-slate-900 block mb-1">
-                        🎯 Alcance y Fundamentación del Programa A:
-                      </strong>
+                  <div className="mt-3 p-5 rounded-2xl bg-white border border-teal-200 shadow-md space-y-4 animate-in fade-in duration-200">
+                    {/* Encabezado y Contexto Narrativo */}
+                    <div className="p-4 rounded-xl bg-gradient-to-r from-teal-50 to-slate-50 border border-teal-200/80">
+                      <h4 className="text-sm font-extrabold text-teal-950 mb-1">
+                        {activePT.resumenMetodologicoRubro.subtitulo}
+                      </h4>
                       <p className="text-xs text-slate-700 leading-relaxed">
-                        {activePT.resumenMetodologicoRubro.alcance}
+                        {activePT.resumenMetodologicoRubro.introduccion}
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {activePT.resumenMetodologicoRubro.cedulas.map((c) => (
+                    {/* Secuencia Narrativa Continua de los 4 Pasos de Auditoría */}
+                    <div className="space-y-3.5">
+                      {activePT.resumenMetodologicoRubro.pasosNarrativos.map((paso, idx) => (
                         <div
-                          key={c.ref}
-                          className="p-3.5 rounded-xl bg-teal-50/40 border border-teal-200 flex flex-col justify-between space-y-2"
+                          key={idx}
+                          className="p-4 rounded-xl bg-slate-50/70 border border-slate-200 hover:border-teal-300 transition-colors space-y-2"
                         >
-                          <div className="space-y-1.5">
-                            <div className="flex items-center justify-between gap-1">
-                              <span className="px-2 py-0.5 rounded bg-teal-800 text-white font-mono text-xs font-bold">
-                                {c.ref}
+                          <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-200/70">
+                            <div className="flex items-center gap-2">
+                              <span className="px-2.5 py-1 rounded-md bg-teal-800 text-white font-mono text-xs font-extrabold shadow-xs">
+                                {paso.pt}
                               </span>
-                              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300">
-                                {c.afirmacion}
+                              <span className="text-xs font-bold uppercase tracking-wide text-teal-900 bg-teal-100/90 px-2 py-0.5 rounded border border-teal-300">
+                                {paso.etiqueta}
                               </span>
                             </div>
-                            <h6 className="text-xs font-bold text-slate-900">{c.nombre}</h6>
-                            <p className="text-[11px] text-slate-600 leading-snug">
-                              <strong className="text-slate-800">Muestra / Cobertura:</strong> {c.cobertura}
-                            </p>
-                            <p className="text-[11px] text-slate-700 leading-snug">
-                              <strong className="text-slate-800">Procedimiento:</strong> {c.procedimiento}
-                            </p>
-                          </div>
-                          <div className="pt-2 border-t border-teal-200/80">
-                            <span className="text-[11px] font-bold text-teal-950 block">
-                              📌 Resultado y Hallazgo:
-                            </span>
-                            <span className="text-[11px] text-slate-800 font-medium">
-                              {c.resultadoHallazgo}
+                            <span className="text-[11px] font-semibold text-slate-600 italic">
+                              {paso.afirmacion}
                             </span>
                           </div>
+
+                          <h5 className="text-xs sm:text-sm font-extrabold text-slate-900">
+                            {paso.titulo}
+                          </h5>
+
+                          <p className="text-xs text-slate-700 leading-relaxed text-justify">
+                            {paso.relato}
+                          </p>
                         </div>
                       ))}
                     </div>
 
-                    <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-xs text-amber-950 space-y-1">
-                      <strong className="text-xs font-extrabold text-amber-900 block flex items-center gap-1.5">
-                        ⚖️ Conclusión Integradora y Regla de Acumulación (NIA 450 y RT 37):
-                      </strong>
-                      <p className="leading-relaxed">
-                        {activePT.resumenMetodologicoRubro.conclusionSintetica}
+                    {/* El Broche de Cierre y Conclusión Integradora */}
+                    <div className="p-4 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-300 text-slate-900 space-y-2 shadow-xs">
+                      <div className="flex items-center gap-2">
+                        <span className="px-2.5 py-0.5 rounded bg-amber-600 text-white text-[11px] font-extrabold uppercase tracking-wide">
+                          Síntesis Integradora
+                        </span>
+                        <h5 className="text-xs sm:text-sm font-extrabold text-amber-950">
+                          La Unión de los Cabos Sueltos: Por qué formulamos el Ajuste AJ-01 por $28.340M bajo la NIA 450
+                        </h5>
+                      </div>
+                      <p className="text-xs text-slate-800 leading-relaxed text-justify">
+                        {activePT.resumenMetodologicoRubro.conclusionNarrativa}
                       </p>
                     </div>
                   </div>
