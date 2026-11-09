@@ -901,7 +901,7 @@ export default function Etapa2EjecucionView({
             <span className={`${isPTA ? 'text-sm' : 'text-xs'} font-extrabold uppercase text-teal-900 block`}>
               Conclusión del Auditor sobre {activePT.rubro}:
             </span>
-            <div className={`${isPTA ? 'text-xs sm:text-sm font-medium' : 'text-xs'} text-slate-800 mt-1 leading-relaxed`}>
+            <div className={`${isPTA ? 'text-sm sm:text-base font-medium' : 'text-xs sm:text-sm'} text-slate-800 mt-1 leading-relaxed`}>
               {renderTextWithNormas(activePT.conclusionRubro)}
             </div>
 
@@ -911,23 +911,23 @@ export default function Etapa2EjecucionView({
                 <button
                   type="button"
                   onClick={() => setExpandResumenGeneral(!expandResumenGeneral)}
-                  className="w-full flex items-center justify-between p-3 rounded-xl bg-white border border-teal-300 hover:bg-teal-50/80 transition-all text-left shadow-xs cursor-pointer group"
+                  className="w-full flex items-center justify-between p-3.5 rounded-xl bg-white border border-teal-300 hover:bg-teal-50/80 transition-all text-left shadow-xs cursor-pointer group"
                 >
                   <div className="flex items-center gap-2.5">
                     <span className="p-1.5 rounded-lg bg-teal-100 text-teal-800 group-hover:bg-teal-200 transition-colors">
                       <BookOpen className="w-4 h-4" />
                     </span>
                     <div>
-                      <span className="text-xs sm:text-sm font-extrabold text-teal-950 block">
+                      <span className="text-sm sm:text-base font-extrabold text-teal-950 block">
                         {activePT.resumenMetodologicoRubro.titulo}
                       </span>
-                      <span className="text-[11px] text-slate-500 block">
-                        Explicación y síntesis ejecutiva de los 4 Papeles de Trabajo (PT-A1 a PT-A4), coberturas, hallazgos y fundamentación
+                      <span className="text-xs text-slate-500 block">
+                        Exposición y fundamentación de los 4 Papeles de Trabajo (PT-A1 a PT-A4), hallazgos y conclusión
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-1.5 text-xs font-bold text-teal-800 bg-teal-100/70 hover:bg-teal-200/80 px-2.5 py-1 rounded-lg border border-teal-300 shrink-0 transition-colors">
-                    <span>{expandResumenGeneral ? 'Ocultar Resumen Completo' : 'Desplegar Resumen Completo'}</span>
+                    <span>{expandResumenGeneral ? 'Ocultar Exposición Completa' : 'Desplegar Exposición Completa'}</span>
                     {expandResumenGeneral ? (
                       <ChevronUp className="w-4 h-4 text-teal-800" />
                     ) : (
@@ -940,10 +940,10 @@ export default function Etapa2EjecucionView({
                   <div className="mt-3 p-5 rounded-2xl bg-white border border-teal-200 shadow-md space-y-4 animate-in fade-in duration-200">
                     {/* Encabezado y Contexto Narrativo */}
                     <div className="p-4 rounded-xl bg-gradient-to-r from-teal-50 to-slate-50 border border-teal-200/80">
-                      <h4 className="text-sm font-extrabold text-teal-950 mb-1">
+                      <h4 className="text-base font-extrabold text-teal-950 mb-1">
                         {activePT.resumenMetodologicoRubro.subtitulo}
                       </h4>
-                      <p className="text-xs text-slate-700 leading-relaxed">
+                      <p className="text-sm text-slate-700 leading-relaxed text-justify">
                         {activePT.resumenMetodologicoRubro.introduccion}
                       </p>
                     </div>
@@ -964,16 +964,16 @@ export default function Etapa2EjecucionView({
                                 {paso.etiqueta}
                               </span>
                             </div>
-                            <span className="text-[11px] font-semibold text-slate-600 italic">
+                            <span className="text-xs font-semibold text-slate-600 italic">
                               {paso.afirmacion}
                             </span>
                           </div>
 
-                          <h5 className="text-xs sm:text-sm font-extrabold text-slate-900">
+                          <h5 className="text-sm sm:text-base font-extrabold text-slate-900">
                             {paso.titulo}
                           </h5>
 
-                          <p className="text-xs text-slate-700 leading-relaxed text-justify">
+                          <p className="text-sm text-slate-700 leading-relaxed text-justify">
                             {paso.relato}
                           </p>
                         </div>
@@ -983,14 +983,14 @@ export default function Etapa2EjecucionView({
                     {/* El Broche de Cierre y Conclusión Integradora */}
                     <div className="p-4 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-300 text-slate-900 space-y-2 shadow-xs">
                       <div className="flex items-center gap-2">
-                        <span className="px-2.5 py-0.5 rounded bg-amber-600 text-white text-[11px] font-extrabold uppercase tracking-wide">
+                        <span className="px-2.5 py-0.5 rounded bg-amber-600 text-white text-xs font-extrabold uppercase tracking-wide">
                           Síntesis Integradora
                         </span>
-                        <h5 className="text-xs sm:text-sm font-extrabold text-amber-950">
-                          La Unión de los Cabos Sueltos: Por qué formulamos el Ajuste AJ-01 por $28.340M bajo la NIA 450
+                        <h5 className="text-sm sm:text-base font-extrabold text-amber-950">
+                          Fundamentación del Ajuste AJ-01 por $28.340M bajo la NIA 450 y Evaluación de Materialidad
                         </h5>
                       </div>
-                      <p className="text-xs text-slate-800 leading-relaxed text-justify">
+                      <p className="text-sm text-slate-800 leading-relaxed text-justify">
                         {activePT.resumenMetodologicoRubro.conclusionNarrativa}
                       </p>
                     </div>
