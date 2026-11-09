@@ -496,7 +496,7 @@ export const materialidadData = {
     nombre: "Significatividad de Ejecución / Error Tolerable por Rubro",
     importe: 83112,
     formula: "50,00% de la Significatividad ($166.225M)",
-    explicacion: "Tope máximo de desvío tolerable dentro de un rubro individual. Se fija en el límite estricto del 50% porque el Riesgo de Control en los 5 componentes dio ALTO.",
+    explicacion: "Tope máximo de desvío tolerable dentro de un rubro individual. Se fija en el límite prudente del 50% debido a que los componentes clave de infraestructura y tecnología (Bienes de Uso e Intangibles) arrojaron Riesgo de Control ALTO.",
     fundamentoTeorico: {
       titulo: "Error Tolerable (ET) / Significatividad de Ejecución — ¿Por qué se aplica el 50%?",
       normativa: "Carlos A. Slosse (Riesgo y Muestreo) • NIA 320 (Párr. 9 y 11: Performance Materiality) • RT 37",
@@ -659,17 +659,23 @@ export const rubrosSignificativos = [
         ]
       },
       {
-        Bloque: "Prueba de Depreciaciones y Obsolescencia (Medición)",
+        Bloque: "Prueba de Depreciaciones, Valor Residual y Obsolescencia (Medición y Existencia)",
         Pasos: [
           {
-            texto: "Recalcular globalmente el cargo por depreciación del ejercicio en función de las vidas útiles por categoría (Prueba Global de Amortizaciones).",
-            comoSeHace: "Prueba Global de Amortizaciones: se multiplica el valor de origen reexpresado por inflación (NIC 29) de cada clase de bien por su alícuota de depreciación (redes: 10 a 20 años; equipos de computación: 3 a 5 años; centrales: 10 años). Se compara la sumatoria teórica con el cargo en resultados ($854.120M) validando que la variación sea menor al Error Tolerable ($83.112M).",
-            fuentes: "Subdiario SAP FI-AA (Activos Fijos), tabla de vidas útiles y Anexo de Bienes de Uso.",
-            valores: "Depreciación anual del ejercicio por $854.120 millones en Nota 9."
+            texto: "Recalcular globalmente el cargo por depreciación del ejercicio en función de las variaciones interanuales (Prueba Global de Amortizaciones).",
+            comoSeHace: "Prueba Global de Amortizaciones: Amortización ejercicio anterior ($785.400M) + Amortización de altas del ejercicio ($112.500M) - Amortización de bienes extinguidos el año anterior ($35.180M) - Amortización de bajas del ejercicio ($8.600M) = Amortización teórica del ejercicio de $854.120M. Se compara con el cargo contable en Nota 9 ($854.120M), validando que la variación sea menor al Error Tolerable ($83.112M).",
+            fuentes: "Subdiario SAP FI-AA (Activos Fijos), Anexo de Bienes de Uso (Nota 9) y reportes de bienes totalmente amortizados.",
+            valores: "Depreciación anual del ejercicio calculada: $854.120M vs contabilidad $854.120M (desvío $0 < ET $83.112M)."
+          },
+          {
+            texto: "Efectuar la Prueba Global de Valor Residual para comprobar el saldo patrimonial neto al cierre.",
+            comoSeHace: "Prueba Global de Valor Residual: Valor residual inicial ($5.696.731M) + Nuevas adquisiciones/altas CAPEX ($1.993.423M) - Valor residual de bienes dados de baja ($46.916M) - Amortización del ejercicio ($854.120M) = Valor residual teórico al cierre de $6.789.118M. Coincide exactamente con el saldo expuesto en el Estado de Situación Financiera.",
+            fuentes: "Estados Financieros 2024 y 2025 (Nota 9), Subdiario SAP FI-AA y altas auditadas en PT-A2.",
+            valores: "Valor residual al cierre según auditoría: $6.789.118M vs Balance General $6.789.118M (diferencia $0)."
           },
           {
             texto: "Solicitar el informe técnico del área de Operaciones sobre las centrales analógicas fuera de servicio y verificar la contabilización de la baja por obsolescencia.",
-            comoSeHace: "El auditor solicita al Director de Tecnología el informe del plan de apagado de centrales telefónicas de cobre analógicas obsoletas (migradas a la red de fibra óptica FTTH). Se verifica que los equipos retirados del servicio hayan sido dados de baja contablemente o amortizados al 100%, evitando la sobreestimación del activo. Al detectarse centrales en desuso sin dar de baja, se originó el ajuste propuesto AJ-01 por $21.450 millones.",
+            comoSeHace: "A pesar de la exactitud matemática de las pruebas globales, el auditor solicita al Director de Tecnología el informe del plan de apagado de centrales telefónicas de cobre analógicas obsoletas (migradas a FTTH). Se verifica que los equipos retirados del servicio hayan sido dados de baja contablemente. Al detectarse centrales apagadas sin dar de baja, se propone el ajuste AJ-01 por $21.450 millones.",
             fuentes: "Plan técnico de migración a fibra de la Gerencia de Operaciones y Libro Mayor de SAP FI-AA.",
             valores: "Ajuste propuesto AJ-01 (Obsolescencia de centrales de cobre): $21.450 millones en PT-A."
           }

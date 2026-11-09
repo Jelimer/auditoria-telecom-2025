@@ -709,7 +709,7 @@ export default function Etapa2EjecucionView({
                                       <strong className={`text-lime-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
                                         🛠️ ¿Cómo se ejecuta la prueba en la práctica?
                                       </strong>
-                                      <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(item.comoSeEjecuta)}</p>
+                                      <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(item.comoSeEjecuta)}</p>
                                     </div>
                                   )}
 
@@ -727,7 +727,30 @@ export default function Etapa2EjecucionView({
                                       <strong className={`text-amber-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
                                         🔢 Valores y Bases de Cálculo:
                                       </strong>
-                                      <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(item.valores)}</p>
+                                      <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(item.valores)}</p>
+                                    </div>
+                                  )}
+
+                                  {item.tabla && (
+                                    <div className="mt-3 overflow-x-auto rounded-lg border border-teal-500/30 bg-slate-950 p-2.5">
+                                      <table className="w-full text-left border-collapse text-[11px] sm:text-xs">
+                                        <thead>
+                                          <tr className="border-b border-slate-700 text-teal-300 font-bold bg-slate-900/90">
+                                            {item.tabla.cabeceras.map((c, ci) => (
+                                              <th key={ci} className="py-1.5 px-2.5 whitespace-nowrap">{c}</th>
+                                            ))}
+                                          </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-800/80 text-slate-200">
+                                          {item.tabla.filas.map((f, fi) => (
+                                            <tr key={fi} className={f.destacado ? 'bg-teal-950/80 font-bold text-lime-300' : 'hover:bg-slate-800/40'}>
+                                              {f.valores.map((v, vi) => (
+                                                <td key={vi} className={`py-1.5 px-2.5 ${vi === 1 ? 'font-mono whitespace-nowrap text-amber-200 font-semibold' : ''}`}>{v}</td>
+                                              ))}
+                                            </tr>
+                                          ))}
+                                        </tbody>
+                                      </table>
                                     </div>
                                   )}
                                 </div>
@@ -820,7 +843,7 @@ export default function Etapa2EjecucionView({
                                 <strong className={`text-lime-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
                                   🛠️ ¿Cómo se ejecuta la prueba en la práctica?
                                 </strong>
-                                <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(proc.procedimientoDetalle)}</p>
+                                <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(proc.procedimientoDetalle)}</p>
                               </div>
                             )}
                             {!stepsHaveDetail && proc.fuentes && (
