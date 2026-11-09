@@ -29,9 +29,11 @@ export default function Etapa3InformeView({
     }
   }, [subTarget, subTargetTick]);
 
+  const MATERIALIDAD_GLOBAL = 166225; // PM ($166.225M según Planificación)
   const ajustesPendientes = ajustesState.filter((a) => a.superaPAE && !a.aceptado);
   const totalNoAjustado = ajustesPendientes.reduce((s, a) => s + a.montoMillones, 0);
-  const esLimpia = ajustesPendientes.length === 0;
+  const esLimpiaEstricta = totalNoAjustado === 0;
+  const esFavorableSinSalvedades = totalNoAjustado < MATERIALIDAD_GLOBAL;
 
   const cronologiaDocumentos = [
     {
@@ -60,7 +62,11 @@ export default function Etapa3InformeView({
       orden: 'Paso 4 Final • 20/02/2026',
       titulo: '4. Informe del Auditor Independiente',
       sub: 'RT 37 (modif. RT 53) y Normas CNV — Emisión Final',
-      badge: esLimpia ? 'Opinión Favorable Limpia' : 'Con Salvedades'
+      badge: esLimpiaEstricta
+        ? 'Opinión Favorable Limpia'
+        : esFavorableSinSalvedades
+        ? 'Favorable s/Salvedades (< PM)'
+        : 'Con Salvedades por Desvío (> PM)'
     }
   ];
 
@@ -262,16 +268,18 @@ export default function Etapa3InformeView({
             {/* Cuadro Dinámico de Conclusión sobre Ajustes en el Memorando */}
             <div
               className={`p-4 rounded-xl border ${
-                esLimpia ? 'bg-emerald-50 border-emerald-200' : 'bg-amber-50 border-amber-300'
+                esFavorableSinSalvedades ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-300'
               }`}
             >
               <h4 className="text-xs font-extrabold uppercase text-slate-900 mb-1">
                 4. Conclusión de los Encargados y Propuesta de Dictamen al Socio (Estado en Vivo)
               </h4>
               <p className="text-xs text-slate-800 leading-relaxed">
-                {esLimpia
+                {esLimpiaEstricta
                   ? 'Habiendo la Gerencia de Telecom Argentina S.A. aceptado y contabilizado la totalidad de los asientos de ajuste y reclasificación que superan el umbral PAE ($8.311M), concluimos que los Estados Contables al 31/12/2025 no contienen incorrecciones materiales y recomendamos emitir una OPINIÓN FAVORABLE SIN SALVEDADES el día 20/02/2026, previa recepción de la Carta de Representación de la Dirección.'
-                  : `Atento a que existen ajustes propuestos no registrados por $${totalNoAjustado.toLocaleString('es-AR')} millones que superan nuestros umbrales de significatividad, recomendamos emitir una OPINIÓN CON SALVEDADES detallando los desvíos en la sección de Fundamento de la Opinión.`}
+                  : esFavorableSinSalvedades
+                  ? `Atento a que los ajustes propuestos no registrados por la Gerencia suman $${totalNoAjustado.toLocaleString('es-AR')} millones, dicho importe NO supera la Significatividad / Materialidad Global ($166.225M) ni el Error Tolerable ($83.112M). Conforme la RT 37 / RT 53 y NIA 700/450, no altera la razonabilidad de los estados contables consolidados en su conjunto, por lo que se concluye emitir una OPINIÓN FAVORABLE SIN SALVEDADES (dejando constancia de los desvíos no materiales en la Carta de Representación y Memorando de Cierre).`
+                  : `Atento a que los ajustes no registrados suman $${totalNoAjustado.toLocaleString('es-AR')} millones y SUPERAN la Materialidad Global ($166.225M), se recomienda emitir una OPINIÓN CON SALVEDADES por desvío en las normas contables profesionales (valuación/medición).`}
               </p>
             </div>
           </div>
@@ -363,25 +371,32 @@ export default function Etapa3InformeView({
               I. Informe sobre la Auditoría de los Estados Contables
             </h4>
 
-            {/* 1. OPINIÓN (Dinámica según el simulador PAE) */}
+            {/* 1. OPINIÓN (Dinámica según el simulador PAE y Materialidad Global RT 37) */}
             <div
               className={`p-4 rounded-xl border ${
-                esLimpia ? 'bg-emerald-50/50 border-emerald-200' : 'bg-amber-50/70 border-amber-300'
+                esFavorableSinSalvedades ? 'bg-emerald-50/50 border-emerald-200' : 'bg-rose-50/70 border-rose-300'
               }`}
             >
               <h5 className="font-extrabold text-slate-950 uppercase text-xs mb-2">
-                1. {esLimpia ? 'Opinión (Favorable sin Salvedades)' : 'Opinión con Salvedades'}
+                1. {esFavorableSinSalvedades ? 'Opinión (Favorable sin Salvedades)' : 'Opinión con Salvedades'}
               </h5>
               <p className="text-slate-800">
                 Hemos auditado los estados contables de <strong>TELECOM ARGENTINA S.A.</strong> (en adelante «la Sociedad»), que comprenden el estado de situación patrimonial al <strong>31 de diciembre de 2025</strong>, los estados de resultados, de otros resultados integrales, de evolución del patrimonio neto y de flujo de efectivo correspondientes al ejercicio finalizado en dicha fecha, así como las notas explicativas a los estados contables que incluyen un resumen de las políticas contables significativas y los anexos complementarios.
               </p>
-              {esLimpia ? (
-                <p className="mt-2 font-medium text-emerald-950">
-                  En nuestra opinión, los estados contables consolidados adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación financiera consolidada de <strong>Telecom Argentina S.A.</strong> al 31 de diciembre de 2025, así como sus resultados consolidados, la evolución de su patrimonio y el flujo de su efectivo correspondientes al ejercicio finalizado en esa fecha, de conformidad con las Normas Internacionales de Información Financiera (NIIF / NIC) emitidas por el IASB y adoptadas por la FACPCE y las normas de la Comisión Nacional de Valores (CNV).
-                </p>
+              {esFavorableSinSalvedades ? (
+                <div className="mt-2 space-y-2">
+                  <p className="font-medium text-emerald-950">
+                    En nuestra opinión, los estados contables consolidados adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación financiera consolidada de <strong>Telecom Argentina S.A.</strong> al 31 de diciembre de 2025, así como sus resultados consolidados, la evolución de su patrimonio y el flujo de su efectivo correspondientes al ejercicio finalizado en esa fecha, de conformidad con las Normas Internacionales de Información Financiera (NIIF / NIC) emitidas por el IASB y adoptadas por la FACPCE y las normas de la Comisión Nacional de Valores (CNV).
+                  </p>
+                  {!esLimpiaEstricta && (
+                    <div className="p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-xs text-amber-900">
+                      <strong>Evaluación NIA 450 / RT 37 sobre desvíos no ajustados:</strong> Los desvíos propuestos no registrados suman <strong>${totalNoAjustado.toLocaleString('es-AR')} millones</strong>. Al situarse por debajo de la Materialidad Global ($166.225M) y del Error Tolerable ($83.112M), no distorsionan significativamente la razonabilidad de los estados contables tomados en su conjunto, permitiendo emitir una opinión favorable sin salvedades (quedando asentados en la Carta de Representación y en el Memorando de Cierre).
+                    </div>
+                  )}
+                </div>
               ) : (
-                <p className="mt-2 font-medium text-amber-950">
-                  En nuestra opinión, <strong>excepto por los efectos de las cuestiones descritas en la sección «Fundamento de la opinión con salvedades»</strong> (ajustes propuestos no registrados por un total de ${totalNoAjustado.toLocaleString('es-AR')} millones), los estados contables adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación patrimonial de <strong>Telecom Argentina S.A.</strong> al 31 de diciembre de 2025, así como sus resultados y el flujo de su efectivo correspondientes al ejercicio finalizado en esa fecha, de conformidad con las normas contables profesionales vigentes.
+                <p className="mt-2 font-medium text-rose-950">
+                  En nuestra opinión, <strong>excepto por los efectos de las cuestiones descritas en la sección «Fundamento de la opinión con salvedades»</strong> (ajustes propuestos no registrados por un total de ${totalNoAjustado.toLocaleString('es-AR')} millones que superan la materialidad global de $166.225M), los estados contables adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación patrimonial de <strong>Telecom Argentina S.A.</strong> al 31 de diciembre de 2025, así como sus resultados y el flujo de su efectivo correspondientes al ejercicio finalizado en esa fecha, de conformidad con las normas contables profesionales vigentes.
                 </p>
               )}
             </div>
@@ -389,9 +404,9 @@ export default function Etapa3InformeView({
             {/* 2. FUNDAMENTO DE LA OPINIÓN */}
             <div>
               <h5 className="font-extrabold text-slate-950 uppercase text-xs mb-1.5">
-                2. {esLimpia ? 'Fundamento de la Opinión' : 'Fundamento de la Opinión con Salvedades'}
+                2. {esFavorableSinSalvedades ? 'Fundamento de la Opinión' : 'Fundamento de la Opinión con Salvedades'}
               </h5>
-              {!esLimpia && (
+              {!esFavorableSinSalvedades && (
                 <div className="mb-2 p-3 rounded-lg bg-red-50 border border-red-200 text-xs text-red-900 space-y-1">
                   <p className="font-bold">Desvíos detectados pendientes de registración contable al cierre:</p>
                   <ul className="list-disc pl-5 space-y-1">

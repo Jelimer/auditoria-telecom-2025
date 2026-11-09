@@ -956,10 +956,20 @@ export default function Etapa2EjecucionView({
               <span className="text-[10px] font-bold uppercase text-slate-400 block">
                 Efecto en Dictamen (RT 37)
               </span>
-              <span className="text-xs font-extrabold text-lime-400">
+              <span
+                className={`text-xs font-extrabold ${
+                  montoAjustesNoRegistrados === 0
+                    ? 'text-lime-400'
+                    : montoAjustesNoRegistrados < 166225
+                    ? 'text-amber-300'
+                    : 'text-rose-400'
+                }`}
+              >
                 {montoAjustesNoRegistrados === 0
                   ? 'Opinión Favorable Limpia ✓'
-                  : 'Con Salvedades por Valuación'}
+                  : montoAjustesNoRegistrados < 166225
+                  ? 'Favorable s/Salvedades (< PM $166.225M) ✓'
+                  : 'Con Salvedades por Desvío Material (> PM)'}
               </span>
             </div>
           </div>
