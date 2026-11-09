@@ -1363,7 +1363,7 @@ const matrizVinculacionAuditoria = [
     rubroYPrograma: 'Créditos por Ventas — PROGRAMA B (PT-B)',
     afirmacionesCriticas: 'Medición (Valuación NIIF 9 / PPA NIIF 3), Integridad (Corte) y Existencia',
     procedimientosAplicados:
-      '• Reproceso 100% mediante TAACs de la matriz de antigüedad de saldos ($1.071.047M brutos incluyendo cartera TMA de $421.919M) para detectar carteras en mora > 180 días omitidas del cálculo de Previsión NIIF 9 de $(270.919)M (PT-B3).\n• Prueba de corte (cut-off) de actas de recepción B2B Personal Tech (+/- 15 días del cierre) y conciliación de recaudadores externos Rapipago/Pago Fácil/billeteras (PT-B2).\n• Circularización positiva a 65 clientes corporativos B2B (PT-B1).',
+      '• Reproceso 100% mediante TAACs de la matriz de antigüedad de saldos ($1.071.047M brutos incluyendo cartera TMA de $421.919M) para detectar carteras en mora > 180 días omitidas del cálculo de Previsión NIIF 9 de $(270.919)M (PT-B3).\n• Prueba de corte de operaciones sobre actas de recepción B2B Personal Tech (+/- 15 días del cierre) y conciliación de recaudadores externos Rapipago/Pago Fácil/billeteras (PT-B2).\n• Circularización positiva a 65 clientes corporativos B2B (PT-B1).',
     hallazgoVinculado:
       'Detectados Ajustes Materiales AJ-03 (subestimación de la Previsión para Deudores Incobrables por $19.850M en cartera migrada con mora > 180d) y AJ-02 (servicios B2B devengados en dic-25 sin facturar por $14.620M y cobranzas en tránsito por $4.180M).'
   },
@@ -2737,7 +2737,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                   ).
                 </li>
                 <li>
-                  <strong>Prueba sustantiva de adiciones CAPEX y corte (cut-off) de obras en curso</strong> habilitadas en diciembre 2025 contra certificados de obra, facturas y despachos de aduana (
+                  <strong>Prueba sustantiva de adiciones CAPEX y corte de obras en curso</strong> habilitadas en diciembre 2025 contra certificados de obra, facturas y despachos de aduana (
                   <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-a2')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-A2 ↗</button>
                   ).
                 </li>
@@ -2789,7 +2789,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                   ).
                 </li>
                 <li>
-                  <strong>Prueba de corte de facturación (cut-off)</strong> sobre actas de recepción B2B firmadas entre el 15/12/2025 y el 15/01/2026, y conciliación de recaudaciones en tránsito de <em>Rapipago, Pago Fácil y billeteras virtuales</em> al 31/12 (
+                  <strong>Prueba de corte de facturación</strong> sobre actas de recepción B2B firmadas entre el 15/12/2025 y el 15/01/2026, y conciliación de recaudaciones en tránsito de <em>Rapipago, Pago Fácil y billeteras virtuales</em> al 31/12 (
                   <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-b2')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-B2 ↗</button>
                   {' → '}
                   <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'sec-pae')} className="underline text-rose-300 font-bold hover:text-rose-200 cursor-pointer">Ajuste AJ-02 por $18.800M ↗</button>

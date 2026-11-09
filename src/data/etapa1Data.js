@@ -109,7 +109,7 @@ export const conocimientoEnte = {
         color: "emerald",
         descripcion: "Grandes Empresas, Pymes y Sector Público. Soluciones complejas de Cloud, Ciberseguridad, IoT y conectividad dedicada.",
         subareas: ["Conectividad Dedicada / SD-WAN", "Cloud & Datacenter (16 propios)", "Ciberseguridad (SOC) / IoT", "Sustentabilidad"],
-        riesgoAsociado: "Demoras de facturación y problemas de corte (cut-off) en contratos corporativos ejecutados en diciembre; falta de auditoría continua en licitaciones públicas."
+        riesgoAsociado: "Demoras de facturación y problemas de corte de operaciones en contratos corporativos ejecutados en diciembre; falta de auditoría continua en licitaciones públicas."
       },
       {
         id: "legales",
@@ -571,7 +571,7 @@ export const rubrosSignificativos = [
         riesgo: "Activación incompleta de obras en curso finalizadas o emisión de órdenes de trabajo sin imputación presupuestaria ni activación oportuna.",
         controlClave: "Certificados de obra aprobados por inspección técnica vinculados automáticamente con la orden de compra y el ERP SAP.",
         naturalezaProc: "Prueba sustantiva de detalle de altas e inspección de legajos.",
-        instrumento: "Auditar las adiciones del ejercicio (CAPEX) revisando certificados de avance de obra, facturas de proveedores importados y despachos de aduana. Efectuar prueba de cut-off de obras en curso para verificar que las habilitadas antes del 31/12/2025 hayan comenzado a depreciarse.",
+        instrumento: "Auditar las adiciones del ejercicio (CAPEX) revisando certificados de avance de obra, facturas de proveedores importados y despachos de aduana. Efectuar prueba de corte de obras en curso para verificar que las habilitadas antes del 31/12/2025 hayan comenzado a depreciarse.",
         oportunidad: "Cierre de ejercicio.",
         alcance: "100% de las adiciones individuales mayores al monto de significatividad y muestra aleatoria sobre el resto."
       },
@@ -711,10 +711,10 @@ export const rubrosSignificativos = [
       },
       {
         afirmacion: "Integridad",
-        objetivo: "Validar que todas las ventas y servicios prestados hasta el 31/12/2025 hayan sido íntegramente facturados o devengados en el período correcto, sin omisiones de corte de facturación (cut-off).",
+        objetivo: "Validar que todas las ventas y servicios prestados hasta el 31/12/2025 hayan sido íntegramente facturados o devengados en el período correcto, sin omisiones de corte de facturación.",
         riesgo: "Subvaluación de créditos e ingresos por demoras u omisión de facturación en proyectos corporativos B2B ejecutados en diciembre (corte de ventas) o falta de devengamiento de consumos pospagos al cierre.",
         controlClave: "Control automatizado de la interfaz entre los sistemas de tráfico/facturación comercial, las actas de conformidad B2B y el sistema contable SAP.",
-        naturalezaProc: "Pruebas sustantivas de corte de documentación (cut-off) y cruce de devengamientos.",
+        naturalezaProc: "Pruebas sustantivas de corte de documentación y cruce de devengamientos.",
         instrumento: "Revisar los contratos y actas de recepción de conformidad de servicios corporativos B2B (Personal Tech) emitidos en los últimos 15 días de diciembre 2025 y primeros 15 días de enero 2026, verificando su oportuna facturación o devengamiento en el ejercicio correcto. Cruzar los reportes de tráfico y consumo de red de diciembre contra la facturación emitida para verificar el íntegro devengamiento de servicios pendientes de facturación al cierre (unbilled revenue).",
         oportunidad: "Cierre de ejercicio.",
         alcance: "100% de las actas e hitos B2B significativos en la ventana de corte (+/- 15 días del cierre)."
@@ -858,7 +858,7 @@ export const rubrosSignificativos = [
         objetivo: "Asegurar que la totalidad de los ciclos de facturación masiva, tráficos tasados y servicios corporativos B2B devengados en el período estén íntegramente contabilizados en el ejercicio correcto.",
         riesgo: "Omisión en la contabilización de ciclos de facturación masiva mensual, fallas en el traspaso de interfaces desde los sistemas de tasación/facturación al ERP SAP, o servicios B2B prestados en diciembre y facturados en el ejercicio siguiente (corte de ventas).",
         controlClave: "Cuadre diario automatizado de interfaces informáticas con reporte de excepciones entre los facturadores comerciales y el libro mayor en SAP.",
-        naturalezaProc: "Prueba analítica sustantiva global, auditoría de logs de interfaces y prueba de corte (cut-off).",
+        naturalezaProc: "Prueba analítica sustantiva global, auditoría de logs de interfaces y prueba de corte de operaciones.",
         instrumento: "Desarrollar una prueba global de ventas multiplicando el parque promedio de clientes activos por el ingreso medio por usuario (ARPU) ponderado por segmento, comparando el valor estimado en moneda homogénea con las ventas contabilizadas. Auditar las bitácoras (logs) de interfaces comerciales al 31/12 y vincular con la prueba de corte de actas B2B.",
         oportunidad: "Cierre de ejercicio.",
         alcance: "100% de la masa de ventas por abonos recurrentes B2C y ventana de corte B2B (+/- 15 días del cierre)."

@@ -6,7 +6,10 @@ import {
   ArrowRight,
   BookmarkCheck,
   Calculator,
-  Scale
+  Scale,
+  ChevronDown,
+  ChevronUp,
+  BookOpen
 } from 'lucide-react';
 import { papelesTrabajo, marcasAuditoria } from '../data/etapas2y3Data';
 import { materialidadData, rubrosSignificativos } from '../data/etapa1Data';
@@ -210,6 +213,7 @@ export default function Etapa2EjecucionView({
   const [expandAllCedulas, setExpandAllCedulas] = useState(false);
   const [expandedSteps, setExpandedSteps] = useState({});
   const [mostrarTodosAjustes, setMostrarTodosAjustes] = useState(false);
+  const [expandResumenGeneral, setExpandResumenGeneral] = useState(false);
 
   useEffect(() => {
     if (!subTarget) return;
@@ -900,6 +904,96 @@ export default function Etapa2EjecucionView({
             <div className={`${isPTA ? 'text-xs sm:text-sm font-medium' : 'text-xs'} text-slate-800 mt-1 leading-relaxed`}>
               {renderTextWithNormas(activePT.conclusionRubro)}
             </div>
+
+            {/* Resumen Metodológico General Expandible de los 4 PT y Conclusión */}
+            {activePT.resumenMetodologicoRubro && (
+              <div className="mt-3 pt-3 border-t border-teal-200/80">
+                <button
+                  type="button"
+                  onClick={() => setExpandResumenGeneral(!expandResumenGeneral)}
+                  className="w-full flex items-center justify-between p-3 rounded-xl bg-white border border-teal-300 hover:bg-teal-50/80 transition-all text-left shadow-xs cursor-pointer group"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <span className="p-1.5 rounded-lg bg-teal-100 text-teal-800 group-hover:bg-teal-200 transition-colors">
+                      <BookOpen className="w-4 h-4" />
+                    </span>
+                    <div>
+                      <span className="text-xs sm:text-sm font-extrabold text-teal-950 block">
+                        {activePT.resumenMetodologicoRubro.titulo}
+                      </span>
+                      <span className="text-[11px] text-slate-500 block">
+                        Explicación y síntesis ejecutiva de los 4 Papeles de Trabajo (PT-A1 a PT-A4), coberturas, hallazgos y fundamentación
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-teal-800 bg-teal-100/70 hover:bg-teal-200/80 px-2.5 py-1 rounded-lg border border-teal-300 shrink-0 transition-colors">
+                    <span>{expandResumenGeneral ? 'Ocultar Resumen Completo' : 'Desplegar Resumen Completo'}</span>
+                    {expandResumenGeneral ? (
+                      <ChevronUp className="w-4 h-4 text-teal-800" />
+                    ) : (
+                      <ChevronDown className="w-4 h-4 text-teal-800" />
+                    )}
+                  </div>
+                </button>
+
+                {expandResumenGeneral && (
+                  <div className="mt-3 p-4 rounded-xl bg-white border border-teal-200 shadow-sm space-y-3.5 animate-in fade-in duration-200">
+                    <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                      <strong className="text-xs font-extrabold text-slate-900 block mb-1">
+                        🎯 Alcance y Fundamentación del Programa A:
+                      </strong>
+                      <p className="text-xs text-slate-700 leading-relaxed">
+                        {activePT.resumenMetodologicoRubro.alcance}
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      {activePT.resumenMetodologicoRubro.cedulas.map((c) => (
+                        <div
+                          key={c.ref}
+                          className="p-3.5 rounded-xl bg-teal-50/40 border border-teal-200 flex flex-col justify-between space-y-2"
+                        >
+                          <div className="space-y-1.5">
+                            <div className="flex items-center justify-between gap-1">
+                              <span className="px-2 py-0.5 rounded bg-teal-800 text-white font-mono text-xs font-bold">
+                                {c.ref}
+                              </span>
+                              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-100 text-amber-900 border border-amber-300">
+                                {c.afirmacion}
+                              </span>
+                            </div>
+                            <h6 className="text-xs font-bold text-slate-900">{c.nombre}</h6>
+                            <p className="text-[11px] text-slate-600 leading-snug">
+                              <strong className="text-slate-800">Muestra / Cobertura:</strong> {c.cobertura}
+                            </p>
+                            <p className="text-[11px] text-slate-700 leading-snug">
+                              <strong className="text-slate-800">Procedimiento:</strong> {c.procedimiento}
+                            </p>
+                          </div>
+                          <div className="pt-2 border-t border-teal-200/80">
+                            <span className="text-[11px] font-bold text-teal-950 block">
+                              📌 Resultado y Hallazgo:
+                            </span>
+                            <span className="text-[11px] text-slate-800 font-medium">
+                              {c.resultadoHallazgo}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-xs text-amber-950 space-y-1">
+                      <strong className="text-xs font-extrabold text-amber-900 block flex items-center gap-1.5">
+                        ⚖️ Conclusión Integradora y Regla de Acumulación (NIA 450 y RT 37):
+                      </strong>
+                      <p className="leading-relaxed">
+                        {activePT.resumenMetodologicoRubro.conclusionSintetica}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           <div className="pt-3 border-t border-teal-200/80">

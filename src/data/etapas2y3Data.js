@@ -187,7 +187,7 @@ export const papelesTrabajo = [
       {
         ref: "PT-A2",
         bloquePrograma: "2. Prueba de Altas y Obras en Curso (Integridad y Medición)",
-        nombre: "Prueba de Altas del Ejercicio (CAPEX) y Corte de Obras en Curso (Cut-off)",
+        nombre: "Prueba de Altas del Ejercicio (CAPEX) y Corte de Obras en Curso",
         afirmaciones: ["Integridad", "Medición"],
         marca: "✓ ∑",
         muestra: "42 adiciones superiores a $8.311M (equipos Nokia/Huawei 5G, fibra óptica y contratos de obra civil).",
@@ -301,7 +301,46 @@ export const papelesTrabajo = [
         afirmacionesDetalle: "Valida Medición (adecuada alícuota de amortización, consistencia del valor residual y ajuste por obsolescencia tecnológica) y Existencia (baja de bienes fuera de servicio)."
       }
     ],
-    conclusionRubro: "Salvo por la falta de desincorporación contable de las centrales analógicas obsoletas ($21.450M en PT-A4) y nodos vandalizados ($6.890M en PT-A1) por un total acumulado de $28.340M (acumulados bajo NIA 450 y propuestos en Ajuste AJ-01 según NIC 16), el rubro Bienes de Uso expone razonablemente su saldo al 31/12/2025."
+    conclusionRubro: "Salvo por la falta de desincorporación contable de las centrales analógicas obsoletas ($21.450M en PT-A4) y nodos vandalizados ($6.890M en PT-A1) por un total acumulado de $28.340M (acumulados bajo NIA 450 y propuestos en Ajuste AJ-01 según NIC 16), el rubro Bienes de Uso expone razonablemente su saldo al 31/12/2025.",
+    resumenMetodologicoRubro: {
+      titulo: "Comentario General y Síntesis Metodológica de los 4 Papeles de Trabajo (PT-A1 a PT-A4)",
+      alcance: "Auditoría integral del rubro Bienes de Uso (Nota 9: $6.789.118 millones netos en Balance al 31/12/2025). Respuesta al Riesgo de Control Alto en CCI-01 (NC 38,46%) y cumplimiento de NIC 16, NIC 36, RT 37 / RT 53.",
+      cedulas: [
+        {
+          ref: "PT-A1",
+          nombre: "Inspección Física Ocular de Activos y Control de Siniestros en Vía Pública",
+          afirmacion: "Existencia e Integridad Física",
+          cobertura: "100% de los 16 Data Centers principales (Pacheco, Barracas, Córdoba, Rosario) + Muestra dirigida de 85 nodos ópticos y sitios 5G neurálgicos.",
+          procedimiento: "Inspección in situ de la existencia real y funcionamiento operativo de servidores, equipos de transmisión y radiobases 5G. Cruce con denuncias policiales y partes de siniestros de la Gerencia de Seguridad Patrimonial.",
+          resultadoHallazgo: "Se comprobó la existencia física de las instalaciones troncales, pero se detectaron tramos de red y equipamiento siniestrado/vandalizado por $6.890 millones que la empresa mantenía indebidamente activados en SAP sin dar de baja."
+        },
+        {
+          ref: "PT-A2",
+          nombre: "Auditoría de Altas del Ejercicio (CAPEX) e Incorporación Telefónica Móviles Argentina (TMA)",
+          afirmacion: "Integridad y Medición (Costo Histórico / NIC 16)",
+          cobertura: "100% de las adiciones superiores al PAE ($8.311M) totalizando $1.351.105M de CAPEX + 100% del PPA de la red adquirida de TMA ($1.332.961M).",
+          procedimiento: "Cotejo documental de 6 pasos: Órdenes de compra aprobadas en SAP MM, facturas de fabricantes (Nokia, Huawei, Ericsson), despachos aduaneros con aranceles capitalizados (NIC 16.16) y Actas PAC de puesta en servicio de obras.",
+          resultadoHallazgo: "Sin desvíos. La totalidad de las altas cuenta con respaldo documental fehaciente y fue activada en la fecha técnica de puesta en funcionamiento."
+        },
+        {
+          ref: "PT-A3",
+          nombre: "Verificación de Títulos de Propiedad, Gravámenes y Flota Técnica",
+          afirmacion: "Propiedad, Derechos y Obligaciones",
+          cobertura: "100% de los edificios técnicos centrales y predios de Data Centers + Muestra selectiva de 60 vehículos de flota operativa.",
+          procedimiento: "Revisión de escrituras traslativas de dominio contra informes de dominio del Registro de la Propiedad Inmueble y circularización de registros de automotores. Verificación de restricciones a la propiedad.",
+          resultadoHallazgo: "Sin observaciones. Se constató la titularidad legal de Telecom y la inexistencia de hipotecas, prendas o gravámenes no revelados en Nota 9 y Nota 14."
+        },
+        {
+          ref: "PT-A4",
+          nombre: "Pruebas Globales Analíticas de Depreciación y Validación de Obsolescencia en Red de Cobre",
+          afirmacion: "Medición (NIC 16 / NIC 36) y Exposición",
+          cobertura: "100% de las cuentas del auxiliar contable SAP FI-AA ($16.124.796M valor origen y $9.265.178M amortizaciones) + Informe Técnico de Ingeniería de Operaciones.",
+          procedimiento: "1) Recálculo de la amortización anual teórica ($1.533.091M) y valor residual ($6.859.618M), coincidiendo exacto con Nota 9. 2) Prueba de detalle sobre el informe técnico de desmantelamiento de red de cobre por migración a fibra óptica (FTTH).",
+          resultadoHallazgo: "Se detectó que centrales telefónicas analógicas de conmutación obsoletas por $21.450 millones ya no cursaban tráfico pero continuaban figurando activadas a valor residual positivo en libros sin registrarse la pérdida por desvalorización."
+        }
+      ],
+      conclusionSintetica: "Conforme a la NIA 450 (párrafo 5), los dos desvíos del rubro —el de Existencia de PT-A1 ($6.890M) y el de Medición de PT-A4 ($21.450M)— se acumularon por afectar al mismo rubro Bienes de Uso, superando el umbral PAE ($8.311M) y conformando el Ajuste Propuesto AJ-01 por $28.340 millones. Al situarse ampliamente por debajo de la Materialidad Global ($166.225M), si la Gerencia acepta el ajuste o no lo registra, el rubro Bienes de Uso expone razonablemente su saldo en los estados contables al 31/12/2025."
+    }
   },
   {
     id: "pt-b",
@@ -334,7 +373,7 @@ export const papelesTrabajo = [
       },
       {
         ref: "PT-B2",
-        nombre: "Prueba de Corte de Facturación B2B (Cut-off) y Conciliación de Agentes Externos",
+        nombre: "Prueba de Corte de Facturación B2B y Conciliación de Agentes Externos",
         afirmaciones: ["Integridad", "Existencia"],
         muestra: "Contratos y actas de recepción B2B emitidos entre el 15/12/2025 y el 15/01/2026 + Interfaces de cobro al 31/12.",
         resultado: "1) [Integridad - Corte] Se detectaron 8 hitos de integración Cloud/Ciberseguridad de Personal Tech con acta de conformidad final firmada entre el 20/12 y el 30/12/2025 por $14.620 millones que recién fueron facturados en enero 2026 (CCI-02 preg. 16) (⊗). 2) [Existencia] En las interfaces de Rapipago, Pago Fácil y billeteras virtuales (CCI-02 preg. 5) se verificaron cobranzas del 30 y 31/12 por $4.180 millones ya abonadas por los clientes pero pendientes de desafectación en sus cuentas corrientes al cierre (⊗).",
@@ -555,7 +594,7 @@ export const hallazgosYAjustes = [
     codigoAjuste: "AJ-02",
     refPT: "PT-B2 / PT-D2",
     rubro: "Créditos por Ventas y Ventas",
-    afirmacionAfectada: "Integridad (Corte / Cut-off) y Existencia",
+    afirmacionAfectada: "Integridad (Corte de Operaciones) y Existencia",
     origenCCI: "CCI-02 (Preg. 5 y 16) — Demoras de facturación B2B al cierre y desfasaje de 24-48 hs en cobranzas externas",
     tipo: "Ajuste de Corte de Operaciones",
     descripcionHallazgo: "1) [Integridad - Corte] Servicios corporativos de integración Cloud/Ciberseguridad (Personal Tech) con acta de conformidad firmada en diciembre de 2025 cuya factura fue emitida en enero 2026 ($14.620M). 2) [Existencia] Cobranzas recaudadas el 30 y 31/12 por Rapipago/Pago Fácil/billeteras pendientes de desafectación en cuentas corrientes de clientes ($4.180M).",
