@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   FileSpreadsheet,
   CheckCircle2,
@@ -203,6 +203,42 @@ export function renderTextWithNormas(text) {
   });
 }
 
+export function renderFormattedRichText(text) {
+  if (!text || typeof text !== 'string') return text;
+
+  // Reconoce negrita **texto** y subrayado <u>texto</u> o __texto__
+  const tokenRegex = /(\*\*[\s\S]*?\*\*|<u>[\s\S]*?<\/u>|__[\s\S]*?__)/g;
+  const tokens = text.split(tokenRegex);
+
+  return tokens.map((token, idx) => {
+    if (token.startsWith('**') && token.endsWith('**') && token.length >= 4) {
+      const inner = token.slice(2, -2);
+      return (
+        <strong key={idx} className="font-black text-slate-900">
+          {renderTextWithNormas(inner)}
+        </strong>
+      );
+    }
+    if (token.startsWith('<u>') && token.endsWith('</u>') && token.length >= 7) {
+      const inner = token.slice(3, -4);
+      return (
+        <span key={idx} className="underline underline-offset-3 decoration-teal-600 decoration-2 font-semibold text-slate-900">
+          {renderTextWithNormas(inner)}
+        </span>
+      );
+    }
+    if (token.startsWith('__') && token.endsWith('__') && token.length >= 4) {
+      const inner = token.slice(2, -2);
+      return (
+        <span key={idx} className="underline underline-offset-3 decoration-teal-600 decoration-2 font-semibold text-slate-900">
+          {renderTextWithNormas(inner)}
+        </span>
+      );
+    }
+    return <React.Fragment key={idx}>{renderTextWithNormas(token)}</React.Fragment>;
+  });
+}
+
 export default function Etapa2EjecucionView({
   ajustesState,
   onToggleAjusteAceptado,
@@ -240,6 +276,29 @@ export default function Etapa2EjecucionView({
 
   const [editingField, setEditingField] = useState(null);
   const [tempEditText, setTempEditText] = useState('');
+  const textareaRef = useRef(null);
+
+  const applyFormat = (prefix, suffix) => {
+    if (!textareaRef.current) return;
+    const el = textareaRef.current;
+    const start = el.selectionStart;
+    const end = el.selectionEnd;
+    const text = tempEditText || '';
+    const selected = text.substring(start, end);
+
+    const replacement = selected.length > 0 ? `${prefix}${selected}${suffix}` : `${prefix}texto${suffix}`;
+    const newText = text.substring(0, start) + replacement + text.substring(end);
+    setTempEditText(newText);
+
+    setTimeout(() => {
+      if (el) {
+        el.focus();
+        const cursorStart = start + prefix.length;
+        const cursorEnd = cursorStart + (selected.length || 5);
+        el.setSelectionRange(cursorStart, cursorEnd);
+      }
+    }, 15);
+  };
 
   const handleStartEdit = (fieldKey, initialText) => {
     setEditingField(fieldKey);
@@ -263,6 +322,11 @@ export default function Etapa2EjecucionView({
   };
 
   const handleResetConclusion = (ptId) => {
+    const ok = window.confirm(
+      '¿Estás seguro de que deseás restablecer al texto original del informe? Se perderán las modificaciones y anotaciones que hayas guardado en esta conclusión.'
+    );
+    if (!ok) return;
+
     const updated = { ...conclusionesCustom };
     delete updated[ptId];
     setConclusionesCustom(updated);
@@ -286,6 +350,11 @@ export default function Etapa2EjecucionView({
   };
 
   const handleResetPaso = (stepKey) => {
+    const ok = window.confirm(
+      '¿Estás seguro de que deseás restablecer al texto original de este paso? Se perderán las notas personalizadas que hayas guardado.'
+    );
+    if (!ok) return;
+
     const updated = { ...pasosNarrativosCustom };
     delete updated[stepKey];
     setPasosNarrativosCustom(updated);
@@ -1011,7 +1080,40 @@ export default function Etapa2EjecucionView({
 
             {editingField === `conclusion-${activePT.id}` ? (
               <div className="mt-2.5 space-y-2">
+                <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-lg bg-teal-100/70 border border-teal-200 text-xs">
+                  <span className="text-[10px] font-bold text-teal-900 uppercase mr-1">Formato:</span>
+                  <button
+                    type="button"
+                    onClick={() => applyFormat('**', '**')}
+                    title="Añadir negrita (**texto**)"
+                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 font-extrabold text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
+                  >
+                    <span className="font-mono font-black">B</span>
+                    <span className="text-[11px] font-normal text-slate-600">Negrita</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => applyFormat('<u>', '</u>')}
+                    title="Añadir subrayado (<u>texto</u> o __texto__)"
+                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
+                  >
+                    <span className="font-mono font-black underline">U</span>
+                    <span className="text-[11px] font-normal text-slate-600">Subrayado</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => applyFormat('\n', '')}
+                    title="Insertar salto de línea"
+                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 text-slate-700 shadow-2xs cursor-pointer text-[11px]"
+                  >
+                    ↵ Salto de línea
+                  </button>
+                  <span className="text-[10.5px] text-teal-800 italic ml-auto hidden sm:inline">
+                    (Tip: Enter para saltos, **negrita**, <u>subrayado</u>)
+                  </span>
+                </div>
                 <textarea
+                  ref={textareaRef}
                   value={tempEditText}
                   onChange={(e) => setTempEditText(e.target.value)}
                   rows={4}
@@ -1048,8 +1150,8 @@ export default function Etapa2EjecucionView({
                 </div>
               </div>
             ) : (
-              <div className={`${isPTA ? 'text-sm sm:text-base font-medium' : 'text-xs sm:text-sm'} text-slate-800 mt-1 leading-relaxed`}>
-                {renderTextWithNormas(conclusionesCustom[activePT.id] || activePT.conclusionRubro)}
+              <div className={`${isPTA ? 'text-sm sm:text-base font-medium' : 'text-xs sm:text-sm'} text-slate-800 mt-1 leading-relaxed whitespace-pre-line`}>
+                {renderFormattedRichText(conclusionesCustom[activePT.id] || activePT.conclusionRubro)}
               </div>
             )}
 
@@ -1147,7 +1249,40 @@ export default function Etapa2EjecucionView({
 
                             {isEditingThisStep ? (
                               <div className="space-y-2">
+                                <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-lg bg-teal-100/70 border border-teal-200 text-xs">
+                                  <span className="text-[10px] font-bold text-teal-900 uppercase mr-1">Formato:</span>
+                                  <button
+                                    type="button"
+                                    onClick={() => applyFormat('**', '**')}
+                                    title="Añadir negrita (**texto**)"
+                                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 font-extrabold text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
+                                  >
+                                    <span className="font-mono font-black">B</span>
+                                    <span className="text-[11px] font-normal text-slate-600">Negrita</span>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => applyFormat('<u>', '</u>')}
+                                    title="Añadir subrayado (<u>texto</u> o __texto__)"
+                                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
+                                  >
+                                    <span className="font-mono font-black underline">U</span>
+                                    <span className="text-[11px] font-normal text-slate-600">Subrayado</span>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => applyFormat('\n', '')}
+                                    title="Insertar salto de línea"
+                                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 text-slate-700 shadow-2xs cursor-pointer text-[11px]"
+                                  >
+                                    ↵ Salto de línea
+                                  </button>
+                                  <span className="text-[10.5px] text-teal-800 italic ml-auto hidden sm:inline">
+                                    (Enter para saltos, **negrita**, <u>subrayado</u>)
+                                  </span>
+                                </div>
                                 <textarea
+                                  ref={textareaRef}
                                   value={tempEditText}
                                   onChange={(e) => setTempEditText(e.target.value)}
                                   rows={6}
@@ -1184,9 +1319,9 @@ export default function Etapa2EjecucionView({
                                 </div>
                               </div>
                             ) : (
-                              <p className="text-sm text-slate-700 leading-relaxed text-justify">
-                                {currentRelato}
-                              </p>
+                              <div className="text-sm text-slate-700 leading-relaxed text-justify whitespace-pre-line">
+                                {renderFormattedRichText(currentRelato)}
+                              </div>
                             )}
                           </div>
                         );
@@ -1233,7 +1368,40 @@ export default function Etapa2EjecucionView({
 
                           {isEditingSynth ? (
                             <div className="space-y-2">
+                              <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-lg bg-amber-100/90 border border-amber-300 text-xs">
+                                <span className="text-[10px] font-bold text-amber-950 uppercase mr-1">Formato:</span>
+                                <button
+                                  type="button"
+                                  onClick={() => applyFormat('**', '**')}
+                                  title="Añadir negrita (**texto**)"
+                                  className="px-2 py-0.5 rounded bg-white hover:bg-amber-50 border border-amber-300 font-extrabold text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
+                                >
+                                  <span className="font-mono font-black">B</span>
+                                  <span className="text-[11px] font-normal text-slate-600">Negrita</span>
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => applyFormat('<u>', '</u>')}
+                                  title="Añadir subrayado (<u>texto</u> o __texto__)"
+                                  className="px-2 py-0.5 rounded bg-white hover:bg-amber-50 border border-amber-300 text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
+                                >
+                                  <span className="font-mono font-black underline">U</span>
+                                  <span className="text-[11px] font-normal text-slate-600">Subrayado</span>
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => applyFormat('\n', '')}
+                                  title="Insertar salto de línea"
+                                  className="px-2 py-0.5 rounded bg-white hover:bg-amber-50 border border-amber-300 text-slate-700 shadow-2xs cursor-pointer text-[11px]"
+                                >
+                                  ↵ Salto de línea
+                                </button>
+                                <span className="text-[10.5px] text-amber-900 italic ml-auto hidden sm:inline">
+                                  (Enter para saltos, **negrita**, <u>subrayado</u>)
+                                </span>
+                              </div>
                               <textarea
+                                ref={textareaRef}
                                 value={tempEditText}
                                 onChange={(e) => setTempEditText(e.target.value)}
                                 rows={5}
@@ -1270,9 +1438,9 @@ export default function Etapa2EjecucionView({
                               </div>
                             </div>
                           ) : (
-                            <p className="text-sm text-slate-800 leading-relaxed text-justify">
-                              {currentSynth}
-                            </p>
+                            <div className="text-sm text-slate-800 leading-relaxed text-justify whitespace-pre-line">
+                              {renderFormattedRichText(currentSynth)}
+                            </div>
                           )}
                         </div>
                       );
