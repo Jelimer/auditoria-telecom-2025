@@ -12,7 +12,8 @@
 - **Estados Contables Auditados:** **Estados Contables Consolidados** correspondientes al ejercicio finalizado el **31 de diciembre de 2025** (comparativos con **2024** y **2023**), expresados en **millones de pesos constantes** (Nota 1.d). **IMPORTANTE:** Siempre se utilizan los **Estados Contables Consolidados**, nunca los individuales.
 - **Archivos Fuente Locales en el Proyecto (`docs/`):**
   - `docs/Estados Financieros 2025 Telecom-Original.pdf` (PDF oficial completo de los Estados Financieros Consolidados al 31/12/2025 de Telecom Argentina S.A.).
-  - `docs/PLANIFICACION PRELIMINAR DE AUDITORIA TELECOM 2026.docx` (Documento Word original elaborado por los alumnos para la Etapa 1).
+  - `docs/PLANIFICACION PRELIMINAR DE AUDITORIA TELECOM 2026.docx` (Documento Word original elaborado por los alumnos para la Etapa 1.1 Preliminar).
+  - `docs/AE 4 - Planificación Detallada - copia (2).docx` (y `docs/AE 4 - Desarrollo v1.docx`): **Documento Maestro Activo oficial de la Actividad de Extensión 4 (AE 4)**. Contiene la Planificación Detallada, Cuestionarios CCI, Matriz de Riesgo, Matriz de Afirmaciones, Programas de Trabajo (foco principal en Bienes de Uso, Intangibles y Créditos) y Cédulas de Ejecución (PT-A). Se mantiene sincronizado y actualizado de forma continua junto con la plataforma web.
 - **Repositorio GitHub y Despliegue Automático en Vercel:**
   - Repositorio remoto (`origin`): `https://github.com/Jelimer/auditoria-telecom-2025.git` (rama `main`).
   - Cada vez que se realicen cambios en el código de la app, se debe verificar con `npm run build`, hacer `git add .`, `git commit` y `git push origin main` para que **Vercel** actualice automáticamente la versión web que el usuario lee desde su navegador o celular.
