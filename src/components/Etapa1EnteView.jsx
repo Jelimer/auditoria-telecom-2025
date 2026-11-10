@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Building2,
   Users,
@@ -29,15 +29,211 @@ import {
   Lock,
   Landmark,
   HardDrive,
-  Sliders
+  Sliders,
+  Pencil,
+  RotateCcw,
+  X
 } from 'lucide-react';
 import { conocimientoEnte } from '../data/etapa1Data';
+import { renderFormattedRichText } from './Etapa2EjecucionView';
 
 export default function Etapa1EnteView({ onNavigate }) {
   const [selectedVertical, setSelectedVertical] = useState(
     conocimientoEnte.organigrama?.verticales?.[1] || null
   ); // B2B Personal Tech por defecto
   const [activeEjeLegalIndex, setActiveEjeLegalIndex] = useState(0);
+
+  // Estados para textos editables de Etapa 1A con persistencia en localStorage
+  const [customTexts, setCustomTexts] = useState(() => {
+    try {
+      const saved = localStorage.getItem('audiia_ente_custom_v1');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  const [editingKey, setEditingKey] = useState(null);
+  const [tempEditText, setTempEditText] = useState('');
+  const textareaRef = useRef(null);
+
+  const handleStartEdit = (key, defaultText) => {
+    setEditingKey(key);
+    setTempEditText(customTexts[key] !== undefined ? customTexts[key] : defaultText);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingKey(null);
+    setTempEditText('');
+  };
+
+  const handleSaveEdit = (key) => {
+    const updated = { ...customTexts, [key]: tempEditText };
+    setCustomTexts(updated);
+    try {
+      localStorage.setItem('audiia_ente_custom_v1', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    setEditingKey(null);
+  };
+
+  const handleResetEdit = (key) => {
+    const ok = window.confirm('¿Deseas restablecer este texto a su redacción original?');
+    if (!ok) return;
+    const updated = { ...customTexts };
+    delete updated[key];
+    setCustomTexts(updated);
+    try {
+      localStorage.setItem('audiia_ente_custom_v1', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    setEditingKey(null);
+  };
+
+  const handleResetAllTexts = () => {
+    const ok = window.confirm('¿Estás seguro de que deseas restablecer TODOS los textos modificados de la Etapa 1A a su versión original?');
+    if (!ok) return;
+    setCustomTexts({});
+    try {
+      localStorage.removeItem('audiia_ente_custom_v1');
+    } catch (e) {
+      console.error(e);
+    }
+    setEditingKey(null);
+  };
+
+  const applyFormat = (prefix, suffix) => {
+    if (!textareaRef.current) return;
+    const el = textareaRef.current;
+    const start = el.selectionStart;
+    const end = el.selectionEnd;
+    const text = tempEditText || '';
+    const selected = text.substring(start, end);
+
+    const replacement = selected.length > 0 ? `${prefix}${selected}${suffix}` : `${prefix}texto${suffix}`;
+    const newText = text.substring(0, start) + replacement + text.substring(end);
+    setTempEditText(newText);
+
+    setTimeout(() => {
+      if (el) {
+        el.focus();
+        const cursorStart = start + prefix.length;
+        const cursorEnd = cursorStart + (selected.length || 5);
+        el.setSelectionRange(cursorStart, cursorEnd);
+      }
+    }, 15);
+  };
+
+  // Helper para renderizar un bloque editable con botón de lápiz y formato enriquecido
+  const renderEditableBlock = ({
+    fieldKey,
+    defaultText,
+    label = 'Editar texto',
+    rows = 3,
+    textClassName = 'text-xs text-slate-700 leading-relaxed',
+    containerClassName = ''
+  }) => {
+    const isEditing = editingKey === fieldKey;
+    const currentText = customTexts[fieldKey] !== undefined ? customTexts[fieldKey] : defaultText;
+    const isCustom = customTexts[fieldKey] !== undefined;
+
+    if (isEditing) {
+      return (
+        <div className="mt-2 space-y-2 p-3 rounded-xl bg-teal-50/70 border border-teal-300 animate-in fade-in duration-150">
+          <div className="flex flex-wrap items-center justify-between gap-1.5 pb-1 border-b border-teal-200 text-xs">
+            <span className="text-[10px] font-extrabold text-teal-900 uppercase tracking-wide">
+              {label}
+            </span>
+            <div className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => applyFormat('**', '**')}
+                className="px-2 py-0.5 rounded bg-white hover:bg-teal-100 border border-teal-300 font-extrabold text-slate-800 text-xs shadow-2xs cursor-pointer"
+                title="Añadir negrita (**texto**)"
+              >
+                B
+              </button>
+              <button
+                type="button"
+                onClick={() => applyFormat('<u>', '</u>')}
+                className="px-2 py-0.5 rounded bg-white hover:bg-teal-100 border border-teal-300 text-slate-800 text-xs underline shadow-2xs cursor-pointer"
+                title="Añadir subrayado"
+              >
+                U
+              </button>
+              <button
+                type="button"
+                onClick={() => applyFormat('\n', '')}
+                className="px-2 py-0.5 rounded bg-white hover:bg-teal-100 border border-teal-300 text-slate-700 text-xs shadow-2xs cursor-pointer"
+                title="Salto de línea"
+              >
+                ↵ Salto
+              </button>
+            </div>
+          </div>
+          <textarea
+            ref={textareaRef}
+            value={tempEditText}
+            onChange={(e) => setTempEditText(e.target.value)}
+            rows={rows}
+            className="w-full p-2.5 rounded-lg border border-teal-400 bg-white text-slate-800 text-xs focus:ring-2 focus:ring-teal-500 focus:outline-none leading-relaxed"
+          />
+          <div className="flex items-center justify-between gap-2 pt-1">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => handleSaveEdit(fieldKey)}
+                className="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold transition-colors cursor-pointer"
+              >
+                <Check className="w-3.5 h-3.5" /> Guardar cambios
+              </button>
+              <button
+                type="button"
+                onClick={handleCancelEdit}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" /> Cancelar
+              </button>
+            </div>
+            {isCustom && (
+              <button
+                type="button"
+                onClick={() => handleResetEdit(fieldKey)}
+                className="text-[11px] font-bold text-amber-700 hover:underline cursor-pointer"
+              >
+                Restablecer original
+              </button>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className={`group relative ${containerClassName}`}>
+        <div className="flex items-start justify-between gap-2">
+          <div className={`${textClassName} whitespace-pre-line flex-1`}>
+            {renderFormattedRichText(currentText)}
+          </div>
+          <button
+            type="button"
+            onClick={() => handleStartEdit(fieldKey, defaultText)}
+            className="opacity-50 group-hover:opacity-100 p-1 rounded-md text-teal-700 hover:text-teal-900 hover:bg-teal-100/70 transition-all shrink-0 cursor-pointer"
+            title="Editar este texto / agregar notas"
+          >
+            <Pencil className="w-3.5 h-3.5" />
+          </button>
+        </div>
+        {isCustom && (
+          <span className="inline-block mt-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-200">
+            Modificado
+          </span>
+        )}
+      </div>
+    );
+  };
 
   const colorMap = {
     blue: {
@@ -95,8 +291,29 @@ export default function Etapa1EnteView({ onNavigate }) {
     }
   };
 
+  const totalCustomCount = Object.keys(customTexts).length;
+
   return (
     <div className="space-y-8">
+      {/* Barra de control superior para textos editables */}
+      {totalCustomCount > 0 && (
+        <div className="bg-amber-50 border border-amber-300 rounded-xl p-3 flex flex-wrap items-center justify-between gap-2 shadow-2xs">
+          <div className="flex items-center gap-2 text-xs font-bold text-amber-900">
+            <Pencil className="w-4 h-4 text-amber-700" />
+            <span>
+              Tenés <strong>{totalCustomCount}</strong> texto(s) personalizado(s) guardado(s) en tu navegador para la Etapa 1A.
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={handleResetAllTexts}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white border border-amber-400 hover:bg-amber-100 text-amber-900 text-xs font-bold cursor-pointer transition-colors shadow-2xs"
+          >
+            <RotateCcw className="w-3.5 h-3.5" /> Restablecer todos al original
+          </button>
+        </div>
+      )}
+
       {/* ========================================================= */}
       {/* 1.1.A. COMPLEJIDAD DEL ENTORNO DE TI (NIA 315)             */}
       {/* ========================================================= */}
@@ -114,10 +331,16 @@ export default function Etapa1EnteView({ onNavigate }) {
             <h2 className="text-xl font-extrabold text-slate-900 mt-2">
               Telecom Argentina S.A. — Ambiente de TI Masivo y Enfoque de Auditoría de Sistemas
             </h2>
-            <p className="text-xs text-slate-500 mt-0.5">
-              {conocimientoEnte.ambienteTI?.necesidadEspecialistas ||
-                'El entorno informático se clasifica como de alta complejidad y volumen masivo de datos, exigiendo la participación de especialistas en auditoría de sistemas.'}
-            </p>
+            <div className="mt-1">
+              {renderEditableBlock({
+                fieldKey: 'ente-ti-necesidad',
+                defaultText: conocimientoEnte.ambienteTI?.necesidadEspecialistas ||
+                  'El entorno informático de Telecom se clasifica como de alta complejidad y volumen masivo de datos, lo que exige la participación de especialistas en auditoría de sistemas dentro del equipo de trabajo.',
+                label: 'Necesidad de Especialistas de TI',
+                rows: 2,
+                textClassName: 'text-xs text-slate-600 font-medium'
+              })}
+            </div>
           </div>
           <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-900 text-white shadow-2xs">
             Clasificación: ALTA COMPLEJIDAD
@@ -163,9 +386,15 @@ export default function Etapa1EnteView({ onNavigate }) {
                     <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
                     {sist.nombre}
                   </h4>
-                  <p className="text-xs text-slate-600 mt-1 pl-5 leading-relaxed">
-                    {sist.detalle}
-                  </p>
+                  <div className="pl-5 mt-1">
+                    {renderEditableBlock({
+                      fieldKey: `ente-ti-sist-${i}`,
+                      defaultText: sist.detalle,
+                      label: `Detalle de ${sist.nombre}`,
+                      rows: 2,
+                      textClassName: 'text-xs text-slate-600 leading-relaxed'
+                    })}
+                  </div>
                 </div>
               ))}
             </div>
@@ -184,7 +413,7 @@ export default function Etapa1EnteView({ onNavigate }) {
 
               <div className="mt-4 space-y-3">
                 <div className="p-3 rounded-xl bg-white border border-indigo-200 shadow-2xs">
-                  <div className="flex items-center justify-between gap-1">
+                  <div className="flex items-center justify-between gap-1 mb-1">
                     <span className="text-xs font-extrabold text-indigo-900">
                       {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itgc?.nombre}
                     </span>
@@ -192,13 +421,17 @@ export default function Etapa1EnteView({ onNavigate }) {
                       {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itgc?.sigla}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                    {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itgc?.alcance}
-                  </p>
+                  {renderEditableBlock({
+                    fieldKey: 'ente-ti-itgc',
+                    defaultText: conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itgc?.alcance || '',
+                    label: 'Alcance de los ITGC',
+                    rows: 2,
+                    textClassName: 'text-xs text-slate-600 leading-relaxed'
+                  })}
                 </div>
 
                 <div className="p-3 rounded-xl bg-white border border-teal-200 shadow-2xs">
-                  <div className="flex items-center justify-between gap-1">
+                  <div className="flex items-center justify-between gap-1 mb-1">
                     <span className="text-xs font-extrabold text-teal-900">
                       {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itac?.nombre}
                     </span>
@@ -206,9 +439,13 @@ export default function Etapa1EnteView({ onNavigate }) {
                       {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itac?.sigla}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                    {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itac?.alcance}
-                  </p>
+                  {renderEditableBlock({
+                    fieldKey: 'ente-ti-itac',
+                    defaultText: conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itac?.alcance || '',
+                    label: 'Alcance de los ITAC',
+                    rows: 2,
+                    textClassName: 'text-xs text-slate-600 leading-relaxed'
+                  })}
                 </div>
               </div>
             </div>
@@ -245,7 +482,7 @@ export default function Etapa1EnteView({ onNavigate }) {
             </p>
           </div>
           <span className="text-xs text-slate-500 font-medium">
-            7 Estamentos Directivos Entrevistados
+            7 Estamentos Directivos Entrevistados (Editables con lápiz)
           </span>
         </div>
 
@@ -269,9 +506,15 @@ export default function Etapa1EnteView({ onNavigate }) {
                     </span>
                   </div>
                 </div>
-                <p className="text-xs text-slate-700 leading-relaxed mt-2 pt-2 border-t border-slate-200/70">
-                  {r.temasTratados}
-                </p>
+                <div className="mt-2 pt-2 border-t border-slate-200/70">
+                  {renderEditableBlock({
+                    fieldKey: `ente-reunion-${r.id}`,
+                    defaultText: r.temasTratados,
+                    label: `Temas: ${r.estamento}`,
+                    rows: 3,
+                    textClassName: 'text-xs text-slate-700 leading-relaxed'
+                  })}
+                </div>
               </div>
               <div className="mt-3 pt-2 text-[10px] font-extrabold text-teal-900 uppercase tracking-wider flex items-center justify-between">
                 <span>Indagación Clave</span>
@@ -354,11 +597,16 @@ export default function Etapa1EnteView({ onNavigate }) {
                   </span>
                 </div>
 
-                <ul className="space-y-2 mt-3 text-xs text-slate-700 leading-relaxed">
+                <ul className="space-y-2.5 mt-3 text-xs text-slate-700 leading-relaxed">
                   {conocimientoEnte.marcoRegulatorio.ejes[activeEjeLegalIndex].puntos.map((pt, pIdx) => (
-                    <li key={pIdx} className="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80 flex items-start gap-2">
-                      <span className="font-extrabold text-purple-700 shrink-0 mt-0.5">•</span>
-                      <span>{pt}</span>
+                    <li key={pIdx} className="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80">
+                      {renderEditableBlock({
+                        fieldKey: `ente-eje-${activeEjeLegalIndex}-pt-${pIdx}`,
+                        defaultText: pt,
+                        label: `Punto ${pIdx + 1}`,
+                        rows: 2,
+                        textClassName: 'text-xs text-slate-700 leading-relaxed'
+                      })}
                     </li>
                   ))}
                 </ul>
@@ -394,16 +642,31 @@ export default function Etapa1EnteView({ onNavigate }) {
                       {tax.tributos}
                     </td>
                     <td className="py-3 px-4 text-slate-600 leading-relaxed">
-                      {tax.impacto}
+                      {renderEditableBlock({
+                        fieldKey: `ente-tax-impacto-${i}`,
+                        defaultText: tax.impacto,
+                        label: `Impacto ${tax.nivel}`,
+                        rows: 2,
+                        textClassName: 'text-xs text-slate-600 leading-relaxed'
+                      })}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-[11px] text-slate-500 mt-2 italic">
-            <strong>Procedimientos de Planeación (NIA 250):</strong> {conocimientoEnte.marcoRegulatorio?.procedimientosNIA250}
-          </p>
+          <div className="mt-3 p-3 rounded-lg bg-purple-50/60 border border-purple-200 text-xs text-slate-700">
+            <span className="font-extrabold text-purple-900 block text-[11px] uppercase mb-1">
+              Procedimientos de Planeación (NIA 250):
+            </span>
+            {renderEditableBlock({
+              fieldKey: 'ente-procedimientos-nia250',
+              defaultText: conocimientoEnte.marcoRegulatorio?.procedimientosNIA250 || '',
+              label: 'Procedimientos NIA 250',
+              rows: 2,
+              textClassName: 'text-xs text-slate-700'
+            })}
+          </div>
         </div>
       </div>
 
@@ -427,13 +690,19 @@ export default function Etapa1EnteView({ onNavigate }) {
 
         {/* Misión, Visión y Recurso Humano */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
-          <div className="rounded-xl border border-slate-200 p-4 bg-slate-50/60">
-            <div className="flex items-center gap-2 text-teal-700 font-bold text-sm mb-2">
-              <Users className="w-4 h-4" /> Recurso Humano e Identidad Tech-Co
+          <div className="rounded-xl border border-slate-200 p-4 bg-slate-50/60 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-2 text-teal-700 font-bold text-sm mb-2">
+                <Users className="w-4 h-4" /> Recurso Humano e Identidad Tech-Co
+              </div>
+              {renderEditableBlock({
+                fieldKey: 'ente-negocio-recursoHumano',
+                defaultText: conocimientoEnte.recursoHumano,
+                label: 'Recurso Humano',
+                rows: 3,
+                textClassName: 'text-xs text-slate-700 leading-relaxed'
+              })}
             </div>
-            <p className="text-xs text-slate-700 leading-relaxed">
-              {conocimientoEnte.recursoHumano}
-            </p>
             <div className="mt-3 pt-2.5 border-t border-slate-200/80 text-[11px] font-semibold text-slate-500">
               Operaciones en Argentina, Paraguay y Uruguay • 16 Data Centers propios
             </div>
@@ -443,21 +712,39 @@ export default function Etapa1EnteView({ onNavigate }) {
             <div className="flex items-center gap-2 text-blue-800 font-bold text-sm mb-2">
               <Target className="w-4 h-4" /> Misión Telecom
             </div>
-            <p className="text-sm font-extrabold text-blue-950 mb-1.5">
-              {conocimientoEnte.mision.proposito}
-            </p>
-            <p className="text-xs text-slate-700 leading-relaxed">
-              {conocimientoEnte.mision.compromiso}
-            </p>
+            <div className="mb-2">
+              {renderEditableBlock({
+                fieldKey: 'ente-negocio-proposito',
+                defaultText: conocimientoEnte.mision.proposito,
+                label: 'Propósito Institucional',
+                rows: 2,
+                textClassName: 'text-sm font-extrabold text-blue-950'
+              })}
+            </div>
+            {renderEditableBlock({
+              fieldKey: 'ente-negocio-compromiso',
+              defaultText: conocimientoEnte.mision.compromiso,
+              label: 'Compromiso Institucional',
+              rows: 3,
+              textClassName: 'text-xs text-slate-700 leading-relaxed'
+            })}
           </div>
 
           <div className="rounded-xl border border-emerald-200 p-4 bg-emerald-50/30">
             <div className="flex items-center gap-2 text-emerald-800 font-bold text-sm mb-2">
               <Compass className="w-4 h-4" /> Visión Estratégica («Tech-Co»)
             </div>
-            <ul className="space-y-1.5 text-xs text-slate-700 leading-relaxed list-disc pl-4">
+            <ul className="space-y-2 text-xs text-slate-700 leading-relaxed">
               {conocimientoEnte.vision.map((v, i) => (
-                <li key={i}>{v}</li>
+                <li key={i} className="p-1 rounded bg-white/60 border border-emerald-100">
+                  {renderEditableBlock({
+                    fieldKey: `ente-negocio-vision-${i}`,
+                    defaultText: v,
+                    label: `Eje de Visión ${i + 1}`,
+                    rows: 2,
+                    textClassName: 'text-xs text-slate-700 leading-relaxed'
+                  })}
+                </li>
               ))}
             </ul>
           </div>
@@ -783,9 +1070,13 @@ export default function Etapa1EnteView({ onNavigate }) {
               <AlertTriangle className="w-4 h-4 text-red-600" />
               {conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[0]?.titulo}
             </div>
-            <p className="text-xs text-slate-700 leading-relaxed">
-              {conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[0]?.explicacion}
-            </p>
+            {renderEditableBlock({
+              fieldKey: 'ente-fraude-ingresos',
+              defaultText: conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[0]?.explicacion || '',
+              label: 'Presunción de Ingresos',
+              rows: 4,
+              textClassName: 'text-xs text-slate-700 leading-relaxed'
+            })}
           </div>
 
           <div className="p-4 rounded-xl border border-amber-200 bg-amber-50/40 space-y-2.5">
@@ -793,9 +1084,13 @@ export default function Etapa1EnteView({ onNavigate }) {
               <ShieldAlert className="w-4 h-4 text-amber-600" />
               {conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[1]?.titulo}
             </div>
-            <p className="text-xs text-slate-700 leading-relaxed">
-              {conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[1]?.explicacion}
-            </p>
+            {renderEditableBlock({
+              fieldKey: 'ente-fraude-elusion',
+              defaultText: conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[1]?.explicacion || '',
+              label: 'Presunción de Elusión de Controles',
+              rows: 3,
+              textClassName: 'text-xs text-slate-700 leading-relaxed'
+            })}
             <div className="space-y-1.5 pt-1">
               {conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[1]?.estimaciones?.map((est, eIdx) => (
                 <div key={eIdx} className="p-2 rounded-lg bg-white/90 border border-amber-200/80 text-[11px]">
@@ -823,9 +1118,13 @@ export default function Etapa1EnteView({ onNavigate }) {
               </span>
             </div>
 
-            <p className="text-xs text-slate-700 leading-relaxed">
-              {conocimientoEnte.riesgoFraudeYControl?.teoriaCOSO?.origenYDefinicion}
-            </p>
+            {renderEditableBlock({
+              fieldKey: 'ente-coso-origen',
+              defaultText: conocimientoEnte.riesgoFraudeYControl?.teoriaCOSO?.origenYDefinicion || '',
+              label: 'Origen y Definición de COSO',
+              rows: 3,
+              textClassName: 'text-xs text-slate-700 leading-relaxed'
+            })}
 
             {/* Los 3 Objetivos del Control Interno según COSO */}
             <div>
@@ -853,9 +1152,13 @@ export default function Etapa1EnteView({ onNavigate }) {
                   <Calculator className="w-4 h-4 text-blue-700" />
                   ¿Para qué lo utiliza el Auditor Externo? (NIA 315 &amp; Slosse)
                 </span>
-                <p className="text-xs text-slate-700 leading-relaxed">
-                  {conocimientoEnte.riesgoFraudeYControl?.teoriaCOSO?.utilidadEnAuditoria}
-                </p>
+                {renderEditableBlock({
+                  fieldKey: 'ente-coso-utilidad',
+                  defaultText: conocimientoEnte.riesgoFraudeYControl?.teoriaCOSO?.utilidadEnAuditoria || '',
+                  label: 'Utilidad en Auditoría Externa',
+                  rows: 3,
+                  textClassName: 'text-xs text-slate-700 leading-relaxed'
+                })}
               </div>
 
               <div className="p-3.5 rounded-xl bg-purple-50/50 border border-purple-200">
@@ -863,9 +1166,13 @@ export default function Etapa1EnteView({ onNavigate }) {
                   <ShieldCheck className="w-4 h-4 text-purple-700" />
                   ¿Por qué es Crítico para Telecom? (Ley Sarbanes-Oxley SOX 404)
                 </span>
-                <p className="text-xs text-slate-700 leading-relaxed">
-                  {conocimientoEnte.riesgoFraudeYControl?.teoriaCOSO?.relevanciaSOX404}
-                </p>
+                {renderEditableBlock({
+                  fieldKey: 'ente-coso-sox',
+                  defaultText: conocimientoEnte.riesgoFraudeYControl?.teoriaCOSO?.relevanciaSOX404 || '',
+                  label: 'Relevancia SOX 404 en Telecom',
+                  rows: 3,
+                  textClassName: 'text-xs text-slate-700 leading-relaxed'
+                })}
               </div>
             </div>
           </div>
@@ -903,11 +1210,17 @@ export default function Etapa1EnteView({ onNavigate }) {
                     {comp.definicionTeorica || comp.descripcion}
                   </div>
 
-                  {/* Aplicación en Telecom */}
-                  <p className="text-[11px] text-slate-600 leading-relaxed">
-                    <strong className="text-slate-800 font-bold">En Telecom: </strong>
-                    {comp.descripcion}
-                  </p>
+                  {/* Aplicación en Telecom con editor */}
+                  <div className="text-[11px] text-slate-600 leading-relaxed">
+                    <strong className="text-slate-800 font-bold block mb-1">En Telecom: </strong>
+                    {renderEditableBlock({
+                      fieldKey: `ente-coso-comp-${cIdx}`,
+                      defaultText: comp.descripcion,
+                      label: `En Telecom: ${comp.nombre}`,
+                      rows: 3,
+                      textClassName: 'text-[11px] text-slate-600 leading-relaxed'
+                    })}
+                  </div>
                 </div>
               </div>
             ))}
@@ -940,27 +1253,39 @@ export default function Etapa1EnteView({ onNavigate }) {
             <strong className="text-lime-300 block uppercase text-[11px] tracking-wider">
               1. ¿Qué se empieza haciendo?
             </strong>
-            <p className="text-slate-200">
-              Según <strong>Carlos Slosse</strong>, una auditoría nunca empieza mirando facturas ni sumando recibos: empieza <strong>«de arriba hacia abajo» (Top-Down)</strong> conociendo a fondo quién es el cliente. En este primer paso relevamos su <strong>ambiente tecnológico masivo (NIA 315)</strong> con más de 41,6 millones de líneas móviles y ERP SAP, planificamos las <strong>entrevistas con los 7 estamentos directivos</strong> (Comité, CEO, CFO, CISO), y relevamos su <strong>marco regulatorio (NIA 250)</strong> ante ENACOM, CNV, SEC y ARCA.
-            </p>
+            {renderEditableBlock({
+              fieldKey: 'ente-guia-1',
+              defaultText: 'Según **Carlos Slosse**, una auditoría nunca empieza mirando facturas ni sumando recibos: empieza **«de arriba hacia abajo» (Top-Down)** conociendo a fondo quién es el cliente. En este primer paso relevamos su **ambiente tecnológico masivo (NIA 315)** con más de 41,6 millones de líneas móviles y ERP SAP, planificamos las **entrevistas con los 7 estamentos directivos** (Comité, CEO, CFO, CISO), y relevamos su **marco regulatorio (NIA 250)** ante ENACOM, CNV, SEC y ARCA.',
+              label: 'Paso 1: ¿Qué se empieza haciendo?',
+              rows: 4,
+              textClassName: 'text-slate-200 leading-relaxed'
+            })}
           </div>
 
           <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
             <strong className="text-amber-300 block uppercase text-[11px] tracking-wider">
               2. ¿Qué se hace concretamente?
             </strong>
-            <p className="text-slate-200">
-              Analizamos la estructura de gobierno corporativo (organigrama formal de 5 direcciones), el porfolio comercial B2C (*Personal* y *Flow*) y B2B (*Personal Tech*), el impacto patrimonial de la compra de <strong>Telefónica Móviles Argentina (TMA)</strong> en febrero de 2025 por US$ 1.245M, las 5 fuerzas de Porter y las <strong>presunciones obligatorias de fraude (NIA 240)</strong> en ingresos ($8,3 billones) y estimaciones de la gerencia (test de deterioro NIC 36 y PPA NIIF 3).
-            </p>
+            {renderEditableBlock({
+              fieldKey: 'ente-guia-2',
+              defaultText: 'Analizamos la estructura de gobierno corporativo (organigrama formal de 5 direcciones), el porfolio comercial B2C (*Personal* y *Flow*) y B2B (*Personal Tech*), el impacto patrimonial de la compra de **Telefónica Móviles Argentina (TMA)** en febrero de 2025 por US$ 1.245M, las 5 fuerzas de Porter y las **presunciones obligatorias de fraude (NIA 240)** en ingresos ($8,3 billones) y estimaciones de la gerencia (test de deterioro NIC 36 y PPA NIIF 3).',
+              label: 'Paso 2: ¿Qué se hace concretamente?',
+              rows: 4,
+              textClassName: 'text-slate-200 leading-relaxed'
+            })}
           </div>
 
           <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
             <strong className="text-teal-300 block uppercase text-[11px] tracking-wider">
               3. ¿Por qué y para qué lo hacemos?
             </strong>
-            <p className="text-slate-200">
-              Lo hacemos para identificar el <strong>Riesgo Inherente (RI)</strong>, es decir, el riesgo de que los Estados Contables contengan errores significativos por la propia complejidad del negocio de las telecomunicaciones y su tecnología masiva, <em>antes</em> de medir la efectividad de sus controles. Con este mapa integral, el siguiente paso de la Planificación Preliminar es <strong>evaluar el Control Interno (1B) mediante los 5 Cuestionarios CCI</strong> y realizar la <strong>Revisión Analítica Preliminar (1C)</strong>.
-            </p>
+            {renderEditableBlock({
+              fieldKey: 'ente-guia-3',
+              defaultText: 'Lo hacemos para identificar el **Riesgo Inherente (RI)**, es decir, el riesgo de que los Estados Contables contengan errores significativos por la propia complejidad del negocio de las telecomunicaciones y su tecnología masiva, *antes* de medir la efectividad de sus controles. Con este mapa integral, el siguiente paso de la Planificación Preliminar es **evaluar el Control Interno (1B) mediante los 5 Cuestionarios CCI** y realizar la **Revisión Analítica Preliminar (1C)**.',
+              label: 'Paso 3: ¿Por qué y para qué lo hacemos?',
+              rows: 4,
+              textClassName: 'text-slate-200 leading-relaxed'
+            })}
           </div>
         </div>
 

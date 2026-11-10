@@ -219,6 +219,11 @@ export default function App() {
   useEffect(() => {
     try {
       localStorage.setItem('audiia_font_zoom', fontZoom.toString());
+      if (fontZoom === 100) {
+        document.documentElement.style.zoom = '';
+      } else {
+        document.documentElement.style.zoom = `${fontZoom}%`;
+      }
     } catch {
       // ignore
     }
