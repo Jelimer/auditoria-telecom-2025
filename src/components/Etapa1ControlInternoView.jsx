@@ -32,8 +32,8 @@ const GUIA_CORRESPONDENCIA = [
   {
     id: 'cci-2',
     codigo: 'CCI-02',
-    componente: 'Sistema Contable y Facturación',
-    rubroPrincipal: 'Créditos por Ventas',
+    componente: 'Sistema Contable y Salvaguarda de Activos',
+    rubroPrincipal: 'Sistema Contable (Créditos y Red)',
     ptLabel: 'PT-B (120 hs)',
     targetPT: 'pt-b',
     isClickable: true,
