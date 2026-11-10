@@ -217,6 +217,223 @@ export const conocimientoEnte = {
         ]
       }
     ]
+  },
+  ambienteTI: {
+    clasificacion: "Alta complejidad y volumen masivo de datos",
+    norma: "NIA 315 — Identificación y Valoración de los Riesgos de Incorrección Material",
+    necesidadEspecialistas: "Exige la participación obligatoria de especialistas en auditoría de sistemas de información dentro del equipo de trabajo.",
+    metricasVolumen: [
+      { cifra: "41,6M", etiqueta: "Líneas Móviles", detalle: "Sumando Redes Personal y Redes TMA a nivel nacional", color: "blue" },
+      { cifra: "6,1M", etiqueta: "Accesos a Internet", detalle: "Banda ancha fija residencial y comercial (FTTH / HFC)", color: "emerald" },
+      { cifra: "3,9M", etiqueta: "Suscriptores TV", detalle: "Televisión por cable y plataforma de streaming Flow", color: "purple" },
+      { cifra: "4,8M", etiqueta: "Líneas Fijas", detalle: "Telefonía básica, enlaces punto a punto y líneas corporativas", color: "amber" }
+    ],
+    arquitecturaSistemas: [
+      {
+        nombre: "Sistemas Centrales ERP (SAP S/4HANA)",
+        detalle: "Gestión centralizada de contabilidad general (FI), cuentas por cobrar (AR), activos fijos (AA), compras (MM) y control presupuestario (CO)."
+      },
+      {
+        nombre: "Cobro y Tasación en Tiempo Real",
+        detalle: "Plataformas de alta disponibilidad para medición, mediación y tasación en tiempo real del tráfico masivo de voz, datos y roaming."
+      },
+      {
+        nombre: "Pasarelas Fintech & Dinero Electrónico",
+        detalle: "Operación de la billetera virtual Personal Pay administrada por la subsidiaria Micro Sistemas S.A.U., vinculada a pasarelas bancarias y QR interoperable."
+      },
+      {
+        nombre: "Infraestructura Cloud Híbrida y Redes 5G/4G",
+        detalle: "Red de 16 Data Centers propios combinada con entornos multicloud (Microsoft Azure, Google Cloud) y despliegue continuo de radiobases 5G/FTTH."
+      },
+      {
+        nombre: "Desafío de Integración Tecnológica de TMA",
+        detalle: "Adquisición del 99,9996% de Telefónica Móviles Argentina S.A. en febrero de 2025: coexistencia y migración de plataformas comerciales y sistemas legados de facturación."
+      }
+    ],
+    enfoqueAuditoriaTI: {
+      itgc: {
+        sigla: "ITGC",
+        nombre: "Controles Generales de TI",
+        alcance: "Revisión de la seguridad lógica y física, controles de acceso a sistemas y bases de datos contables, gestión formal de cambios en programas informáticos y operaciones en centros de cómputos."
+      },
+      itac: {
+        sigla: "ITAC",
+        nombre: "Controles de Aplicación",
+        alcance: "Verificación de las interfaces automáticas entre las plataformas de tráfico de llamadas/datos y los sistemas comerciales de facturación y contabilidad general."
+      }
+    }
+  },
+  reunionesClave: [
+    {
+      id: "comite-auditoria",
+      estamento: "Comité de Auditoría y Comisión Fiscalizadora",
+      rol: "Órgano de Gobierno y Supervisión Independiente",
+      temasTratados: "Presentación del Plan General de Auditoría, estrategia sobre Cuestiones Clave de Auditoría (KAMs), evaluación de la independencia del auditor externo y acuerdo sobre honorarios profesionales.",
+      icono: "ShieldCheck",
+      color: "teal"
+    },
+    {
+      id: "ceo-ejecutivo",
+      estamento: "CEO y Comité Ejecutivo",
+      rol: "Dirección Estratégica Superior",
+      temasTratados: "Discusión de los planes estratégicos de inversión (CAPEX en redes 5G y fibra FTTH), avance en los trámites regulatorios ante la CNDC/ANC por la adquisición de TMA y perspectivas del negocio.",
+      icono: "Briefcase",
+      color: "blue"
+    },
+    {
+      id: "cfo-contabilidad",
+      estamento: "CFO (Dirección Financiera) y Gerencia de Contabilidad",
+      rol: "Gestión Financiera y Cierres Contables",
+      temasTratados: "Coordinación del cronograma de cierres de balances trimestrales y anual para la CNV y SEC, políticas de cobertura con instrumentos derivados (IFD en ROFEX) y cumplimiento de covenants financieros bancarios (Deuda Neta/EBITDA y EBITDA/Intereses Netos).",
+      icono: "DollarSign",
+      color: "emerald"
+    },
+    {
+      id: "cio-cto",
+      estamento: "CIO / CTO (Dirección de Sistemas e Infraestructura)",
+      rol: "Liderazgo Tecnológico y de Red",
+      temasTratados: "Coordinación de las pruebas sobre controles informáticos (ITGC/ITAC), migración e integración de datos de TMA y auditoría del despliegue físico de activos fijos de red.",
+      icono: "Server",
+      color: "indigo"
+    },
+    {
+      id: "legales-tax",
+      estamento: "Dirección de Asuntos Legales y Tax / Tributario",
+      rol: "Cumplimiento Jurídico y Fiscal",
+      temasTratados: "Confirmación de la nómina de abogados externos para la emisión de cartas de circularización de litigios, y revisión del estado procesal de causas de repetición del Impuesto a las Ganancias contra ARCA (confiscatoriedad del ajuste por inflación).",
+      icono: "Scale",
+      color: "purple"
+    },
+    {
+      id: "ciso",
+      estamento: "CISO (Chief Information Security Officer)",
+      rol: "Ciberseguridad y Ciberresiliencia",
+      temasTratados: "Indagación sobre incidentes de seguridad de la información, intentos de ciberataques, operación del SOC y cumplimiento del régimen de notificación de incidentes exigido por la SEC y la CNV.",
+      icono: "ShieldAlert",
+      color: "rose"
+    },
+    {
+      id: "investor-relations",
+      estamento: "Relaciones con Inversores (Investor Relations)",
+      rol: "Mercados de Capitales y Transparencia",
+      temasTratados: "Asegurar la consistencia entre los reportes trimestrales enviados a los mercados de capitales (guías de resultados) y las proyecciones utilizadas por la gerencia en los modelos de desvalorización de activos (test de deterioro NIC 36).",
+      icono: "TrendingUp",
+      color: "amber"
+    }
+  ],
+  marcoRegulatorio: {
+    normaAuditoria: "NIA 250 — Consideración de las Disposiciones Legales y Reglamentarias en la Auditoría de Estados Financieros",
+    resumen: "Al ser un operador convergente (móvil, fijo, internet y televisión), Telecom opera bajo una de las matrices regulatorias más complejas de Argentina, cruzando normativas de telecomunicaciones, mercado de capitales, defensa de la competencia, fiscales y laborales.",
+    ejes: [
+      {
+        titulo: "Marco Regulatorio de Telecomunicaciones y Calidad",
+        ley: "Ley N° 27.078 (Argentina Digital) fiscalizada por ENACOM",
+        puntos: [
+          "Reglamento General de Calidad de los Servicios TIC: fija parámetros obligatorios de llamadas cortadas, velocidad de banda ancha, tiempo de reparación de averías y atención. El incumplimiento genera sanciones y resarcimientos a usuarios.",
+          "Certificación y Homologación de Equipos: todo dispositivo conectado (módems, antenas, terminales) debe contar con homologación de ENACOM y cumplir normas de Radiaciones No Ionizantes (RNI).",
+          "Licencia Única Argentina Digital: habilita la prestación convergente de cualquier servicio TIC (fijo, móvil, alámbrico o inalámbrico) bajo una licencia matriz unificada.",
+          "Régimen de Precios Libres: tarifas desreguladas fijadas por Telecom libremente de acuerdo al mercado, con obligación legal de preaviso a los clientes."
+        ]
+      },
+      {
+        titulo: "Gestión Documental y Conservación Legal",
+        ley: "ISO 15489 y Art. 328 del Código Civil y Comercial de la Nación (CCyCN)",
+        puntos: [
+          "Aplicación voluntaria de la Norma ISO 15489 para asegurar autenticidad, fiabilidad, integridad y disponibilidad de registros digitales.",
+          "Obligación legal estricta de conservar libros, registros contables y comprobantes de respaldo durante un plazo mínimo de 10 años (Art. 328 CCyCN)."
+        ]
+      },
+      {
+        titulo: "Privacidad de las Telecomunicaciones y Protección de Datos",
+        ley: "Ley N° 25.326 de Protección de Datos Personales (fiscalizada por AAIP)",
+        puntos: [
+          "Secreto de las Comunicaciones: garantía constitucional (Art. 18 CN) de inviolabilidad de correspondencia y comunicaciones. Inviolabilidad salvo orden judicial expresa.",
+          "Datos de Facturación y Tráfico: registro oficial de bases de datos, estrictas medidas de seguridad informática y prohibición de cesión a terceros sin consentimiento previo expreso (Opt-in).",
+          "Protección de Secretos Comerciales: políticas de compliance corporativo y confidencialidad sobre propiedad intelectual e infraestructura estratégica."
+        ]
+      },
+      {
+        titulo: "Defensa de la Competencia y del Consumidor",
+        ley: "Ley N° 27.442 (CNDC) y Ley N° 24.240 (Defensa del Consumidor)",
+        puntos: [
+          "Escrutinio constante de la Comisión Nacional de Defensa de la Competencia (CNDC) por posición dominante en el mercado convergente.",
+          "Prohibición de prácticas atadas, ventas condicionadas no desglosadas o fijación predatoria de tarifas.",
+          "Relación comercial bajo Ley 24.240: contratos de adhesión legibles, facturación transparente, trato digno y botón de baja digital obligatorio.",
+          "Reglamento de Portabilidad Numérica: migración de líneas móviles y fijas en 24 horas hábiles sin restricciones contractuales de permanencia."
+        ]
+      },
+      {
+        titulo: "Régimen Societario y Laboral",
+        ley: "Ley General de Sociedades N° 19.550, LCT N° 20.744 y Ley 27.555",
+        puntos: [
+          "Sociedad Anónima sujeta a oferta pública en BYMA y NYSE, con fiscalización colegiada por Comisión Fiscalizadora y reportes trimestrales CNV/SEC.",
+          "Convenios Colectivos de Trabajo de alta capacidad de negociación (FOETRA, FATEL, SATSAID) que segmentan regímenes salariales y guardias operativas.",
+          "Ley de Teletrabajo N° 27.555: compensación de gastos de conectividad, entrega de herramientas ergonómicas y respeto estricto al derecho a la desconexión digital."
+        ]
+      }
+    ],
+    matrizImpositiva: [
+      { nivel: "Nacional", tributos: "Impuesto a las Ganancias, IVA, Impuesto a los Débitos y Créditos Bancarios (Cheque)", impacto: "Régimen general de grandes empresas y agentes de retención/percepción masivos." },
+      { nivel: "Específico del Sector", tributos: "Tasa de Control (0,50%) y Fondo de Servicio Universal (1%)", impacto: "Telecom debe aportar mensualmente el 1% de sus ingresos devengados por servicios TIC al Fondo de Servicio Universal y 0,50% de Tasa de Control al ENACOM (Ley 27.078)." },
+      { nivel: "Provincial", tributos: "Impuesto sobre los Ingresos Brutos (IIBB) e Impuesto de Sellos", impacto: "Complejidad extrema al facturar en las 24 jurisdicciones provinciales del país con alícuotas dispares y regímenes de retención agresivos." },
+      { nivel: "Municipal", tributos: "Tasas de Seguridad e Higiene, Publicidad y Propaganda, Derechos de Ocupación del Espacio Público", impacto: "Tributos locales aplicados sobre oficinas, 16 Data Centers, cableado aéreo, ductos subterráneos y radiobases en cientos de municipios." }
+    ],
+    procedimientosNIA250: "Indagación previa con la Gerencia de Asuntos Legales y Tributarios, lectura de actas de Directorio y Asamblea, y revisión formal de notificaciones de ENACOM, CNDC y ARCA para identificar posibles contingencias o pasivos no registrados."
+  },
+  riesgoFraudeYControl: {
+    normaFraude: "NIA 240 — Responsabilidades del Auditor en la Auditoría de Estados Financieros con Respecto al Fraude",
+    normaControl: "NIA 315 — Conocimiento del Control Interno según el Marco COSO",
+    presuncionesFraude: [
+      {
+        titulo: "1. Presunción Obligatoria de Riesgo en el Reconocimiento de Ingresos (NIIF 15)",
+        explicacion: "En Telecom, con ingresos consolidados superiores a los $8,3 billones de pesos en 2025, existe un riesgo inherente significativo en la contabilización masiva de ingresos por planes pospago, recargas prepago, venta de terminales a plazo y contratos corporativos B2B. El auditor diseña pruebas automatizadas con herramientas TAACs sobre la integridad y corte de la facturación comercial con el ERP contable."
+      },
+      {
+        titulo: "2. Presunción Obligatoria de Riesgo de Elusión de Controles por la Gerencia",
+        explicacion: "Evaluación de asientos de diario atípicos al cierre del ejercicio y revisión exhaustiva de las estimaciones contables más complejas y subjetivas donde la gerencia aplica juicio profesional:",
+        estimaciones: [
+          {
+            titulo: "Recuperabilidad de Activos de Larga Duración y Llaves de Negocio (NIC 36)",
+            detalle: "Valuación del valor recuperable mediante el modelo de flujos de fondos descontados para las UGEs (Redes Personal, Redes TMA y Adesol). Identificada como Cuestión Clave de Auditoría (KAM) por PwC en su dictamen."
+          },
+          {
+            titulo: "Combinación de Negocios TMA (NIIF 3)",
+            detalle: "Contabilización a valor razonable de los activos netos identificables (propiedad, planta y equipo, licencias de espectro 5G/4G, marcas Movistar/Tuenti y pasivos asumidos por US$ 1.245 millones), representando otra Cuestión Clave (KAM)."
+          },
+          {
+            titulo: "Provisiones por Juicios y Contingencias (NIC 37)",
+            detalle: "Estimación de probabilidad de ocurrencia de causas colectivas de consumidores, reclamos tributarios de ARCA (confiscatoriedad del ajuste por inflación) y demandas regulatorias de ENACOM."
+          }
+        ]
+      }
+    ],
+    componentesCOSO: [
+      {
+        nombre: "1. Ambiente de Control",
+        estado: "Sólido",
+        descripcion: "Gobierno corporativo formal supervisado por el Directorio, Comité de Auditoría (exigido por CNV y SEC) que evalúa la independencia del auditor externo, Comisión Fiscalizadora conforme a Ley 19.550 y Código de Ética obligatorio."
+      },
+      {
+        nombre: "2. Evaluación de Riesgos",
+        estado: "Sistematizado",
+        descripcion: "Monitoreo continuo de riesgos financieros (devaluación, tasas, liquidez), regulatorios y ciberseguridad a cargo de la Gerencia de Administración de Riesgos."
+      },
+      {
+        nombre: "3. Sistemas de Información y Comunicación",
+        estado: "Masivo / Complejo",
+        descripcion: "Sistemas centrales ERP (SAP S/4HANA) integrados con plataformas automáticas de facturación, medición de consumo (billing), cobranzas masivas e interfaces comerciales."
+      },
+      {
+        nombre: "4. Actividades de Control",
+        estado: "Automatizado / Preventivo",
+        descripcion: "Segregación estricta de funciones en compras, desembolsos y nómina. Controles automáticos de aplicación (ITAC) en transacciones masivas de facturación."
+      },
+      {
+        nombre: "5. Monitoreo y Seguimiento",
+        estado: "Supervisado (SOX 404)",
+        descripcion: "Departamento de Auditoría Interna independiente y certificación anual bajo la Sección 404 de la Ley Sarbanes-Oxley (SOX) sobre la efectividad del control interno financiero (ICFR) por cotizar en NYSE."
+      }
+    ]
   }
 };
 

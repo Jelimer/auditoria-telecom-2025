@@ -13,12 +13,31 @@ import {
   Globe,
   ShieldAlert,
   Layers,
-  Award
+  Award,
+  Radio,
+  Database,
+  Briefcase,
+  DollarSign,
+  ShieldCheck,
+  TrendingUp,
+  AlertTriangle,
+  FileText,
+  CheckCircle2,
+  ArrowRight,
+  Check,
+  BookOpen,
+  Lock,
+  Landmark,
+  HardDrive,
+  Sliders
 } from 'lucide-react';
 import { conocimientoEnte } from '../data/etapa1Data';
 
-export default function Etapa1EnteView() {
-  const [selectedVertical, setSelectedVertical] = useState(conocimientoEnte.organigrama.verticales[1]); // B2B Personal Tech por defecto
+export default function Etapa1EnteView({ onNavigate }) {
+  const [selectedVertical, setSelectedVertical] = useState(
+    conocimientoEnte.organigrama?.verticales?.[1] || null
+  ); // B2B Personal Tech por defecto
+  const [activeEjeLegalIndex, setActiveEjeLegalIndex] = useState(0);
 
   const colorMap = {
     blue: {
@@ -53,20 +72,355 @@ export default function Etapa1EnteView() {
     }
   };
 
+  const reunionColorMap = {
+    teal: 'border-teal-200 bg-teal-50/40 text-teal-800',
+    blue: 'border-blue-200 bg-blue-50/40 text-blue-800',
+    emerald: 'border-emerald-200 bg-emerald-50/40 text-emerald-800',
+    indigo: 'border-indigo-200 bg-indigo-50/40 text-indigo-800',
+    purple: 'border-purple-200 bg-purple-50/40 text-purple-800',
+    rose: 'border-rose-200 bg-rose-50/40 text-rose-800',
+    amber: 'border-amber-200 bg-amber-50/40 text-amber-800'
+  };
+
+  const getReunionIcon = (icono) => {
+    switch (icono) {
+      case 'ShieldCheck': return <ShieldCheck className="w-5 h-5 text-teal-700" />;
+      case 'Briefcase': return <Briefcase className="w-5 h-5 text-blue-700" />;
+      case 'DollarSign': return <DollarSign className="w-5 h-5 text-emerald-700" />;
+      case 'Server': return <Server className="w-5 h-5 text-indigo-700" />;
+      case 'Scale': return <Scale className="w-5 h-5 text-purple-700" />;
+      case 'ShieldAlert': return <ShieldAlert className="w-5 h-5 text-rose-700" />;
+      case 'TrendingUp': return <TrendingUp className="w-5 h-5 text-amber-700" />;
+      default: return <Users className="w-5 h-5 text-slate-700" />;
+    }
+  };
+
   return (
-    <div className="space-y-6">
-      {/* Encabezado de Etapa 1.1 */}
+    <div className="space-y-8">
+      {/* ========================================================= */}
+      {/* 1.1.A. COMPLEJIDAD DEL ENTORNO DE TI (NIA 315)             */}
+      {/* ========================================================= */}
+      <div id="sec-1a-ti" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-indigo-600 text-white">
+                NIA 315
+              </span>
+              <span className="text-xs font-extrabold uppercase tracking-wide text-indigo-900 bg-indigo-50 px-2.5 py-0.5 rounded-md border border-indigo-200">
+                Complejidad del Entorno de Tecnología de la Información
+              </span>
+            </div>
+            <h2 className="text-xl font-extrabold text-slate-900 mt-2">
+              Telecom Argentina S.A. — Ambiente de TI Masivo y Enfoque de Auditoría de Sistemas
+            </h2>
+            <p className="text-xs text-slate-500 mt-0.5">
+              {conocimientoEnte.ambienteTI?.necesidadEspecialistas ||
+                'El entorno informático se clasifica como de alta complejidad y volumen masivo de datos, exigiendo la participación de especialistas en auditoría de sistemas.'}
+            </p>
+          </div>
+          <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-slate-900 text-white shadow-2xs">
+            Clasificación: ALTA COMPLEJIDAD
+          </span>
+        </div>
+
+        {/* Tarjetas de Métricas de Volumen Masivo de Accesos y Datos */}
+        <div className="mt-5">
+          <div className="text-xs font-extrabold text-slate-800 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+            <Radio className="w-4 h-4 text-indigo-600" />
+            Volumen de Accesos y Datos Masivos Administrados a Nivel Nacional
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {conocimientoEnte.ambienteTI?.metricasVolumen?.map((m, idx) => (
+              <div key={idx} className="p-4 rounded-xl border border-slate-200 bg-slate-50/70 flex flex-col justify-between hover:border-indigo-300 transition-all">
+                <div>
+                  <span className="text-[11px] font-extrabold uppercase text-slate-500 tracking-wider">
+                    {m.etiqueta}
+                  </span>
+                  <p className="text-2xl font-extrabold text-indigo-950 font-mono mt-1">
+                    {m.cifra}
+                  </p>
+                </div>
+                <p className="text-xs text-slate-600 mt-2 leading-relaxed border-t border-slate-200/80 pt-2">
+                  {m.detalle}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Arquitectura de Sistemas y Desafío de Integración TMA */}
+        <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <div className="lg:col-span-7 rounded-xl border border-slate-200 p-5 bg-white space-y-3">
+            <div className="text-xs font-extrabold text-slate-800 uppercase tracking-wide flex items-center gap-2 pb-2 border-b border-slate-100">
+              <Database className="w-4 h-4 text-indigo-600" />
+              Arquitectura de Sistemas Centrales y Plataformas Digitales
+            </div>
+            <div className="space-y-2.5">
+              {conocimientoEnte.ambienteTI?.arquitecturaSistemas?.map((sist, i) => (
+                <div key={i} className="p-3 rounded-lg border border-slate-100 bg-slate-50/60 hover:bg-slate-50 transition-colors">
+                  <h4 className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-indigo-600 shrink-0" />
+                    {sist.nombre}
+                  </h4>
+                  <p className="text-xs text-slate-600 mt-1 pl-5 leading-relaxed">
+                    {sist.detalle}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Enfoque de Auditoría de TI: ITGC vs ITAC */}
+          <div className="lg:col-span-5 rounded-xl border border-indigo-200 bg-indigo-50/30 p-5 space-y-4 flex flex-col justify-between">
+            <div>
+              <div className="text-xs font-extrabold text-indigo-950 uppercase tracking-wide flex items-center gap-2 pb-2 border-b border-indigo-200/70">
+                <Sliders className="w-4 h-4 text-indigo-700" />
+                Enfoque de Auditoría de TI (Especialistas de Sistemas)
+              </div>
+              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
+                Debido a la magnitud transaccional, el examen sobre la información contable se apoya en dos grandes categorías de controles informáticos:
+              </p>
+
+              <div className="mt-4 space-y-3">
+                <div className="p-3 rounded-xl bg-white border border-indigo-200 shadow-2xs">
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="text-xs font-extrabold text-indigo-900">
+                      {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itgc?.nombre}
+                    </span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-extrabold bg-indigo-100 text-indigo-800">
+                      {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itgc?.sigla}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                    {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itgc?.alcance}
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-white border border-teal-200 shadow-2xs">
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="text-xs font-extrabold text-teal-900">
+                      {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itac?.nombre}
+                    </span>
+                    <span className="px-2 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 text-teal-800">
+                      {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itac?.sigla}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                    {conocimientoEnte.ambienteTI?.enfoqueAuditoriaTI?.itac?.alcance}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-3 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-900 flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <span>
+                <strong>Impacto en la Planificación:</strong> Si los controles automáticos de aplicación (ITAC) entre las plataformas de tráfico masivo y SAP fallan, se incrementa el riesgo de corte de ventas y sobre/subestimación en el reconocimiento de ingresos (NIIF 15).
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================= */}
+      {/* 1.1.B. REUNIONES CON MIEMBROS CLAVES DEL CLIENTE           */}
+      {/* ========================================================= */}
+      <div id="sec-1a-reuniones" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-5">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-teal-600 text-white">
+                GOBIERNO CORPORATIVO
+              </span>
+              <span className="text-xs font-extrabold uppercase tracking-wide text-teal-900 bg-teal-50 px-2.5 py-0.5 rounded-md border border-teal-200">
+                Coordinación de la Planeación — Entrevistas Formales
+              </span>
+            </div>
+            <h3 className="text-lg font-extrabold text-slate-900 mt-2">
+              Reuniones con Miembros Claves del Cliente e Indagaciones Ejecutivas
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              La coordinación de la auditoría externa exige un cronograma formal de reuniones con los niveles ejecutivos e independientes de la entidad:
+            </p>
+          </div>
+          <span className="text-xs text-slate-500 font-medium">
+            7 Estamentos Directivos Entrevistados
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {conocimientoEnte.reunionesClave?.map((r) => (
+            <div
+              key={r.id}
+              className={`p-4 rounded-xl border flex flex-col justify-between transition-all hover:shadow-xs ${reunionColorMap[r.color] || 'border-slate-200 bg-slate-50'}`}
+            >
+              <div>
+                <div className="flex items-center gap-2.5 mb-2">
+                  <div className="p-2 rounded-lg bg-white border border-slate-200/80 shadow-2xs">
+                    {getReunionIcon(r.icono)}
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-extrabold text-slate-900 leading-tight">
+                      {r.estamento}
+                    </h4>
+                    <span className="text-[10px] font-bold text-slate-500 block mt-0.5">
+                      {r.rol}
+                    </span>
+                  </div>
+                </div>
+                <p className="text-xs text-slate-700 leading-relaxed mt-2 pt-2 border-t border-slate-200/70">
+                  {r.temasTratados}
+                </p>
+              </div>
+              <div className="mt-3 pt-2 text-[10px] font-extrabold text-teal-900 uppercase tracking-wider flex items-center justify-between">
+                <span>Indagación Clave</span>
+                <span>✓ Relevado</span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ========================================================= */}
+      {/* 1.1.C. MARCO LEGAL, REGULATORIO Y MATRIZ IMPOSITIVA (NIA 250) */}
+      {/* ========================================================= */}
+      <div id="sec-1a-legal" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-5">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-purple-700 text-white">
+                NIA 250
+              </span>
+              <span className="text-xs font-extrabold uppercase tracking-wide text-purple-900 bg-purple-50 px-2.5 py-0.5 rounded-md border border-purple-200">
+                Leyes y Regulaciones en la Auditoría de Estados Financieros
+              </span>
+            </div>
+            <h3 className="text-lg font-extrabold text-slate-900 mt-2">
+              Marco Regulatorio de Telecomunicaciones, Privacidad, Competencia y Régimen Impositivo
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              {conocimientoEnte.marcoRegulatorio?.resumen ||
+                'Comprensión del marco legal y regulatorio que afecta de manera directa las cifras contables y las contingencias.'}
+            </p>
+          </div>
+          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
+            Sector Convergente TIC
+          </span>
+        </div>
+
+        {/* Ejes Regulatorios: Selector y Detalle */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          {/* Menú de los 5 Ejes */}
+          <div className="lg:col-span-4 space-y-2">
+            {conocimientoEnte.marcoRegulatorio?.ejes?.map((eje, idx) => {
+              const isSelected = activeEjeLegalIndex === idx;
+              return (
+                <div
+                  key={idx}
+                  onClick={() => setActiveEjeLegalIndex(idx)}
+                  className={`p-3.5 rounded-xl border text-left cursor-pointer transition-all ${
+                    isSelected
+                      ? 'border-purple-600 bg-purple-50/80 ring-2 ring-purple-500 shadow-2xs'
+                      : 'border-slate-200 bg-slate-50/60 hover:bg-slate-100/70'
+                  }`}
+                >
+                  <h4 className="text-xs font-extrabold text-slate-900">
+                    {eje.titulo}
+                  </h4>
+                  <p className="text-[11px] font-semibold text-purple-800 mt-0.5">
+                    {eje.ley}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Panel con los puntos clave del Eje Seleccionado */}
+          <div className="lg:col-span-8 rounded-xl border border-slate-200 p-5 bg-white space-y-3">
+            {conocimientoEnte.marcoRegulatorio?.ejes?.[activeEjeLegalIndex] && (
+              <>
+                <div className="pb-2 border-b border-slate-100 flex items-center justify-between gap-2">
+                  <div>
+                    <h4 className="text-sm font-extrabold text-slate-900">
+                      {conocimientoEnte.marcoRegulatorio.ejes[activeEjeLegalIndex].titulo}
+                    </h4>
+                    <span className="text-xs font-bold text-purple-700">
+                      {conocimientoEnte.marcoRegulatorio.ejes[activeEjeLegalIndex].ley}
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-extrabold px-2 py-0.5 rounded bg-purple-100 text-purple-800">
+                    Eje {activeEjeLegalIndex + 1} de {conocimientoEnte.marcoRegulatorio.ejes.length}
+                  </span>
+                </div>
+
+                <ul className="space-y-2 mt-3 text-xs text-slate-700 leading-relaxed">
+                  {conocimientoEnte.marcoRegulatorio.ejes[activeEjeLegalIndex].puntos.map((pt, pIdx) => (
+                    <li key={pIdx} className="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80 flex items-start gap-2">
+                      <span className="font-extrabold text-purple-700 shrink-0 mt-0.5">•</span>
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* Tabla Matriz Impositiva Completa (4 Niveles) */}
+        <div className="mt-6">
+          <div className="text-xs font-extrabold text-slate-900 uppercase tracking-wide mb-2.5 flex items-center gap-2">
+            <Landmark className="w-4 h-4 text-purple-700" />
+            Matriz Tributaria Aplicada a Telecom Argentina S.A.
+          </div>
+          <div className="overflow-x-auto rounded-xl border border-slate-200">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="bg-slate-100 text-slate-700 font-bold uppercase border-b border-slate-200">
+                  <th className="py-2.5 px-4 w-40">Nivel Tributario</th>
+                  <th className="py-2.5 px-4 w-72">Impuestos / Tasas Aplicables</th>
+                  <th className="py-2.5 px-4">Impacto Operativo y Contable en Telecom</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {conocimientoEnte.marcoRegulatorio?.matrizImpositiva?.map((tax, i) => (
+                  <tr key={i} className="hover:bg-slate-50">
+                    <td className="py-3 px-4 font-extrabold text-slate-900">
+                      <span className="px-2 py-1 rounded bg-slate-100 border border-slate-200 font-bold text-[11px]">
+                        {tax.nivel}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 font-bold text-slate-800">
+                      {tax.tributos}
+                    </td>
+                    <td className="py-3 px-4 text-slate-600 leading-relaxed">
+                      {tax.impacto}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="text-[11px] text-slate-500 mt-2 italic">
+            <strong>Procedimientos de Planeación (NIA 250):</strong> {conocimientoEnte.marcoRegulatorio?.procedimientosNIA250}
+          </p>
+        </div>
+      </div>
+
+      {/* ========================================================= */}
+      {/* 1.1.D. NEGOCIO, MISIÓN Y VISIÓN (AE2)                     */}
+      {/* ========================================================= */}
       <div id="sec-1a-negocio" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
         <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100">
           <div>
             <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-teal-600 text-white">
-              ETAPA 1.1 — PLANIFICACIÓN PRELIMINAR (CONOCIMIENTO DEL ENTE - AE2)
+              CONOCIMIENTO DEL NEGOCIO (AE2)
             </span>
             <h2 className="text-xl font-extrabold text-slate-900 mt-2">
-              Telecom Argentina S.A. — Comprensión del Negocio, Organización y Entorno
+              Propósito Institucional, Identidad Tech-Co y Capital Humano
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              Según Carlos Slosse y RT 37, el proceso de auditoría se inicia con el conocimiento integral del ente, su estructura de gobierno corporativo, sus sistemas y los factores macro y microeconómicos que originan el Riesgo Inherente.
+              Según Carlos Slosse y RT 37, el proceso de auditoría requiere comprender el propósito estratégico del ente y el perfil técnico de su dotación.
             </p>
           </div>
         </div>
@@ -110,7 +464,9 @@ export default function Etapa1EnteView() {
         </div>
       </div>
 
-      {/* ORGANIGRAMA INTERACTIVO DE TELECOM ARGENTINA S.A. (Fiel a la imagen subida) */}
+      {/* ========================================================= */}
+      {/* 1.1.E. ORGANIGRAMA INTERACTIVO DE TELECOM ARGENTINA S.A.  */}
+      {/* ========================================================= */}
       <div id="sec-1a-organigrama" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
         <div className="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-100 mb-6">
           <div>
@@ -152,7 +508,7 @@ export default function Etapa1EnteView() {
 
         {/* Conector horizontal y las 5 Direcciones Verticales */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5 mt-1">
-          {conocimientoEnte.organigrama.verticales.map((vert) => {
+          {conocimientoEnte.organigrama?.verticales?.map((vert) => {
             const st = colorMap[vert.color] || colorMap.blue;
             const isSelected = selectedVertical?.id === vert.id;
             return (
@@ -207,7 +563,9 @@ export default function Etapa1EnteView() {
         )}
       </div>
 
-      {/* Oferta Comercial B2C y B2B */}
+      {/* ========================================================= */}
+      {/* 1.1.F. PRODUCTOS B2C Y B2B                                 */}
+      {/* ========================================================= */}
       <div id="sec-1a-productos" className="grid grid-cols-1 lg:grid-cols-2 gap-6 scroll-mt-20">
         <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
           <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-100">
@@ -217,7 +575,7 @@ export default function Etapa1EnteView() {
             </h3>
           </div>
           <div className="space-y-3">
-            {conocimientoEnte.productos.b2c.map((prod, idx) => (
+            {conocimientoEnte.productos?.b2c?.map((prod, idx) => (
               <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-200/80">
                 <h4 className="text-xs font-bold text-blue-900">{prod.titulo}</h4>
                 <p className="text-xs text-slate-600 mt-1 leading-relaxed">{prod.detalle}</p>
@@ -234,7 +592,7 @@ export default function Etapa1EnteView() {
             </h3>
           </div>
           <div className="space-y-2.5">
-            {conocimientoEnte.productos.b2b.map((prod, idx) => (
+            {conocimientoEnte.productos?.b2b?.map((prod, idx) => (
               <div key={idx} className="p-3 rounded-xl bg-emerald-50/30 border border-emerald-200/70">
                 <h4 className="text-xs font-bold text-emerald-950">{prod.titulo}</h4>
                 <p className="text-xs text-slate-600 mt-1 leading-relaxed">{prod.detalle}</p>
@@ -244,38 +602,40 @@ export default function Etapa1EnteView() {
         </div>
       </div>
 
-      {/* Caracterización del Proceso de Negocio Seleccionado y Misión del Proceso */}
+      {/* ========================================================= */}
+      {/* 1.1.G. PROCESO B2B PERSONAL TECH Y MISIÓN DEL PROCESO      */}
+      {/* ========================================================= */}
       <div id="sec-1a-proceso" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
         <h3 className="text-base font-extrabold text-slate-900 pb-3 border-b border-slate-100">
-          Proceso de Negocio Seleccionado: {conocimientoEnte.procesoNegocio.procesoSeleccionado.nombre}
+          Proceso de Negocio Seleccionado: {conocimientoEnte.procesoNegocio?.procesoSeleccionado?.nombre}
         </h3>
         <p className="text-xs text-slate-600 mt-2">
-          {conocimientoEnte.procesoNegocio.procesoSeleccionado.objetivo}
+          {conocimientoEnte.procesoNegocio?.procesoSeleccionado?.objetivo}
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5 mt-4">
           <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
             <span className="text-[11px] font-extrabold uppercase text-teal-700">Cliente Verdadero</span>
             <p className="text-xs text-slate-700 mt-1 leading-relaxed">
-              {conocimientoEnte.procesoNegocio.procesoSeleccionado.clienteVerdadero}
+              {conocimientoEnte.procesoNegocio?.procesoSeleccionado?.clienteVerdadero}
             </p>
           </div>
           <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
             <span className="text-[11px] font-extrabold uppercase text-teal-700">Proveedores Clave</span>
             <p className="text-xs text-slate-700 mt-1 leading-relaxed">
-              {conocimientoEnte.procesoNegocio.procesoSeleccionado.proveedores}
+              {conocimientoEnte.procesoNegocio?.procesoSeleccionado?.proveedores}
             </p>
           </div>
           <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
             <span className="text-[11px] font-extrabold uppercase text-teal-700">Solicitud (Disparador)</span>
             <p className="text-xs text-slate-700 mt-1 leading-relaxed">
-              {conocimientoEnte.procesoNegocio.procesoSeleccionado.solicitud}
+              {conocimientoEnte.procesoNegocio?.procesoSeleccionado?.solicitud}
             </p>
           </div>
           <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
             <span className="text-[11px] font-extrabold uppercase text-teal-700">Declaración (Compromiso)</span>
             <p className="text-xs text-slate-700 mt-1 leading-relaxed">
-              {conocimientoEnte.procesoNegocio.procesoSeleccionado.declaracion}
+              {conocimientoEnte.procesoNegocio?.procesoSeleccionado?.declaracion}
             </p>
           </div>
         </div>
@@ -291,7 +651,7 @@ export default function Etapa1EnteView() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200">
-              {conocimientoEnte.procesoNegocio.misionProceso.map((row, i) => (
+              {conocimientoEnte.procesoNegocio?.misionProceso?.map((row, i) => (
                 <tr key={i} className="hover:bg-slate-50">
                   <td className="py-2.5 px-4 font-bold text-slate-900">{row.ambito}</td>
                   <td className="py-2.5 px-4 text-slate-600">{row.situacionActual}</td>
@@ -303,7 +663,9 @@ export default function Etapa1EnteView() {
         </div>
       </div>
 
-      {/* Diagnóstico del Proceso: Macroentorno, Microentorno (Porter) y Competidores */}
+      {/* ========================================================= */}
+      {/* 1.1.H. DIAGNÓSTICO: MACRO (PESTEL) Y PORTER               */}
+      {/* ========================================================= */}
       <div id="sec-1a-entorno" className="grid grid-cols-1 lg:grid-cols-12 gap-6 scroll-mt-20">
         {/* Macroentorno */}
         <div className="lg:col-span-5 bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
@@ -311,7 +673,7 @@ export default function Etapa1EnteView() {
             Análisis del Macroentorno (PESTEL)
           </h3>
           <div className="space-y-3">
-            {conocimientoEnte.diagnosticoEntorno.macroentorno.map((mac, i) => (
+            {conocimientoEnte.diagnosticoEntorno?.macroentorno?.map((mac, i) => (
               <div key={i} className="p-3 rounded-xl bg-slate-50 border border-slate-200">
                 <span className="text-xs font-extrabold text-teal-800 uppercase">{mac.factor}</span>
                 <ul className="mt-1 space-y-1 text-xs text-slate-600 list-disc pl-4">
@@ -339,7 +701,7 @@ export default function Etapa1EnteView() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200">
-                {conocimientoEnte.diagnosticoEntorno.microentorno.map((f, i) => (
+                {conocimientoEnte.diagnosticoEntorno?.microentorno?.map((f, i) => (
                   <tr key={i} className="hover:bg-slate-50">
                     <td className="py-3 px-3 font-bold text-slate-800">{f.fuerza}</td>
                     <td className="py-3 px-3 text-center">
@@ -367,7 +729,7 @@ export default function Etapa1EnteView() {
             Análisis del Medio Interno y Principales Competidores Monitoreados
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {conocimientoEnte.diagnosticoEntorno.competidores.map((comp, i) => (
+            {conocimientoEnte.diagnosticoEntorno?.competidores?.map((comp, i) => (
               <div key={i} className="p-3 rounded-xl border border-slate-200 bg-slate-50/70">
                 <h5 className="text-xs font-extrabold text-slate-900 border-b border-slate-200 pb-1.5 mb-2">
                   {comp.nombre}
@@ -383,13 +745,110 @@ export default function Etapa1EnteView() {
         </div>
       </div>
 
-      {/* GUÍA DE LECTURA Y EXPOSICIÓN ORAL — CIERRE DEL PUNTO 1A (PLANIFICACIÓN PRELIMINAR: CONOCIMIENTO DEL ENTE) */}
+      {/* ========================================================= */}
+      {/* 1.1.I. RIESGO DE FRAUDE (NIA 240) Y MARCO COSO (NIA 315)   */}
+      {/* ========================================================= */}
+      <div id="sec-1a-fraude" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-5">
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-red-600 text-white">
+                NIA 240 / NIA 315
+              </span>
+              <span className="text-xs font-extrabold uppercase tracking-wide text-red-900 bg-red-50 px-2.5 py-0.5 rounded-md border border-red-200">
+                Valoración del Riesgo de Fraude &amp; Componentes COSO
+              </span>
+            </div>
+            <h3 className="text-lg font-extrabold text-slate-900 mt-2">
+              Presunciones Obligatorias de Fraude y Componentes del Control Interno
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5">
+              La NIA 240 exige mantener escepticismo profesional y asumir dos presunciones obligatorias de riesgo de fraude durante la planificación:
+            </p>
+          </div>
+          {onNavigate && (
+            <button
+              onClick={() => onNavigate('etapa1-cci')}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal-700 text-white text-xs font-bold hover:bg-teal-800 transition-colors cursor-pointer"
+            >
+              Ir a Cuestionarios CCI (Etapa 1B) <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+
+        {/* 2 Presunciones Obligatorias de Fraude */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="p-4 rounded-xl border border-red-200 bg-red-50/40 space-y-2.5">
+            <div className="flex items-center gap-2 text-red-900 font-extrabold text-xs uppercase">
+              <AlertTriangle className="w-4 h-4 text-red-600" />
+              {conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[0]?.titulo}
+            </div>
+            <p className="text-xs text-slate-700 leading-relaxed">
+              {conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[0]?.explicacion}
+            </p>
+          </div>
+
+          <div className="p-4 rounded-xl border border-amber-200 bg-amber-50/40 space-y-2.5">
+            <div className="flex items-center gap-2 text-amber-950 font-extrabold text-xs uppercase">
+              <ShieldAlert className="w-4 h-4 text-amber-600" />
+              {conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[1]?.titulo}
+            </div>
+            <p className="text-xs text-slate-700 leading-relaxed">
+              {conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[1]?.explicacion}
+            </p>
+            <div className="space-y-1.5 pt-1">
+              {conocimientoEnte.riesgoFraudeYControl?.presuncionesFraude?.[1]?.estimaciones?.map((est, eIdx) => (
+                <div key={eIdx} className="p-2 rounded-lg bg-white/90 border border-amber-200/80 text-[11px]">
+                  <strong className="text-amber-950 block">{est.titulo}</strong>
+                  <span className="text-slate-600">{est.detalle}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Los 5 Componentes del Control Interno (COSO) */}
+        <div className="mt-6 pt-5 border-t border-slate-100">
+          <div className="text-xs font-extrabold text-slate-900 uppercase tracking-wide mb-3 flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <Layers className="w-4 h-4 text-teal-700" />
+              Los 5 Componentes del Control Interno (Marco COSO / NIA 315)
+            </span>
+            <span className="text-[11px] text-slate-500 font-medium">
+              Base para la aplicación de los 5 Cuestionarios CCI
+            </span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            {conocimientoEnte.riesgoFraudeYControl?.componentesCOSO?.map((comp, cIdx) => (
+              <div key={cIdx} className="p-3 rounded-xl border border-slate-200 bg-slate-50/60 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between gap-1 mb-1">
+                    <span className="text-xs font-extrabold text-slate-900">
+                      {comp.nombre}
+                    </span>
+                  </div>
+                  <span className="inline-block px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 text-teal-800 mb-1.5">
+                    {comp.estado}
+                  </span>
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    {comp.descripcion}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================= */}
+      {/* GUÍA DE LECTURA Y EXPOSICIÓN ORAL (CIERRE DE LA ETAPA 1.1) */}
+      {/* ========================================================= */}
       <div className="bg-gradient-to-r from-slate-900 via-teal-950 to-slate-900 rounded-2xl border border-teal-500/40 p-6 text-white shadow-lg space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-white/10">
           <div className="flex items-center gap-2">
             <Compass className="w-5 h-5 text-lime-400 shrink-0" />
             <span className="text-xs font-extrabold uppercase tracking-wider text-lime-400">
-              Guía de Lectura y Exposición Oral — Etapa 1 (Parte Preliminar: Conocimiento del Ente)
+              Guía de Lectura y Exposición Oral — Etapa 1.1: Conocimiento del Ente, Estrategia y Riesgos
             </span>
           </div>
           <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-teal-200 border border-white/15">
@@ -398,7 +857,7 @@ export default function Etapa1EnteView() {
         </div>
 
         <h3 className="text-base sm:text-lg font-extrabold text-white">
-          ¿Qué empezamos haciendo acá, qué se hace y por qué? (Para explicar con tus palabras)
+          ¿Cómo explicar y defender esta etapa ante la cátedra con tus palabras?
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs leading-relaxed">
@@ -407,7 +866,7 @@ export default function Etapa1EnteView() {
               1. ¿Qué se empieza haciendo?
             </strong>
             <p className="text-slate-200">
-              Según <strong>Carlos Slosse</strong>, una auditoría nunca empieza mirando facturas ni sumando recibos: empieza <strong>«de arriba hacia abajo» (Top-Down)</strong> conociendo a fondo quién es el cliente. En este primer paso relevamos qué hace <strong>Telecom Argentina S.A.</strong> (servicios convergentes móviles 4G/5G con <em>Personal</em>, fibra e internet, TV y streaming con <em>Flow</em>, soluciones corporativas <em>B2B Personal Tech</em> y la reciente compra de <em>Telefónica Móviles Argentina - TMA</em> en febrero de 2025), cómo está organizada su cúpula directiva y qué sistemas informáticos utiliza (el ERP <strong>SAP S/4HANA</strong> conectado con facturadores comerciales heredados).
+              Según <strong>Carlos Slosse</strong>, una auditoría nunca empieza mirando facturas ni sumando recibos: empieza <strong>«de arriba hacia abajo» (Top-Down)</strong> conociendo a fondo quién es el cliente. En este primer paso relevamos su <strong>ambiente tecnológico masivo (NIA 315)</strong> con más de 41,6 millones de líneas móviles y ERP SAP, planificamos las <strong>entrevistas con los 7 estamentos directivos</strong> (Comité, CEO, CFO, CISO), y relevamos su <strong>marco regulatorio (NIA 250)</strong> ante ENACOM, CNV, SEC y ARCA.
             </p>
           </div>
 
@@ -416,7 +875,7 @@ export default function Etapa1EnteView() {
               2. ¿Qué se hace concretamente?
             </strong>
             <p className="text-slate-200">
-              Analizamos los <strong>factores internos y externos</strong> que rodean al negocio: el macroentorno económico argentino (inflación que exige aplicar <strong>NIC 29</strong>, devaluación del peso que impacta en su deuda en dólares e importación de equipos de red), las regulaciones del <strong>ENACOM, CNV y SEC</strong>, las 5 fuerzas competitivas (competencia con Claro, Starlink y plataformas OTT) y las vulnerabilidades físicas de sus activos (como el robo de cables y vandalismo en nodos en la vía pública).
+              Analizamos la estructura de gobierno corporativo (organigrama formal de 5 direcciones), el porfolio comercial B2C (*Personal* y *Flow*) y B2B (*Personal Tech*), el impacto patrimonial de la compra de <strong>Telefónica Móviles Argentina (TMA)</strong> en febrero de 2025 por US$ 1.245M, las 5 fuerzas de Porter y las <strong>presunciones obligatorias de fraude (NIA 240)</strong> en ingresos ($8,3 billones) y estimaciones de la gerencia (test de deterioro NIC 36 y PPA NIIF 3).
             </p>
           </div>
 
@@ -425,10 +884,22 @@ export default function Etapa1EnteView() {
               3. ¿Por qué y para qué lo hacemos?
             </strong>
             <p className="text-slate-200">
-              Lo hacemos para identificar el <strong>Riesgo Inherente (RI)</strong>, es decir, el riesgo de que los Estados Contables tengan errores significativos por la propia naturaleza compleja del negocio de las telecomunicaciones, <em>antes</em> de mirar siquiera si la empresa tiene buenos controles internos. Con este diagnóstico de negocio ya sabemos dónde están los peligros naturales de Telecom y pasamos al siguiente escalón de la Planificación Preliminar: <strong>evaluar su Control Interno (1B)</strong> y hacer la <strong>Revisión Analítica Preliminar del Balance (1C)</strong>.
+              Lo hacemos para identificar el <strong>Riesgo Inherente (RI)</strong>, es decir, el riesgo de que los Estados Contables contengan errores significativos por la propia complejidad del negocio de las telecomunicaciones y su tecnología masiva, <em>antes</em> de medir la efectividad de sus controles. Con este mapa integral, el siguiente paso de la Planificación Preliminar es <strong>evaluar el Control Interno (1B) mediante los 5 Cuestionarios CCI</strong> y realizar la <strong>Revisión Analítica Preliminar (1C)</strong>.
             </p>
           </div>
         </div>
+
+        {onNavigate && (
+          <div className="pt-2 flex justify-end">
+            <button
+              onClick={() => onNavigate('etapa1-cci')}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-lime-400 text-slate-950 font-extrabold text-xs hover:bg-lime-300 transition-colors cursor-pointer shadow-md"
+            >
+              <span>Pasar a Etapa 1B: Cuestionarios de Control Interno (CCI)</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

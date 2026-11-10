@@ -69,11 +69,15 @@ const NAV_ITEMS = [
     etapaTag: 'Etapa 1: Planificación',
     icon: Building2,
     subItems: [
-      { id: 'sec-1a-negocio', label: '1.1.A. Negocio, Misión y Visión', type: 'scroll' },
-      { id: 'sec-1a-organigrama', label: '1.1.B. Organigrama Interactivo', type: 'scroll' },
-      { id: 'sec-1a-productos', label: '1.1.C. Productos B2C y B2B', type: 'scroll' },
-      { id: 'sec-1a-proceso', label: '1.1.D. Proceso B2B Personal Tech', type: 'scroll' },
-      { id: 'sec-1a-entorno', label: '1.1.E. Macro (PESTEL) y Porter', type: 'scroll' }
+      { id: 'sec-1a-ti', label: '1.1.A. Entorno TI Masivo (NIA 315)', type: 'scroll' },
+      { id: 'sec-1a-reuniones', label: '1.1.B. Agenda Reuniones Clave', type: 'scroll' },
+      { id: 'sec-1a-legal', label: '1.1.C. Marco Legal y Fiscal (NIA 250)', type: 'scroll' },
+      { id: 'sec-1a-negocio', label: '1.1.D. Negocio, Misión y Visión', type: 'scroll' },
+      { id: 'sec-1a-organigrama', label: '1.1.E. Organigrama Interactivo', type: 'scroll' },
+      { id: 'sec-1a-productos', label: '1.1.F. Productos B2C y B2B', type: 'scroll' },
+      { id: 'sec-1a-proceso', label: '1.1.G. Proceso B2B Personal Tech', type: 'scroll' },
+      { id: 'sec-1a-entorno', label: '1.1.H. Macro (PESTEL) y Porter', type: 'scroll' },
+      { id: 'sec-1a-fraude', label: '1.1.I. Riesgo Fraude (NIA 240) & COSO', type: 'scroll' }
     ]
   },
   {
@@ -626,7 +630,7 @@ export default function App() {
             />
           )}
 
-          {activeView === 'etapa1-ente' && <Etapa1EnteView />}
+          {activeView === 'etapa1-ente' && <Etapa1EnteView onNavigate={handleNavigate} />}
 
           {activeView === 'etapa1-cci' && (
             <Etapa1ControlInternoView
