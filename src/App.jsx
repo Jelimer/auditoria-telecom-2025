@@ -205,6 +205,41 @@ export default function App() {
     }
   }, [selectedBrandId]);
 
+  // Zoom de lectura configurable (proporcional, accesible y persistente)
+  const ZOOM_LEVELS = [90, 100, 105, 110, 120, 130];
+  const [fontZoom, setFontZoom] = useState(() => {
+    try {
+      const saved = localStorage.getItem('audiia_font_zoom');
+      return saved ? Number(saved) : 100;
+    } catch {
+      return 100;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('audiia_font_zoom', fontZoom.toString());
+    } catch {
+      // ignore
+    }
+  }, [fontZoom]);
+
+  const handleZoomIn = () => {
+    const idx = ZOOM_LEVELS.indexOf(fontZoom);
+    if (idx < ZOOM_LEVELS.length - 1) setFontZoom(ZOOM_LEVELS[idx + 1]);
+    else if (idx === -1) setFontZoom(110);
+  };
+
+  const handleZoomOut = () => {
+    const idx = ZOOM_LEVELS.indexOf(fontZoom);
+    if (idx > 0) setFontZoom(ZOOM_LEVELS[idx - 1]);
+    else if (idx === -1) setFontZoom(90);
+  };
+
+  const handleResetZoom = () => {
+    setFontZoom(100);
+  };
+
   // Estado interactivo de los 5 Cuestionarios de Control Interno
   const [cuestionariosState, setCuestionariosState] = useState(() => {
     try {
@@ -352,6 +387,52 @@ export default function App() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
+
+  // ScrollSpy: sincroniza dinámicamente el sub-ítem activo del menú lateral con la posición del scroll en pantalla
+  useEffect(() => {
+    let scrollTimer;
+    const handleScroll = () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        const currentItem = NAV_ITEMS.find((item) => item.id === activeView);
+        if (!currentItem || !currentItem.subItems) return;
+        const scrollSubs = currentItem.subItems.filter((s) => s.type === 'scroll');
+        if (scrollSubs.length === 0) return;
+
+        // Si estamos cerca del tope superior de la página, activa el primer sub-ítem
+        if (window.scrollY < 140) {
+          if (subTarget !== scrollSubs[0].id) {
+            setSubTarget(scrollSubs[0].id);
+          }
+          return;
+        }
+
+        // Punto de referencia visual (aprox. 180px por debajo del header sticky)
+        const referencePoint = window.scrollY + 180;
+        let activeId = null;
+
+        for (const sub of scrollSubs) {
+          const el = document.getElementById(sub.id);
+          if (el) {
+            const top = el.offsetTop;
+            if (referencePoint >= top) {
+              activeId = sub.id;
+            }
+          }
+        }
+
+        if (activeId && activeId !== subTarget) {
+          setSubTarget(activeId);
+        }
+      }, 40);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      clearTimeout(scrollTimer);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [activeView, subTarget]);
 
   const handleToggleRespuesta = (cciId, preguntaNumero, nuevaRespuesta) => {
     setCuestionariosState((prev) =>
@@ -594,6 +675,34 @@ export default function App() {
                 </select>
               </div>
 
+              {/* Barra de Ajuste de Zoom / Tamaño de Texto */}
+              <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 shadow-2xs">
+                <span className="text-[11px] font-bold text-slate-500 mr-0.5 hidden md:inline">Zoom:</span>
+                <button
+                  onClick={handleZoomOut}
+                  disabled={fontZoom <= 90}
+                  className="w-6 h-6 flex items-center justify-center rounded text-xs font-bold text-slate-700 hover:bg-slate-200 disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed transition-colors"
+                  title="Reducir tamaño de letra (A-)"
+                >
+                  A-
+                </button>
+                <button
+                  onClick={handleResetZoom}
+                  className="px-1.5 py-0.5 rounded text-[11px] font-mono font-extrabold text-teal-800 hover:bg-teal-100 cursor-pointer transition-colors"
+                  title="Restablecer tamaño normal (100%)"
+                >
+                  {fontZoom}%
+                </button>
+                <button
+                  onClick={handleZoomIn}
+                  disabled={fontZoom >= 130}
+                  className="w-6 h-6 flex items-center justify-center rounded text-xs font-bold text-slate-700 hover:bg-slate-200 disabled:opacity-30 cursor-pointer disabled:cursor-not-allowed transition-colors"
+                  title="Aumentar tamaño de letra (A+)"
+                >
+                  A+
+                </button>
+              </div>
+
               {/* Stepper Secuencial */}
               <button
                 onClick={goPrev}
@@ -617,7 +726,10 @@ export default function App() {
         </header>
 
         {/* Área de Trabajo Dinámica */}
-        <main className="p-4 sm:p-6 lg:p-8 max-w-[1680px] w-full mx-auto flex-1">
+        <main
+          style={fontZoom !== 100 ? { zoom: `${fontZoom}%` } : undefined}
+          className="p-4 sm:p-6 lg:p-8 max-w-[1680px] w-full mx-auto flex-1 transition-all"
+        >
           {activeView === 'dashboard' && (
             <DashboardView
               cciCalculados={cciCalculados}

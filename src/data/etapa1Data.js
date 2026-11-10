@@ -407,30 +407,55 @@ export const conocimientoEnte = {
         ]
       }
     ],
+    teoriaCOSO: {
+      titulo: "¿Qué es el Marco COSO y para qué se utiliza en Auditoría?",
+      origenYDefinicion: "El Informe COSO (Committee of Sponsoring Organizations of the Treadway Commission) es el estándar global de referencia para el diseño, implementación y evaluación del control interno. Define al Control Interno como un proceso dinámico e integrado, efectuado por el Directorio, la alta gerencia y los colaboradores, diseñado con el propósito de proporcionar una seguridad razonable en la consecución de objetivos institucionales.",
+      los3Objetivos: [
+        {
+          categoria: "1. Objetivos Operacionales",
+          foco: "Eficacia y eficiencia en las operaciones del negocio, incluyendo metas de desempeño financiero y salvaguarda de los activos frente a pérdidas o robos."
+        },
+        {
+          categoria: "2. Objetivos de Información (Reporting)",
+          foco: "Confiabilidad, integridad, oportunidad y transparencia de la información financiera y no financiera. Es el foco neurálgico del examen del auditor externo (NIA 315 / RT 37)."
+        },
+        {
+          categoria: "3. Objetivos de Cumplimiento",
+          foco: "Acatamiento estricto de las leyes, reglamentaciones sectoriales y resoluciones aplicables (ENACOM, CNV, SEC, Ley 19.550, leyes impositivas y laborales)."
+        }
+      ],
+      utilidadEnAuditoria: "En el marco de la NIA 315 y la doctrina de Carlos Slosse, el auditor externo evalúa los 5 componentes COSO para determinar el Riesgo de Control (RC). Si los controles internos son eficaces, el auditor deposita confianza en ellos y reduce el alcance de las pruebas sustantivas. Si presentan debilidades críticas (como en Telecom con legajos de obras físicas e interfaces de facturación), el auditor fija el Riesgo de Control en ALTO y diseña un programa predominantemente sustantivo con recuentos físicos e inspección exhaustiva de comprobantes.",
+      relevanciaSOX404: "Al cotizar sus acciones en la Bolsa de Nueva York (NYSE) mediante ADRs, Telecom está sujeta por mandato federal de la SEC a la Sección 404 de la Ley Sarbanes-Oxley (SOX). Esto exige que la Dirección General y el Auditor Externo Independiente emitan una certificación anual expresa sobre la efectividad del Control Interno sobre el Reporte Financiero (ICFR) utilizando formalmente el Marco Integrado COSO."
+    },
     componentesCOSO: [
       {
         nombre: "1. Ambiente de Control",
         estado: "Sólido",
+        definicionTeorica: "Marca la pauta de conducta y la cultura ética de la organización (el «Tone at the Top»). Es la base piramidal sobre la que se sustentan los demás componentes.",
         descripcion: "Gobierno corporativo formal supervisado por el Directorio, Comité de Auditoría (exigido por CNV y SEC) que evalúa la independencia del auditor externo, Comisión Fiscalizadora conforme a Ley 19.550 y Código de Ética obligatorio."
       },
       {
         nombre: "2. Evaluación de Riesgos",
         estado: "Sistematizado",
+        definicionTeorica: "Proceso continuo para identificar, analizar y responder a los riesgos que amenazan el cumplimiento de los objetivos operativos y de reporte contable.",
         descripcion: "Monitoreo continuo de riesgos financieros (devaluación, tasas, liquidez), regulatorios y ciberseguridad a cargo de la Gerencia de Administración de Riesgos."
       },
       {
-        nombre: "3. Sistemas de Información y Comunicación",
-        estado: "Masivo / Complejo",
-        descripcion: "Sistemas centrales ERP (SAP S/4HANA) integrados con plataformas automáticas de facturación, medición de consumo (billing), cobranzas masivas e interfaces comerciales."
-      },
-      {
-        nombre: "4. Actividades de Control",
+        nombre: "3. Actividades de Control",
         estado: "Automatizado / Preventivo",
-        descripcion: "Segregación estricta de funciones en compras, desembolsos y nómina. Controles automáticos de aplicación (ITAC) en transacciones masivas de facturación."
+        definicionTeorica: "Políticas, procedimientos y controles específicos establecidos para garantizar que se ejecutan las directivas de la dirección y se mitigan los riesgos.",
+        descripcion: "Segregación estricta de funciones en compras, desembolsos y nómina. Controles automáticos de aplicación (ITAC) en transacciones masivas de facturación comercial."
       },
       {
-        nombre: "5. Monitoreo y Seguimiento",
+        nombre: "4. Sistemas de Información y Comunicación",
+        estado: "Masivo / Complejo",
+        definicionTeorica: "Mecanismos para identificar, capturar y comunicar información operativa y financiera relevante de manera oportuna a toda la organización.",
+        descripcion: "Sistemas centrales ERP (SAP S/4HANA) integrados con plataformas automáticas de facturación convergente, medición de consumo (billing) y cobranzas."
+      },
+      {
+        nombre: "5. Monitoreo y Supervisión",
         estado: "Supervisado (SOX 404)",
+        definicionTeorica: "Evaluaciones continuas e independientes para comprobar que cada uno de los 5 componentes del control interno está presente y funcionando adecuadamente a lo largo del tiempo.",
         descripcion: "Departamento de Auditoría Interna independiente y certificación anual bajo la Sección 404 de la Ley Sarbanes-Oxley (SOX) sobre la efectividad del control interno financiero (ICFR) por cotizar en NYSE."
       }
     ]

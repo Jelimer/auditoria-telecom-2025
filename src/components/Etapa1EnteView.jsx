@@ -807,30 +807,105 @@ export default function Etapa1EnteView({ onNavigate }) {
           </div>
         </div>
 
+        {/* MARCO TEÓRICO DOCTRINARIO: ¿QUÉ ES EL INFORME COSO Y PARA QUÉ SE UTILIZA? */}
+        <div className="mt-7 pt-6 border-t border-slate-200/80 space-y-4">
+          <div className="rounded-xl border border-teal-200 bg-gradient-to-br from-teal-50/70 via-white to-teal-50/40 p-5 space-y-4">
+            <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-teal-200/80">
+              <div className="flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-teal-800 shrink-0" />
+                <h4 className="text-sm font-extrabold text-teal-950 uppercase tracking-wide">
+                  {conocimientoEnte.riesgoFraudeYControl?.teoriaCOSO?.titulo ||
+                    '¿Qué es el Marco COSO y para qué se utiliza en Auditoría?'}
+                </h4>
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-teal-100 text-teal-800 border border-teal-300">
+                Marco Integrado COSO 2013 &amp; SOX 404 (NYSE)
+              </span>
+            </div>
+
+            <p className="text-xs text-slate-700 leading-relaxed">
+              {conocimientoEnte.riesgoFraudeYControl?.teoriaCOSO?.origenYDefinicion}
+            </p>
+
+            {/* Los 3 Objetivos del Control Interno según COSO */}
+            <div>
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-teal-900 block mb-2">
+                Los 3 Objetivos Fundamentales del Control Interno (Marco COSO)
+              </span>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {conocimientoEnte.riesgoFraudeYControl?.teoriaCOSO?.los3Objetivos?.map((obj, oIdx) => (
+                  <div key={oIdx} className="p-3 rounded-xl bg-white border border-teal-200/90 shadow-2xs">
+                    <strong className="text-xs font-bold text-teal-950 block mb-1">
+                      {obj.categoria}
+                    </strong>
+                    <p className="text-[11px] text-slate-600 leading-relaxed">
+                      {obj.foco}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Doble panel: Utilidad en Auditoría Externa vs Relevancia en Telecom (SOX 404) */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5 pt-1">
+              <div className="p-3.5 rounded-xl bg-blue-50/50 border border-blue-200">
+                <span className="text-xs font-extrabold text-blue-950 uppercase tracking-wide flex items-center gap-1.5 mb-1.5">
+                  <Calculator className="w-4 h-4 text-blue-700" />
+                  ¿Para qué lo utiliza el Auditor Externo? (NIA 315 &amp; Slosse)
+                </span>
+                <p className="text-xs text-slate-700 leading-relaxed">
+                  {conocimientoEnte.riesgoFraudeYControl?.teoriaCOSO?.utilidadEnAuditoria}
+                </p>
+              </div>
+
+              <div className="p-3.5 rounded-xl bg-purple-50/50 border border-purple-200">
+                <span className="text-xs font-extrabold text-purple-950 uppercase tracking-wide flex items-center gap-1.5 mb-1.5">
+                  <ShieldCheck className="w-4 h-4 text-purple-700" />
+                  ¿Por qué es Crítico para Telecom? (Ley Sarbanes-Oxley SOX 404)
+                </span>
+                <p className="text-xs text-slate-700 leading-relaxed">
+                  {conocimientoEnte.riesgoFraudeYControl?.teoriaCOSO?.relevanciaSOX404}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Los 5 Componentes del Control Interno (COSO) */}
         <div className="mt-6 pt-5 border-t border-slate-100">
           <div className="text-xs font-extrabold text-slate-900 uppercase tracking-wide mb-3 flex items-center justify-between">
             <span className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-teal-700" />
-              Los 5 Componentes del Control Interno (Marco COSO / NIA 315)
+              Los 5 Componentes Interrelacionados del Control Interno
             </span>
             <span className="text-[11px] text-slate-500 font-medium">
-              Base para la aplicación de los 5 Cuestionarios CCI
+              Base doctrinaria de los 5 Cuestionarios CCI evaluados en la Etapa 1B
             </span>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
             {conocimientoEnte.riesgoFraudeYControl?.componentesCOSO?.map((comp, cIdx) => (
-              <div key={cIdx} className="p-3 rounded-xl border border-slate-200 bg-slate-50/60 flex flex-col justify-between">
+              <div key={cIdx} className="p-3.5 rounded-xl border border-slate-200 bg-slate-50/70 flex flex-col justify-between hover:border-teal-300 transition-colors">
                 <div>
                   <div className="flex items-center justify-between gap-1 mb-1">
-                    <span className="text-xs font-extrabold text-slate-900">
+                    <h5 className="text-xs font-extrabold text-slate-900">
                       {comp.nombre}
-                    </span>
+                    </h5>
                   </div>
-                  <span className="inline-block px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 text-teal-800 mb-1.5">
+                  <span className="inline-block px-2 py-0.5 rounded text-[10px] font-extrabold bg-teal-100 text-teal-800 mb-2">
                     {comp.estado}
                   </span>
+                  
+                  {/* Definición teórica del componente */}
+                  <div className="text-[11px] text-slate-700 bg-white p-2.5 rounded-lg border border-slate-200/90 leading-relaxed mb-2.5 shadow-2xs">
+                    <strong className="text-teal-900 block text-[10px] uppercase tracking-wider mb-0.5">
+                      Definición Teórica:
+                    </strong>
+                    {comp.definicionTeorica || comp.descripcion}
+                  </div>
+
+                  {/* Aplicación en Telecom */}
                   <p className="text-[11px] text-slate-600 leading-relaxed">
+                    <strong className="text-slate-800 font-bold">En Telecom: </strong>
                     {comp.descripcion}
                   </p>
                 </div>
