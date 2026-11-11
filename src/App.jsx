@@ -400,9 +400,13 @@ export default function App() {
       clearTimeout(scrollTimer);
       scrollTimer = setTimeout(() => {
         const currentItem = NAV_ITEMS.find((item) => item.id === activeView);
-        if (!currentItem || !currentItem.subItems) return;
-        const scrollSubs = currentItem.subItems.filter((s) => s.type === 'scroll');
-        if (scrollSubs.length === 0) return;
+        if (!currentItem || !currentItem.subItems || currentItem.subItems.length === 0) return;
+
+        // Solo ejecutar ScrollSpy automático si TODOS los subtemas son de tipo 'scroll' (vistas puramente continuas de lectura, ej. 1A y 1D)
+        const isPureScrollView = currentItem.subItems.every((s) => s.type === 'scroll');
+        if (!isPureScrollView) return;
+
+        const scrollSubs = currentItem.subItems;
 
         // Si estamos cerca del tope superior de la página, activa el primer sub-ítem
         if (window.scrollY < 140) {

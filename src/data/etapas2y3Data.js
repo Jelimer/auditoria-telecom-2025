@@ -621,7 +621,29 @@ export const papelesTrabajo = [
         afirmacionesDetalle: "Valida Existencia e Integridad (activación rigurosa bajo NIC 38 sin omisiones ni sobrevaluaciones) y Medición (amortizaciones lineales según vida útil remanente)."
       }
     ],
-    conclusionRubro: "Los Activos Intangibles ($2.671.525 millones) se encuentran debidamente respaldados por títulos de concesión ENACOM, registros marcarios INPI y proyectos de software bajo NIC 38 con amortizaciones recalculadas conforme a sus vidas útiles."
+    conclusionRubro: "Los Activos Intangibles ($2.671.525 millones) se encuentran debidamente respaldados por títulos de concesión ENACOM, registros marcarios INPI y proyectos de software bajo NIC 38 con amortizaciones recalculadas conforme a sus vidas útiles.",
+    resumenMetodologicoRubro: {
+      titulo: "Exposición Metodológica Integral: Auditoría de Activos Intangibles (Nota 10)",
+      subtitulo: "Fundamentación técnica secuencial de las Cédulas Analíticas PT-E1 y PT-E2: concesiones de espectro 4G/5G, marcas comerciales, proyectos de software bajo NIC 38 y pruebas analíticas globales.",
+      introduccion: "El rubro Activos Intangibles representa $2.671.525 millones al 31/12/2025 (16,07% del activo total consolidado de Telecom Argentina S.A.). En la etapa de planificación se determinó un Riesgo de Control Alto en la activación de horas internas en SAP PS y en el cumplimiento de los cronogramas regulatorios de despliegue comprometidos ante el ENACOM. En estricto cumplimiento de las Normas Internacionales de Auditoría (NIA 315, 500 y 520) y la doctrina de Carlos A. Slosse, estructuramos una auditoría sustantiva orientada a validar la titularidad legal y vigencia del espectro radioeléctrico y marcas registradas (PT-E1), el cumplimiento cumulativo de los 6 requisitos de la NIC 38.57 para proyectos de software, y las pruebas analíticas globales de amortización y valor residual (PT-E2).",
+      pasosNarrativos: [
+        {
+          pt: "PT-E1",
+          etiqueta: "Paso 1 • Validación Regulatoria y Marcaria",
+          titulo: "Inspección de Concesiones de Espectro ENACOM (Lote 5G) y Búsqueda Registral en INPI",
+          afirmacion: "Afirmaciones Auditadas: Existencia y Propiedad Legal (NIA 500 / RT 37)",
+          relato: "Para auditar las concesiones de espectro 4G y 5G ($1.985.420M), obtuvimos copias certificadas de las resoluciones de adjudicación de ENACOM (Res. 1285/2023 por el Lote 5G en la banda 3.400-3.500 MHz) cotejadas contra el Boletín Oficial de la República Argentina. Se verificó: 1) Titularidad formal a nombre de Telecom Argentina S.A. (CUIT 30-63945373-8). 2) Plena vigencia por 20 años hasta 2043. 3) Pólizas de seguro de caución vigentes y cumplimiento de metas de despliegue de radiobases comprometidas ante el Estado. Complementariamente, realizamos la compulsa pública online ante el INPI confirmando el registro concedido de las marcas comerciales clave (Personal, Flow, Telecom y Personal Pay), cruzando con la confirmación de asesores legales externos (NIA 501) para constatar la inexistencia de litigios marcarios ni gravámenes restrictivos."
+        },
+        {
+          pt: "PT-E2",
+          etiqueta: "Paso 2 • Cédula Analítica de Software y Pruebas Globales",
+          titulo: "Evaluación de Proyectos de Software (NIC 38.57) y Pruebas Globales de Amortización y Valor Residual",
+          afirmacion: "Afirmaciones Auditadas: Integridad, Medición (NIC 38) y Exposición (Nota 10)",
+          relato: "Para los desarrollos de software interno capitalizados en el ejercicio ($285.355M), auditamos en SAP PS y Jira el cumplimiento estricto y cumulativo de los 6 requisitos de la NIC 38.57 (factibilidad técnica, intención, capacidad de uso, beneficios económicos probables, disponibilidad de recursos y medición confiable de desembolsos). Verificamos que sólo se activen horas de desarrollo directo de programadores ($175.900M) y licencias directas ($109.455M), descartando gastos de investigación preliminar. En la prueba de corte de gastos tecnológicos ($42.500M) comprobamos que los costos de soporte y mantenimiento rutinario fueron debidamente imputados a pérdidas en resultados. Por último, recalculamos analíticamente la amortización del ejercicio ($274.320M) y la evolución patrimonial del valor residual ($2.671.525M), verificando coincidencia matemática plena con la Nota 10 (desvío $0 < ET $83.112M). Por lo tanto, el rubro se concluye validado y conforme sin ajustes."
+        }
+      ],
+      conclusionNarrativa: "A diferencia de Bienes de Uso donde se identificaron desvíos por obsolescencia de centrales de cobre no desincorporadas, en Activos Intangibles la compañía mantuvo un control documental y regulatorio riguroso: las concesiones de espectro y marcas comerciales están 100% vigentes y regularizadas en los registros públicos, los proyectos de software capitalizados satisfacen íntegramente los estándares de la NIC 38.57, y las dos Pruebas Globales sustantivas cerraron con diferencia de $0 frente al balance general. Por ende, conforme a la NIA 700 y la RT 37, se concluye que el rubro Activos Intangibles se encuentra razonablemente presentado en todos sus aspectos significativos al 31 de diciembre de 2025."
+    }
   },
   {
     id: "pt-f",

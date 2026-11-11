@@ -467,7 +467,12 @@ export default function Etapa2EjecucionView({
             return (
               <button
                 key={pt.id}
-                onClick={() => setSelectedPTId(pt.id)}
+                onClick={() => {
+                  setSelectedPTId(pt.id);
+                  if (onNavigate) {
+                    onNavigate('etapa2-ejecucion', pt.id);
+                  }
+                }}
                 className={`text-left p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
                   isSelected
                     ? 'bg-slate-900 text-white border-slate-900 shadow-sm ring-2 ring-amber-400'
@@ -924,12 +929,82 @@ export default function Etapa2EjecucionView({
                               )}
 
                               {/* 3. y finalmente Resultado y Hallazgos con Marcas de Auditoría */}
-                              <div className={`p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 ${isPTA ? 'text-xs sm:text-[13px]' : 'text-xs'} text-slate-800 leading-relaxed space-y-1`}>
-                                <strong className={`${isPTA ? 'text-xs' : 'text-[10px]'} uppercase text-emerald-900 font-extrabold flex items-center gap-1`}>
-                                  📌 Resultado de la Ejecución y Hallazgo (Marcas de Auditoría):
-                                </strong>
-                                <p className={`text-slate-700 leading-relaxed ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'}`}>{renderTextWithNormas(item.resultado)}</p>
-                              </div>
+                              {(() => {
+                                const resKey = `${proc.ref}-res-${pIdx}`;
+                                const isEditingRes = editingField === resKey;
+                                const currentRes =
+                                  pasosNarrativosCustom[resKey] !== undefined
+                                    ? pasosNarrativosCustom[resKey]
+                                    : item.resultado;
+                                const isCustom = pasosNarrativosCustom[resKey] !== undefined;
+
+                                return (
+                                  <div className={`p-2.5 rounded-lg bg-emerald-50/70 border border-emerald-200 ${isPTA ? 'text-xs sm:text-[13px]' : 'text-xs'} text-slate-800 leading-relaxed space-y-1`}>
+                                    <div className="flex items-center justify-between gap-1">
+                                      <strong className={`${isPTA ? 'text-xs' : 'text-[10px]'} uppercase text-emerald-900 font-extrabold flex items-center gap-1`}>
+                                        📌 Resultado de la Ejecución y Hallazgo (Marcas de Auditoría):
+                                        {isCustom && (
+                                          <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-400 text-slate-900 ml-1">
+                                            ✏️ Editado
+                                          </span>
+                                        )}
+                                      </strong>
+                                      {!isEditingRes && (
+                                        <button
+                                          type="button"
+                                          onClick={() => handleStartEdit(resKey, currentRes)}
+                                          title="Editar o agregar notas personales al resultado"
+                                          className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded bg-white hover:bg-emerald-100 text-emerald-900 border border-emerald-300 cursor-pointer shadow-2xs"
+                                        >
+                                          <Pencil className="w-2.5 h-2.5" /> Editar
+                                        </button>
+                                      )}
+                                    </div>
+                                    {isEditingRes ? (
+                                      <div className="space-y-2 mt-1">
+                                        <textarea
+                                          ref={textareaRef}
+                                          rows={3}
+                                          value={tempEditText}
+                                          onChange={(e) => setTempEditText(e.target.value)}
+                                          className="w-full p-2 text-xs rounded bg-white text-slate-800 border border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 font-sans"
+                                        />
+                                        <div className="flex items-center justify-between">
+                                          <div className="flex gap-1.5">
+                                            <button
+                                              type="button"
+                                              onClick={() => handleSavePaso(resKey)}
+                                              className="px-2 py-0.5 rounded bg-emerald-700 text-white font-bold text-[11px] hover:bg-emerald-800 cursor-pointer flex items-center gap-1"
+                                            >
+                                              <Check className="w-3 h-3" /> Guardar
+                                            </button>
+                                            <button
+                                              type="button"
+                                              onClick={handleCancelEdit}
+                                              className="px-2 py-0.5 rounded bg-slate-300 text-slate-700 text-[11px] hover:bg-slate-400 cursor-pointer flex items-center gap-1"
+                                            >
+                                              <X className="w-3 h-3" /> Cancelar
+                                            </button>
+                                          </div>
+                                          {isCustom && (
+                                            <button
+                                              type="button"
+                                              onClick={() => handleResetPaso(resKey)}
+                                              className="text-[10px] text-emerald-800 hover:underline cursor-pointer flex items-center gap-1"
+                                            >
+                                              <RotateCcw className="w-2.5 h-2.5" /> Restablecer
+                                            </button>
+                                          )}
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      <p className={`text-slate-700 leading-relaxed ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'}`}>
+                                        {renderTextWithNormas(currentRes)}
+                                      </p>
+                                    )}
+                                  </div>
+                                );
+                              })()}
                             </div>
                           );
                         })}
@@ -1029,16 +1104,106 @@ export default function Etapa2EjecucionView({
                                 <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(proc.valores)}</p>
                               </div>
                             )}
-                            {proc.defensaOral && (
-                              <div>
-                                <strong className={`text-amber-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
-                                  🎓 Para la Defensa Oral ante el Profesor (Libreto sugerido):
-                                </strong>
-                                <div className={`text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-3 rounded-lg border border-amber-500/30 italic ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'}`}>
-                                  "{renderTextWithNormas(proc.defensaOral)}"
+                            {proc.defensaOral && (() => {
+                              const defensaKey = `defensa-${proc.ref}`;
+                              const isEditingDefensa = editingField === defensaKey;
+                              const currentDefensa =
+                                pasosNarrativosCustom[defensaKey] !== undefined
+                                  ? pasosNarrativosCustom[defensaKey]
+                                  : proc.defensaOral;
+                              const isCustom = pasosNarrativosCustom[defensaKey] !== undefined;
+
+                              return (
+                                <div>
+                                  <div className="flex items-center justify-between gap-1 mb-1">
+                                    <strong className={`text-amber-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
+                                      🎓 Para la Defensa Oral ante el Profesor (Libreto sugerido):
+                                      {isCustom && (
+                                        <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-400 text-slate-900 ml-1">
+                                          ✏️ Editado
+                                        </span>
+                                      )}
+                                    </strong>
+                                    {!isEditingDefensa && (
+                                      <button
+                                        type="button"
+                                        onClick={() => handleStartEdit(defensaKey, currentDefensa)}
+                                        title="Personalizar tu libreto oral para la defensa con el profesor"
+                                        className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded bg-amber-900/80 hover:bg-amber-800 text-amber-200 border border-amber-500/50 cursor-pointer transition-colors shadow-2xs"
+                                      >
+                                        <Pencil className="w-3 h-3" /> Editar
+                                      </button>
+                                    )}
+                                  </div>
+
+                                  {isEditingDefensa ? (
+                                    <div className="space-y-2 p-2.5 rounded-lg bg-amber-950/70 border border-amber-400">
+                                      <div className="flex flex-wrap items-center gap-1 p-1 rounded bg-amber-900/60 border border-amber-600/40 text-xs">
+                                        <button
+                                          type="button"
+                                          onClick={() => applyFormat('**', '**')}
+                                          className="px-1.5 py-0.5 rounded bg-amber-950 hover:bg-amber-800 text-amber-200 font-bold"
+                                        >
+                                          B
+                                        </button>
+                                        <button
+                                          type="button"
+                                          onClick={() => applyFormat('*', '*')}
+                                          className="px-1.5 py-0.5 rounded bg-amber-950 hover:bg-amber-800 text-amber-200 italic"
+                                        >
+                                          I
+                                        </button>
+                                        <button
+                                          type="button"
+                                          onClick={() => applyFormat('• ', '')}
+                                          className="px-1.5 py-0.5 rounded bg-amber-950 hover:bg-amber-800 text-amber-200"
+                                        >
+                                          Lista
+                                        </button>
+                                      </div>
+                                      <textarea
+                                        ref={textareaRef}
+                                        rows={4}
+                                        value={tempEditText}
+                                        onChange={(e) => setTempEditText(e.target.value)}
+                                        className="w-full p-2.5 text-xs rounded bg-slate-900 text-amber-100 border border-amber-400/50 focus:outline-none focus:ring-1 focus:ring-amber-300 font-sans leading-relaxed"
+                                      />
+                                      <div className="flex items-center justify-between">
+                                        <div className="flex gap-2">
+                                          <button
+                                            type="button"
+                                            onClick={() => handleSavePaso(defensaKey)}
+                                            className="px-2.5 py-1 rounded bg-amber-500 text-slate-950 font-bold text-xs hover:bg-amber-400 cursor-pointer flex items-center gap-1"
+                                          >
+                                            <Check className="w-3.5 h-3.5" /> Guardar
+                                          </button>
+                                          <button
+                                            type="button"
+                                            onClick={handleCancelEdit}
+                                            className="px-2.5 py-1 rounded bg-slate-700 text-slate-200 text-xs hover:bg-slate-600 cursor-pointer flex items-center gap-1"
+                                          >
+                                            <X className="w-3.5 h-3.5" /> Cancelar
+                                          </button>
+                                        </div>
+                                        {isCustom && (
+                                          <button
+                                            type="button"
+                                            onClick={() => handleResetPaso(defensaKey)}
+                                            className="text-[11px] text-amber-300 hover:underline cursor-pointer flex items-center gap-1"
+                                          >
+                                            <RotateCcw className="w-3 h-3" /> Restablecer original
+                                          </button>
+                                        )}
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <div className={`text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-3 rounded-lg border border-amber-500/30 italic ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'}`}>
+                                      "{renderFormattedRichText(currentDefensa)}"
+                                    </div>
+                                  )}
                                 </div>
-                              </div>
-                            )}
+                              );
+                            })()}
                             {proc.afirmacionesDetalle && (
                               <div>
                                 <strong className={`text-teal-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
@@ -1184,7 +1349,7 @@ export default function Etapa2EjecucionView({
                         {activePT.resumenMetodologicoRubro.titulo}
                       </span>
                       <span className="text-xs text-slate-500 block">
-                        Exposición y fundamentación de los 4 Papeles de Trabajo (PT-A1 a PT-A4), hallazgos y conclusión
+                        {activePT.resumenMetodologicoRubro.subtitulo}
                       </span>
                     </div>
                   </div>
