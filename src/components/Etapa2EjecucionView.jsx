@@ -1067,12 +1067,38 @@ export default function Etapa2EjecucionView({
                                     </div>
                                     {isEditingRes ? (
                                       <div className="space-y-2 mt-1">
+                                        <div className="flex items-center gap-1.5 text-xs mb-1">
+                                          <button
+                                            type="button"
+                                            onClick={() => applyFormat('**', '**')}
+                                            title="Negrita"
+                                            className="px-2 py-0.5 rounded bg-white hover:bg-emerald-100 border border-emerald-300 text-slate-800 shadow-2xs cursor-pointer font-black text-[11px]"
+                                          >
+                                            B
+                                          </button>
+                                          <button
+                                            type="button"
+                                            onClick={() => applyFormat('<u>', '</u>')}
+                                            title="Subrayado"
+                                            className="px-2 py-0.5 rounded bg-white hover:bg-emerald-100 border border-emerald-300 text-slate-800 shadow-2xs cursor-pointer underline text-[11px]"
+                                          >
+                                            U
+                                          </button>
+                                          <button
+                                            type="button"
+                                            onClick={() => applyFormat('\n', '')}
+                                            title="Insertar salto de línea"
+                                            className="px-2 py-0.5 rounded bg-white hover:bg-emerald-100 border border-emerald-300 text-slate-700 shadow-2xs cursor-pointer text-[10px]"
+                                          >
+                                            ↵ Salto
+                                          </button>
+                                        </div>
                                         <textarea
                                           ref={textareaRef}
                                           rows={3}
                                           value={tempEditText}
                                           onChange={(e) => setTempEditText(e.target.value)}
-                                          className="w-full p-2 text-xs rounded bg-white text-slate-800 border border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 font-sans"
+                                          className="w-full p-2 text-xs rounded bg-white text-slate-800 border border-emerald-400 focus:outline-none focus:ring-1 focus:ring-emerald-500 font-sans leading-relaxed"
                                         />
                                         <div className="flex items-center justify-between">
                                           <div className="flex gap-1.5">
@@ -1103,9 +1129,9 @@ export default function Etapa2EjecucionView({
                                         </div>
                                       </div>
                                     ) : (
-                                      <p className={`text-slate-700 leading-relaxed ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'}`}>
-                                        {renderTextWithNormas(currentRes)}
-                                      </p>
+                                      <div className={`text-slate-700 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'}`}>
+                                        {renderFormattedRichText(currentRes)}
+                                      </div>
                                     )}
                                   </div>
                                 );
@@ -1376,7 +1402,7 @@ export default function Etapa2EjecucionView({
                                       </div>
                                     </div>
                                   ) : (
-                                    <div className={`text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-3 rounded-lg border border-amber-500/30 italic ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'}`}>
+                                    <div className={`text-amber-100/95 mt-0.5 leading-relaxed bg-amber-950/50 p-3 rounded-lg border border-amber-500/30 italic whitespace-pre-line ${isPTA ? 'text-xs sm:text-sm' : 'text-xs'}`}>
                                       "{renderFormattedRichText(currentDefensa)}"
                                     </div>
                                   )}
@@ -2069,7 +2095,8 @@ export default function Etapa2EjecucionView({
               <br />• En <strong>Créditos por Ventas (PT-B)</strong> circularizamos clientes B2B, auditamos el corte de diciembre/enero (<strong>Ajuste AJ-02 por $18.800M</strong>) y reprocesamos con software TAACs el 100% de la mora &gt; 180 días incluyendo la cartera migrada de TMA (<strong>Ajuste AJ-03 por $19.850M</strong>).
               <br />• En <strong>Préstamos (PT-C)</strong> confirmamos el 100% de la deuda con bancos y Caja de Valores y recalculamos su valuación al TC BNA $/US$ 1.455,00.
               <br />• En <strong>Ventas (PT-D)</strong> hicimos la prueba global (Parque × ARPU) y detectamos ingresos de streaming de terceros registrados por el bruto (<strong>Reclasificación AJ-04 por $11.240M</strong>).
-              <br />• En <strong>Intangibles y Llave (PT-E)</strong> auditamos con especialistas el Test de Deterioro (NIC 36) de la UGE Personal.
+              <br />• En <strong>Activos Intangibles (PT-E)</strong> auditamos el 100% de licencias de espectro ENACOM y marcas INPI, validamos los 6 criterios de la NIC 38.57 para proyectos de software en SAP PS ($285.355M), corte de gastos de mantenimiento ($42.500M) y pruebas globales de amortizaciones y valor residual ($2.671.525M), concluyendo el rubro conforme y sin ajustes.
+              <br />• En <strong>Llave de Negocio (PT-F)</strong> auditamos con especialistas de valuación el Test de Deterioro (NIC 36) sobre la UGE Redes y TMA.
             </p>
           </div>
 
