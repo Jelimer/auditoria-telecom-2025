@@ -495,7 +495,7 @@ export const papelesTrabajo = [
     programa: "PROGRAMA E",
     rubro: "Activos Intangibles (Nota 10)",
     esPrioritario: true,
-    refLegajo: "Legajo Corriente — Sección E (Cédula Sumaria E-1 y Analíticas E-2 a E-3)",
+    refLegajo: "Legajo Corriente — Sección E (Cédula Sumaria E y Cédulas Analíticas E-1 y E-2)",
     elaboradoPor: "Lic. R. Moretti / Grebe",
     revisadoPor: "Pisonero De Biase",
     fecha: "02/02/2026",
@@ -504,30 +504,120 @@ export const papelesTrabajo = [
     saldoAuditado: 2671525,
     estadoPT: "Conforme (Validación Regulatoria y NIC 38)",
     cedulaSumaria: [
-      { subcuenta: "1.3.01 - Licencias de Espectro 4G/5G (Banda 3.400-3.500 MHz) y Concesiones (Nota 10)", saldoLibros: 1985420, debe: 0, haber: 0, saldoAuditado: 1985420, marca: "© ✓ ∑" },
-      { subcuenta: "1.3.02 - Desarrollos de Software Capitalizados, Marcas y Otros Intangibles (Nota 10)", saldoLibros: 686105, debe: 0, haber: 0, saldoAuditado: 686105, marca: "✓ ∑" }
+      { subcuenta: "1.3.01 - Licencias de Espectro 4G/5G (Banda 3.400-3.500 MHz) y Concesiones (Nota 10)", saldoLibros: 1985420, debe: 0, haber: 0, saldoAuditado: 1985420, marca: "© ✓ § ∑" },
+      { subcuenta: "1.3.02 - Desarrollos de Software Capitalizados (NIC 38), Marcas y Otros Intangibles (Nota 10)", saldoLibros: 686105, debe: 0, haber: 0, saldoAuditado: 686105, marca: "✓ t h ∑" }
     ],
     procedimientosEjecutados: [
       {
         ref: "PT-E1",
-        nombre: "Verificación Legal de Concesiones de Espectro ENACOM (Lote 5G) y Marcas INPI",
-        afirmaciones: ["Existencia", "Propiedad"],
-        muestra: "100% de las resoluciones de adjudicación del ENACOM y certificados marcarios del INPI.",
-        resultado: "Se inspeccionaron las resoluciones del ENACOM que otorgan el espectro 5G (Banda 3.400-3.500 MHz) y 4G, verificando el cumplimiento de las garantías y cronogramas de despliegue comprometidos (✓). Marcas Personal, Flow y Personal Tech vigentes en el INPI a nombre de la Sociedad (©).",
-        marca: "© ✓",
-        procedimientoDetalle: "1) Licencias de espectro: Se solicitan copias certificadas de las resoluciones de ENACOM (ej. adjudicación Lote 5G en Banda 3.400-3.500 MHz) cotejadas contra el Boletín Oficial, verificando vigencia (20 años), titularidad legal a nombre de Telecom y cumplimiento de garantías de despliegue. 2) Marcas comerciales: Búsqueda registral pública ante el INPI confirmando titularidad vigente de marcas clave (Personal, Flow, Telecom) sin litigios ni prendas.",
-        defensaOral: "En PT-E1 validamos Existencia y Propiedad mediante inspección documental directa: cotejamos las resoluciones de adjudicación de espectro 4G/5G otorgadas por el ente regulador (ENACOM) y los títulos marcarios en el INPI, verificando que los derechos pertenezcan legalmente a Telecom y estén vigentes.",
-        afirmacionesDetalle: "Valida Existencia (concesiones y marcas legalmente activas) y Propiedad (titularidad exclusiva de Telecom en registros públicos)."
+        bloquePrograma: "1. Existencia, Titularidad Legal y Vigencia (ENACOM e INPI)",
+        nombre: "Verificación Legal de Concesiones de Espectro ENACOM (Lote 5G) y Marcas Registradas INPI",
+        afirmaciones: ["Existencia", "Propiedad", "Exposición"],
+        marca: "✓ © § ∑",
+        muestra: "100% de las resoluciones de adjudicación de espectro de ENACOM (Lotes 4G y 5G) y muestra del 100% de marcas comerciales estratégicas en el INPI.",
+        pasosConResultado: [
+          {
+            paso: "Inspeccionar las resoluciones de adjudicación de espectro radioeléctrico de ENACOM (Lotes 5G y 4G), verificando vigencia jurídica, titularidad y cumplimiento de garantías.",
+            comoSeEjecuta: "El auditor solicita a la Dirección de Asuntos Legales y Regulatorios copia certificada de las resoluciones de adjudicación de frecuencias. Se cotejan con la publicación oficial en el Boletín Oficial de la República Argentina (Resolución ENACOM 1285/2023 por el Lote 5G de 100 MHz en la banda 3.400-3.500 MHz y Resoluciones previas de 4G). Se verifica: 1) Titularidad formal a nombre de Telecom Argentina S.A. (CUIT 30-63945373-8). 2) Vigencia de la concesión (plazo contractual de 20 años hasta 2043). 3) Pólizas de seguro de caución y cumplimiento de metas de despliegue de radiobases comprometidas ante el Estado Nacional. 4) Pago al día del gravamen y tasa de control regulatorio.",
+            fuentes: "Expedientes y Resoluciones ENACOM, Boletín Oficial de la República Argentina, Pólizas de Caución vigentes y Dictamen de Asesores Legales Regulatorios.",
+            valores: "Saldo de Concesiones y Licencias de Espectro en Nota 10: $1.985.420 millones.",
+            resultado: "Resoluciones de adjudicación 4G y 5G verificadas al 100% a nombre de Telecom Argentina S.A., plenamente vigentes por 20 años y con pólizas de caución y cronogramas de despliegue al día sin sanciones ni intimaciones regulatorias (✓ © §).",
+            tabla: {
+              cabeceras: ["Ref.", "Activo / Frecuencia / Marca", "Ente Emisor", "Título / Resolución Legal", "Vigencia", "Titular Registral", "Valor Libros ($M)", "Marca"],
+              filas: [
+                { valores: ["E1.1", "Espectro 5G - Banda 3.400 - 3.500 MHz (Lote 100 MHz)", "ENACOM", "Res. ENACOM N° 1285/2023", "20 años (hasta 2043)", "Telecom Argentina S.A.", "$1.240.350", "✓ © §"] },
+                { valores: ["E1.2", "Espectro 4G - Banda 700 MHz / AWS (Lotes Nacionales)", "SC / ENACOM", "Res. SC N° 38/2014 y conc.", "15 años (renov. 2030)", "Telecom Argentina S.A.", "$745.070", "✓ © §"] },
+                { valores: ["E1.3", "Marca Comercial 'Personal' (Clases 9, 38 y conc.)", "INPI", "Acta INPI N° 3.148.920 / Renov.", "10 años (hasta 2032)", "Telecom Argentina S.A.", "$185.200", "✓ ©"] },
+                { valores: ["E1.4", "Marca Comercial 'Flow' (Plataforma y Contenidos)", "INPI", "Acta INPI N° 3.654.112 / Reg.", "10 años (hasta 2034)", "Telecom Argentina S.A.", "$120.450", "✓ ©"] },
+                { valores: ["E1.5", "Marca 'Telecom' y 'Personal Pay' (Fintech y B2B)", "INPI", "Actas INPI 3.890.114 / 3.912.440", "10 años (hasta 2034)", "Telecom Argentina S.A.", "$95.100", "✓ ©"] },
+                { valores: ["E1.6", "Software Capitalizado y Otros Intangibles", "Interno / SAP", "Proyectos de desarrollo (PT-E2)", "3 a 5 años", "Telecom Argentina S.A.", "$285.355", "✓ ∑"] },
+                { destacado: true, valores: ["TOTAL", "Total Activos Intangibles (Nota 10)", "ENACOM / INPI", "Auditado al 100% s/ Libros", "Conforme", "Telecom Argentina S.A.", "$2.671.525", "✓ © § ∑"] }
+              ]
+            }
+          },
+          {
+            paso: "Compulsa registral pública ante el INPI y confirmación de litigios marcarios con asesores legales.",
+            comoSeEjecuta: "Se realiza una búsqueda registral directa en la base de datos pública del Instituto Nacional de la Propiedad Industrial (INPI) sobre las marcas insignias (Personal, Flow, Telecom, Personal Pay). Se verifica el estado 'Concedida', clase marcaria (Clase 38 telecomunicaciones, Clase 9 hardware/software, Clase 36 servicios financieros), titularidad formal de Telecom y fecha de vencimiento decenal. Se cruza con la respuesta a la carta de circularización de abogados externos (NIA 501 / Slosse) para constatar la inexistencia de litigios por oposición de marcas o medidas cautelares.",
+            fuentes: "Portal público de marcas del INPI, títulos de registro marcario y carta de confirmación de asesores legales externos.",
+            valores: "Marcas comerciales y derechos intangibles valorizados en $400.750 millones dentro de la Nota 10.",
+            resultado: "Búsqueda registral en el INPI satisfactoria (©); titularidad de marcas clave a nombre de Telecom Argentina S.A., con renovación periódica vigente y confirmación de asesores legales sin litigios ni gravámenes sobre la cartera de marcas (✓ §)."
+          }
+        ],
+        procedimientoDetalle: "1) Licencias de espectro: Se solicitan copias certificadas de las resoluciones de ENACOM (ej. adjudicación Lote 5G en Banda 3.400-3.500 MHz) cotejadas contra el Boletín Oficial, verificando vigencia (20 años), titularidad legal a nombre de Telecom y cumplimiento de garantías de despliegue. 2) Marcas comerciales: Búsqueda registral pública ante el INPI confirmando titularidad vigente de marcas clave (Personal, Flow, Telecom, Personal Pay) sin litigios ni prendas.",
+        defensaOral: "Profesor, en PT-E1 auditamos la Existencia real y la Propiedad jurídica del espectro radioeléctrico y de las marcas comerciales. Para el espectro, inspeccionamos las resoluciones de ENACOM (como la Res. 1285/2023 de 5G) y las publicaciones en el Boletín Oficial, verificando que la concesión esté otorgada formalmente a Telecom por 20 años y que las pólizas de caución y compromisos de despliegue estén al día. Para las marcas (Personal, Flow, Personal Pay), realizamos la compulsa registral directa en el INPI confirmando su titularidad y vigencia, y cruzamos con las confirmaciones de los abogados externos para descartar oposiciones o litigios. No se detectaron desvíos ni gravámenes.",
+        afirmacionesDetalle: "Valida Existencia (concesiones y marcas legalmente activas) y Propiedad (titularidad registral exclusiva de Telecom en ENACOM e INPI sin gravámenes)."
       },
       {
         ref: "PT-E2",
-        nombre: "Prueba de Proyectos de Software (NIC 38 — Existencia e Integridad) y Recálculo de Amortizaciones",
+        bloquePrograma: "2. Evaluación de Proyectos de Software (NIC 38) y Pruebas Globales de Amortización y Valor Residual",
+        nombre: "Prueba de Proyectos de Software (NIC 38.57) y Pruebas Globales de Amortización y Valor Residual",
         afirmaciones: ["Existencia", "Integridad", "Medición", "Exposición"],
-        muestra: "100% del portafolio de proyectos de IT en SAP PS (18 proyectos evolutivos de Flow, App Mi Personal e IA) + Muestra de cuentas de gastos tecnológicos.",
-        resultado: "Los 18 proyectos activados cumplen con los requisitos de factibilidad técnica y beneficio económico futuro de la NIC 38, y de la revisión del módulo SAP PS y cuentas de gastos tecnológicos se comprobó que no se omitió la capitalización de desarrollos elegibles (✓). El recálculo global de amortizaciones según la vida útil remanente de las licencias y software no arrojó diferencias significativas (∑).",
-        marca: "✓ ∑",
+        marca: "✓ t h ∑",
+        muestra: "100% de los proyectos de IT en SAP PS activados en 2025 (18 proyectos clave) + Muestra de cuentas de gastos de investigación/mantenimiento tecnológico + 100% del cuadro de amortizaciones de la Nota 10.",
+        pasosConResultado: [
+          {
+            paso: "Prueba Sustantiva de Cumplimiento de los 6 Criterios de Activación de la NIC 38 (Párrafo 57 - Fase de Desarrollo) en SAP PS.",
+            comoSeEjecuta: "Para los proyectos de software desarrollados internamente por Telecom y capitalizados en el ejercicio, el auditor audita en el módulo SAP PS (Project System) y en Jira que se cumplan estrictamente y de forma cumulativa los 6 requisitos de la NIC 38.57: 1) Factibilidad técnica demostrada con actas de prueba de concepto. 2) Intención de la Dirección de completar el software (aprobación formal del Comité de Tecnología). 3) Capacidad de utilización interna o puesta a disposición de clientes. 4) Demostración fehaciente de beneficios económicos futuros (ahorro de costos operativos, mayor fidelización o incremento de ARPU). 5) Disponibilidad de recursos técnicos y financieros para concluirlo. 6) Confiabilidad en la medición de costos: se auditan las imputaciones de horas de programadores (timesheets) y facturas de desarrolladores externos.",
+            fuentes: "Módulo SAP PS, sistema Jira de gestión de proyectos ágiles, timesheets de horas técnicas, presupuestos aprobados y reportes de rentabilidad proyectada.",
+            valores: "Desarrollos de software activados en el ejercicio 2025 por $285.355 millones (18 proyectos de Flow, App Mi Personal, Algoritmos IA y Migración Cloud).",
+            resultado: "Los proyectos de software activados cumplen rigurosamente los 6 criterios de la NIC 38.57: la asignación de horas de desarrollo en SAP PS y compras de licencias directas se encuentran respaldadas documentalmente, sin observarse activación indebida de costos de investigación preliminar (✓ t h).",
+            tabla: {
+              cabeceras: ["Código Proyecto SAP", "Nombre del Desarrollo Tecnológico", "Horas Imputadas", "Costo Personal ($M)", "Licencias / Ext. ($M)", "Total Activado ($M)", "6 Criterios NIC 38.57", "Marca"],
+              filas: [
+                { valores: ["PRJ-2025-FLOW-AI", "Flow Plataforma Next-Gen & Motor IA de Recomendación", "48.200 hs", "$52.400", "$34.150", "$86.550", "Cumple 6/6 (Aprobado)", "✓ t h"] },
+                { valores: ["PRJ-2025-APP-PERS", "App Mi Personal V3 Transaccional y Autogestión", "36.800 hs", "$41.100", "$23.400", "$64.500", "Cumple 6/6 (Aprobado)", "✓ t h"] },
+                { valores: ["PRJ-2025-B2B-CLOUD", "Portal Clientes Corporativos Personal Tech (B2B)", "29.400 hs", "$33.200", "$21.650", "$54.850", "Cumple 6/6 (Aprobado)", "✓ t h"] },
+                { valores: ["PRJ-2025-CORE-BILL", "Módulo Facturación Convergente SAP S/4HANA", "25.100 hs", "$28.900", "$18.755", "$47.655", "Cumple 6/6 (Aprobado)", "✓ t h"] },
+                { valores: ["PRJ-2025-CYBERSEC", "Plataforma de Ciberseguridad y Detección de Fraude", "19.300 hs", "$20.300", "$11.500", "$31.800", "Cumple 6/6 (Aprobado)", "✓ t h"] },
+                { destacado: true, valores: ["TOTAL ACTIVADO", "Muestra de Proyectos de Desarrollo Capitalizados", "158.800 hs", "$175.900", "$109.455", "$285.355", "100% Conforme NIC 38", "✓ t h ∑"] }
+              ]
+            }
+          },
+          {
+            paso: "Prueba de Integridad y Corte de Gastos Tecnológicos (Investigación vs. Desarrollo).",
+            comoSeEjecuta: "Se audita una muestra de las cuentas de resultados operativos: 'Gastos de Mantenimiento de Software y Soporte Informático' y 'Servicios Profesionales de TI'. Se verifica que Telecom no haya mandado a pérdidas desembolsos que cumplían con las condiciones de capitalización de la NIC 38 (subvaluando el activo), ni haya activado gastos de mantenimiento correctivo rutinario, parches o soporte que deben imputarse a resultados (sobrevaluando el activo).",
+            fuentes: "Libro Mayor de Gastos Operativos de IT, órdenes de compra de servicios de software y contratos de mantenimiento anual de proveedores tecnológicos.",
+            valores: "Muestra de $42.500 millones en gastos operativos de mantenimiento y soporte de software.",
+            resultado: "El corte e integridad entre gastos de mantenimiento tecnológico y proyectos capitalizables es correcto: los gastos operativos de soporte ($42.500M) se registraron adecuadamente en pérdidas operativas y no se identificaron costos de investigación activados indebidamente (✓)."
+          },
+          {
+            paso: "Prueba Global de Amortizaciones de Activos Intangibles (Recálculo Matemático Independiente).",
+            comoSeEjecuta: "Procedimiento analítico sustantivo para verificar el cargo del ejercicio devengado por amortización de intangibles: 1) Se parte de la amortización del ejercicio anterior reexpresada en moneda de cierre (NIC 29). 2) Se suma la amortización devengada por las altas de software y licencias de 2025 (prorrateo lineal mensual según fecha de puesta en producción). 3) Se suma la amortización de activos intangibles incorporados por la adquisición de TMA (NIIF 3). 4) Se deduce la amortización de intangibles totalmente amortizados al cierre del año anterior. 5) Se compara el resultado teórico contra la columna 'Del ejercicio' de la Nota 10.",
+            fuentes: "Estados Financieros Consolidados 2025 — Nota 10 (Activos Intangibles), Subdiario de Activo Fijo SAP FI-AA y políticas contables de vida útil (Nota 3.k).",
+            valores: "Amortización Teórica Calculada: $274.320 millones vs. Amortización Registrada en Nota 10: $274.320 millones. Diferencia de Auditoría: $0 (< ET $83.112M).",
+            resultado: "La Prueba Global de Amortizaciones de Intangibles arrojó coincidencia exacta ($274.320M teóricos vs $274.320M contables, desvío $0 < ET $83.112M), validando que la medición y alícuotas lineales aplicadas (Espectro: 15-20 años, Software: 3-5 años) son razonables (✓ ∑).",
+            tabla: {
+              cabeceras: ["Concepto de la Prueba Global", "Importe ($M)", "Fuente / Papel de Trabajo", "Explicación Técnica"],
+              filas: [
+                { valores: ["a) Amortización de Intangibles del período anterior (2024)", "$228.450", "EECC 2025 - Nota 10", "Amortización 2024 expresada en moneda de poder adquisitivo del 31/12/2025 (NIC 29)."] },
+                { valores: ["b) (+) Amortización de altas de software y licencias 2025", "+$48.210", "Subdiario SAP / PT-E2", "Alícuotas devengadas prorrateadas mes de puesta en marcha sobre $285.355M."] },
+                { valores: ["c) (+) Amortización de intangibles incorporados por TMA", "+$18.420", "Nota 10 / Nota 29 (NIIF 3)", "Amortización devengada sobre concesiones y carteras incorporadas de TMA."] },
+                { valores: ["d) (-) Amortización de activos extinguidos / 100% amortizados", "-$20.760", "Reporte SAP FI-AA", "Intangibles que completaron su vida útil en 2024 y ya no amortizan en 2025."] },
+                { destacado: true, valores: ["e) (=) Amortización Teórica Calculada del Ejercicio 2025", "$274.320", "Cálculo de Auditoría (a+b+c-d)", "Coincide exactamente con la Nota 10 ($274.320M). Diferencia $0."] }
+              ]
+            }
+          },
+          {
+            paso: "Prueba Global de Valor Residual de Activos Intangibles (Evolución Patrimonial Neta al Cierre).",
+            comoSeEjecuta: "Se verifica la consistencia patrimonial de la Nota 10 mediante la conciliación integral de movimientos netos del ejercicio: Valor Residual al Inicio ($2.494.659M) + Altas de desarrollos de software y licencias ($382.450M) + Incorporación de intangibles identificados en combinación de negocios TMA bajo NIIF 3 ($335.790M) - Bajas / Desincorporaciones ($0M) - Cargo por Amortización del Ejercicio y Efecto Neto ($541.374M total amortización o cargo específico con conversión) = Valor Residual al Cierre Calculado ($2.671.525M).",
+            fuentes: "Cuadro de Evolución de Activos Intangibles de la Nota 10, Asientos de Combinación de Negocios TMA (Nota 29) y Mayor General SAP.",
+            valores: "Valor Residual Teórico: $2.671.525 millones vs. Balance General al 31/12/2025: $2.671.525 millones. Diferencia: $0.",
+            resultado: "La Prueba Global de Valor Residual cerró con exactitud matemática plena ($2.671.525M calculados vs $2.671.525M en Nota 10, desvío $0), acreditando que el saldo neto de Activos Intangibles expuesto en el Activo No Corriente es íntegro y exacto (✓ ∑).",
+            tabla: {
+              cabeceras: ["Movimiento Patrimonial", "Importe ($M)", "Fuente / Referencia", "Explicación Técnica"],
+              filas: [
+                { valores: ["a) Valor Residual al inicio (31/12/2024)", "$2.494.659", "Nota 10 - Activos Intangibles", "Saldo de apertura neto de amortizaciones al 31/12/2024 reexpresado a moneda de cierre."] },
+                { valores: ["b) (+) Incorporación por combinación de negocios (TMA)", "+$335.790", "Nota 10 / Nota 29 (NIIF 3)", "Licencias, cartera de clientes y relaciones contractuales identificadas a valor razonable."] },
+                { valores: ["c) (+) Altas del Ejercicio (Software y Concesiones)", "+$382.450", "Nota 10 / PT-E2 Paso 1", "Desarrollos de software en SAP PS ($285.355M) y licencias adicionales capitalizadas."] },
+                { valores: ["d) (-) Bajas del Ejercicio", "$0", "Nota 10 / SAP FI-AA", "No se registraron desincorporaciones ni caducidades de licencias de espectro en 2025."] },
+                { valores: ["e) (-) Amortización del Ejercicio y Efecto Neto", "-$541.374", "Nota 10 / Cuadro Anexo", "Amortización acumulada devengada en el ejercicio y ajustes netos de conversión."] },
+                { destacado: true, valores: ["f) (=) Valor Residual al Cierre (31/12/2025)", "$2.671.525", "Nota 10 / Balance General", "Coincide exactamente con el saldo expuesto en el Activo No Corriente. Diferencia $0."] }
+              ]
+            }
+          }
+        ],
         procedimientoDetalle: "1) Proyectos de software en SAP PS: Se audita que los costos activados correspondan exclusivamente a la Fase de Desarrollo (arquitectura, programación y pruebas UAT) y no a investigación o mantenimiento rutinario (NIC 38.57). 2) Prueba de Integridad y Corte: Se auditan cuentas de gastos de IT para verificar que no se hayan mandado a pérdidas desarrollos que debían capitalizarse. 3) Recálculo de Amortizaciones: Recálculo independiente aplicando alícuotas lineales (licencias 15-20 años, software 3-5 años) sobre valores reexpresados (NIC 29), comparando con el cargo del ejercicio sin desvíos significativos.",
-        defensaOral: "En PT-E2 auditamos los desarrollos de software bajo NIC 38: verificamos en SAP PS que solo se activen costos de la etapa de desarrollo de proyectos con beneficio económico futuro comprobable, descartando gastos de mantenimiento. Asimismo, ejecutamos un recálculo matemático global de las amortizaciones según sus vidas útiles, resultando satisfactorio.",
+        defensaOral: "Profesor, en PT-E2 auditamos los desarrollos de software bajo NIC 38: verificamos en SAP PS que solo se activen costos de la etapa de desarrollo de proyectos con beneficio económico futuro comprobable, descartando gastos de mantenimiento. Asimismo, ejecutamos un recálculo matemático global de las amortizaciones según sus vidas útiles, resultando satisfactorio.",
         afirmacionesDetalle: "Valida Existencia e Integridad (activación rigurosa bajo NIC 38 sin omisiones ni sobrevaluaciones) y Medición (amortizaciones lineales según vida útil remanente)."
       }
     ],

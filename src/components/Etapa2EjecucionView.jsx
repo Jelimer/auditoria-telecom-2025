@@ -403,7 +403,7 @@ export default function Etapa2EjecucionView({
   }, [subTarget, subTargetTick]);
 
   const activePT = papelesTrabajo.find((pt) => pt.id === selectedPTId) || papelesTrabajo[0];
-  const isPTA = activePT.id === 'pt-a';
+  const isPTA = activePT.id === 'pt-a' || activePT.id === 'pt-e';
   const activeRubro =
     rubrosSignificativos.find(
       (r) => r.codigoPrograma.toLowerCase().replace('programa ', 'pt-') === activePT.id.toLowerCase()
@@ -742,7 +742,19 @@ export default function Etapa2EjecucionView({
                   >
                     <span>📍 {proc.ref}</span>
                     <span className="text-[11px] font-normal opacity-75">
-                      ({proc.ref === 'PT-A1' ? 'Inspección Física' : proc.ref === 'PT-A2' ? 'Altas CAPEX' : proc.ref === 'PT-A3' ? 'Titularidad RPI' : 'Depreciaciones'})
+                      ({proc.ref === 'PT-A1'
+                        ? 'Inspección Física'
+                        : proc.ref === 'PT-A2'
+                        ? 'Altas CAPEX'
+                        : proc.ref === 'PT-A3'
+                        ? 'Titularidad RPI'
+                        : proc.ref === 'PT-A4'
+                        ? 'Depreciaciones'
+                        : proc.ref === 'PT-E1'
+                        ? 'Espectro y Marcas'
+                        : proc.ref === 'PT-E2'
+                        ? 'Software y Amort.'
+                        : 'Detalle'})
                     </span>
                   </button>
                 );
