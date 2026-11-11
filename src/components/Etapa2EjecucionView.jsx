@@ -15,7 +15,7 @@ import {
   X,
   RotateCcw
 } from 'lucide-react';
-import { papelesTrabajo, marcasAuditoria } from '../data/etapas2y3Data';
+import { papelesTrabajo, marcasAuditoria, getMarcasPorRubro } from '../data/etapas2y3Data';
 import { materialidadData, rubrosSignificativos } from '../data/etapa1Data';
 
 export const NORMAS_DICCIONARIO = {
@@ -727,7 +727,7 @@ export default function Etapa2EjecucionView({
               📌 Glosario de Marcas de Auditoría en Cédula Sumaria:
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-slate-600">
-              {marcasAuditoria
+              {getMarcasPorRubro(activePT.id)
                 .filter((m) => activePT.cedulaSumaria.some((r) => r.marca.includes(m.simbolo)))
                 .map((m) => (
                   <div key={m.simbolo} className="flex items-start gap-1.5 bg-white p-1.5 rounded-lg border border-slate-200/80 shadow-2xs">
@@ -1809,17 +1809,16 @@ export default function Etapa2EjecucionView({
 
           <div className="pt-3 border-t border-teal-200/80">
             <span className="text-[10px] font-extrabold uppercase tracking-wider text-teal-800 block mb-2">
-              Referencias de Marcas de Auditoría (Tickmarks):
+              Referencias de Marcas de Auditoría del Papel de Trabajo (Tickmarks):
             </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2">
-              {marcasAuditoria.map((m, i) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              {getMarcasPorRubro(activePT.id).map((m, i) => (
                 <div
                   key={i}
-                  title={m.significado}
-                  className="px-2.5 py-1.5 rounded-lg bg-white border border-teal-200 text-[11px] text-slate-700 flex items-start gap-1.5"
+                  className="px-2.5 py-1.5 rounded-lg bg-white border border-teal-200 text-[11px] text-slate-700 flex items-start gap-1.5 shadow-2xs"
                 >
-                  <strong className="font-mono text-teal-700 text-xs shrink-0">{m.simbolo}</strong>
-                  <span className="leading-snug">{m.significado.split('(')[0]}</span>
+                  <strong className="font-mono text-teal-700 text-xs shrink-0 bg-teal-50 px-1 py-0.5 rounded border border-teal-200">{m.simbolo}</strong>
+                  <span className="leading-snug text-slate-700 text-[11px]">{m.significado}</span>
                 </div>
               ))}
             </div>

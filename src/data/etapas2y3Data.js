@@ -10,6 +10,57 @@ export const marcasAuditoria = [
   { simbolo: "h", significado: "Horas de desarrollo imputadas en SAP PS (Project System) y Jira validadas en fase de desarrollo bajo NIC 38.57." }
 ];
 
+export const marcasPorRubro = {
+  "pt-a": [
+    { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (facturas CAE de proveedores de fibra/antenas, actas de recepción técnica provisoria y definitiva, certificados de obra en curso)." },
+    { simbolo: "§", significado: "Cotejado con el Libro Mayor General y Balance de Sumas y Saldos del sistema ERP SAP al 31/12/2025." },
+    { simbolo: "∑", significado: "Suma vertical y horizontal verificada sin diferencias mediante recálculo independiente." },
+    { simbolo: "⊗", significado: "Observación / Desvío de control interno o diferencia de auditoría trasladada a la Planilla de Ajustes Propuestos (PAE)." },
+    { simbolo: "©", significado: "Saldo o registro confirmado directamente por tercero u organismo independiente (Registro de la Propiedad Inmueble y peritajes técnicos externos)." }
+  ],
+  "pt-b": [
+    { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (facturas de venta electrónicas CAE/ARCA, remitos conformados B2B y recibos oficiales de cobranza)." },
+    { simbolo: "§", significado: "Cotejado con el Libro Mayor General y Balance de Sumas y Saldos del sistema ERP SAP al 31/12/2025." },
+    { simbolo: "∑", significado: "Suma vertical y horizontal verificada sin diferencias mediante recálculo independiente." },
+    { simbolo: "⊗", significado: "Observación / Desvío de control interno o diferencia de auditoría trasladada a la Planilla de Ajustes Propuestos (PAE)." },
+    { simbolo: "©", significado: "Saldo o registro confirmado directamente por tercero u organismo independiente (circularización externa directa a clientes corporativos B2B y confirmaciones bancarias)." }
+  ],
+  "pt-c": [
+    { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (contratos de financiamiento con organismos multilaterales IFC/BID, prospectos de emisión de ONs y liquidaciones de intereses)." },
+    { simbolo: "§", significado: "Cotejado con el Libro Mayor General y Balance de Sumas y Saldos del sistema ERP SAP al 31/12/2025." },
+    { simbolo: "∑", significado: "Suma vertical y horizontal verificada sin diferencias mediante recálculo independiente." },
+    { simbolo: "©", significado: "Saldo o registro confirmado directamente por tercero u organismo independiente (circularización bancaria directa a entidades financieras locales/internacionales y Caja de Valores S.A.)." },
+    { simbolo: "⊗", significado: "Observación / Desvío de control interno o diferencia de auditoría trasladada a la Planilla de Ajustes Propuestos (PAE)." }
+  ],
+  "pt-d": [
+    { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (lotes de facturación electrónica masiva en SAP Convergent Invoicing, contratos de abono y reportes de mediación de red)." },
+    { simbolo: "§", significado: "Cotejado con el Libro Mayor General y Balance de Sumas y Saldos del sistema ERP SAP al 31/12/2025." },
+    { simbolo: "∑", significado: "Suma vertical y horizontal verificada sin diferencias mediante recálculo independiente." },
+    { simbolo: "⊗", significado: "Observación / Desvío de control interno o diferencia de auditoría trasladada a la Planilla de Ajustes Propuestos (PAE)." },
+    { simbolo: "©", significado: "Saldo o registro confirmado directamente por tercero u organismo independiente (confirmaciones externas de distribuidores y pasarelas de cobro)." }
+  ],
+  "pt-e": [
+    { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (resolución de adjudicación ENACOM, títulos del INPI, contratos de software y facturas CAE/ARCA)." },
+    { simbolo: "©", significado: "Saldo o registro confirmado directamente por tercero u organismo independiente (Boletín Oficial de la República Argentina y registros públicos del INPI)." },
+    { simbolo: "§", significado: "Cotejado con el Libro Mayor General y Balance de Sumas y Saldos del sistema ERP SAP al 31/12/2025." },
+    { simbolo: "∑", significado: "Suma vertical y horizontal verificada sin diferencias mediante recálculo independiente." },
+    { simbolo: "t", significado: "Tarifas y costos de personal validados contra nómina de sueldos (SAP HR) y contratos de consultoría técnica externa." },
+    { simbolo: "h", significado: "Horas de desarrollo imputadas en SAP PS (Project System) y Jira validadas en fase de desarrollo bajo NIC 38.57." },
+    { simbolo: "⊗", significado: "Observación / Desvío de control interno o diferencia de auditoría trasladada a la Planilla de Ajustes Propuestos (PAE)." }
+  ],
+  "pt-f": [
+    { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (informes de valuación y modelos de flujos de fondos descontados del experto independiente)." },
+    { simbolo: "§", significado: "Cotejado con el Libro Mayor General y Balance de Sumas y Saldos del sistema ERP SAP al 31/12/2025." },
+    { simbolo: "∑", significado: "Suma vertical y horizontal verificada sin diferencias mediante recálculo independiente." },
+    { simbolo: "©", significado: "Saldo o registro confirmado directamente por tercero u organismo independiente (fuentes de mercado de tasas WACC y proyecciones macroeconómicas validadas)." },
+    { simbolo: "⊗", significado: "Observación / Desvío de control interno o diferencia de auditoría trasladada a la Planilla de Ajustes Propuestos (PAE)." }
+  ]
+};
+
+export const getMarcasPorRubro = (ptId) => {
+  return marcasPorRubro[ptId] || marcasAuditoria;
+};
+
 export const equipoTrabajoInicial = [
   {
     id: "eq-1",
@@ -580,7 +631,15 @@ export const papelesTrabajo = [
             comoSeEjecuta: "Se audita una muestra de las cuentas de resultados operativos: 'Gastos de Mantenimiento de Software y Soporte Informático' y 'Servicios Profesionales de TI'. Se verifica que Telecom no haya mandado a pérdidas desembolsos que cumplían con las condiciones de capitalización de la NIC 38 (subvaluando el activo), ni haya activado gastos de mantenimiento correctivo rutinario, parches o soporte que deben imputarse a resultados (sobrevaluando el activo).",
             fuentes: "Libro Mayor de Gastos Operativos de IT, órdenes de compra de servicios de software y contratos de mantenimiento anual de proveedores tecnológicos.",
             valores: "Muestra de $42.500 millones en gastos operativos de mantenimiento y soporte de software.",
-            resultado: "El corte e integridad entre gastos de mantenimiento tecnológico y proyectos capitalizables es correcto: los gastos operativos de soporte ($42.500M) se registraron adecuadamente en pérdidas operativas y no se identificaron costos de investigación activados indebidamente (✓)."
+            tabla: {
+              cabeceras: ["Cuenta Contable de Resultados (SAP)", "Saldo Mayor ($M)", "Muestra Auditada ($M)", "Conclusión del Examen de Corte", "Marcas"],
+              filas: [
+                { valores: ["5.1.04.12 Mantenimiento de Software y Soporte", "$28.150", "$28.150", "Soporte y parches imputados a pérdida (Gasto del mes)", "✓ §"] },
+                { valores: ["5.1.04.18 Servicios Profesionales de TI", "$14.350", "$14.350", "Consultoría operativa rutinaria, no capitalizable", "✓ §"] },
+                { destacado: true, valores: ["TOTAL MUESTRA DE GASTOS TECNOLÓGICOS", "$42.500", "$42.500", "Corte e Integridad Conformes (NIC 38 / NIC 1)", "✓ § ∑"] }
+              ]
+            },
+            resultado: "El corte e integridad entre gastos de mantenimiento tecnológico y proyectos capitalizables es correcto: los gastos operativos de soporte ($42.500M) se registraron adecuadamente en pérdidas operativas y no se identificaron costos de investigación activados indebidamente (✓ § ∑)."
           },
           {
             paso: "Prueba Global de Amortizaciones de Activos Intangibles (Recálculo Matemático Independiente).",
