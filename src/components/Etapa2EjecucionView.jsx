@@ -273,79 +273,216 @@ function NormaTooltip({ code, info }) {
   );
 }
 
-function TerminoAuditoriaTooltip({ matchText, info }) {
+const TERMINOS_EXACTOS = {
+  'CIRCULARIZACIÓN': 'CIRCULARIZACION',
+  'CIRCULARIZACION': 'CIRCULARIZACION',
+  'CARTA DE CONFIRMACIÓN': 'CARTAS_CONFIRMACION',
+  'CARTAS DE CONFIRMACIÓN': 'CARTAS_CONFIRMACION',
+  'CARTA DE CONFIRMACION': 'CARTAS_CONFIRMACION',
+  'CARTAS DE CONFIRMACION': 'CARTAS_CONFIRMACION',
+  'PROCEDIMIENTO ALTERNATIVO': 'PROCEDIMIENTO_ALTERNATIVO',
+  'PROCEDIMIENTOS ALTERNATIVOS': 'PROCEDIMIENTO_ALTERNATIVO',
+  'PRUEBA DE CORTE': 'PRUEBA_CORTE',
+  'CORTE DE FACTURACIÓN': 'PRUEBA_CORTE',
+  'CORTE DE FACTURACION': 'PRUEBA_CORTE',
+  'CORTE DE OPERACIONES': 'PRUEBA_CORTE',
+  'AGING': 'AGING',
+  'MATRIZ DE ANTIGÜEDAD': 'MATRIZ_ANTIGUEDAD',
+  'MATRIZ DE ANTIGUEDAD': 'MATRIZ_ANTIGUEDAD',
+  'MATRIZ DE ANTIGÜEDAD DE DEUDA': 'MATRIZ_ANTIGUEDAD',
+  'MATRIZ DE ANTIGUEDAD DE DEUDA': 'MATRIZ_ANTIGUEDAD',
+  'PREVISIÓN NIIF 9': 'PREVISION_NIIF_9',
+  'PREVISION NIIF 9': 'PREVISION_NIIF_9',
+  'TAAC': 'TAACS',
+  'TAACS': 'TAACS',
+  'PERSONAL TECH': 'PERSONAL_TECH'
+};
+
+function resolveTerminoKey(text) {
+  if (!text || typeof text !== 'string') return null;
+  const trimmed = text.trim();
+  if (trimmed.length > 35) return null; // Previene falsos positivos en oraciones largas
+  const upper = trimmed.replace(/\s+/g, ' ').toUpperCase();
+  return TERMINOS_EXACTOS[upper] || null;
+}
+
+function TerminoAuditoriaTooltip({ termKey, matchText, defaultInfo }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  // Carga personalizada de localStorage para permitir editar las ventanitas
+  const [customDefs, setCustomDefs] = useState(() => {
+    try {
+      const saved = localStorage.getItem('audiia_custom_terminos_glosario_v1');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  const termData = customDefs[termKey] || defaultInfo;
+  const [editQueEs, setEditQueEs] = useState(termData.queEs);
+  const [editUtilidad, setEditUtilidad] = useState(termData.utilidadMesa);
+  const isCustomized = !!customDefs[termKey];
+
+  const handleSaveEdit = (e) => {
+    e.stopPropagation();
+    const updated = {
+      ...customDefs,
+      [termKey]: {
+        ...termData,
+        queEs: editQueEs,
+        utilidadMesa: editUtilidad
+      }
+    };
+    setCustomDefs(updated);
+    try {
+      localStorage.setItem('audiia_custom_terminos_glosario_v1', JSON.stringify(updated));
+    } catch (err) {
+      console.error(err);
+    }
+    setIsEditing(false);
+  };
+
+  const handleResetEdit = (e) => {
+    e.stopPropagation();
+    const updated = { ...customDefs };
+    delete updated[termKey];
+    setCustomDefs(updated);
+    setEditQueEs(defaultInfo.queEs);
+    setEditUtilidad(defaultInfo.utilidadMesa);
+    try {
+      localStorage.setItem('audiia_custom_terminos_glosario_v1', JSON.stringify(updated));
+    } catch (err) {
+      console.error(err);
+    }
+    setIsEditing(false);
+  };
 
   return (
     <span
-      className="relative inline-block my-0.5"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      className="relative inline"
+      onMouseEnter={() => !isEditing && setIsOpen(true)}
+      onMouseLeave={() => !isEditing && setIsOpen(false)}
     >
       <span
         onClick={(e) => {
           e.stopPropagation();
           setIsOpen((prev) => !prev);
         }}
-        className="inline-flex items-center gap-1 mx-0.5 px-1.5 py-0.5 rounded font-extrabold text-[11px] sm:text-xs bg-amber-50 text-amber-900 border border-amber-300 hover:border-amber-500 hover:bg-amber-100 cursor-help transition-all shadow-2xs underline decoration-dotted decoration-amber-600 underline-offset-3 not-italic"
-        title={`Pasa el mouse para ver la definición de ${info.termino}`}
+        className="inline cursor-help text-teal-800 font-semibold underline decoration-dotted decoration-teal-600 underline-offset-3 hover:text-teal-950 hover:decoration-solid transition-colors not-italic"
+        title={`Pasa el mouse para ver la definición de ${termData.termino}`}
       >
-        <span>{info.icono} {matchText}</span>
-        <span className="text-[9px] text-amber-700 opacity-70">💡</span>
+        {matchText}
+        <span className="text-[10px] text-teal-600 ml-0.5 no-underline">💡</span>
       </span>
 
       {isOpen && (
         <span
-          className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 sm:w-96 p-3.5 bg-slate-950 text-slate-100 text-[11.5px] rounded-xl shadow-2xl border-2 border-amber-400 z-50 block text-left not-italic font-normal normal-case pointer-events-auto leading-normal animate-in fade-in zoom-in-95 duration-150"
+          className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 sm:w-96 p-4 bg-slate-950 text-slate-100 text-[11.5px] rounded-xl shadow-2xl border-2 border-teal-400 z-50 block text-left not-italic font-normal normal-case pointer-events-auto leading-normal animate-in fade-in zoom-in-95 duration-150"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Encabezado */}
           <span className="flex items-center justify-between gap-1 pb-1.5 border-b border-slate-800 mb-2">
-            <span className="font-bold text-amber-300 text-xs flex items-center gap-1">
-              {info.icono} {info.termino}
+            <span className="font-bold text-teal-300 text-xs flex items-center gap-1">
+              {termData.icono} {termData.termino}
             </span>
-            <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-700 uppercase tracking-wider">
-              {info.afirmaciones}
+            <span className="flex items-center gap-1.5">
+              <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-teal-950 text-teal-300 border border-teal-700 uppercase tracking-wider">
+                {termData.afirmaciones}
+              </span>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsEditing((prev) => !prev);
+                }}
+                className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 hover:bg-white/20 text-slate-200 border border-white/20 cursor-pointer font-bold transition-colors"
+                title="Editar lo que dice esta ventanita"
+              >
+                {isEditing ? '✕ Cancelar' : '✏️ Editar'}
+              </button>
             </span>
           </span>
 
           {/* Doctrina / Norma */}
           <span className="text-[10px] text-slate-400 font-mono block mb-1.5">
-            📚 {info.doctrina}
+            📚 {termData.doctrina}
           </span>
 
-          {/* ¿Qué es? */}
-          <span className="block mb-2 text-slate-200">
-            <strong className="text-white font-semibold">¿Qué es?: </strong>
-            {info.queEs}
-          </span>
+          {isEditing ? (
+            <div className="space-y-2.5 pt-1">
+              <div>
+                <label className="block text-[10px] font-bold text-teal-300 uppercase mb-0.5">
+                  ¿Qué es? (Definición):
+                </label>
+                <textarea
+                  value={editQueEs}
+                  onChange={(e) => setEditQueEs(e.target.value)}
+                  rows={3}
+                  className="w-full p-2 rounded-lg bg-slate-900 border border-teal-500/50 text-slate-100 text-[11px] leading-relaxed focus:outline-none focus:ring-1 focus:ring-teal-400"
+                />
+              </div>
 
-          {/* Utilidad en Mesa de Examen */}
-          <span className="block p-2 rounded-lg bg-slate-900 border border-amber-500/30 text-amber-200 text-[11px]">
-            <strong className="text-amber-300 font-bold block mb-0.5">🎯 Clave para la Defensa Oral:</strong>
-            {info.utilidadMesa}
-          </span>
+              <div>
+                <label className="block text-[10px] font-bold text-amber-300 uppercase mb-0.5">
+                  Clave para la Defensa Oral:
+                </label>
+                <textarea
+                  value={editUtilidad}
+                  onChange={(e) => setEditUtilidad(e.target.value)}
+                  rows={3}
+                  className="w-full p-2 rounded-lg bg-slate-900 border border-amber-500/50 text-amber-100 text-[11px] leading-relaxed focus:outline-none focus:ring-1 focus:ring-amber-400"
+                />
+              </div>
+
+              <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-800">
+                <button
+                  type="button"
+                  onClick={handleSaveEdit}
+                  className="px-3 py-1 rounded-md bg-teal-600 hover:bg-teal-700 text-white font-bold text-xs cursor-pointer"
+                >
+                  Guardar nota ✓
+                </button>
+                {isCustomized && (
+                  <button
+                    type="button"
+                    onClick={handleResetEdit}
+                    className="text-[10px] text-rose-400 hover:underline cursor-pointer"
+                  >
+                    Restablecer original
+                  </button>
+                )}
+              </div>
+            </div>
+          ) : (
+            <>
+              {/* ¿Qué es? */}
+              <span className="block mb-2 text-slate-200">
+                <strong className="text-white font-semibold">¿Qué es?: </strong>
+                {termData.queEs}
+              </span>
+
+              {/* Utilidad en Mesa de Examen */}
+              <span className="block p-2 rounded-lg bg-slate-900 border border-teal-500/30 text-teal-100 text-[11px]">
+                <strong className="text-amber-300 font-bold block mb-0.5">🎯 Clave para la Defensa Oral:</strong>
+                {termData.utilidadMesa}
+              </span>
+
+              {isCustomized && (
+                <span className="block text-[9.5px] text-amber-400/80 italic mt-1.5 text-right">
+                  ✏️ Definición personalizada por el usuario
+                </span>
+              )}
+            </>
+          )}
 
           {/* Flechita inferior del popover */}
-          <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-amber-400" />
+          <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-teal-400" />
         </span>
       )}
     </span>
   );
-}
-
-function resolveTerminoKey(text) {
-  const upper = text.toUpperCase();
-  if (upper.includes('CIRCULARIZ')) return 'CIRCULARIZACION';
-  if (upper.includes('CONFIRMA')) return 'CARTAS_CONFIRMACION';
-  if (upper.includes('ALTERNATIV')) return 'PROCEDIMIENTO_ALTERNATIVO';
-  if (upper.includes('PRUEBA DE CORTE') || upper.includes('CORTE DE FACTURACIÓN') || upper.includes('CORTE DE OPERACIONES')) return 'PRUEBA_CORTE';
-  if (upper.includes('AGING')) return 'AGING';
-  if (upper.includes('ANTIGÜEDAD') || upper.includes('ANTIGUEDAD')) return 'MATRIZ_ANTIGUEDAD';
-  if (upper.includes('PREVISIÓN NIIF 9') || upper.includes('PREVISION NIIF 9')) return 'PREVISION_NIIF_9';
-  if (upper.includes('TAAC')) return 'TAACS';
-  if (upper.includes('PERSONAL TECH')) return 'PERSONAL_TECH';
-  return null;
 }
 
 export function renderTextWithNormas(text) {
@@ -368,8 +505,9 @@ export function renderTextWithNormas(text) {
       return (
         <TerminoAuditoriaTooltip
           key={index}
+          termKey={terminoKey}
           matchText={part}
-          info={TERMINOS_AUDITORIA_DICCIONARIO[terminoKey]}
+          defaultInfo={TERMINOS_AUDITORIA_DICCIONARIO[terminoKey]}
         />
       );
     }

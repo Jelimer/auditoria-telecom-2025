@@ -131,7 +131,7 @@ export default function Etapa3InformeView({
                       className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${
                         active
                           ? 'bg-indigo-600 text-white'
-                          : tab.id === 'informe' && !esLimpia
+                          : tab.id === 'informe' && !esLimpiaEstricta
                           ? 'bg-amber-100 text-amber-900'
                           : 'bg-indigo-100 text-indigo-800'
                       }`}
