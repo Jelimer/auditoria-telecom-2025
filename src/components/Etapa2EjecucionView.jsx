@@ -907,14 +907,88 @@ export default function Etapa2EjecucionView({
                               {/* 2. [ Desplegable / Detalle técnico ] primero en cada paso, luego Fuentes..., luego valores... */}
                               {hasDetail && isStepExpanded && (
                                 <div className={`p-3 rounded-lg bg-slate-900 text-slate-100 border border-teal-500/40 ${isPTA ? 'text-xs sm:text-[13px] leading-relaxed' : 'text-[11px]'} space-y-2`}>
-                                  {item.comoSeEjecuta && (
-                                    <div>
-                                      <strong className={`text-lime-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
-                                        🛠️ ¿Cómo se ejecuta la prueba en la práctica?
-                                      </strong>
-                                      <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(item.comoSeEjecuta)}</p>
-                                    </div>
-                                  )}
+                                  {item.comoSeEjecuta && (() => {
+                                    const execKey = `${proc.ref}-exec-${pIdx}`;
+                                    const isEditingExec = editingField === execKey;
+                                    const currentExec =
+                                      pasosNarrativosCustom[execKey] !== undefined
+                                        ? pasosNarrativosCustom[execKey]
+                                        : item.comoSeEjecuta;
+                                    const isCustom = pasosNarrativosCustom[execKey] !== undefined;
+
+                                    return (
+                                      <div>
+                                        <div className="flex items-center justify-between gap-1 mb-1">
+                                          <strong className={`text-lime-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
+                                            🛠️ ¿Cómo se ejecuta la prueba en la práctica?
+                                            {isCustom && (
+                                              <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-400 text-slate-900 ml-1">
+                                                ✏️ Editado
+                                              </span>
+                                            )}
+                                          </strong>
+                                          {!isEditingExec && (
+                                            <button
+                                              type="button"
+                                              onClick={() => handleStartEdit(execKey, currentExec)}
+                                              title="Editar la descripción técnica de este procedimiento"
+                                              className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-lime-300 border border-teal-500/50 cursor-pointer shadow-2xs"
+                                            >
+                                              <Pencil className="w-2.5 h-2.5" /> Editar
+                                            </button>
+                                          )}
+                                        </div>
+
+                                        {isEditingExec ? (
+                                          <div className="space-y-2 mt-1">
+                                            <div className="flex flex-wrap items-center gap-1 p-1 rounded bg-slate-800 border border-slate-700 text-xs">
+                                              <button type="button" onClick={() => applyFormat('**', '**')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white font-bold">B</button>
+                                              <button type="button" onClick={() => applyFormat('*', '*')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white italic">I</button>
+                                              <button type="button" onClick={() => applyFormat('• ', '')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white">Lista</button>
+                                            </div>
+                                            <textarea
+                                              ref={textareaRef}
+                                              rows={4}
+                                              value={tempEditText}
+                                              onChange={(e) => setTempEditText(e.target.value)}
+                                              className="w-full p-2 text-xs rounded bg-slate-950 text-slate-100 border border-teal-400 focus:outline-none focus:ring-1 focus:ring-teal-300 font-sans leading-relaxed"
+                                            />
+                                            <div className="flex items-center justify-between">
+                                              <div className="flex gap-1.5">
+                                                <button
+                                                  type="button"
+                                                  onClick={() => handleSavePaso(execKey)}
+                                                  className="px-2.5 py-1 rounded bg-lime-400 text-slate-950 font-bold text-xs hover:bg-lime-300 cursor-pointer flex items-center gap-1"
+                                                >
+                                                  <Check className="w-3.5 h-3.5" /> Guardar
+                                                </button>
+                                                <button
+                                                  type="button"
+                                                  onClick={handleCancelEdit}
+                                                  className="px-2.5 py-1 rounded bg-slate-700 text-slate-300 text-xs hover:bg-slate-600 cursor-pointer flex items-center gap-1"
+                                                >
+                                                  <X className="w-3.5 h-3.5" /> Cancelar
+                                                </button>
+                                              </div>
+                                              {isCustom && (
+                                                <button
+                                                  type="button"
+                                                  onClick={() => handleResetPaso(execKey)}
+                                                  className="text-[10px] text-amber-300 hover:underline cursor-pointer flex items-center gap-1"
+                                                >
+                                                  <RotateCcw className="w-2.5 h-2.5" /> Restablecer original
+                                                </button>
+                                              )}
+                                            </div>
+                                          </div>
+                                        ) : (
+                                          <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
+                                            {renderTextWithNormas(currentExec)}
+                                          </p>
+                                        )}
+                                      </div>
+                                    );
+                                  })()}
 
                                   {item.fuentes && (
                                     <div>
@@ -1111,14 +1185,88 @@ export default function Etapa2EjecucionView({
 
                         {isExpanded && (
                           <div className={`mt-2.5 p-3.5 rounded-xl bg-slate-900 text-slate-100 border border-teal-500/40 ${isPTA ? 'text-xs sm:text-[13px] leading-relaxed' : 'text-[11px]'} space-y-2.5 shadow-md`}>
-                            {!stepsHaveDetail && proc.procedimientoDetalle && (
-                              <div>
-                                <strong className={`text-lime-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
-                                  🛠️ ¿Cómo se ejecuta la prueba en la práctica?
-                                </strong>
-                                <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>{renderTextWithNormas(proc.procedimientoDetalle)}</p>
-                              </div>
-                            )}
+                            {!stepsHaveDetail && proc.procedimientoDetalle && (() => {
+                              const procKey = `${proc.ref}-detalle`;
+                              const isEditingProc = editingField === procKey;
+                              const currentProc =
+                                pasosNarrativosCustom[procKey] !== undefined
+                                  ? pasosNarrativosCustom[procKey]
+                                  : proc.procedimientoDetalle;
+                              const isCustom = pasosNarrativosCustom[procKey] !== undefined;
+
+                              return (
+                                <div>
+                                  <div className="flex items-center justify-between gap-1 mb-1">
+                                    <strong className={`text-lime-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
+                                      🛠️ ¿Cómo se ejecuta la prueba en la práctica?
+                                      {isCustom && (
+                                        <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-400 text-slate-900 ml-1">
+                                          ✏️ Editado
+                                        </span>
+                                      )}
+                                    </strong>
+                                    {!isEditingProc && (
+                                      <button
+                                        type="button"
+                                        onClick={() => handleStartEdit(procKey, currentProc)}
+                                        title="Editar la descripción técnica del procedimiento"
+                                        className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-lime-300 border border-teal-500/50 cursor-pointer shadow-2xs"
+                                      >
+                                        <Pencil className="w-2.5 h-2.5" /> Editar
+                                      </button>
+                                    )}
+                                  </div>
+
+                                  {isEditingProc ? (
+                                    <div className="space-y-2 mt-1">
+                                      <div className="flex flex-wrap items-center gap-1 p-1 rounded bg-slate-800 border border-slate-700 text-xs">
+                                        <button type="button" onClick={() => applyFormat('**', '**')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white font-bold">B</button>
+                                        <button type="button" onClick={() => applyFormat('*', '*')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white italic">I</button>
+                                        <button type="button" onClick={() => applyFormat('• ', '')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white">Lista</button>
+                                      </div>
+                                      <textarea
+                                        ref={textareaRef}
+                                        rows={4}
+                                        value={tempEditText}
+                                        onChange={(e) => setTempEditText(e.target.value)}
+                                        className="w-full p-2 text-xs rounded bg-slate-950 text-slate-100 border border-teal-400 focus:outline-none focus:ring-1 focus:ring-teal-300 font-sans leading-relaxed"
+                                      />
+                                      <div className="flex items-center justify-between">
+                                        <div className="flex gap-1.5">
+                                          <button
+                                            type="button"
+                                            onClick={() => handleSavePaso(procKey)}
+                                            className="px-2.5 py-1 rounded bg-lime-400 text-slate-950 font-bold text-xs hover:bg-lime-300 cursor-pointer flex items-center gap-1"
+                                          >
+                                            <Check className="w-3.5 h-3.5" /> Guardar
+                                          </button>
+                                          <button
+                                            type="button"
+                                            onClick={handleCancelEdit}
+                                            className="px-2.5 py-1 rounded bg-slate-700 text-slate-300 text-xs hover:bg-slate-600 cursor-pointer flex items-center gap-1"
+                                          >
+                                            <X className="w-3.5 h-3.5" /> Cancelar
+                                          </button>
+                                        </div>
+                                        {isCustom && (
+                                          <button
+                                            type="button"
+                                            onClick={() => handleResetPaso(procKey)}
+                                            className="text-[10px] text-amber-300 hover:underline cursor-pointer flex items-center gap-1"
+                                          >
+                                            <RotateCcw className="w-2.5 h-2.5" /> Restablecer original
+                                          </button>
+                                        )}
+                                      </div>
+                                    </div>
+                                  ) : (
+                                    <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
+                                      {renderTextWithNormas(currentProc)}
+                                    </p>
+                                  )}
+                                </div>
+                              );
+                            })()}
                             {!stepsHaveDetail && proc.fuentes && (
                               <div>
                                 <strong className={`text-teal-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
