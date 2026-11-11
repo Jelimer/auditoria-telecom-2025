@@ -134,13 +134,13 @@
    - **Resultado del Rubro:** Conforme y validado, sin ajustes propuestos.
 
 3. **Créditos por Ventas (Programa B / PT-B):**
-   - **Completado al 100% en Word y Web.**
-   - Saldo al 31/12/2025: **`$800.128M`** netos (`$799.188M` corrientes + `$940M` no corrientes en Nota 5).
-   - Cédula Sumaria (Tabla 34 en Word): Saldo s/ Libros `$800.128M`, Ajuste Debe `$14.620M`, Ajuste Haber `$24.030M` (Ajuste Neto `-$9.410M`), Saldo Auditado **`$790.718M`**.
-   - Cédula Analítica PT-B1 (Tabla 35): Circularización directa (NIA 505) a 65 grandes cuentas corporativas B2B (54 conformes por `$184.620M` sin discrepancias), procedimientos alternativos de cobranzas posteriores en extractos bancarios de enero 2026 sobre las 11 restantes (`$32.480M` 100% cobrados) y validación del PPA bajo NIIF 3 de la cartera incorporada de TMA (`$421.919M` a valor razonable inicial).
-   - Cédula Analítica PT-B2 (Tabla 36): Prueba de corte B2B e interfaces de cobro. Hallazgo de 8 hitos completados en diciembre 2025 no facturados (`$14.620M`) y cobranzas en tránsito recaudadas por Rapipago/Pago Fácil el 30-31/12 no acreditadas en clientes (`$4.180M`). **Ajuste AJ-02 por `$18.800M`** formulado a la Gerencia.
-   - Cédula Analítica PT-B3 (Tabla 37): Reproceso con TAACs del 100% del padrón unificado de deudores (`$1.071.047M` brutos) y recálculo de la matriz de pérdida crediticia esperada (ECL NIIF 9). Detección de defecto de provisionamiento por exclusión indebida de cartera migrada de TMA con mora > 180 días (`$24.812M` excluida en SAP FSCM). **Ajuste AJ-03 por `$19.850M`** formulado a la Gerencia.
-   - Evaluación NIA 450: Desvío acumulado en el rubro de `-$9.410M` supera el umbral PAE (`$8.311M`), pero representa el 11,3% del Error Tolerable (`$83.112M`) y el 5,7% de la Significatividad Global (`$166.225M`), concluyendo el rubro razonable y conforme.
+   - **Completado al 100% en Word y Web — Enfoque Conforme (Sin Ajustes Propuestos).**
+   - Saldo al 31/12/2025: **`$800.128M`** netos (`$1.070.107M` corrientes brutos + `$940M` no corrientes menos `$(270.919)M` de Previsión en Nota 5).
+   - Cédula Sumaria (Tabla 34 en Word): Saldo s/ Libros `$800.128M`, Ajuste Debe `$0`, Ajuste Haber `$0`, Saldo Auditado **`$800.128M`** (`§ ∑`).
+   - Cédula Analítica PT-B1 (Tabla 35): Confirmación escrita directa (positiva) a 65 grandes cuentas corporativas B2B de Personal Tech (`$385.420M`, 59 confirmadas directas por `$366.620M`) y aplicación de procedimientos alternativos estándar (NIA 505 / Slosse) de cobranzas posteriores en extractos bancarios de enero de 2026 para las no contestadas y el segmento masivo B2C (`$74.800M` verificados al 100%). Diferencia: `$0`.
+   - Cédula Analítica PT-B2 (Tabla 36): Prueba de corte de facturación B2B (contratos y actas del 15/12/2025 al 15/01/2026) y conciliación de interfaces de recaudación externa (Rapipago, Pago Fácil, Billeteras Virtuales al 31/12/2025 por `$36.890M`). Verificación del estricto devengamiento bajo NIIF 15 e impacto oportuno en extractos bancarios de enero 2026. Diferencia: `$0`.
+   - Cédula Analítica PT-B3 (Tabla 37): Evaluación y recálculo con TAACs de la matriz de antigüedad de deuda en SAP (`$1.071.047M` brutos) y modelo de pérdida crediticia esperada (ECL NIIF 9). Se verificó que el 100% de los deudores con morosidad superior a 180 días (`$85.684M`) están cubiertos al 100%, y que la previsión resultante de `$(270.919)M` coincide exactamente con la registrada por la Sociedad en la Nota 5. Diferencia: `$0`.
+   - **Resultado del Rubro:** Conforme y validado sin asientos de ajuste propuestos, en coherencia con el Riesgo de Control Medio (72%) en el Sistema Contable (Tabla 25).
 
 4. **Próximo Rubro a Desarrollar: Ventas (Programa D / PT-D) o Préstamos (Programa C / PT-C):**
    - **Ventas (Programa D / PT-D):** `$8.328.814M` (Nota 24). Vinculado con PT-B2 (devengamiento de ingresos B2B `+$14.620M`) y prueba global de facturación de abonados (Parque × ARPU), más reclasificación AJ-04 de servicios de terceros en Flow (`$11.240M` NIIF 15 agente vs. principal).

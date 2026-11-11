@@ -108,7 +108,7 @@ export const NORMAS_DICCIONARIO = {
     titulo: 'Instrumentos Financieros',
     emisor: 'IASB (NIIF)',
     queTrata: 'Establece el modelo prospectivo de Pérdida Crediticia Esperada (PCE) para medir la previsión para deudores incobrables.',
-    aplicacion: 'Recálculo de la matriz de morosidad >180 días en Créditos por Ventas, determinando el refuerzo de previsión por $19.850M en AJ-03.'
+    aplicacion: 'Recálculo con TAACs de la matriz de morosidad y pérdida crediticia esperada NIIF 9 en Créditos por Ventas, validando la suficiencia y razonabilidad de la previsión de libros sin desvíos.'
   },
   'RT 37': {
     codigo: 'RT 37 (FACPCE)',
@@ -791,11 +791,11 @@ export default function Etapa2EjecucionView({
                         : proc.ref === 'PT-E2'
                         ? 'Software y Amort.'
                         : proc.ref === 'PT-B1'
-                        ? 'Circularización B2B y TMA'
+                        ? 'Circularización y Cobros Post.'
                         : proc.ref === 'PT-B2'
-                        ? 'Corte e Interfaces (AJ-02)'
+                        ? 'Corte e Interfaces'
                         : proc.ref === 'PT-B3'
-                        ? 'Antigüedad y Previsión NIIF 9 (AJ-03)'
+                        ? 'Matriz y Previsión NIIF 9'
                         : 'Detalle'})
                     </span>
                   </button>
@@ -1879,7 +1879,7 @@ export default function Etapa2EjecucionView({
                 {!mostrarTodosAjustes && activePT.id === 'pt-a'
                   ? 'Desvío en Bienes de Uso (AJ-01)'
                   : !mostrarTodosAjustes && activePT.id === 'pt-b'
-                  ? 'Desvíos en Créditos por Ventas (AJ-02 y AJ-03)'
+                  ? 'Créditos por Ventas (Validado Sin Ajustes)'
                   : 'Desvíos Materiales No Registrados'}
               </span>
               <span
@@ -1934,8 +1934,8 @@ export default function Etapa2EjecucionView({
               </span>
             )}
             {!mostrarTodosAjustes && activePT.id === 'pt-b' && (
-              <span className="text-[11px] text-slate-500 font-medium">
-                — Enfoque Cátedra: Créditos por Ventas cuenta con propuestas de ajuste AJ-02 ($18.800M) y AJ-03 ($19.850M).
+              <span className="text-[11px] text-emerald-700 font-semibold">
+                — Enfoque Cátedra: Créditos por Ventas validado 100% conforme sin ajustes propuestos (Riesgo de Control Medio).
               </span>
             )}
           </div>
@@ -1951,7 +1951,7 @@ export default function Etapa2EjecucionView({
               </>
             ) : (
               <>
-                <span>👁️ Desplegar los otros ajustes de la auditoría (AJ-02 a AJ-04)</span>
+                <span>👁️ Desplegar los otros ajustes de la auditoría (AJ-01 y AJ-04)</span>
               </>
             )}
           </button>
@@ -2105,7 +2105,7 @@ export default function Etapa2EjecucionView({
             <p className="text-slate-200">
               A continuación abrimos las <strong>Cédulas Analíticas (sub-papeles como PT-A1, PT-B3, PT-C3, etc.)</strong> donde ejecutamos las pruebas sustantivas reales y dejamos <strong>marcas de auditoría (✓, ∑, ©, ⊗)</strong>:
               <br />• En <strong>PP&amp;E (PT-A)</strong> inspeccionamos los 16 Data Centers y 85 nodos y detectamos centrales analógicas obsoletas y nodos vandalizados sin dar de baja (<strong>Ajuste AJ-01 por $28.340M</strong>).
-              <br />• En <strong>Créditos por Ventas (PT-B)</strong> circularizamos clientes B2B, auditamos el corte de diciembre/enero (<strong>Ajuste AJ-02 por $18.800M</strong>) y reprocesamos con software TAACs el 100% de la mora &gt; 180 días incluyendo la cartera migrada de TMA (<strong>Ajuste AJ-03 por $19.850M</strong>).
+              <br />• En <strong>Créditos por Ventas (PT-B)</strong> circularizamos clientes B2B, verificamos cobranzas posteriores en extractos bancarios de enero 2026, auditamos el corte de operaciones e interfaces recaudadoras, y recalculamos con software TAACs la previsión NIIF 9, validando la razonabilidad patrimonial del rubro conforme sin ajustes propuestos.
               <br />• En <strong>Préstamos (PT-C)</strong> confirmamos el 100% de la deuda con bancos y Caja de Valores y recalculamos su valuación al TC BNA $/US$ 1.455,00.
               <br />• En <strong>Ventas (PT-D)</strong> hicimos la prueba global (Parque × ARPU) y detectamos ingresos de streaming de terceros registrados por el bruto (<strong>Reclasificación AJ-04 por $11.240M</strong>).
               <br />• En <strong>Activos Intangibles (PT-E)</strong> auditamos el 100% de licencias de espectro ENACOM y marcas INPI, validamos los 6 criterios de la NIC 38.57 para proyectos de software en SAP PS ($285.355M), corte de gastos de mantenimiento ($42.500M) y pruebas globales de amortizaciones y valor residual ($2.671.525M), concluyendo el rubro conforme y sin ajustes.

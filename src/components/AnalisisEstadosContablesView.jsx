@@ -693,7 +693,7 @@ const erFilas = [
     s2024: -112102,
     s2023: -127913,
     programaVinculado: 'PROGRAMA B (PT-B)',
-    lectura: 'ALERTA DE AUDITORÍA: El cargo a resultados por incobrables creció +28,21% (1,73% de las Ventas), mientras la Previsión acumulada en el Balance subió a $(270.919)M sobre $1.067.130M de créditos comunes (+105,25% neto por incorporación de la cartera de TMA por $421.919M y mayor mora). Confirma la necesidad del reproceso NIIF 9 en PT-B3 (Ajuste AJ-03 por $19.850M).'
+    lectura: 'ALERTA DE AUDITORÍA: El cargo a resultados por incobrables creció +28,21% (1,73% de las Ventas), mientras la Previsión acumulada en el Balance subió a $(270.919)M sobre $1.067.130M de créditos comunes (+105,25% neto por incorporación de la cartera de TMA por $421.919M y mayor mora). Se auditó mediante el reproceso NIIF 9 en PT-B3 con TAACs, validando la suficiencia y razonabilidad del saldo de previsión registrado en libros sin desvíos ($0 diferencia).'
   },
   {
     id: 'er-otros-costos',
@@ -1003,7 +1003,7 @@ const ratiosFinancieros = [
     queRepresenta:
       'Mide el plazo promedio de cobranza (calle). Es la principal señal de alerta de los ratios operativos: el plazo aparente se alarga casi 9 días (de 26,11 a 35,02 días) porque los Créditos por Ventas se duplicaron (+105,25%, de $389.375M a $799.188M netos de una Previsión de $(270.919)M) mientras las Ventas crecieron un +53,02%. Esto combina tres efectos: (1) la adquisición de Telefónica Móviles Argentina S.A. (TMA) el 24/02/2025, cuyo stock total de créditos al cierre ($421.919M) se consolida al 100% en el Balance mientras el Estado de Resultados solo incluye 10 meses de ventas de TMA (mar-dic 2025); (2) la mayor mora acumulada de clientes ($1.067.130M de créditos comunes); y (3) la asimetría NIC 29 entre flujos mensuales reexpresados y saldos nominales de cierre.',
     impactoAuditoria:
-      'Dispara directamente el Programa B (PT-B1, PT-B2 y PT-B3) para auditar la cartera migrada de TMA y de Telecom, donde se detectaron los Ajustes Materiales AJ-03 (defecto de Previsión NIIF 9 por mora > 180 días por $19.850M) y AJ-02 (corte de facturación B2B $14.620M y cobranzas en tránsito $4.180M).'
+      'Dispara directamente el Programa B (PT-B1, PT-B2 y PT-B3) para auditar la cartera unificada de Telecom y TMA mediante confirmación directa, cobros posteriores en enero 2026, prueba de corte de facturación e interfaces, y recálculo con TAACs de la previsión NIIF 9, validando que el saldo contable neto de $800.128M es íntegro y razonable sin ajustes requeridos.'
   },
   {
     id: 'rat-11',
@@ -1083,7 +1083,7 @@ const ratiosFinancieros = [
     queRepresenta:
       'Indica que por cada $1,00 de deuda exigible en los próximos 12 meses, Telecom cuenta con $0,48 en activos corrientes (mejorando desde $0,39 en 2024). Aunque presenta un capital de trabajo negativo de -$2.004.488M, casi la mitad de la mejora proviene del incremento del +105,25% en Créditos por Ventas ($799.188M).',
     impactoAuditoria:
-      'Obliga a auditar la cobrabilidad real y valuación de los Créditos por Ventas (Programa B: Ajustes AJ-02 y AJ-03) y la capacidad de refinanciación de los Préstamos Corrientes ($1.616.544M en Programa C).'
+      'Obliga a auditar la cobrabilidad real y valuación de los Créditos por Ventas (Programa B: PT-B1 a PT-B3) y la capacidad de refinanciación de los Préstamos Corrientes ($1.616.544M en Programa C).'
   },
   {
     id: 'rat-15',
@@ -1365,7 +1365,7 @@ const matrizVinculacionAuditoria = [
     procedimientosAplicados:
       '• Reproceso 100% mediante TAACs de la matriz de antigüedad de saldos ($1.071.047M brutos incluyendo cartera TMA de $421.919M) para detectar carteras en mora > 180 días omitidas del cálculo de Previsión NIIF 9 de $(270.919)M (PT-B3).\n• Prueba de corte de operaciones sobre actas de recepción B2B Personal Tech (+/- 15 días del cierre) y conciliación de recaudadores externos Rapipago/Pago Fácil/billeteras (PT-B2).\n• Circularización positiva a 65 clientes corporativos B2B (PT-B1).',
     hallazgoVinculado:
-      'Detectados Ajustes Materiales AJ-03 (subestimación de la Previsión para Deudores Incobrables por $19.850M en cartera migrada con mora > 180d) y AJ-02 (servicios B2B devengados en dic-25 sin facturar por $14.620M y cobranzas en tránsito por $4.180M).'
+      'Validado Conforme sin ajustes requeridos: las confirmaciones directas y cobros posteriores (PT-B1), la prueba de corte e interfaces (PT-B2) y el recálculo con TAACs de la previsión NIIF 9 (PT-B3) confirmaron que los saldos y previsiones registradas en libros son razonables, íntegros y suficientes ($0 diferencia).'
   },
   {
     alertaAnalitica:
@@ -2790,16 +2790,12 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                 </li>
                 <li>
                   <strong>Prueba de corte de facturación</strong> sobre actas de recepción B2B firmadas entre el 15/12/2025 y el 15/01/2026, y conciliación de recaudaciones en tránsito de <em>Rapipago, Pago Fácil y billeteras virtuales</em> al 31/12 (
-                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-b2')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-B2 ↗</button>
-                  {' → '}
-                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'sec-pae')} className="underline text-rose-300 font-bold hover:text-rose-200 cursor-pointer">Ajuste AJ-02 por $18.800M ↗</button>
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-b2')} className="underline text-emerald-300 font-bold hover:text-emerald-200 cursor-pointer">PT-B2 Validado Conforme ($0 dif.) ↗</button>
                   ).
                 </li>
                 <li>
-                  <strong>Reproceso del 100% del padrón de morosidad ($1.071.047M brutos incluyendo cartera TMA) mediante TAACs</strong> y recálculo de la <strong>Previsión para Deudores Incobrables (NIIF 9, saldo contable $(270.919)M)</strong> para incorporar las carteras con mora &gt; 180 días omitidas en la migración de sistemas (
-                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-b3')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-B3 ↗</button>
-                  {' → '}
-                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'sec-pae')} className="underline text-rose-300 font-bold hover:text-rose-200 cursor-pointer">Ajuste AJ-03 por $19.850M ↗</button>
+                  <strong>Reproceso del 100% del padrón de morosidad ($1.071.047M brutos) mediante TAACs</strong> y recálculo de la <strong>Previsión para Deudores Incobrables (NIIF 9, saldo $(270.919)M)</strong>, verificando que el 100% de la mora &gt; 180 días está previsionada (
+                  <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-b3')} className="underline text-emerald-300 font-bold hover:text-emerald-200 cursor-pointer">PT-B3 Validado Conforme ($0 dif.) ↗</button>
                   ).
                 </li>
               </ul>

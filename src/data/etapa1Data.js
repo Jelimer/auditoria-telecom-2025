@@ -766,7 +766,7 @@ export const materialidadData = {
       puntos: [
         {
           subtitulo: "1. ¿Qué es este 5% ($8.311 millones) según la NIA 450 y Slosse?",
-          texto: "La bibliografía establece entre un 3% y un 5% de la Significatividad Global como umbral de partidas «claramente insignificantes o triviales». Todo desvío que supere los $8.311M (como nuestros ajustes AJ-01 por $28.340M, AJ-02 por $18.800M, AJ-03 por $19.850M y AJ-04 por $11.240M) debe proponerse formalmente como asiento de ajuste."
+          texto: "La bibliografía establece entre un 3% y un 5% de la Significatividad Global como umbral de partidas «claramente insignificantes o triviales». Todo desvío que supere los $8.311M (como nuestro ajuste material AJ-01 en Bienes de Uso por $28.340M y la reclasificación AJ-04 en Ventas por $11.240M) debe proponerse formalmente como asiento de ajuste."
         },
         {
           subtitulo: "2. ¿Por qué el desvío de $3.120M en Préstamos (PT-C3) no obliga a modificar el Balance ni da Salvedad?",
@@ -977,7 +977,7 @@ export const rubrosSignificativos = [
         riesgo: "Subestimación de la previsión para deudores de dudoso cobro por omitir carteras migradas con morosidad superior a 180 días en consumo masivo, o errores en la valuación a valor razonable de los créditos adquiridos de TMA ($421.919M).",
         controlClave: "Emisión mensual automatizada del reporte de antigüedad de saldos (aging), aplicación del modelo de pérdida esperada NIIF 9 y revisión técnica del PPA (Purchase Price Allocation) de TMA.",
         naturalezaProc: "Recálculo independiente mediante TAACs y evaluación de estimaciones NIIF 9 y NIIF 3.",
-        instrumento: "Obtener el padrón maestro de antigüedad de saldos al 31/12/2025 y recalcular la previsión bajo NIIF 9 mediante TAACs, identificando los saldos con mora > 180 días omitidos para cuantificar el desvío y proponer el ajuste de auditoría correspondiente en el Estado de Resultados. Revisar el informe de asignación del precio de compra (PPA bajo NIIF 3) para validar el valor razonable inicial y el deterioro crediticio de la cartera incorporada de TMA.",
+        instrumento: "Obtener el padrón maestro de antigüedad de saldos al 31/12/2025 y recalcular la previsión bajo NIIF 9 mediante TAACs, comprobando que los deudores con morosidad superior a 180 días se encuentren contemplados en su totalidad y verificando la razonabilidad y suficiencia de la estimación registrada en libros sin desvíos materiales.",
         oportunidad: "Cierre de ejercicio.",
         alcance: "100% del padrón unificado de deudores (Telecom + TMA, $1.071.047M brutos) mediante herramientas de auditoría asistidas por computadora (TAACs)."
       },
@@ -993,9 +993,9 @@ export const rubrosSignificativos = [
       }
     ],
     programaTrabajo: [
-      { Bloque: "Circularización de Saldos y Conciliación de Cobranzas (Existencia)", Pasos: ["Enviar solicitudes de confirmación escrita a una muestra estratificada de clientes corporativos del segmento B2B (Personal Tech) y verificar cobros posteriores en enero 2026.", "Auditar las partidas en conciliación de las interfaces con agentes de cobro externos (Rapipago, Pago Fácil y billeteras virtuales) al 31/12/2025 para detectar cobranzas ingresadas no imputadas."] },
-      { Bloque: "Prueba de Corte de Facturación y Devengamiento (Integridad)", Pasos: ["Seleccionar los contratos y actas de conformidad de servicios B2B emitidos entre el 15/12/2025 y el 15/01/2026 para verificar su imputación en el período correcto.", "Cruzar los reportes de tráfico/consumo de red de diciembre contra la facturación emitida para validar el íntegro devengamiento de servicios pendientes de facturación al cierre (unbilled revenue)."] },
-      { Bloque: "Valuación NIIF 9 (Mora > 180 días) y Cartera TMA NIIF 3 (Medición)", Pasos: ["Obtener el padrón unificado de antigüedad de saldos al cierre en SAP y reprocesar mediante TAACs el 100% de la base, cuantificando los deudores con mora > 180 días omitidos para proponer el ajuste de auditoría.", "Revisar el PPA (NIIF 3) de la adquisición de TMA ($421.919M) y recalcular la Previsión para Deudores Incobrables bajo el modelo de pérdidas crediticias esperadas (NIIF 9)."] }
+      { Bloque: "Circularización de Saldos y Cobranzas Posteriores (Existencia / Propiedad)", Pasos: ["Enviar solicitudes de confirmación escrita directa (positiva) a una muestra de clientes corporativos del segmento B2B (Personal Tech).", "Para las circularizaciones no respondidas y para el segmento B2C masivo, aplicar procedimientos alternativos verificando la cobranza posterior en extractos bancarios de enero de 2026."] },
+      { Bloque: "Prueba de Corte de Facturación e Interfaces de Cobro (Integridad / Medición)", Pasos: ["Seleccionar los contratos y actas de conformidad de servicios B2B emitidas entre el 15/12/2025 y el 15/01/2026 para comprobar su devengamiento en el ejercicio correspondiente.", "Revisar las partidas en conciliación de las interfaces con agentes de cobro (Rapipago, Pago Fácil, billeteras virtuales) al 31/12/2025."] },
+      { Bloque: "Evaluación y Recálculo de la Previsión para Incobrables NIIF 9 (Medición)", Pasos: ["Obtener la matriz de antigüedad de saldos al cierre emitida por el ERP SAP y verificar que la totalidad de deudores con morosidad > 180 días se encuentren contemplados en la matriz.", "Recalcular la estimación de la previsión aplicando el modelo de pérdidas crediticias esperadas (ECL) según la NIIF 9 mediante TAACs."] }
     ]
   },
   {
