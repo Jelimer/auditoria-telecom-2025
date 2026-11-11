@@ -110,12 +110,101 @@ export const NORMAS_DICCIONARIO = {
     queTrata: 'Establece el modelo prospectivo de Pérdida Crediticia Esperada (PCE) para medir la previsión para deudores incobrables.',
     aplicacion: 'Recálculo con TAACs de la matriz de morosidad y pérdida crediticia esperada NIIF 9 en Créditos por Ventas, validando la suficiencia y razonabilidad de la previsión de libros sin desvíos.'
   },
+  'NIA 505': {
+    codigo: 'NIA 505',
+    titulo: 'Confirmaciones Externas (Circularización)',
+    emisor: 'IAASB / FACPCE',
+    queTrata: 'Regula el diseño y aplicación de procedimientos de confirmación externa directa para obtener evidencia de auditoría relevante y confiable sobre saldos por cobrar, pasivos y compromisos.',
+    aplicacion: 'En PT-B1 se circularizaron 65 clientes corporativos de Personal Tech ($385.420M) mediante cartas positivas directas, aplicando cobros posteriores en extractos bancarios de enero 2026 para las no contestadas y el segmento masivo B2C.'
+  },
+  'NIIF 15': {
+    codigo: 'NIIF 15',
+    titulo: 'Ingresos de Actividades Ordinarias Procedentes de Contratos con Clientes',
+    emisor: 'IASB (NIIF)',
+    queTrata: 'Establece el principio de devengado y el modelo de 5 pasos para reconocer ingresos cuando la entidad transfiere el control de un bien o servicio comprometido.',
+    aplicacion: 'En PT-B2 se audita el corte de operaciones al 31/12/2025 para comprobar que los ingresos y cuentas a cobrar B2B se devengaron en el ejercicio correcto.'
+  },
   'RT 37': {
     codigo: 'RT 37 (FACPCE)',
     titulo: 'Normas de Auditoría, Revisión, Otros Encargos de Aseguramiento y Servicios Relacionados',
     emisor: 'FACPCE (Argentina)',
     queTrata: 'Marco normativo profesional emitido por los Consejos Profesionales en Ciencias Económicas de Argentina, armonizado con las Normas Internacionales de Auditoría (NIAs).',
     aplicacion: 'Es la norma que regula nuestro encargo de auditoría independiente sobre los estados contables consolidados de Telecom Argentina S.A.'
+  }
+};
+
+export const TERMINOS_AUDITORIA_DICCIONARIO = {
+  'CIRCULARIZACION': {
+    termino: 'Circularización de Clientes (Confirmación Externa)',
+    doctrina: 'Carlos A. Slosse • NIA 505',
+    icono: '✉️',
+    afirmaciones: 'Existencia y Propiedad',
+    queEs: 'Procedimiento sustantivo de auditoría mediante el cual el auditor solicita a un tercero independiente (cliente corporativo) confirmación escrita directa del saldo que adeuda a Telecom al 31/12/2025.',
+    utilidadMesa: 'Slosse la clasifica en Positiva Directa (se incluye el saldo en la carta y se pide confirmación) o Ciega (el cliente completa el saldo). Valida que el deudor sea real y no ficticio.'
+  },
+  'CARTAS_CONFIRMACION': {
+    termino: 'Cartas de Confirmación Escrita Directa',
+    doctrina: 'NIA 505 • Carlos A. Slosse',
+    icono: '📝',
+    afirmaciones: 'Existencia y Propiedad',
+    queEs: 'Es el instrumento formal (físico o digital) redactado en papel membretado de Telecom pero bajo control del auditor, donde la empresa autoriza al cliente a responder directamente al equipo de auditoría.',
+    utilidadMesa: 'El auditor debe mantener el control absoluto del envío y recepción de las respuestas para evitar manipulaciones de la empresa auditada.'
+  },
+  'PROCEDIMIENTO_ALTERNATIVO': {
+    termino: 'Procedimientos Alternativos de Auditoría',
+    doctrina: 'NIA 505 (Párr. 12) • Carlos A. Slosse',
+    icono: '🔄',
+    afirmaciones: 'Existencia y Propiedad',
+    queEs: 'Procedimiento supletorio que el auditor aplica cuando un cliente no responde a la circularización o para la cartera masiva residencial (B2C) de millones de líneas.',
+    utilidadMesa: 'Consiste en verificar la efectiva cobranza posterior en los extractos bancarios oficiales de enero 2026. Si el cliente pagó en enero, se prueba que la deuda al 31/12 existía legalmente.'
+  },
+  'PRUEBA_CORTE': {
+    termino: 'Prueba de Corte de Facturación (Cut-off)',
+    doctrina: 'Carlos A. Slosse • NIIF 15 / Devengado',
+    icono: '✂️',
+    afirmaciones: 'Integridad y Medición',
+    queEs: 'Procedimiento que verifica que todas las operaciones y servicios prestados queden imputados exactamente en el ejercicio contable que corresponde (antes o después del 31/12/2025).',
+    utilidadMesa: 'En Telecom se revisan actas de recepción de servicios corporativos entre el 15/12/2025 y el 15/01/2026 para asegurar que no se anticipen ventas de 2026 ni se posterguen ventas devengadas en 2025.'
+  },
+  'AGING': {
+    termino: 'Aging (Antigüedad de la Deuda)',
+    doctrina: 'Término Técnico Anglosajón • NIIF 7 / NIIF 9',
+    icono: '⏳',
+    afirmaciones: 'Medición (Valuación)',
+    queEs: 'Aging significa literalmente "envejecimiento". Es el informe del sistema contable (SAP) que estratifica las facturas impagas por rangos de días de mora (corrientes, 1-30d, 31-90d, 91-180d, >180d).',
+    utilidadMesa: 'Es la materia prima fundamental para calcular la Previsión NIIF 9: a mayor antigüedad y mora, mayor es el porcentaje de pérdida crediticia esperada que debe provisionarse.'
+  },
+  'MATRIZ_ANTIGUEDAD': {
+    termino: 'Matriz de Antigüedad de Saldos',
+    doctrina: 'NIIF 7 • Módulos SAP FI-AR / FSCM',
+    icono: '📊',
+    afirmaciones: 'Medición y Exposición',
+    queEs: 'Reporte emitido por el ERP SAP que clasifica el 100% de la cartera de clientes según los días transcurridos desde el vencimiento de cada factura comercial.',
+    utilidadMesa: 'Permite verificar que todos los deudores con morosidad superior a 180 días ($85.684M) estén contemplados y cubiertos al 100% en la previsión contable.'
+  },
+  'PREVISION_NIIF_9': {
+    termino: 'Previsión para Deudores Incobrables (ECL)',
+    doctrina: 'NIIF 9 (Párrafo 5.5)',
+    icono: '🛡️',
+    afirmaciones: 'Medición (Valuación)',
+    queEs: 'Cuenta regularizadora del activo que descuenta del total de créditos el monto que razonablemente se espera perder por falta de pago.',
+    utilidadMesa: 'Bajo NIIF 9 se calcula con un modelo prospectivo de pérdida esperada (no incurrida), combinando tasas históricas de morosidad con pronósticos económicos (inflación y riesgo país). Saldo en Telecom: $(270.919)M.'
+  },
+  'TAACS': {
+    termino: 'TAACs (Técnicas de Auditoría Asistidas por Computadora)',
+    doctrina: 'Carlos A. Slosse • NIA 330',
+    icono: '💻',
+    afirmaciones: 'Integridad y Medición',
+    queEs: 'Scripts de software (ej. Python, ACL, SQL) que permiten al auditor reprocesar de forma automática y masiva el 100% de los datos de un sistema contable como SAP.',
+    utilidadMesa: 'Frente a 18 millones de abonados y millones de documentos abiertos, permite al auditor recalcular toda la cartera en segundos sin recurrir a muestreos manuales.'
+  },
+  'PERSONAL_TECH': {
+    termino: 'Personal Tech (Unidad B2B de Telecom)',
+    doctrina: 'Segmento Corporativo y Gobierno',
+    icono: '🏢',
+    afirmaciones: 'Existencia e Integridad',
+    queEs: 'División de negocios de Telecom que provee servicios de telecomunicaciones y TI a grandes empresas y entes públicos (enlaces de fibra óptica, Data Center, nube y ciberseguridad).',
+    utilidadMesa: 'Concentra clientes de alto valor (YPF, Santander, Mercado Libre), por lo que se audita mediante circularización individual a diferencia del segmento residencial masivo (B2C).'
   }
 };
 
@@ -184,19 +273,105 @@ function NormaTooltip({ code, info }) {
   );
 }
 
+function TerminoAuditoriaTooltip({ matchText, info }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <span
+      className="relative inline-block my-0.5"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <span
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen((prev) => !prev);
+        }}
+        className="inline-flex items-center gap-1 mx-0.5 px-1.5 py-0.5 rounded font-extrabold text-[11px] sm:text-xs bg-amber-50 text-amber-900 border border-amber-300 hover:border-amber-500 hover:bg-amber-100 cursor-help transition-all shadow-2xs underline decoration-dotted decoration-amber-600 underline-offset-3 not-italic"
+        title={`Pasa el mouse para ver la definición de ${info.termino}`}
+      >
+        <span>{info.icono} {matchText}</span>
+        <span className="text-[9px] text-amber-700 opacity-70">💡</span>
+      </span>
+
+      {isOpen && (
+        <span
+          className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-72 sm:w-96 p-3.5 bg-slate-950 text-slate-100 text-[11.5px] rounded-xl shadow-2xl border-2 border-amber-400 z-50 block text-left not-italic font-normal normal-case pointer-events-auto leading-normal animate-in fade-in zoom-in-95 duration-150"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Encabezado */}
+          <span className="flex items-center justify-between gap-1 pb-1.5 border-b border-slate-800 mb-2">
+            <span className="font-bold text-amber-300 text-xs flex items-center gap-1">
+              {info.icono} {info.termino}
+            </span>
+            <span className="text-[9px] font-extrabold px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-700 uppercase tracking-wider">
+              {info.afirmaciones}
+            </span>
+          </span>
+
+          {/* Doctrina / Norma */}
+          <span className="text-[10px] text-slate-400 font-mono block mb-1.5">
+            📚 {info.doctrina}
+          </span>
+
+          {/* ¿Qué es? */}
+          <span className="block mb-2 text-slate-200">
+            <strong className="text-white font-semibold">¿Qué es?: </strong>
+            {info.queEs}
+          </span>
+
+          {/* Utilidad en Mesa de Examen */}
+          <span className="block p-2 rounded-lg bg-slate-900 border border-amber-500/30 text-amber-200 text-[11px]">
+            <strong className="text-amber-300 font-bold block mb-0.5">🎯 Clave para la Defensa Oral:</strong>
+            {info.utilidadMesa}
+          </span>
+
+          {/* Flechita inferior del popover */}
+          <span className="absolute top-full left-1/2 -translate-x-1/2 -mt-1 border-4 border-transparent border-t-amber-400" />
+        </span>
+      )}
+    </span>
+  );
+}
+
+function resolveTerminoKey(text) {
+  const upper = text.toUpperCase();
+  if (upper.includes('CIRCULARIZ')) return 'CIRCULARIZACION';
+  if (upper.includes('CONFIRMA')) return 'CARTAS_CONFIRMACION';
+  if (upper.includes('ALTERNATIV')) return 'PROCEDIMIENTO_ALTERNATIVO';
+  if (upper.includes('PRUEBA DE CORTE') || upper.includes('CORTE DE FACTURACIÓN') || upper.includes('CORTE DE OPERACIONES')) return 'PRUEBA_CORTE';
+  if (upper.includes('AGING')) return 'AGING';
+  if (upper.includes('ANTIGÜEDAD') || upper.includes('ANTIGUEDAD')) return 'MATRIZ_ANTIGUEDAD';
+  if (upper.includes('PREVISIÓN NIIF 9') || upper.includes('PREVISION NIIF 9')) return 'PREVISION_NIIF_9';
+  if (upper.includes('TAAC')) return 'TAACS';
+  if (upper.includes('PERSONAL TECH')) return 'PERSONAL_TECH';
+  return null;
+}
+
 export function renderTextWithNormas(text) {
   if (!text || typeof text !== 'string') return text;
 
-  const regex = /\b(NIA\s*(?:450|320|500|520|700|240|501|620)|NIC\s*(?:16|29|36|38)|NIIF\s*(?:3|9|15|16)|RT\s*37)\b/gi;
+  const regex = /\b(NIA\s*(?:450|320|500|505|520|700|240|501|620)|NIC\s*(?:16|29|36|38)|NIIF\s*(?:3|9|15|16)|RT\s*37|Circularización|cartas?\s+de\s+confirmación|procedimientos?\s+alternativos?|Prueba\s+de\s+Corte|corte\s+de\s+facturación|corte\s+de\s+operaciones|Matriz\s+de\s+Antigüedad(?:\s+de\s+Deuda)?|Aging|Previsión\s+NIIF\s*9|TAACs?|Personal\s+Tech)\b/gi;
   const parts = text.split(regex);
   if (parts.length <= 1) return text;
 
   return parts.map((part, index) => {
     const normalizedKey = part.replace(/\s+/g, ' ').toUpperCase();
-    const info = NORMAS_DICCIONARIO[normalizedKey];
+    const infoNorma = NORMAS_DICCIONARIO[normalizedKey];
 
-    if (info) {
-      return <NormaTooltip key={index} code={part} info={info} />;
+    if (infoNorma) {
+      return <NormaTooltip key={index} code={part} info={infoNorma} />;
+    }
+
+    const terminoKey = resolveTerminoKey(part);
+    if (terminoKey && TERMINOS_AUDITORIA_DICCIONARIO[terminoKey]) {
+      return (
+        <TerminoAuditoriaTooltip
+          key={index}
+          matchText={part}
+          info={TERMINOS_AUDITORIA_DICCIONARIO[terminoKey]}
+        />
+      );
     }
 
     return part;
@@ -1632,7 +1807,7 @@ export default function Etapa2EjecucionView({
                             </div>
 
                             <h5 className="text-sm sm:text-base font-extrabold text-slate-900">
-                              {paso.titulo}
+                              {renderFormattedRichText(paso.titulo)}
                             </h5>
 
                             {isEditingThisStep ? (
@@ -1725,15 +1900,32 @@ export default function Etapa2EjecucionView({
                         activePT.resumenMetodologicoRubro.conclusionNarrativa;
                       const isCustom = !!pasosNarrativosCustom[synthKey];
 
+                      const hasAjuste = activePT.ajustePropuestoNeto !== 0 || activePT.id === 'pt-a';
+                      const synthTitle =
+                        activePT.resumenMetodologicoRubro?.tituloSintesis ||
+                        (activePT.id === 'pt-a'
+                          ? 'Fundamentación del Ajuste AJ-01 por $28.340M bajo la NIA 450 y Evaluación de Materialidad'
+                          : activePT.id === 'pt-b'
+                          ? 'Conclusión del Rubro Créditos por Ventas bajo NIA 500 / RT 37 — Validación Conforme Sin Ajustes'
+                          : `Conclusión General del Rubro ${activePT.rubro.split('(')[0].trim()} (RT 37 / NIA 500) — Validación Conforme`);
+
                       return (
-                        <div className="p-4 rounded-xl bg-gradient-to-br from-amber-50 to-amber-100/60 border border-amber-300 text-slate-900 space-y-2 shadow-xs">
+                        <div className={`p-4 rounded-xl border text-slate-900 space-y-2 shadow-xs ${
+                          hasAjuste
+                            ? 'bg-gradient-to-br from-amber-50 to-amber-100/60 border-amber-300'
+                            : 'bg-gradient-to-br from-emerald-50 to-teal-100/60 border-teal-300'
+                        }`}>
                           <div className="flex flex-wrap items-center justify-between gap-2">
                             <div className="flex items-center gap-2">
-                              <span className="px-2.5 py-0.5 rounded bg-amber-600 text-white text-xs font-extrabold uppercase tracking-wide">
+                              <span className={`px-2.5 py-0.5 rounded text-white text-xs font-extrabold uppercase tracking-wide ${
+                                hasAjuste ? 'bg-amber-600' : 'bg-teal-700'
+                              }`}>
                                 Síntesis Integradora
                               </span>
-                              <h5 className="text-sm sm:text-base font-extrabold text-amber-950">
-                                Fundamentación del Ajuste AJ-01 por $28.340M bajo la NIA 450 y Evaluación de Materialidad
+                              <h5 className={`text-sm sm:text-base font-extrabold ${
+                                hasAjuste ? 'text-amber-950' : 'text-teal-950'
+                              }`}>
+                                {synthTitle}
                               </h5>
                               {isCustom && (
                                 <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-200 text-amber-900 border border-amber-400">

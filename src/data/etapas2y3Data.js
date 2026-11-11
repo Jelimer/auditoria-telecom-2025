@@ -416,7 +416,7 @@ export const papelesTrabajo = [
         ref: "PT-B1",
         bloquePrograma: "1. Circularización de Saldos y Cobranzas Posteriores (Existencia / Propiedad)",
         nombre: "Confirmación Escrita Directa a Grandes Clientes Corporativos B2B (Personal Tech) y Cobranzas Posteriores",
-        afirmaciones: ["Existencia", "Propiedad", "Exactitud"],
+        afirmaciones: ["Existencia", "Propiedad"],
         marca: "§ ✓ © b ∑",
         muestra: "65 grandes cuentas corporativas B2B clave representativas de $385.420 millones (36% del total bruto de créditos) + procedimiento alternativo sobre cuentas no respondidas y segmento B2C masivo en extractos bancarios de enero 2026.",
         pasosConResultado: [
@@ -462,7 +462,7 @@ export const papelesTrabajo = [
         fuentes: "Subdiario de clientes SAP SD/FI, cartas de circularización directa de saldos, extractos bancarios de enero 2026 y Nota 5 de los Estados Financieros.",
         valores: "Muestra auditada total de $433.620 millones sobre $1.071.047M de créditos brutos totales.",
         defensaOral: "Profesor, en PT-B1 auditamos la Existencia y Propiedad de los saldos por cobrar comerciales. Aplicamos una confirmación escrita directa (positiva) a 65 grandes clientes corporativos B2B de Personal Tech, obteniendo 59 respuestas conformes directas. Para las 6 cuentas que no respondieron en término y para el segmento de consumo masivo B2C, aplicamos el procedimiento alternativo estándar según Carlos A. Slosse y la NIA 505: cotejamos la efectiva cobranza posterior en los extractos bancarios oficiales de enero 2026 en Banco Nación, Galicia, Macro y Santander. El 100% de la muestra fue verificado sin diferencias ($0). No se proponen ajustes.",
-        afirmacionesDetalle: "Valida Existencia (deudores reales y exigibles), Propiedad (titularidad jurídica exclusiva de Telecom) y Exactitud matemática."
+        afirmacionesDetalle: "Valida Existencia (deudores reales y exigibles) y Propiedad (titularidad jurídica exclusiva de Telecom sin cesiones no contabilizadas)."
       },
       {
         ref: "PT-B2",
@@ -552,13 +552,14 @@ export const papelesTrabajo = [
     resumenMetodologicoRubro: {
       titulo: "Exposición Metodológica Integral: Auditoría de Créditos por Ventas (Nota 5)",
       subtitulo: "Fundamentación técnica secuencial de las Cédulas Analíticas PT-B1, PT-B2 y PT-B3: circularización corporativa B2B, cobranzas posteriores en extractos bancarios, corte de facturación e interfaces, y recálculo con TAACs de la previsión bajo NIIF 9.",
+      tituloSintesis: "Conclusión del Rubro Créditos por Ventas bajo NIA 500 / RT 37 — Validación Conforme Sin Ajustes",
       introduccion: "El rubro Créditos por Ventas representa un saldo neto consolidado de $800.128 millones al 31/12/2025 ($1.070.107M corrientes y $940M no corrientes menos $(270.919)M de previsión en Nota 5). En concordancia con el Riesgo de Control MEDIO (72%) determinado en la matriz de evaluación del control interno (Tabla 25), estructuramos un enfoque sustantivo integral basado en circularización escrita directa y cobros posteriores (PT-B1), prueba de corte de facturación e interfaces de recaudación al cierre (PT-B2) y recálculo masivo de la morosidad y pérdida crediticia esperada mediante software TAACs (PT-B3). Los procedimientos ejecutados confirmaron que los saldos se encuentran íntegros, válidos y razonablemente medidos sin necesidad de ajustes.",
       pasosNarrativos: [
         {
           pt: "PT-B1",
           etiqueta: "Paso 1 • Confirmación Directa y Cobros Posteriores",
           titulo: "Circularización a Grandes Clientes Corporativos B2B (Personal Tech) y Cobranzas Posteriores",
-          afirmacion: "Afirmaciones Auditadas: Existencia, Propiedad y Exactitud (NIA 505 / Slosse)",
+          afirmacion: "Afirmaciones Auditadas: Existencia y Propiedad (NIA 505 / Slosse)",
           relato: "En PT-B1 auditamos la existencia real y titularidad de los créditos seleccionando una muestra estratificada de 65 grandes cuentas corporativas B2B de Personal Tech ($385.420M). Enviamos cartas de confirmación escrita directa (positiva) bajo control de auditoría, obteniendo 59 respuestas conformes directas ($366.620M) sin discrepancias (©). Para las 6 cuentas corporativas no contestadas en término ($18.800M de Techint y cuentas menores por $7.800M) y para una muestra de 1.500 cuentas del segmento masivo B2C ($48.200M), aplicamos el procedimiento alternativo estándar según la NIA 505 y Carlos A. Slosse: cotejamos la efectiva cobranza posterior en los extractos bancarios oficiales de enero 2026 en Banco Nación, Galicia, Macro y Santander, validando la cancelación efectiva del 100% de dichos saldos (✓ b). Diferencia: $0. Conforme."
         },
         {
