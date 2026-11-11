@@ -406,7 +406,7 @@ export const papelesTrabajo = [
     saldoSegunLibros: 800128,
     ajustePropuestoNeto: -9410,
     saldoAuditado: 790718,
-    estadoPT: "Con Hallazgo Material (> PAE)",
+    estadoPT: "Con Hallazgos Materiales (> PAE)",
     cedulaSumaria: [
       { subcuenta: "1.2.01 - Créditos por Ventas Comunes Corrientes Brutos (Nota 5 — Incluye incorporación TMA $421.919M bajo NIIF 3)", saldoLibros: 1067130, debe: 0, haber: 4180, saldoAuditado: 1062950, marca: "§ ⊗", refPT: "PT-B1" },
       { subcuenta: "1.2.02 - Otros Créditos por Ventas Corrientes ($2.977M) y No Corrientes ($940M - Nota 5) / B2B Personal Tech", saldoLibros: 3917, debe: 14620, haber: 0, saldoAuditado: 18537, marca: "© ⊗", refPT: "PT-B2" },
@@ -415,30 +415,187 @@ export const papelesTrabajo = [
     procedimientosEjecutados: [
       {
         ref: "PT-B1",
-        nombre: "Circularización de Clientes Corporativos B2B (Personal Tech), Verificación Adquisición TMA (NIIF 3) y Cobros Posteriores",
+        bloquePrograma: "1. Existencia, Propiedad y Valuación Inicial de Cartera TMA (NIIF 3 / NIA 505)",
+        nombre: "Circularización a Grandes Clientes Corporativos B2B (Personal Tech), Valuación Inicial TMA (NIIF 3) y Cobros Posteriores",
         afirmaciones: ["Existencia", "Propiedad", "Medición"],
-        muestra: "65 grandes cuentas corporativas y organismos públicos + Verificación del PPA (NIIF 3) e incorporación de cartera de Telefónica Móviles Argentina S.A. (TMA: $421.919M al 24/02/2025).",
-        resultado: "Se recibieron 54 respuestas conformes (©) y sobre las 11 restantes se verificó el cobro posterior en extractos bancarios de enero 2026 (✓). Asimismo, se comprobó la medición a valor razonable inicial de la cartera de créditos adquirida de TMA ($421.919M bajo NIIF 3), lo que explica por qué el stock de Créditos al cierre crece +105,25% mientras el Estado de Resultados consolida solo 10 meses de ventas de TMA (marzo a diciembre 2025).",
-        marca: "© ✓"
+        marca: "© ✓ § ∑",
+        muestra: "65 grandes cuentas corporativas y organismos públicos B2B (concentran el 62% del saldo corporativo) + 100% de la verificación del PPA de la cartera adquirida de Telefónica Móviles Argentina S.A. (TMA: $421.919M al 24/02/2025 bajo NIIF 3).",
+        pasosConResultado: [
+          {
+            paso: "Circularización externa directa (NIA 505) a una muestra estratificada de 65 grandes cuentas corporativas B2B de Personal Tech y organismos públicos.",
+            comoSeEjecuta: "Se seleccionan de los subdiarios de clientes en SAP SD/FI las 65 principales cuentas corporativas con saldos > PAE ($8.311M). Se preparan solicitudes de confirmación escrita de saldo en modalidad ciega/positiva con firma facultada de la Dirección Financiera de Telecom. Las cartas se remiten con instrucciones expresas de remitir la respuesta directamente al equipo de auditoría externa. Se realiza el seguimiento y control estricto de recepciones.",
+            fuentes: "Subdiario de Clientes Corporativos en SAP SD/FI, contratos marco de telecomunicaciones y cartas de confirmación directa recibidas.",
+            valores: "Muestra de $217.100 millones en cuentas corporativas seleccionadas sobre el total de créditos comerciales de Personal Tech.",
+            resultado: "Se recibieron 54 respuestas conformes (tasa de respuesta del 83,1%) que ratifican sin discrepancias saldos a cobrar por $184.620 millones a nombre de Telecom Argentina S.A. (© §).",
+            tabla: {
+              cabeceras: ["Ref.", "Cliente Corporativo B2B / Cartera", "Saldo s/ Libros ($M)", "Resultado Circularización", "Cobro Posterior Enero 2026", "Diferencia ($M)", "Marcas"],
+              filas: [
+                { valores: ["B1.1", "Banco Santander Argentina S.A.", "$34.500", "Conforme ($34.500M)", "No aplicable (Confirmado)", "$0", "© §"] },
+                { valores: ["B1.2", "YPF S.A. (Red de Estaciones y YPF Luz)", "$28.250", "Conforme ($28.250M)", "No aplicable (Confirmado)", "$0", "© §"] },
+                { valores: ["B1.3", "Cencosud S.A. (Jumbo, Disco, Easy)", "$22.800", "Conforme ($22.800M)", "No aplicable (Confirmado)", "$0", "© §"] },
+                { valores: ["B1.4", "Banco de Galicia y Buenos Aires S.A.U.", "$19.400", "Sin respuesta directa (Copia enviada)", "Extracto Galicia 12/01/26", "$0", "✓ §"] },
+                { valores: ["B1.5", "Techint Compañía Técnica Internacional", "$18.900", "Conforme ($18.900M)", "No aplicable (Confirmado)", "$0", "© §"] },
+                { valores: ["B1.6", "Ministerio de Seguridad de la Nación (Tetra 911)", "$16.750", "Sin respuesta directa (Trámite oficial)", "Acreditación BNA 19/01/26", "$0", "✓ §"] },
+                { valores: ["B1.7", "Mercado Libre S.R.L. (Data Center & Cloud)", "$15.820", "Conforme ($15.820M)", "No aplicable (Confirmado)", "$0", "© §"] },
+                { valores: ["B1.8", "Arcor S.A.I.C.", "$14.200", "Conforme ($14.200M)", "No aplicable (Confirmado)", "$0", "© §"] },
+                { valores: ["B1.9", "Resto de Cuentas B2B Muestreadas (57 clientes)", "$46.480", "48 conformes / 9 con cobro posterior", "Acreditación bancaria enero 2026", "$0", "© ✓ §"] },
+                { valores: ["B1.10", "Cartera Adquirida TMA (PPA NIIF 3 - 24/02/2025)", "$421.919", "Informe de valuación PPA independiente", "Recupero regular mar-dic 2025", "$0", "✓ §"] },
+                { destacado: true, valores: ["TOTAL", "Total Muestra Corporativa B2B y Cartera TMA", "$639.019", "59,7% de Cobertura sobre Saldo Bruto", "100% Validado por Cobro / Confirmación", "$0", "© ✓ § ∑"] }
+              ]
+            }
+          },
+          {
+            paso: "Aplicación de procedimientos alternativos de auditoría sobre las 11 cuentas no contestadas mediante la verificación de cobros posteriores en enero 2026.",
+            comoSeEjecuta: "Para las 11 cuentas corporativas que no respondieron a la circularización ($32.480M), el equipo de auditoría aplicó el procedimiento alternativo previsto en la NIA 505: se cotejaron los recibos oficiales correlativos de cobranza en SAP, las órdenes de transferencia bancaria y los extractos bancarios oficiales de enero 2026 de Banco de la Nación Argentina, Banco Galicia y Banco Santander, verificando la acreditación íntegra de los fondos en las cuentas de Telecom.",
+            fuentes: "Extractos bancarios de enero 2026 de BNA, Galicia y Santander, avisos de transferencia interbancaria y recibos de cobranza en SAP FI.",
+            valores: "11 cuentas corporativas por un monto de $32.480 millones.",
+            resultado: "Se verificó la cancelación efectiva del 100% de los saldos pendientes de las 11 cuentas no contestadas mediante extractos bancarios de enero 2026, sin registrarse saldos incobrables o ficticios (✓ §)."
+          },
+          {
+            paso: "Auditoría de la asignación del precio de compra (PPA) bajo NIIF 3 de la cartera de clientes incorporada por la adquisición del 100% de Telefónica Móviles Argentina S.A. (TMA).",
+            comoSeEjecuta: "Se analiza el informe técnico de valuación independiente (PPA) elaborado para la combinación de negocios del 24/02/2025. Se comprueba: 1) El reconocimiento a valor razonable inicial de los créditos incorporados de TMA ($421.919M netos de ajustes de adquisición). 2) La asimetría matemática entre el Balance Consolidado (que incorpora el 100% del stock de créditos de TMA al 31/12) y el Estado de Resultados (que solo consolida 10 meses de ventas de TMA, de marzo a diciembre 2025), lo cual explica técnicamente la duplicación del rubro (+105,25%) frente al incremento de ventas (+53,02%).",
+            fuentes: "Contrato de compraventa de acciones de TMA, informe técnico de PPA bajo NIIF 3, asientos de consolidación inicial en SAP y Nota 29 de los Estados Financieros.",
+            valores: "Cartera de créditos de TMA incorporada al 24/02/2025 por $421.919 millones.",
+            resultado: "La incorporación de la cartera de créditos de TMA se encuentra correctamente valuada a su valor razonable de entrada según NIIF 3 y justifica técnicamente el incremento del plazo promedio de cobro y del saldo del rubro al cierre (✓ § ∑)."
+          }
+        ],
+        procedimientoDetalle: "1) Circularización B2B: Se remitieron solicitudes ciegas a 65 grandes cuentas corporativas de Personal Tech, recibiendo 54 respuestas conformes sin discrepancias. 2) Cobros posteriores: Para las 11 cuentas sin respuesta, se verificó el 100% del cobro en extractos bancarios de enero 2026. 3) Cartera TMA: Se auditó el informe de PPA bajo NIIF 3 corroborando la medición a valor razonable inicial de $421.919M y la justificación técnica de la duplicación interanual del rubro.",
+        fuentes: "Subdiario de clientes SAP SD/FI, cartas de circularización de saldos, extractos bancarios de enero 2026 e informe de PPA bajo NIIF 3.",
+        valores: "Muestra corporativa B2B de $217.100M y cartera TMA incorporada de $421.919M sobre $1.071.047M de créditos brutos totales.",
+        defensaOral: "Profesor, en PT-B1 auditamos la Existencia y Propiedad de los saldos corporativos B2B mediante confirmación externa directa a 65 grandes clientes: obtuvimos 54 respuestas conformes y para las 11 restantes verificamos el 100% del cobro posterior en los extractos bancarios de enero 2026. Además, auditamos el PPA de la adquisición de Telefónica Móviles Argentina (TMA) bajo NIIF 3, validando que el stock de créditos incorporado de $421.919M explica técnicamente por qué los Créditos se duplicaron (+105,25%) mientras el Estado de Resultados solo computa 10 meses de ventas mar-dic (+53,02%).",
+        afirmacionesDetalle: "Valida Existencia (deudores reales y exigibles), Propiedad (titularidad jurídica exclusiva de Telecom sin cesiones no contabilizadas) y Medición Inicial (valor razonable bajo NIIF 3)."
       },
       {
         ref: "PT-B2",
-        nombre: "Prueba de Corte de Facturación B2B y Conciliación de Agentes Externos",
-        afirmaciones: ["Integridad", "Existencia"],
-        muestra: "Contratos y actas de recepción B2B emitidos entre el 15/12/2025 y el 15/01/2026 + Interfaces de cobro al 31/12.",
-        resultado: "1) [Integridad - Corte] Se detectaron 8 hitos de integración Cloud/Ciberseguridad de Personal Tech con acta de conformidad final firmada entre el 20/12 y el 30/12/2025 por $14.620 millones que recién fueron facturados en enero 2026 (CCI-02 preg. 16) (⊗). 2) [Existencia] En las interfaces de Rapipago, Pago Fácil y billeteras virtuales (CCI-02 preg. 5) se verificaron cobranzas del 30 y 31/12 por $4.180 millones ya abonadas por los clientes pero pendientes de desafectación en sus cuentas corrientes al cierre (⊗).",
-        marca: "✓ ⊗"
+        bloquePrograma: "2. Integridad, Corte de Facturación B2B y Conciliación de Cobranzas en Tránsito (NIIF 15 / AJ-02)",
+        nombre: "Prueba de Corte de Facturación B2B (Personal Tech) y Conciliación de Agentes de Cobro Externos",
+        afirmaciones: ["Integridad", "Existencia", "Medición"],
+        marca: "✓ § ⊗",
+        muestra: "100% de las actas de entrega/conformidad e hitos de proyectos corporativos B2B firmados entre el 15/12/2025 y el 15/01/2026 + 100% de las conciliaciones de agentes de cobranza externa (Rapipago, Pago Fácil, Billeteras Virtuales) al 31/12/2025.",
+        pasosConResultado: [
+          {
+            paso: "Prueba sustantiva de corte de facturación de servicios corporativos B2B (Personal Tech) bajo NIIF 15 para validar el devengamiento íntegro de ingresos al cierre.",
+            comoSeEjecuta: "Se cotejan las actas de recepción provisoria y definitiva de proyectos de conectividad Cloud, SD-WAN y ciberseguridad firmadas entre el 15/12/2025 y el 15/01/2026 contra las órdenes de facturación en SAP SD. Se verifica si existen prestaciones completadas y aceptadas por el cliente antes del 31/12/2025 que no hayan sido facturadas ni devengadas como servicios pendientes de facturación (unbilled revenue) en el ejercicio 2025 conforme a la NIIF 15.",
+            fuentes: "Actas de conformidad y recepción de servicios B2B, órdenes de trabajo de ingeniería de red, contratos de servicio corporativo y módulo de facturación SAP SD.",
+            valores: "Ventana de corte de +/- 15 días respecto al 31/12/2025 sobre proyectos corporativos de Personal Tech.",
+            resultado: "Se identificaron 8 hitos de integración Cloud y Ciberseguridad con acta de conformidad formal firmada por clientes corporativos entre el 20 y el 30 de diciembre de 2025 por un total de $14.620 millones, cuyas facturas comerciales fueron emitidas en enero 2026 sin haberse devengado el activo ni el ingreso al 31/12/2025 (debilidad CCI-02 preg. 16) (⊗ ✓).",
+            tabla: {
+              cabeceras: ["Ref.", "Proyecto / Cliente Corporativo / Interfaz", "Fecha Hito / Cobro", "Fecha Contabiliz. SAP", "Importe ($M)", "Desvío / Tratamiento de Auditoría", "Marcas"],
+              filas: [
+                { valores: ["B2.1", "Banco Macro S.A. - Enlace SD-WAN Red Sucursales", "22/12/2025", "08/01/2026", "$3.450", "Hito B2B devengado no facturado (+A / R+)", "⊗ ✓"] },
+                { valores: ["B2.2", "Pan American Energy - Nube Híbrida Personal Tech", "26/12/2025", "09/01/2026", "$2.890", "Hito B2B devengado no facturado (+A / R+)", "⊗ ✓"] },
+                { valores: ["B2.3", "ARCA / AFIP - Mantenimiento Enlaces Críticos", "28/12/2025", "12/01/2026", "$2.650", "Hito B2B devengado no facturado (+A / R+)", "⊗ ✓"] },
+                { valores: ["B2.4", "Telecomunicaciones Provinciales - Red Fibra", "29/12/2025", "14/01/2026", "$2.180", "Hito B2B devengado no facturado (+A / R+)", "⊗ ✓"] },
+                { valores: ["B2.5", "Cencosud S.A. - Infraestructura WiFi Retail", "30/12/2025", "11/01/2026", "$1.850", "Hito B2B devengado no facturado (+A / R+)", "⊗ ✓"] },
+                { valores: ["B2.6", "Otros 3 Hitos Menores de Integración Cloud B2B", "20-30/12/2025", "Enero 2026", "$1.600", "Hito B2B devengado no facturado (+A / R+)", "⊗ ✓"] },
+                { valores: ["B2.7", "Rapipago (Gire S.A.) - Recaudación 30 y 31/12", "30-31/12/2025", "Pendiente 02/01/26", "$2.240", "Cobranza en tránsito pendiente acreditar (+A / -A)", "⊗ ✓"] },
+                { valores: ["B2.8", "Pago Fácil y Billeteras Virtuales (Mercado Pago / Ualá)", "31/12/2025", "Pendiente 02/01/26", "$1.940", "Cobranza en tránsito pendiente acreditar (+A / -A)", "⊗ ✓"] },
+                { valores: ["SUB-1", "Subtotal Hitos B2B Devengados no Facturados", "20-30/12/2025", "Enero 2026", "$14.620", "Ajuste AJ-02: Debe Otros Créditos / Haber Ventas", "⊗ ✓ ∑"] },
+                { valores: ["SUB-2", "Subtotal Cobranzas Externas en Tránsito", "30-31/12/2025", "Enero 2026", "$4.180", "Ajuste AJ-02: Debe Fondos en Tránsito / Haber Créditos", "⊗ ✓ ∑"] },
+                { destacado: true, valores: ["TOTAL", "Total Ajuste Propuesto de Corte AJ-02", "31/12/2025", "-", "$18.800", "Supera PAE ($8.311M) — Ajuste Obligatorio", "⊗ ✓ § ∑"] }
+              ]
+            }
+          },
+          {
+            paso: "Auditoría de conciliaciones de agentes externos de recaudación masiva al 31/12/2025 (Rapipago, Pago Fácil y billeteras virtuales).",
+            comoSeEjecuta: "Se examinan las rendiciones electrónicas de cobranzas remitidas por las redes de cobranza extrabancaria (Gire S.A. / Rapipago, Western Union / Pago Fácil) y billeteras virtuales (Mercado Pago, Ualá, Personal Pay) con fecha valor 30 y 31 de diciembre de 2025. Se cruzan contra las acreditaciones en cuentas bancarias de Telecom y la desafectación en los auxiliares de clientes en SAP.",
+            fuentes: "Archivos EDI de rendición diaria de recaudadores, extractos bancarios de fin de año y subdiario de cobranzas de SAP.",
+            valores: "Cobranzas masivas de clientes recaudadas los días 30 y 31/12 por $4.180 millones.",
+            resultado: "Se verificó que $4.180 millones abonados por los usuarios en agentes externos el 30 y 31 de diciembre ya habían extinguido la deuda comercial de los clientes pero permanecían pendientes de acreditación bancaria e imputación en SAP al cierre (debilidad CCI-02 preg. 5), sobrevaluando Créditos por Ventas Comunes en $4.180M (⊗ ✓)."
+          },
+          {
+            paso: "Formulación y cuantificación del Asiento de Ajuste Propuesto AJ-02 por corte de facturación y cobranzas en tránsito.",
+            comoSeEjecuta: "Al sumar el desvío por hitos B2B omitidos de facturar ($14.620M) y las cobranzas de agentes externos en tránsito no desafectadas ($4.180M), el hallazgo totaliza $18.800 millones. Al superar ampliamente el umbral PAE ($8.311 millones), se formula el Asiento de Ajuste AJ-02: Debe 'Otros Créditos por Ventas - Deudores por Hitos B2B' por $14.620M, Debe 'Caja y Bancos - Recaudaciones a Depositar / En Tránsito' por $4.180M, Haber 'Ventas B2B Personal Tech' por $14.620M y Haber 'Créditos por Ventas Comunes Masivos B2C' por $4.180M.",
+            fuentes: "Cédula Analítica PT-B2, Planilla de Ajustes Propuestos (PAE) y Normas NIA 450 y NIIF 15.",
+            valores: "Impacto total del ajuste AJ-02: $18.800 millones (Supera PAE $8.311M).",
+            resultado: "Asiento de Ajuste AJ-02 formulado a la Gerencia. Con su incorporación, el rubro Créditos por Ventas reconoce +$10.440M netos ($14.620M a facturar menos $4.180M de cobranzas) y el Resultado del Ejercicio mejora en +$14.620M por ingresos devengados en 2025 (⊗ § ∑)."
+          }
+        ],
+        procedimientoDetalle: "1) Corte B2B NIIF 15: Se auditaron actas de recepción de servicios corporativos firmadas entre el 15/12/2025 y el 15/01/2026, detectando 8 hitos completados en diciembre 2025 por $14.620M facturados recién en enero 2026 sin devengar al cierre. 2) Cobranzas en tránsito: Se auditaron las interfaces de recaudación masiva (Rapipago, Pago Fácil, billeteras), detectando $4.180M abonados por usuarios el 30-31/12 pendientes de acreditar en SAP. 3) Ajuste AJ-02: Se propuso el ajuste por $18.800M regularizando ventas devengadas, fondos en tránsito y cancelando deudores ya cobrados.",
+        fuentes: "Actas de conformidad de servicios B2B, órdenes de facturación en SAP SD, rendiciones de agentes recaudadores (Gire/Western Union) y extractos bancarios.",
+        valores: "8 hitos B2B por $14.620M y cobranzas en tránsito por $4.180M. Total AJ-02: $18.800M (> PAE $8.311M).",
+        defensaOral: "Profesor, en PT-B2 auditamos el corte de operaciones al 31/12/2025 y detectamos dos situaciones clave que originaron el Ajuste AJ-02: primero, 8 hitos de integración Cloud y Ciberseguridad de Personal Tech con actas de conformidad firmadas en diciembre por $14.620M que recién se facturaron en enero 2026 sin devengar al cierre, violando el principio de devengado de la NIIF 15; segundo, $4.180M abonados por los clientes en Rapipago y billeteras virtuales el 30 y 31 de diciembre que aún no habían sido acreditados en sus cuentas corrientes en SAP. Propusimos el ajuste AJ-02 por $18.800M registrando el activo y la venta devengada y reclasificando las cobranzas en tránsito a disponibilidades.",
+        afirmacionesDetalle: "Valida Integridad (reconocimiento de todas las ventas y créditos devengados en 2025), Existencia (eliminación de saldos de clientes ya cancelados en recaudadores) y Medición (corte estricto bajo NIIF 15)."
       },
       {
         ref: "PT-B3",
-        nombre: "Recálculo de la Matriz de Antigüedad de Saldos y Previsión Acumulada NIIF 9 ($270.919M en Nota 5)",
+        bloquePrograma: "3. Medición y Exposición de la Previsión NIIF 9 — Reproceso Analítico con TAACs (AJ-03)",
+        nombre: "Recálculo de la Matriz de Antigüedad de Deuda (Aging) y Pérdida Crediticia Esperada (ECL NIIF 9)",
         afirmaciones: ["Medición", "Exposición"],
-        muestra: "100% del padrón unificado de deudores (Telecom + TMA = $1.071.047M brutos) mediante rutinas de auditoría asistida por computador (TAACs).",
-        resultado: "La Sociedad expone en Nota 5 una Previsión para Deudores Incobrables acumulada de $(270.919)M (con cargo a resultados del ejercicio de $(143.722)M). Al ejecutar el reproceso íntegro del padrón de morosidad tras la integración de sistemas de TMA y legados, se comprobó que una sub-cartera de consumo masivo migrada con mora > 180 días ($24.812M) había quedado excluida del cálculo automático de pérdida crediticia esperada (CCI-02 preg. 19), determinando un defecto de previsión de $19.850 millones (⊗).",
-        marca: "∑ ⊗"
+        marca: "∑ ⊗",
+        muestra: "100% del padrón unificado de deudores por servicios (Telecom + TMA = $1.071.047M brutos, >18 millones de abonados) mediante software de auditoría asistido por computador (TAACs / scripts Python).",
+        pasosConResultado: [
+          {
+            paso: "Extracción y reproceso analítico del 100% de la base unificada de antigüedad de saldos (aging) al 31/12/2025 mediante software TAACs.",
+            comoSeEjecuta: "El equipo de auditoría extrae la base de datos íntegra de cuentas por cobrar comerciales directamente de las tablas base de SAP FSCM y Convergent Invoicing (BAPI de clientes y partidas abiertas). Mediante scripts automatizados en Python/TAACs, se recalcula la antigüedad exacta de cada documento por fecha de vencimiento contractual, clasificándolos en 5 tramos cronológicos: a vencer, 1 a 30 días, 31 a 90 días, 91 a 180 días y más de 180 días de mora.",
+            fuentes: "Base de partidas abiertas de SAP FSCM (Financial Supply Chain Management) y módulo de facturación masiva Convergent Invoicing.",
+            valores: "Padrón unificado de más de 18 millones de abonados y saldos brutos por $1.071.047 millones.",
+            resultado: "La base unificada totaliza $1.071.047 millones brutos ($1.070.107M corrientes y $940M no corrientes). El reproceso con TAACs garantizó la integridad del 100% de las partidas sin duplicaciones ni omisiones en la clasificación por tramos (∑ §)."
+          },
+          {
+            paso: "Evaluación técnica y calibración de la matriz de Pérdida Crediticia Esperada (ECL) bajo el enfoque simplificado de NIIF 9.",
+            comoSeEjecuta: "Conforme a la NIIF 9 (Instrumentos Financieros, párrafos 5.5.15 y B5.5.35), para créditos comerciales sin componente financiero significativo se aplica la matriz de provisión basada en: 1) Tasas históricas de incobrabilidad observadas por tramo de mora en los últimos 36 meses. 2) Ajuste prospectivo (forward-looking information) considerando la evolución de la inflación (IPC), tasa de desempleo y pérdida de poder adquisitivo del segmento consumidor en Argentina.",
+            fuentes: "Modelo actuarial de riesgo crediticio de Telecom, matrices históricas de morosidad y proyecciones macroeconómicas de consenso.",
+            valores: "Tasas calibradas de pérdida esperada: 1,20% corriente; 4,50% de 1 a 30d; 18,20% de 31 a 90d; 45,00% de 91 a 180d; 92,00% mora > 180d regular y 80,00% mora > 180d TMA.",
+            resultado: "La matriz de provisionamiento bajo NIIF 9 se encuentra metodológicamente calibrada con parámetros macroeconómicos realistas para el contexto argentino (✓ ∑)."
+          },
+          {
+            paso: "Identificación del defecto de provisionamiento en la cartera migrada de TMA con mora > 180 días y formulación del Asiento de Ajuste AJ-03.",
+            comoSeEjecuta: "Al cruzar el padrón unificado recalculado con TAACs contra la corrida oficial de SAP FSCM expuesta en la Nota 5 de Telecom, el equipo de auditoría descubrió que un lote de clientes masivos transferido desde los sistemas legados de Telefónica Móviles Argentina (TMA) con morosidad superior a 180 días por un total de $24.812 millones, había quedado excluido del proceso automático mensual de cálculo de previsión por inconsistencias de parametrización en los campos de interfaz (debilidad identificada en CCI-02 preg. 19 y CCI-05 preg. 19). Mientras la Sociedad expone una previsión de $(270.919) millones, la previsión requerida asciende a $(290.769) millones, arrojando una subestimación de $19.850 millones.",
+            fuentes: "Cédula Analítica PT-B3, tablas de corrida mensual de SAP FSCM y cuadros de la Nota 5 de los Estados Financieros Consolidados.",
+            valores: "Previsión s/ Libros: $(270.919)M vs. Previsión Auditada: $(290.769)M. Defecto de Previsión: $19.850 millones (> PAE $8.311M).",
+            resultado: "Se formuló el Asiento de Ajuste Propuesto AJ-03 a la Gerencia: Debe 'Cargo por Pérdida Crediticia Esperada / Deudores Incobrables' (Resultado Operativo) por $19.850M y Haber 'Previsión para Deudores Incobrables Acumulada' (Cuenta Regularizadora del Activo) por $19.850M (⊗ ∑).",
+            tabla: {
+              cabeceras: ["Tramo de Antigüedad / Cartera", "Saldo Bruto al Cierre ($M)", "% Pérdida Esperada (ECL NIIF 9)", "Previsión Calculada TAACs ($M)", "Previsión s/ Libros SAP ($M)", "Diferencia Ajuste AJ-03 ($M)", "Marcas"],
+              filas: [
+                { valores: ["B3.1 - No vencidos (A vencer corriente)", "$624.120", "1,20%", "$7.490", "$7.490", "$0", "✓ §"] },
+                { valores: ["B3.2 - Vencidos de 1 a 30 días", "$148.500", "4,50%", "$6.682", "$6.682", "$0", "✓ §"] },
+                { valores: ["B3.3 - Vencidos de 31 a 90 días", "$92.350", "18,20%", "$16.808", "$16.808", "$0", "✓ §"] },
+                { valores: ["B3.4 - Vencidos de 91 a 180 días", "$68.420", "45,00%", "$30.789", "$30.789", "$0", "✓ §"] },
+                { valores: ["B3.5 - Vencidos > 180 días (Telecom regular)", "$112.845", "92,00%", "$103.818", "$103.818", "$0", "✓ §"] },
+                { valores: ["B3.6 - Cartera migrada TMA mora > 180 días (Omitida)", "$24.812", "80,00%", "$19.850", "$0", "$19.850", "⊗ ∑"] },
+                { destacado: true, valores: ["TOTAL", "$1.071.047", "Tasa Ponderada 27,1%", "$290.769", "$270.919", "$19.850", "∑ ⊗"] }
+              ]
+            }
+          }
+        ],
+        procedimientoDetalle: "1) Reproceso con TAACs: Se procesó el 100% de la base de partidas abiertas de SAP FSCM ($1.071.047M brutos) clasificando los saldos por tramos cronológicos. 2) Matriz NIIF 9: Se aplicó la matriz de provisionamiento bajo el enfoque simplificado de pérdida esperada combinando tasas históricas y factores macroeconómicos. 3) Defecto TMA: Se detectó que $24.812M de cartera migrada de TMA con mora > 180 días no fueron impactados por la previsión automática por error de interfaz (CCI-02 preg. 19), determinando una subestimación de $19.850M formulada como Asiento de Ajuste AJ-03.",
+        fuentes: "Base de partidas abiertas de SAP FSCM, tablas de parámetros de riesgo NIIF 9, script TAACs en Python y Nota 5 de los Estados Contables.",
+        valores: "Padrón unificado de $1.071.047M brutos. Previsión contable $(270.919)M vs Previsión auditada $(290.769)M. Ajuste AJ-03: $19.850M (> PAE $8.311M).",
+        defensaOral: "Profesor, en PT-B3 auditamos la afirmación de Medición de la Previsión para Deudores Incobrables bajo NIIF 9 utilizando software de auditoría asistido por computador (TAACs) sobre los más de 18 millones de abonados. Al recalcular la matriz de pérdida crediticia esperada sobre el padrón unificado de Telecom y TMA ($1.071.047M brutos), detectamos que un lote de clientes masivos migrado de los sistemas heredados de Telefónica con mora superior a 180 días ($24.812M) había quedado excluido del proceso automático de previsión en SAP por una falla de interfaz detectada en el CCI-02. Esto generó un defecto de previsión de $19.850 millones frente a los $(270.919)M registrados en libros. Propusimos el ajuste AJ-03 elevando la previsión a $(290.769)M con cargo a resultados del ejercicio.",
+        afirmacionesDetalle: "Valida Medición (valuación de deudores incobrables conforme a la Pérdida Crediticia Esperada de NIIF 9) y Exposición (revelación íntegra de la evolución de la previsión en Nota 5)."
       }
     ],
-    conclusionRubro: "Se valida la apertura de la Nota 5 (Créditos brutos $1.071.047M menos Previsión NIIF 9 $(270.919)M = $800.128M netos, incluyendo el efecto de consolidación de TMA bajo NIIF 3) y se proponen los ajustes AJ-02 (devengado B2B $14.620M y cobranzas en tránsito $4.180M) y AJ-03 (refuerzo de Previsión por $19.850M)."
+    conclusionRubro: "Se valida la apertura de la Nota 5 ($800.128M netos consolidados, incluyendo la cartera de TMA bajo NIIF 3) y se formularon formalmente los ajustes AJ-02 (devengado B2B por $14.620M y cobranzas en tránsito por $4.180M) y AJ-03 (refuerzo de Previsión NIIF 9 por $19.850M). Con dichos ajustes, el rubro presenta razonablemente su saldo patrimonial al 31/12/2025.",
+    resumenMetodologicoRubro: {
+      titulo: "Exposición Metodológica Integral: Auditoría de Créditos por Ventas (Nota 5)",
+      subtitulo: "Fundamentación técnica secuencial de las Cédulas Analíticas PT-B1, PT-B2 y PT-B3: circularización corporativa B2B, cartera adquirida de TMA (NIIF 3), prueba de corte de facturación e interfaces (AJ-02), y recálculo con TAACs de la matriz de pérdida crediticia esperada bajo NIIF 9 (AJ-03).",
+      introduccion: "El rubro Créditos por Ventas representa un saldo neto consolidado de $800.128 millones al 31/12/2025 ($799.188M corrientes y $940M no corrientes en Nota 5), registrando un incremento del +105,25% frente a 2024 ($389.375M) que duplica el ritmo de crecimiento de las Ventas (+53,02%). En la etapa de planificación se determinó un Riesgo Inherente y de Control ALTO derivado de tres factores: la incorporación de la cartera de Telefónica Móviles Argentina S.A. ($421.919M a valor razonable bajo NIIF 3), los desfasajes en cobranzas recaudadas por agentes externos (CCI-02 preg. 5), y la complejidad de la matriz de provisionamiento de incobrables bajo NIIF 9 frente a carteras masivas migradas. Aplicando el marco normativo de la RT 37, NIA 500, NIA 505 y NIA 520, estructuramos un enfoque sustantivo integral basado en circularización externa y cobros posteriores (PT-B1), prueba de corte de facturación e interfaces de recaudación (PT-B2) y recálculo masivo de la morosidad y pérdida crediticia esperada mediante software TAACs (PT-B3).",
+      pasosNarrativos: [
+        {
+          pt: "PT-B1",
+          etiqueta: "Paso 1 • Confirmación y Cobros Posteriores",
+          titulo: "Circularización a Grandes Clientes Corporativos B2B (Personal Tech), Valuación Inicial TMA (NIIF 3) y Cobros Posteriores",
+          afirmacion: "Afirmaciones Auditadas: Existencia, Propiedad y Medición Inicial (NIA 505 / NIIF 3)",
+          relato: "En PT-B1 auditamos la existencia real y titularidad de los créditos seleccionando una muestra estratificada de 65 grandes cuentas corporativas y organismos públicos de Personal Tech que concentran el 62% del saldo corporativo. Enviamos cartas de circularización ciega/positiva con recepción directa en la casilla del equipo de auditoría, obteniendo 54 respuestas conformes ($184.620M) sin discrepancias (©). Para las 11 cuentas restantes no contestadas ($32.480M), aplicamos procedimientos alternativos mediante el cotejo de cobranzas posteriores en extractos bancarios oficiales de enero 2026 (Banco Nación, Galicia, Santander) y recibos oficiales correlativos, validando la cancelación efectiva del 100% de dichos saldos (✓). Asimismo, auditamos el informe de valuación independiente (PPA) bajo NIIF 3 por la adquisición de Telefónica Móviles Argentina S.A. (TMA) del 24/02/2025, constatando que la cartera incorporada a valor razonable ($421.919M) y la consolidación de 10 meses de ventas en el Estado de Resultados explican razonablemente la aparente asimetría de rotación y duplicación del rubro. El procedimiento concluyó con resultado satisfactorio y sin desvíos."
+        },
+        {
+          pt: "PT-B2",
+          etiqueta: "Paso 2 • Corte de Operaciones y Recaudación Externa",
+          titulo: "Prueba de Corte de Facturación B2B (Personal Tech) e Interfaces de Cobro en Tránsito (AJ-02)",
+          afirmacion: "Afirmaciones Auditadas: Integridad, Existencia y Medición (NIIF 15 / RT 37)",
+          relato: "En PT-B2 auditamos el corte de operaciones examinando los contratos, actas de recepción provisoria/definitiva y reportes de facturación de servicios corporativos B2B emitidos entre el 15/12/2025 y el 15/01/2026, junto con las conciliaciones de agentes de recaudación masiva (Rapipago, Pago Fácil y billeteras virtuales) al 31/12. Identificamos dos desvíos de control interno (CCI-02 preg. 5 y 16): 1) Ocho hitos de proyectos de conectividad Cloud y Ciberseguridad de Personal Tech con actas de conformidad técnica firmadas entre el 20 y el 30 de diciembre de 2025 por $14.620M que recién fueron facturados en enero 2026, omitiéndose su devengamiento en el ejercicio 2025 exigido por NIIF 15. 2) Cobranzas recaudadas por Rapipago y billeteras los días 30 y 31 de diciembre por $4.180M ya canceladas por clientes pero pendientes de acreditar en el sistema al cierre. Al totalizar $18.800 millones, superó el umbral PAE ($8.311M), por lo que se formuló a la Gerencia el Asiento de Ajuste Propuesto AJ-02 (+Deudores B2B a facturar $14.620M, +Fondos en Tránsito $4.180M, +Ventas B2B $14.620M, -Deudores Masivos B2C $4.180M)."
+        },
+        {
+          pt: "PT-B3",
+          etiqueta: "Paso 3 • Reproceso NIIF 9 y Pérdida Crediticia Esperada",
+          titulo: "Recálculo de la Matriz de Antigüedad de Deuda (Aging) y Previsión Acumulada NIIF 9 con TAACs (AJ-03)",
+          afirmacion: "Afirmaciones Auditadas: Medición (Valuación NIIF 9) y Exposición (Nota 5)",
+          relato: "En PT-B3 ejecutamos un reproceso de auditoría asistido por computador (TAACs) sobre el 100% del padrón unificado de deudores de Telecom y TMA ($1.071.047 millones de saldos brutos y más de 18 millones de líneas activas). Clasificamos cronológicamente la cartera por tramos de vencimiento y recalculamos la matriz simplificada de Pérdida Crediticia Esperada (ECL NIIF 9) incorporando tasas históricas de incumplimiento y factores macroeconómicos prospectivos (inflación y caída del salario real). Al contrastar nuestro recálculo contra los registros de la Sociedad, detectamos que una sub-cartera masiva migrada de los sistemas legados de TMA con mora superior a 180 días ($24.812M) había quedado excluida de la rutina mensual de cálculo automático en SAP FSCM (debilidad identificada en CCI-02 preg. 19 y CCI-05 preg. 19). Mientras la Sociedad exponía en Nota 5 una previsión acumulada de $(270.919) millones, la previsión requerida asciende a $(290.769) millones, determinándose un defecto de estimación de $19.850 millones. Al superar holgadamente el umbral PAE ($8.311M), formulamos el Asiento de Ajuste Propuesto AJ-03 debitando Quebranto por Incobrables en el Estado de Resultados y acreditando la Previsión para Deudores Incobrables Acumulada."
+        }
+      ],
+      conclusionNarrativa: "En cumplimiento de la NIA 450 y la RT 37, el auditor evalúa las incorrecciones de forma agregada. En el rubro Créditos por Ventas se determinaron dos ajustes: AJ-02 por $18.800 millones (con impacto neto en créditos de +$10.440M) y AJ-03 por $19.850 millones (disminución de créditos por mayor previsión), totalizando un ajuste neto sobre el rubro de -$9.410 millones. Si bien ambos ajustes superan individualmente el umbral PAE ($8.311 millones) y fueron debidamente propuestos a la Gerencia, al compararse con el Error Tolerable de Ejecución ($83.112 millones) y la Materialidad Global de Planificación ($166.225 millones), el efecto neto acumulado representa apenas el 11,3% del ET y el 5,7% de la Materialidad Global. Por lo tanto, con la incorporación de los ajustes o su consideración en la evaluación de incorrecciones no corregidas, el saldo patrimonial auditado ($790.718 millones) y la apertura de la Nota 5 presentan razonablemente la situación crediticia de Telecom Argentina S.A. al 31 de diciembre de 2025 de conformidad con las NIIF (NIIF 9, NIIF 15 y NIIF 3)."
+    }
   },
   {
     id: "pt-c",

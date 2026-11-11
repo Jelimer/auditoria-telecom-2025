@@ -403,7 +403,7 @@ export default function Etapa2EjecucionView({
   }, [subTarget, subTargetTick]);
 
   const activePT = papelesTrabajo.find((pt) => pt.id === selectedPTId) || papelesTrabajo[0];
-  const isPTA = activePT.id === 'pt-a' || activePT.id === 'pt-e';
+  const isPTA = activePT.id === 'pt-a' || activePT.id === 'pt-e' || activePT.id === 'pt-b';
   const activeRubro =
     rubrosSignificativos.find(
       (r) => r.codigoPrograma.toLowerCase().replace('programa ', 'pt-') === activePT.id.toLowerCase()
@@ -790,6 +790,12 @@ export default function Etapa2EjecucionView({
                         ? 'Espectro y Marcas'
                         : proc.ref === 'PT-E2'
                         ? 'Software y Amort.'
+                        : proc.ref === 'PT-B1'
+                        ? 'Circularización B2B y TMA'
+                        : proc.ref === 'PT-B2'
+                        ? 'Corte e Interfaces (AJ-02)'
+                        : proc.ref === 'PT-B3'
+                        ? 'Antigüedad y Previsión NIIF 9 (AJ-03)'
                         : 'Detalle'})
                     </span>
                   </button>
@@ -1872,6 +1878,8 @@ export default function Etapa2EjecucionView({
               <span className="text-[10px] font-bold uppercase text-slate-400 block">
                 {!mostrarTodosAjustes && activePT.id === 'pt-a'
                   ? 'Desvío en Bienes de Uso (AJ-01)'
+                  : !mostrarTodosAjustes && activePT.id === 'pt-b'
+                  ? 'Desvíos en Créditos por Ventas (AJ-02 y AJ-03)'
                   : 'Desvíos Materiales No Registrados'}
               </span>
               <span
@@ -1922,7 +1930,12 @@ export default function Etapa2EjecucionView({
             )}
             {!mostrarTodosAjustes && activePT.id === 'pt-a' && (
               <span className="text-[11px] text-slate-500 font-medium">
-                — Enfoque Cátedra: Bienes de Uso es el único rubro con recomendación de ajuste (AJ-01 por $28.340M).
+                — Enfoque Cátedra: Bienes de Uso cuenta con propuesta de ajuste AJ-01 por $28.340M.
+              </span>
+            )}
+            {!mostrarTodosAjustes && activePT.id === 'pt-b' && (
+              <span className="text-[11px] text-slate-500 font-medium">
+                — Enfoque Cátedra: Créditos por Ventas cuenta con propuestas de ajuste AJ-02 ($18.800M) y AJ-03 ($19.850M).
               </span>
             )}
           </div>
