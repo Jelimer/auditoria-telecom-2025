@@ -112,3 +112,43 @@
    - **Gastos Directos de Auditoría (10% out-of-pocket):** **$7.334.820** (licencias TAACs, traslados a nodos y circularizaciones postales).
    - **HONORARIO TOTAL PROPUESTO:** **`$80.683.020`** (aprox. **USD 55.452** al TC BNA $1.455).
    - **Razonabilidad:** Representa apenas el **0,00096% de las Ventas Consolidadas** ($8.328.814M) y el **0,00048% del Activo Total** ($16.622.552M). Prudentemente austero en comparación con los USD 1,5M a 2,5M que factura una Big Four real para Telecom en NYSE.
+---
+
+## 7. Estado de Avance de los Papeles de Trabajo (Word y Plataforma Web)
+
+1. **Bienes de Uso (PP&E — Programa A / PT-A):**
+   - **Completado al 100% en Word y Web.**
+   - Cédula Sumaria (Tabla 28 en Word): Saldo s/ Libros `$6.789.118M`, Ajuste Haber `$28.340M`, Saldo Auditado `$6.760.778M`.
+   - Hallazgo Material: **Ajuste AJ-01 por `$28.340M`** (baja de centrales analógicas de cobre obsoletas `$21.450M` y nodos vandalizados `$6.890M` bajo NIC 16 y NIC 36).
+   - Pruebas Globales: Depreciación oficial del ejercicio `$1.533.091M` (Nota 9 y Nota 25 página 78).
+
+2. **Activos Intangibles (Programa E / PT-E):**
+   - **Completado al 100% en Word y Web.**
+   - Cédula Sumaria (Tabla 29 en Word): `$2.671.525M` (1.3.01 Espectro `$1.985.420M` y 1.3.02 Software `$686.105M`), Ajustes `$0`, Saldo Auditado `$2.671.525M`.
+   - Cédula Analítica PT-E1 (Tabla 30): 100% de licencias de espectro 4G/5G con resoluciones ENACOM y títulos marcarios INPI. Sin litigios ni desvíos.
+   - Cédula Analítica PT-E2:
+     - Parte 1 (Tabla 31): 6 criterios de activación de NIC 38.57 para proyectos de software capitalizados en SAP PS y Jira (`$285.355M` / 158.800 hs).
+     - Parte 2 (Tabla 32): Prueba de corte de gastos de mantenimiento de TI (`$42.500M` en subcuentas 5.1.04.12 y 5.1.04.18) imputados correctamente a resultados.
+     - Parte 3: Prueba Global de Amortizaciones (Nota 25 pág. 78: `$234.722M` de amortización oficial).
+     - Parte 4: Prueba Global de Valor Residual (`$2.671.525M` conciliado con Nota 10).
+   - **Resultado del Rubro:** Conforme y validado, sin ajustes propuestos.
+
+3. **Próximo Rubro a Desarrollar: Créditos por Ventas (Programa B / PT-B):**
+   - Saldo al 31/12/2025: **`$800.128M`** netos (`$799.188M` corrientes + `$940M` no corrientes).
+   - Saldo Bruto Corriente: `$1.070.107M` (comunes `$1.067.130M` + otros `$2.977M`), menos Previsión para Incobrables NIIF 9 de `$(270.919)M`.
+   - Incorporación cartera TMA bajo NIIF 3: `$421.919M`.
+   - Pruebas clave a documentar:
+     - **PT-B1:** Circularización de saldos a clientes corporativos B2B y prueba de corte de facturación de servicios diciembre/enero (**Ajuste AJ-02 por `$18.800M`**).
+     - **PT-B2:** Deudores B2B en litigio y créditos fiscales.
+     - **PT-B3:** Reproceso analítico con software TAACs del 100% de la antigüedad de la deuda (aging) y recálculo de la matriz de pérdida crediticia esperada (ECL) bajo NIIF 9, determinando un incremento de incobrabilidad (**Ajuste AJ-03 por `$19.850M`**).
+
+---
+
+## 8. Funcionalidades Interactivas de la Plataforma Web
+- **Persistencia en LocalStorage:**
+  - `audiia_pasos_narrativos_v1`: notas y personalizaciones de pasos ejecutados, defensas orales y fundamentaciones. Soporta saltos de línea (`whitespace-pre-line`) y formato enriquecido (negrita `**` y subrayado `<u>`).
+  - `audiia_conclusiones_v1`: conclusiones editadas del auditor por rubro.
+  - `audiia_zoom_level`: zoom configurado por el usuario con retención persistente.
+- **Glosario de Marcas Inteligente por Rubro:** Muestra en Cédula Sumaria y en el pie del legajo las marcas específicas del rubro activo, adaptando los ejemplos en paréntesis (ENACOM/INPI para Intangibles, proveedores de fibra para PP&E) y ocultando marcas no aplicables (`t` y `h` exclusivas de Intangibles).
+- **Ruta del Documento Word Activo del Usuario:**
+  - `C:\Users\jelim\Desktop\AUD 2026\AE 4\AE 4 - Planificación Detallada - copia (2).docx`.
