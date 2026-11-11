@@ -1,11 +1,13 @@
 // Datos de la Etapa 2 (Ejecución, Papeles de Trabajo, Hallazgos, PAE) y Etapa 3 (Conclusión, Memorando, Carta CI e Informe del Auditor RT 37/53)
 
 export const marcasAuditoria = [
-  { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (factura CAE/ARCA, acta de recepción B2B, escritura RPI o resolución ENACOM)." },
+  { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (factura CAE/ARCA, acta de recepción B2B, escritura RPI, títulos INPI o resolución ENACOM)." },
   { simbolo: "∑", significado: "Suma vertical y horizontal verificada sin diferencias mediante recálculo independiente." },
-  { simbolo: "©", significado: "Saldo confirmado directamente por tercero independiente (circularización bancaria, Caja de Valores S.A. o cliente B2B)." },
+  { simbolo: "©", significado: "Saldo o registro confirmado directamente por tercero u organismo independiente (circularización bancaria, Caja de Valores S.A., cliente B2B, Boletín Oficial o INPI)." },
   { simbolo: "⊗", significado: "Observación / Desvío de control interno o diferencia de auditoría trasladada a la Planilla de Ajustes Propuestos (PAE)." },
-  { simbolo: "§", significado: "Cotejado con el Libro Mayor General y Balance de Sumas y Saldos del sistema ERP SAP al 31/12/2025." }
+  { simbolo: "§", significado: "Cotejado con el Libro Mayor General y Balance de Sumas y Saldos del sistema ERP SAP al 31/12/2025." },
+  { simbolo: "t", significado: "Tarifas y costos de personal validados contra nómina de sueldos (SAP HR) y contratos de consultoría técnica externa." },
+  { simbolo: "h", significado: "Horas de desarrollo imputadas en SAP PS (Project System) y Jira validadas en fase de desarrollo bajo NIC 38.57." }
 ];
 
 export const equipoTrabajoInicial = [
@@ -144,8 +146,8 @@ export const papelesTrabajo = [
     saldoAuditado: 6760778,
     estadoPT: "Con Hallazgo Material (> PAE)",
     cedulaSumaria: [
-      { subcuenta: "1.1.01 - PP&E Redes e Infraestructura Personal (FTTH / 4G / 5G / Nodos - Nota 9)", saldoLibros: 5995980, debe: 0, haber: 28340, saldoAuditado: 5967640, marca: "§ ⊗" },
-      { subcuenta: "1.1.02 - PP&E Redes TMA, Edificios, Equipos y Obras en Curso (Nota 9)", saldoLibros: 793138, debe: 0, haber: 0, saldoAuditado: 793138, marca: "§ ✓ ∑" }
+      { subcuenta: "1.1.01 - PP&E Redes e Infraestructura Personal (FTTH / 4G / 5G / Nodos - Nota 9)", saldoLibros: 5995980, debe: 0, haber: 28340, saldoAuditado: 5967640, marca: "§ ⊗", refPT: "PT-A1 / PT-A4" },
+      { subcuenta: "1.1.02 - PP&E Redes TMA, Edificios, Equipos y Obras en Curso (Nota 9)", saldoLibros: 793138, debe: 0, haber: 0, saldoAuditado: 793138, marca: "§ ✓ ∑", refPT: "PT-A2 / PT-A3" }
     ],
     procedimientosEjecutados: [
       {
@@ -355,9 +357,9 @@ export const papelesTrabajo = [
     saldoAuditado: 790718,
     estadoPT: "Con Hallazgo Material (> PAE)",
     cedulaSumaria: [
-      { subcuenta: "1.2.01 - Créditos por Ventas Comunes Corrientes Brutos (Nota 5 — Incluye incorporación TMA $421.919M bajo NIIF 3)", saldoLibros: 1067130, debe: 0, haber: 4180, saldoAuditado: 1062950, marca: "§ ⊗" },
-      { subcuenta: "1.2.02 - Otros Créditos por Ventas Corrientes ($2.977M) y No Corrientes ($940M - Nota 5) / B2B Personal Tech", saldoLibros: 3917, debe: 14620, haber: 0, saldoAuditado: 18537, marca: "© ⊗" },
-      { subcuenta: "1.2.03 - Previsión para Deudores Incobrables Acumulada (Nota 5 — Pérdida Crediticia Esperada NIIF 9)", saldoLibros: -270919, debe: 0, haber: 19850, saldoAuditado: -290769, marca: "∑ ⊗" }
+      { subcuenta: "1.2.01 - Créditos por Ventas Comunes Corrientes Brutos (Nota 5 — Incluye incorporación TMA $421.919M bajo NIIF 3)", saldoLibros: 1067130, debe: 0, haber: 4180, saldoAuditado: 1062950, marca: "§ ⊗", refPT: "PT-B1" },
+      { subcuenta: "1.2.02 - Otros Créditos por Ventas Corrientes ($2.977M) y No Corrientes ($940M - Nota 5) / B2B Personal Tech", saldoLibros: 3917, debe: 14620, haber: 0, saldoAuditado: 18537, marca: "© ⊗", refPT: "PT-B2" },
+      { subcuenta: "1.2.03 - Previsión para Deudores Incobrables Acumulada (Nota 5 — Pérdida Crediticia Esperada NIIF 9)", saldoLibros: -270919, debe: 0, haber: 19850, saldoAuditado: -290769, marca: "∑ ⊗", refPT: "PT-B3" }
     ],
     procedimientosEjecutados: [
       {
@@ -401,9 +403,9 @@ export const papelesTrabajo = [
     saldoAuditado: 5436615,
     estadoPT: "Conforme (Sin Ajustes Materiales)",
     cedulaSumaria: [
-      { subcuenta: "2.1.01 - Obligaciones Negociables (ONs Ley NY y Ley Argentina - Corriente y No Corriente)", saldoLibros: 3642530, debe: 0, haber: 0, saldoAuditado: 3642530, marca: "© § ∑" },
-      { subcuenta: "2.1.02 - Préstamos Bancarios y Organismos Multilaterales (IFC / BID / Finnvera)", saldoLibros: 1685905, debe: 0, haber: 0, saldoAuditado: 1685905, marca: "© ✓ ∑" },
-      { subcuenta: "2.1.03 - Intereses Devengados e Instrumentos Financieros Derivados (IFD)", saldoLibros: 108180, debe: 0, haber: 0, saldoAuditado: 108180, marca: "✓ ∑" }
+      { subcuenta: "2.1.01 - Obligaciones Negociables (ONs Ley NY y Ley Argentina - Corriente y No Corriente)", saldoLibros: 3642530, debe: 0, haber: 0, saldoAuditado: 3642530, marca: "© § ∑", refPT: "PT-C1 / PT-C3" },
+      { subcuenta: "2.1.02 - Préstamos Bancarios y Organismos Multilaterales (IFC / BID / Finnvera)", saldoLibros: 1685905, debe: 0, haber: 0, saldoAuditado: 1685905, marca: "© ✓ ∑", refPT: "PT-C1 / PT-C2" },
+      { subcuenta: "2.1.03 - Intereses Devengados e Instrumentos Financieros Derivados (IFD)", saldoLibros: 108180, debe: 0, haber: 0, saldoAuditado: 108180, marca: "✓ ∑", refPT: "PT-C3 / PT-C4" }
     ],
     procedimientosEjecutados: [
       {
@@ -456,10 +458,10 @@ export const papelesTrabajo = [
     saldoAuditado: 8332194,
     estadoPT: "Con Ajustes de Corte y Reclasificación NIIF 15",
     cedulaSumaria: [
-      { subcuenta: "4.1.01 - Ventas Servicios Móviles (Personal 4G/5G)", saldoLibros: 3498100, debe: 0, haber: 0, saldoAuditado: 3498100, marca: "§ ∑" },
-      { subcuenta: "4.1.02 - Ventas Internet Fija (FTTH / HFC Banda Ancha)", saldoLibros: 2415350, debe: 0, haber: 0, saldoAuditado: 2415350, marca: "§ ∑" },
-      { subcuenta: "4.1.03 - Ventas TV Paga, Streaming y Contenidos (Flow)", saldoLibros: 1332610, debe: 11240, haber: 0, saldoAuditado: 1321370, marca: "§ ⊗" },
-      { subcuenta: "4.1.04 - Soluciones Digitales Corporativas B2B (Personal Tech) y Fija", saldoLibros: 1082754, debe: 0, haber: 14620, saldoAuditado: 1097374, marca: "✓ ⊗" }
+      { subcuenta: "4.1.01 - Ventas Servicios Móviles (Personal 4G/5G)", saldoLibros: 3498100, debe: 0, haber: 0, saldoAuditado: 3498100, marca: "§ ∑", refPT: "PT-D1" },
+      { subcuenta: "4.1.02 - Ventas Internet Fija (FTTH / HFC Banda Ancha)", saldoLibros: 2415350, debe: 0, haber: 0, saldoAuditado: 2415350, marca: "§ ∑", refPT: "PT-D1" },
+      { subcuenta: "4.1.03 - Ventas TV Paga, Streaming y Contenidos (Flow)", saldoLibros: 1332610, debe: 11240, haber: 0, saldoAuditado: 1321370, marca: "§ ⊗", refPT: "PT-D3" },
+      { subcuenta: "4.1.04 - Soluciones Digitales Corporativas B2B (Personal Tech) y Fija", saldoLibros: 1082754, debe: 0, haber: 14620, saldoAuditado: 1097374, marca: "✓ ⊗", refPT: "PT-D2" }
     ],
     procedimientosEjecutados: [
       {
@@ -504,8 +506,8 @@ export const papelesTrabajo = [
     saldoAuditado: 2671525,
     estadoPT: "Conforme (Validación Regulatoria y NIC 38)",
     cedulaSumaria: [
-      { subcuenta: "1.3.01 - Licencias de Espectro 4G/5G (Banda 3.400-3.500 MHz) y Concesiones (Nota 10)", saldoLibros: 1985420, debe: 0, haber: 0, saldoAuditado: 1985420, marca: "© ✓ § ∑" },
-      { subcuenta: "1.3.02 - Desarrollos de Software Capitalizados (NIC 38), Marcas y Otros Intangibles (Nota 10)", saldoLibros: 686105, debe: 0, haber: 0, saldoAuditado: 686105, marca: "✓ t h ∑" }
+      { subcuenta: "1.3.01 - Licencias de Espectro 4G/5G (Banda 3.400-3.500 MHz) y Concesiones (Nota 10)", saldoLibros: 1985420, debe: 0, haber: 0, saldoAuditado: 1985420, marca: "© ✓ § ∑", refPT: "PT-E1" },
+      { subcuenta: "1.3.02 - Desarrollos de Software Capitalizados (NIC 38), Marcas y Otros Intangibles (Nota 10)", saldoLibros: 686105, debe: 0, haber: 0, saldoAuditado: 686105, marca: "✓ t h ∑", refPT: "PT-E2" }
     ],
     procedimientosEjecutados: [
       {
@@ -660,7 +662,7 @@ export const papelesTrabajo = [
     saldoAuditado: 4443998,
     estadoPT: "Conforme (Con Énfasis en Revelación de Sensibilidad NIC 36)",
     cedulaSumaria: [
-      { subcuenta: "1.4.01 - Llaves de Negocio (Nota 8 — Fusión Cablevisión / UGE Redes Personal y TMA)", saldoLibros: 4443998, debe: 0, haber: 0, saldoAuditado: 4443998, marca: "§ ∑" }
+      { subcuenta: "1.4.01 - Llaves de Negocio (Nota 8 — Fusión Cablevisión / UGE Redes Personal y TMA)", saldoLibros: 4443998, debe: 0, haber: 0, saldoAuditado: 4443998, marca: "§ ∑", refPT: "PT-F1" }
     ],
     procedimientosEjecutados: [
       {

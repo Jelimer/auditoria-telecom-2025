@@ -682,6 +682,7 @@ export default function Etapa2EjecucionView({
                   <th className="py-2.5 px-4 text-right text-red-700">Ajustes Haber</th>
                   <th className="py-2.5 px-4 text-right">Saldo Auditado 31/12/25</th>
                   <th className="py-2.5 px-4 text-center">Marcas (Tickmarks)</th>
+                  <th className="py-2.5 px-4 text-center whitespace-nowrap">Ref. PT</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 font-mono">
@@ -705,10 +706,40 @@ export default function Etapa2EjecucionView({
                     <td className={`py-2.5 px-4 text-center font-bold text-teal-700 ${isPTA ? 'text-base' : 'text-sm'}`}>
                       {row.marca}
                     </td>
+                    <td className="py-2.5 px-4 text-center font-mono">
+                      {row.refPT ? (
+                        <span className="px-2 py-0.5 rounded bg-teal-100 text-teal-900 border border-teal-300 font-bold text-xs inline-block">
+                          {row.refPT}
+                        </span>
+                      ) : (
+                        <span className="text-slate-400">-</span>
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Glosario de Marcas de Auditoría (Tickmarks) de la Cédula Sumaria */}
+          <div className="mt-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+            <span className="text-[11px] font-extrabold uppercase tracking-wide text-slate-700 flex items-center gap-1.5 mb-1.5">
+              📌 Glosario de Marcas de Auditoría en Cédula Sumaria:
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 text-slate-600">
+              {marcasAuditoria
+                .filter((m) => activePT.cedulaSumaria.some((r) => r.marca.includes(m.simbolo)))
+                .map((m) => (
+                  <div key={m.simbolo} className="flex items-start gap-1.5 bg-white p-1.5 rounded-lg border border-slate-200/80 shadow-2xs">
+                    <span className="font-mono font-black text-teal-800 bg-teal-50 px-1.5 py-0.5 rounded border border-teal-200 text-xs shrink-0">
+                      {m.simbolo}
+                    </span>
+                    <span className="text-[11px] leading-tight text-slate-700">
+                      {m.significado}
+                    </span>
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
 
