@@ -13,7 +13,7 @@
 - **Archivos Fuente Locales en el Proyecto (`docs/`):**
   - `docs/Estados Financieros 2025 Telecom-Original.pdf` (PDF oficial completo de los Estados Financieros Consolidados al 31/12/2025 de Telecom Argentina S.A.).
   - `docs/PLANIFICACION PRELIMINAR DE AUDITORIA TELECOM 2026.docx` (Documento Word original elaborado por los alumnos para la Etapa 1.1 Preliminar).
-  - `docs/AE 4 - Planificación Detallada - copia (2).docx` (y `docs/AE 4 - Desarrollo v1.docx`): **Documento Maestro Activo oficial de la Actividad de Extensión 4 (AE 4)**. Contiene la Planificación Detallada, Cuestionarios CCI, Matriz de Riesgo, Matriz de Afirmaciones, Programas de Trabajo (foco principal en Bienes de Uso, Intangibles y Créditos) y Cédulas de Ejecución (PT-A). Se mantiene sincronizado y actualizado de forma continua junto con la plataforma web.
+  - `docs/AE 4 - Planificación Detallada - copia (2) - Actualizado.docx` (y `docs/AE 4 - Desarrollo v1.docx`): **Documento Maestro Activo oficial de la Actividad de Extensión 4 (AE 4)**. Contiene la Planificación Detallada, Cuestionarios CCI, Matriz de Riesgo, Matriz de Afirmaciones, Programas de Trabajo (foco principal en Bienes de Uso, Intangibles y Créditos) y Cédulas de Ejecución (PT-A). Se mantiene sincronizado y actualizado de forma continua junto con la plataforma web.
 - **Repositorio GitHub y Despliegue Automático en Vercel:**
   - Repositorio remoto (`origin`): `https://github.com/Jelimer/auditoria-telecom-2025.git` (rama `main`).
   - Cada vez que se realicen cambios en el código de la app, se debe verificar con `npm run build`, hacer `git add .`, `git commit` y `git push origin main` para que **Vercel** actualice automáticamente la versión web que el usuario lee desde su navegador o celular.
@@ -155,4 +155,4 @@
   - `audiia_zoom_level`: zoom configurado por el usuario con retención persistente.
 - **Glosario de Marcas Inteligente por Rubro:** Muestra en Cédula Sumaria y en el pie del legajo las marcas específicas del rubro activo, adaptando los ejemplos en paréntesis (ENACOM/INPI para Intangibles, proveedores de fibra para PP&E) y ocultando marcas no aplicables (`t` y `h` exclusivas de Intangibles).
 - **Ruta del Documento Word Activo del Usuario:**
-  - `C:\Users\jelim\Desktop\AUD 2026\AE 4\AE 4 - Planificación Detallada - copia (2).docx`.
+  - `C:\Users\jelim\Desktop\AUD 2026\AE 4\AE 4 - Planificación Detallada - copia (2) - Actualizado.docx`.
