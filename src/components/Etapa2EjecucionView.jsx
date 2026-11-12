@@ -1474,11 +1474,7 @@ export default function Etapa2EjecucionView({
 
                                         {isEditingExec ? (
                                           <div className="space-y-2 mt-1">
-                                            <div className="flex flex-wrap items-center gap-1 p-1 rounded bg-slate-800 border border-slate-700 text-xs">
-                                              <button type="button" onClick={() => applyFormat('**', '**')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white font-bold">B</button>
-                                              <button type="button" onClick={() => applyFormat('*', '*')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white italic">I</button>
-                                              <button type="button" onClick={() => applyFormat('• ', '')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white">Lista</button>
-                                            </div>
+                                            <FormattingToolbar onFormat={applyFormat} isDark={true} />
                                             <textarea
                                               ref={textareaRef}
                                               rows={4}
@@ -1516,7 +1512,7 @@ export default function Etapa2EjecucionView({
                                           </div>
                                         ) : (
                                           <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
-                                            {renderTextWithNormas(currentExec)}
+                                            {renderFormattedRichText(currentExec)}
                                           </p>
                                         )}
                                       </div>
@@ -1557,7 +1553,8 @@ export default function Etapa2EjecucionView({
 
                                         {isEditingFuentes ? (
                                           <div className="space-y-2 mt-1">
-                                            <textarea
+                                            <FormattingToolbar onFormat={applyFormat} isDark={true} />
+<textarea
                                               ref={textareaRef}
                                               rows={3}
                                               value={tempEditText}
@@ -1594,7 +1591,7 @@ export default function Etapa2EjecucionView({
                                           </div>
                                         ) : (
                                           <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
-                                            {renderTextWithNormas(currentFuentes)}
+                                            {renderFormattedRichText(currentFuentes)}
                                           </p>
                                         )}
                                       </div>
@@ -1635,7 +1632,8 @@ export default function Etapa2EjecucionView({
 
                                         {isEditingValores ? (
                                           <div className="space-y-2 mt-1">
-                                            <textarea
+                                            <FormattingToolbar onFormat={applyFormat} isDark={true} />
+<textarea
                                               ref={textareaRef}
                                               rows={3}
                                               value={tempEditText}
@@ -1672,7 +1670,7 @@ export default function Etapa2EjecucionView({
                                           </div>
                                         ) : (
                                           <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
-                                            {renderTextWithNormas(currentValores)}
+                                            {renderFormattedRichText(currentValores)}
                                           </p>
                                         )}
                                       </div>
@@ -1738,32 +1736,7 @@ export default function Etapa2EjecucionView({
                                     </div>
                                     {isEditingRes ? (
                                       <div className="space-y-2 mt-1">
-                                        <div className="flex items-center gap-1.5 text-xs mb-1">
-                                          <button
-                                            type="button"
-                                            onClick={() => applyFormat('**', '**')}
-                                            title="Negrita"
-                                            className="px-2 py-0.5 rounded bg-white hover:bg-emerald-100 border border-emerald-300 text-slate-800 shadow-2xs cursor-pointer font-black text-[11px]"
-                                          >
-                                            B
-                                          </button>
-                                          <button
-                                            type="button"
-                                            onClick={() => applyFormat('<u>', '</u>')}
-                                            title="Subrayado"
-                                            className="px-2 py-0.5 rounded bg-white hover:bg-emerald-100 border border-emerald-300 text-slate-800 shadow-2xs cursor-pointer underline text-[11px]"
-                                          >
-                                            U
-                                          </button>
-                                          <button
-                                            type="button"
-                                            onClick={() => applyFormat('\n', '')}
-                                            title="Insertar salto de línea"
-                                            className="px-2 py-0.5 rounded bg-white hover:bg-emerald-100 border border-emerald-300 text-slate-700 shadow-2xs cursor-pointer text-[10px]"
-                                          >
-                                            ↵ Salto
-                                          </button>
-                                        </div>
+                                        <FormattingToolbar onFormat={applyFormat} isDark={false} />
                                         <textarea
                                           ref={textareaRef}
                                           rows={3}
@@ -1916,11 +1889,7 @@ export default function Etapa2EjecucionView({
 
                                   {isEditingProc ? (
                                     <div className="space-y-2 mt-1">
-                                      <div className="flex flex-wrap items-center gap-1 p-1 rounded bg-slate-800 border border-slate-700 text-xs">
-                                        <button type="button" onClick={() => applyFormat('**', '**')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white font-bold">B</button>
-                                        <button type="button" onClick={() => applyFormat('*', '*')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white italic">I</button>
-                                        <button type="button" onClick={() => applyFormat('• ', '')} className="px-1.5 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white">Lista</button>
-                                      </div>
+                                      <FormattingToolbar onFormat={applyFormat} isDark={true} />
                                       <textarea
                                         ref={textareaRef}
                                         rows={4}
@@ -1958,7 +1927,7 @@ export default function Etapa2EjecucionView({
                                     </div>
                                   ) : (
                                     <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
-                                      {renderTextWithNormas(currentProc)}
+                                      {renderFormattedRichText(currentProc)}
                                     </p>
                                   )}
                                 </div>
@@ -1998,7 +1967,8 @@ export default function Etapa2EjecucionView({
 
                                   {isEditingProcFuentes ? (
                                     <div className="space-y-2 mt-1">
-                                      <textarea
+                                      <FormattingToolbar onFormat={applyFormat} isDark={true} />
+<textarea
                                         ref={textareaRef}
                                         rows={3}
                                         value={tempEditText}
@@ -2035,7 +2005,7 @@ export default function Etapa2EjecucionView({
                                     </div>
                                   ) : (
                                     <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
-                                      {renderTextWithNormas(currentProcFuentes)}
+                                      {renderFormattedRichText(currentProcFuentes)}
                                     </p>
                                   )}
                                 </div>
@@ -2076,7 +2046,8 @@ export default function Etapa2EjecucionView({
 
                                   {isEditingProcValores ? (
                                     <div className="space-y-2 mt-1">
-                                      <textarea
+                                      <FormattingToolbar onFormat={applyFormat} isDark={true} />
+<textarea
                                         ref={textareaRef}
                                         rows={3}
                                         value={tempEditText}
@@ -2113,7 +2084,7 @@ export default function Etapa2EjecucionView({
                                     </div>
                                   ) : (
                                     <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
-                                      {renderTextWithNormas(currentProcValores)}
+                                      {renderFormattedRichText(currentProcValores)}
                                     </p>
                                   )}
                                 </div>
@@ -2153,29 +2124,7 @@ export default function Etapa2EjecucionView({
 
                                   {isEditingDefensa ? (
                                     <div className="space-y-2 p-2.5 rounded-lg bg-amber-950/70 border border-amber-400">
-                                      <div className="flex flex-wrap items-center gap-1 p-1 rounded bg-amber-900/60 border border-amber-600/40 text-xs">
-                                        <button
-                                          type="button"
-                                          onClick={() => applyFormat('**', '**')}
-                                          className="px-1.5 py-0.5 rounded bg-amber-950 hover:bg-amber-800 text-amber-200 font-bold"
-                                        >
-                                          B
-                                        </button>
-                                        <button
-                                          type="button"
-                                          onClick={() => applyFormat('*', '*')}
-                                          className="px-1.5 py-0.5 rounded bg-amber-950 hover:bg-amber-800 text-amber-200 italic"
-                                        >
-                                          I
-                                        </button>
-                                        <button
-                                          type="button"
-                                          onClick={() => applyFormat('• ', '')}
-                                          className="px-1.5 py-0.5 rounded bg-amber-950 hover:bg-amber-800 text-amber-200"
-                                        >
-                                          Lista
-                                        </button>
-                                      </div>
+                                      <FormattingToolbar onFormat={applyFormat} isDark={true} />
                                       <textarea
                                         ref={textareaRef}
                                         rows={4}
@@ -2272,38 +2221,7 @@ export default function Etapa2EjecucionView({
 
             {editingField === `conclusion-${activePT.id}` ? (
               <div className="mt-2.5 space-y-2">
-                <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-lg bg-teal-100/70 border border-teal-200 text-xs">
-                  <span className="text-[10px] font-bold text-teal-900 uppercase mr-1">Formato:</span>
-                  <button
-                    type="button"
-                    onClick={() => applyFormat('**', '**')}
-                    title="Añadir negrita (**texto**)"
-                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 font-extrabold text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
-                  >
-                    <span className="font-mono font-black">B</span>
-                    <span className="text-[11px] font-normal text-slate-600">Negrita</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => applyFormat('<u>', '</u>')}
-                    title="Añadir subrayado (<u>texto</u> o __texto__)"
-                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
-                  >
-                    <span className="font-mono font-black underline">U</span>
-                    <span className="text-[11px] font-normal text-slate-600">Subrayado</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => applyFormat('\n', '')}
-                    title="Insertar salto de línea"
-                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 text-slate-700 shadow-2xs cursor-pointer text-[11px]"
-                  >
-                    ↵ Salto de línea
-                  </button>
-                  <span className="text-[10.5px] text-teal-800 italic ml-auto hidden sm:inline">
-                    (Tip: Enter para saltos, **negrita**, <u>subrayado</u>)
-                  </span>
-                </div>
+                <FormattingToolbar onFormat={applyFormat} isDark={false} />
                 <textarea
                   ref={textareaRef}
                   value={tempEditText}
@@ -2441,38 +2359,7 @@ export default function Etapa2EjecucionView({
 
                             {isEditingThisStep ? (
                               <div className="space-y-2">
-                                <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-lg bg-teal-100/70 border border-teal-200 text-xs">
-                                  <span className="text-[10px] font-bold text-teal-900 uppercase mr-1">Formato:</span>
-                                  <button
-                                    type="button"
-                                    onClick={() => applyFormat('**', '**')}
-                                    title="Añadir negrita (**texto**)"
-                                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 font-extrabold text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
-                                  >
-                                    <span className="font-mono font-black">B</span>
-                                    <span className="text-[11px] font-normal text-slate-600">Negrita</span>
-                                  </button>
-                                  <button
-                                    type="button"
-                                    onClick={() => applyFormat('<u>', '</u>')}
-                                    title="Añadir subrayado (<u>texto</u> o __texto__)"
-                                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
-                                  >
-                                    <span className="font-mono font-black underline">U</span>
-                                    <span className="text-[11px] font-normal text-slate-600">Subrayado</span>
-                                  </button>
-                                  <button
-                                    type="button"
-                                    onClick={() => applyFormat('\n', '')}
-                                    title="Insertar salto de línea"
-                                    className="px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-teal-300 text-slate-700 shadow-2xs cursor-pointer text-[11px]"
-                                  >
-                                    ↵ Salto de línea
-                                  </button>
-                                  <span className="text-[10.5px] text-teal-800 italic ml-auto hidden sm:inline">
-                                    (Enter para saltos, **negrita**, <u>subrayado</u>)
-                                  </span>
-                                </div>
+                                <FormattingToolbar onFormat={applyFormat} isDark={false} />
                                 <textarea
                                   ref={textareaRef}
                                   value={tempEditText}
@@ -2577,38 +2464,7 @@ export default function Etapa2EjecucionView({
 
                           {isEditingSynth ? (
                             <div className="space-y-2">
-                              <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-lg bg-amber-100/90 border border-amber-300 text-xs">
-                                <span className="text-[10px] font-bold text-amber-950 uppercase mr-1">Formato:</span>
-                                <button
-                                  type="button"
-                                  onClick={() => applyFormat('**', '**')}
-                                  title="Añadir negrita (**texto**)"
-                                  className="px-2 py-0.5 rounded bg-white hover:bg-amber-50 border border-amber-300 font-extrabold text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
-                                >
-                                  <span className="font-mono font-black">B</span>
-                                  <span className="text-[11px] font-normal text-slate-600">Negrita</span>
-                                </button>
-                                <button
-                                  type="button"
-                                  onClick={() => applyFormat('<u>', '</u>')}
-                                  title="Añadir subrayado (<u>texto</u> o __texto__)"
-                                  className="px-2 py-0.5 rounded bg-white hover:bg-amber-50 border border-amber-300 text-slate-800 shadow-2xs cursor-pointer flex items-center gap-1"
-                                >
-                                  <span className="font-mono font-black underline">U</span>
-                                  <span className="text-[11px] font-normal text-slate-600">Subrayado</span>
-                                </button>
-                                <button
-                                  type="button"
-                                  onClick={() => applyFormat('\n', '')}
-                                  title="Insertar salto de línea"
-                                  className="px-2 py-0.5 rounded bg-white hover:bg-amber-50 border border-amber-300 text-slate-700 shadow-2xs cursor-pointer text-[11px]"
-                                >
-                                  ↵ Salto de línea
-                                </button>
-                                <span className="text-[10.5px] text-amber-900 italic ml-auto hidden sm:inline">
-                                  (Enter para saltos, **negrita**, <u>subrayado</u>)
-                                </span>
-                              </div>
+                              <FormattingToolbar onFormat={applyFormat} isDark={false} />
                               <textarea
                                 ref={textareaRef}
                                 value={tempEditText}

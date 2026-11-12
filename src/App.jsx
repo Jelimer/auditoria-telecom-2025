@@ -341,57 +341,124 @@ export default function App() {
     });
   }, [cuestionariosState]);
 
-  // Navegación centralizada desde botones internos o menú lateral
-  const handleNavigate = (targetViewId, optionalSubId = null) => {
+  // Navegación centralizada con soporte completo para historial del navegador (botón atrás / botón retroceder del mouse)
+  const navigateTo = (targetViewId, optionalSubId = null, options = {}) => {
+    const { pushHistory = true, scroll = true } = options;
     const normalizedView =
       targetViewId === 'etapa1-plan-detallada' ? 'etapa1-detallada' : targetViewId;
+
+    if (pushHistory && typeof window !== 'undefined') {
+      const currentState = window.history.state;
+      const isSame =
+        currentState &&
+        currentState.view === normalizedView &&
+        currentState.subTarget === (optionalSubId || null);
+
+      if (!isSame) {
+        window.history.pushState(
+          { view: normalizedView, subTarget: optionalSubId || null },
+          '',
+          `#${normalizedView}${optionalSubId ? `/${optionalSubId}` : ''}`
+        );
+      }
+    }
+
     setActiveView(normalizedView);
     setOpenMenus((prev) => ({ ...prev, [normalizedView]: true }));
-    if (optionalSubId) {
-      setSubTarget(optionalSubId);
-      setSubTargetTick((t) => t + 1);
-      setTimeout(() => {
-        const el = document.getElementById(optionalSubId);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      }, 100);
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    setSubTarget(optionalSubId || null);
+    setSubTargetTick((t) => t + 1);
+
+    if (scroll) {
+      if (optionalSubId) {
+        setTimeout(() => {
+          const el = document.getElementById(optionalSubId);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        }, 120);
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }
+  };
+
+  const handleNavigate = (targetViewId, optionalSubId = null) => {
+    navigateTo(targetViewId, optionalSubId, { pushHistory: true, scroll: true });
   };
 
   // Handlers de menú principal y subtemas desplegables
   const handleSelectMainItem = (itemId) => {
     const isAlreadyActive = activeView === itemId;
-    setActiveView(itemId);
     setOpenMenus((prev) => ({
       ...prev,
       [itemId]: isAlreadyActive ? !prev[itemId] : true
     }));
-    if (!isAlreadyActive) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    navigateTo(itemId, null, { pushHistory: true, scroll: !isAlreadyActive });
   };
 
   const handleSelectSubItem = (parentId, subItem) => {
-    setActiveView(parentId);
-    setOpenMenus((prev) => ({ ...prev, [parentId]: true }));
-    setSubTarget(subItem.id);
-    setSubTargetTick((t) => t + 1);
-    if (subItem.type === 'scroll') {
-      setTimeout(() => {
-        const el = document.getElementById(subItem.id);
-        if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 120);
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    navigateTo(parentId, subItem.id, {
+      pushHistory: true,
+      scroll: subItem.type === 'scroll'
+    });
   };
+
+  // Soporte para botón de retroceso / avance del mouse y del navegador (popstate)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    // Al montar, inicializar el estado del historial
+    const hash = window.location.hash.replace(/^#/, '');
+    let initialView = activeView;
+    let initialSub = subTarget;
+
+    if (hash) {
+      const [hashView, hashSub] = hash.split('/');
+      if (hashView) {
+        initialView = hashView === 'etapa1-plan-detallada' ? 'etapa1-detallada' : hashView;
+      }
+      if (hashSub) {
+        initialSub = hashSub;
+      }
+    }
+
+    if (window.history.state?.view) {
+      initialView = window.history.state.view;
+      initialSub = window.history.state.subTarget || null;
+    } else {
+      window.history.replaceState(
+        { view: initialView, subTarget: initialSub },
+        '',
+        `#${initialView}${initialSub ? `/${initialSub}` : ''}`
+      );
+    }
+
+    if (initialView !== activeView || initialSub !== subTarget) {
+      setActiveView(initialView);
+      setOpenMenus((prev) => ({ ...prev, [initialView]: true }));
+      setSubTarget(initialSub);
+      setSubTargetTick((t) => t + 1);
+    }
+
+    const handlePopState = (event) => {
+      if (event.state && event.state.view) {
+        const { view, subTarget: popSub } = event.state;
+        navigateTo(view, popSub || null, { pushHistory: false, scroll: true });
+      } else {
+        const popHash = window.location.hash.replace(/^#/, '');
+        if (popHash) {
+          const [hView, hSub] = popHash.split('/');
+          const norm = hView === 'etapa1-plan-detallada' ? 'etapa1-detallada' : hView;
+          navigateTo(norm, hSub || null, { pushHistory: false, scroll: true });
+        }
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // ScrollSpy: sincroniza dinámicamente el sub-ítem activo del menú lateral con la posición del scroll en pantalla
   useEffect(() => {
@@ -513,15 +580,13 @@ export default function App() {
   const goPrev = () => {
     if (currentIndex > 0) {
       const target = NAV_ITEMS[currentIndex - 1].id;
-      setActiveView(target);
-      setOpenMenus((prev) => ({ ...prev, [target]: true }));
+      navigateTo(target, null, { pushHistory: true, scroll: true });
     }
   };
   const goNext = () => {
     if (currentIndex < NAV_ITEMS.length - 1) {
       const target = NAV_ITEMS[currentIndex + 1].id;
-      setActiveView(target);
-      setOpenMenus((prev) => ({ ...prev, [target]: true }));
+      navigateTo(target, null, { pushHistory: true, scroll: true });
     }
   };
 
@@ -537,7 +602,7 @@ export default function App() {
           {/* Logo Dinámico */}
           <div className="h-16 px-4 border-b border-slate-100 flex items-center justify-between shrink-0">
             <div
-              onClick={() => setActiveView('dashboard')}
+              onClick={() => navigateTo('dashboard', null, { pushHistory: true, scroll: true })}
               className="flex items-center gap-2.5 cursor-pointer overflow-hidden"
             >
               <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-700 to-lime-500 flex items-center justify-center text-white font-extrabold text-sm shrink-0 shadow-xs">
