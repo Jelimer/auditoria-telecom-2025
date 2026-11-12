@@ -28,7 +28,10 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
   const [expandAllProcedimientos, setExpandAllProcedimientos] = useState(false);
 
   useEffect(() => {
-    if (!subTarget) return;
+    // Solo reaccionar ante una navegación intencional (disparada por subTargetTick)
+    // para evitar que el ScrollSpy de App.jsx dispare scrollIntoView involuntarios durante el scroll manual
+    if (!subTargetTick || !subTarget) return;
+
     if (subTarget.startsWith('afirmacion:')) {
       const parts = subTarget.split(':');
       const rubroId = parts[1];
@@ -44,16 +47,11 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
       }, 80);
       return;
     }
+
     if (subTarget === 'sec-1c-rubros') {
       setModoVista('por-rubro');
     }
-    setTimeout(() => {
-      const el = document.getElementById(subTarget);
-      if (el) {
-        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }, 60);
-  }, [subTarget, subTargetTick]);
+  }, [subTargetTick]);
 
   const activeRubro =
     rubrosSignificativos.find((r) => r.id === selectedRubroId) || rubrosSignificativos[0];
