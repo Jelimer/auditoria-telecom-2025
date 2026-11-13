@@ -45,14 +45,14 @@ export const NORMAS_DICCIONARIO = {
     titulo: 'Procedimientos Analíticos Sustantivos',
     emisor: 'IAASB / FACPCE',
     queTrata: 'Evaluación de la información financiera mediante análisis de relaciones plausibles entre datos financieros y no financieros, y comparaciones globales de saldos.',
-    aplicacion: 'En PT-A4 se aplica la Prueba Global de Amortizaciones: se multiplica el valor de origen reexpresado por la vida útil teórica para validar la razonabilidad del cargo contable de $854.120M.'
+    aplicacion: 'En PT-A4 se aplica la Prueba Global de Amortizaciones (depreciación del año anterior $1.312.898M + altas/TMA $315.840M - extinguidos $72.450M - bajas $23.197M, equivalente al valor amortizable sobre vida útil en moneda homogénea) para validar la razonabilidad del cargo contable de $1.533.091M (Nota 9 pág. 50 y Nota 25).'
   },
   'NIA 700': {
     codigo: 'NIA 700',
     titulo: 'Formación de la Opinión y Emisión del Informe de Auditoría sobre los Estados Contables',
     emisor: 'IAASB / FACPCE',
     queTrata: 'Norma la redacción y estructura del dictamen profesional del auditor independiente (opinión favorable sin salvedades, opinión con salvedades, opinión adversa o abstención).',
-    aplicacion: 'Si la Gerencia de Telecom acepta registrar los ajustes que superan el PAE (AJ-01 a AJ-04), el auditor puede emitir una Opinión Limpia sin salvedades.'
+    aplicacion: 'Si la Gerencia de Telecom acepta registrar los ajustes que superan el PAE (AJ-01 en Bienes de Uso y la reclasificación AJ-04 en Ventas), el auditor puede emitir una Opinión Limpia sin salvedades.'
   },
   'NIA 501': {
     codigo: 'NIA 501',
@@ -853,6 +853,9 @@ export default function Etapa2EjecucionView({
     if (activePT.id === 'pt-a') {
       return a.rubro.toLowerCase().includes('bienes de uso') || a.refPT.includes('PT-A');
     }
+    if (activePT.id === 'pt-e') {
+      return a.refPT.includes('PT-E') || a.rubro.toLowerCase().includes('intangibles');
+    }
     if (activePT.id === 'pt-b') {
       return a.refPT.includes('PT-B') || a.rubro.toLowerCase().includes('créditos');
     }
@@ -866,10 +869,17 @@ export default function Etapa2EjecucionView({
     ? ajustesState
     : ajustesDelRubroActivo;
 
-  // Cálculo del efecto acumulado de ajustes NO aceptados por la Gerencia (sobre los visibles o sobre el rubro)
+  // Cálculo del efecto acumulado de ajustes propuestos y NO aceptados por la Gerencia
+  const montoAjustesPropuestos = ajustesAMostrar
+    .filter((a) => a.superaPAE)
+    .reduce((acc, a) => acc + a.montoMillones, 0);
+
   const montoAjustesNoRegistrados = ajustesAMostrar
     .filter((a) => a.superaPAE && !a.aceptado)
     .reduce((acc, a) => acc + a.montoMillones, 0);
+
+  const aj01Item = ajustesState.find((a) => a.id === 'aj-1');
+  const aj01Aceptado = aj01Item ? aj01Item.aceptado : true;
 
   const totalAjustesGlobalNoRegistrados = ajustesState
     .filter((a) => a.superaPAE && !a.aceptado)
@@ -2665,28 +2675,36 @@ export default function Etapa2EjecucionView({
       </div>
 
       {/* PLANILLA RESUMEN DE AJUSTES Y RECLASIFICACIONES PROPUESTOS (PAE / SAD) */}
-      <div id="sec-pae" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-100 mb-5">
+      <div id="sec-pae" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20 space-y-5">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div>
             <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-rose-600 text-white">
-              PLANILLA DE AJUSTES Y RECLASIFICACIONES PROPUESTOS (PAE / SAD)
+              ETAPA 2 – CIERRE DE EJECUCIÓN: PLANILLA DE AJUSTES Y RECLASIFICACIONES PROPUESTOS (PAE / SAD)
             </span>
             <h3 className="text-lg font-extrabold text-slate-900 mt-2">
               Evaluación de Hallazgos frente a Umbral Mínimo PAE ($8.311M), Error Tolerable ($83.112M) y Materialidad ($166.225M)
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
-              Podés simular qué sucede si la Gerencia de Telecom Argentina S.A. acepta registrar o no cada asiento propuesto y observar cómo impacta automáticamente en la opinión del Informe del Auditor en la Etapa 3.
+              Consolidado bajo NIA 450 y RT 37. Podés simular si la Gerencia de Telecom Argentina S.A. acepta o no cada asiento sugerido y observar su efecto directo en el Saldo Auditado y en el Dictamen de la Etapa 3.
             </p>
           </div>
 
-          <div className="p-3.5 rounded-xl bg-slate-900 text-white shrink-0 flex items-center gap-4">
+          <div className="p-3.5 rounded-xl bg-slate-900 text-white shrink-0 flex flex-wrap items-center gap-4">
             <div>
               <span className="text-[10px] font-bold uppercase text-slate-400 block">
                 {!mostrarTodosAjustes && activePT.id === 'pt-a'
-                  ? 'Desvío en Bienes de Uso (AJ-01)'
-                  : !mostrarTodosAjustes && activePT.id === 'pt-b'
-                  ? 'Créditos por Ventas (Validado Sin Ajustes)'
-                  : 'Desvíos Materiales No Registrados'}
+                  ? 'Ajuste Propuesto (AJ-01)'
+                  : !mostrarTodosAjustes && (activePT.id === 'pt-e' || activePT.id === 'pt-b')
+                  ? `${activePT.codigo} Validado`
+                  : 'Propuestos (> PAE)'}
+              </span>
+              <span className="text-lg font-extrabold font-mono text-sky-300">
+                ${montoAjustesPropuestos.toLocaleString('es-AR')} M
+              </span>
+            </div>
+            <div className="border-l border-slate-700 pl-4">
+              <span className="text-[10px] font-bold uppercase text-slate-400 block">
+                Pendiente No Registrado
               </span>
               <span
                 className={`text-lg font-extrabold font-mono ${
@@ -2719,29 +2737,165 @@ export default function Etapa2EjecucionView({
           </div>
         </div>
 
-        {/* Barra de alternancia de visualización de ajustes */}
-        <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 mb-4 flex flex-wrap items-center justify-between gap-3">
+        {/* 1. CUADRO RESUMEN CONSOLIDADO DE LOS 3 RUBROS PRIORITARIOS (ENFOQUE CÁTEDRA) */}
+        <div className="rounded-xl border border-slate-200 overflow-hidden bg-slate-50/40">
+          <div className="px-4 py-3 bg-slate-900 text-white flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span className="text-[10px] font-extrabold uppercase tracking-wider text-lime-300 block">
+                1. Cuadro Resumen de Hallazgos y Ajustes Acumulados (Programas Ejecutados – PAE / SAD)
+              </span>
+              <p className="text-[11px] text-slate-300">
+                Parámetros de evaluación (NIA 320 / NIA 450): PM $166.225M (1% Activo Total) • ET $83.112M (50% PM) • PAE $8.311M (5% PM)
+              </p>
+            </div>
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-teal-200 border border-white/15">
+              3 Rubros Seleccionados: PT-A, PT-E y PT-B
+            </span>
+          </div>
+
+          <div className="overflow-x-auto bg-white">
+            <table className="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr className="bg-slate-100 text-slate-700 font-bold text-[11px] uppercase border-b border-slate-200">
+                  <th className="py-2.5 px-3">Ref. PT / Cód.</th>
+                  <th className="py-2.5 px-3">Rubro y Nota</th>
+                  <th className="py-2.5 px-3">Hallazgo / Validación (Origen CCI)</th>
+                  <th className="py-2.5 px-3 text-right">Saldo Libros ($M)</th>
+                  <th className="py-2.5 px-3 text-right">Ajuste ($M)</th>
+                  <th className="py-2.5 px-3 text-right">Saldo Auditado ($M)</th>
+                  <th className="py-2.5 px-3">Evaluación PAE / ET</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                <tr className="bg-amber-50/30 hover:bg-amber-50/60">
+                  <td className="py-2.5 px-3 font-mono font-extrabold text-slate-900">
+                    PT-A (A1/A4)
+                    <span className="block text-[10px] text-rose-700">H-01 / AJ-01</span>
+                  </td>
+                  <td className="py-2.5 px-3 font-bold text-slate-900">
+                    Bienes de Uso
+                    <span className="block text-[10px] font-normal text-slate-500">PP&amp;E – Nota 9 (Medición y Exist.)</span>
+                  </td>
+                  <td className="py-2.5 px-3 text-slate-700 leading-snug">
+                    Acumulación de 2 desvíos (<strong className="text-teal-800">CCI-02 Preg. 22-23</strong>): <strong>a)</strong> $21.450M centrales analógicas obsoletas (PT-A4); <strong>b)</strong> $6.890M fibra/nodos vandalizados en SAP FI-AA (PT-A1).
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono text-slate-700">$6.789.118</td>
+                  <td className="py-2.5 px-3 text-right font-mono font-extrabold text-rose-700">($28.340)</td>
+                  <td className="py-2.5 px-3 text-right font-mono font-extrabold text-slate-900 bg-teal-50/40">
+                    {aj01Aceptado ? '$6.760.778' : '$6.789.118*'}
+                  </td>
+                  <td className="py-2.5 px-3">
+                    <span className="inline-block px-2 py-0.5 rounded bg-rose-100 text-rose-800 font-bold text-[10px]">
+                      &gt; PAE ($8.311M) / &lt; ET ($83.112M)
+                    </span>
+                    <span className="block text-[10px] text-slate-600 mt-0.5">
+                      {aj01Aceptado ? 'AJ-01 aceptado ✓' : 'AJ-01 pendiente de registro'}
+                    </span>
+                  </td>
+                </tr>
+
+                <tr className="hover:bg-slate-50">
+                  <td className="py-2.5 px-3 font-mono font-extrabold text-teal-800">
+                    PT-E (E1/E2)
+                    <span className="block text-[10px] text-emerald-700">Sin desvíos</span>
+                  </td>
+                  <td className="py-2.5 px-3 font-bold text-slate-900">
+                    Activos Intangibles
+                    <span className="block text-[10px] font-normal text-slate-500">Nota 10 (Exist., Prop. y Val.)</span>
+                  </td>
+                  <td className="py-2.5 px-3 text-slate-700 leading-snug">
+                    Validación de espectro ENACOM, marcas INPI, software NIC 38.57, amortizaciones ($234.722M en Nota 10/25) y valor residual sin diferencias.
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono text-slate-700">$2.671.525</td>
+                  <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-700">$0</td>
+                  <td className="py-2.5 px-3 text-right font-mono font-extrabold text-slate-900 bg-teal-50/40">$2.671.525</td>
+                  <td className="py-2.5 px-3">
+                    <span className="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">
+                      Conforme (sin ajustes)
+                    </span>
+                  </td>
+                </tr>
+
+                <tr className="hover:bg-slate-50">
+                  <td className="py-2.5 px-3 font-mono font-extrabold text-teal-800">
+                    PT-B (B1–B3)
+                    <span className="block text-[10px] text-emerald-700">Sin desvíos</span>
+                  </td>
+                  <td className="py-2.5 px-3 font-bold text-slate-900">
+                    Créditos por Ventas
+                    <span className="block text-[10px] font-normal text-slate-500">Nota 5 – Netos (Exist., Int., Val.)</span>
+                  </td>
+                  <td className="py-2.5 px-3 text-slate-700 leading-snug">
+                    Circularización positiva B2B, cobros posteriores en extractos ene-26, corte NIIF 15 e interfaces y recálculo previsión NIIF 9 ($(270.919)M) sin diferencias.
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono text-slate-700">$800.128</td>
+                  <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-700">$0</td>
+                  <td className="py-2.5 px-3 text-right font-mono font-extrabold text-slate-900 bg-teal-50/40">$800.128</td>
+                  <td className="py-2.5 px-3">
+                    <span className="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">
+                      Conforme (sin ajustes)
+                    </span>
+                  </td>
+                </tr>
+
+                <tr className="bg-slate-100 font-extrabold text-slate-900 border-t-2 border-slate-300">
+                  <td className="py-2.5 px-3 font-mono">TOTAL CÁTEDRA</td>
+                  <td className="py-2.5 px-3">Rubros Seleccionados (PT-A, PT-E, PT-B)</td>
+                  <td className="py-2.5 px-3 font-semibold text-slate-700">
+                    Efecto neto acumulado sobre Activo y Resultado del Ejercicio 2025 (17,05% de PM $166.225M)
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono">$10.260.771</td>
+                  <td className="py-2.5 px-3 text-right font-mono text-rose-700">($28.340)</td>
+                  <td className="py-2.5 px-3 text-right font-mono text-teal-900">
+                    {aj01Aceptado ? '$10.232.431' : '$10.260.771*'}
+                  </td>
+                  <td className="py-2.5 px-3 text-rose-800 text-[11px]">
+                    &gt; PAE ($8.311M) / &lt; ET ($83.112M)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {!aj01Aceptado && (
+            <div className="px-4 py-2 bg-amber-50 border-t border-amber-200 text-[11px] text-amber-900 font-semibold">
+              *Nota de simulación: Al estar destildado AJ-01 como «No Registrado por Gerencia», el saldo contable sin corregir permanece en $6.789.118M (Bienes de Uso) / $10.260.771M (subtotal rubros), por debajo del ET ($83.112M).
+            </div>
+          )}
+          <div className="px-4 py-2 bg-slate-50 border-t border-slate-200 text-[11px] text-slate-600 flex flex-wrap items-center justify-between gap-2">
+            <span>
+              <strong>Alcance ampliado en la web:</strong> además de los 3 rubros principales, en la barra inferior podés desplegar la reclasificación neutra <strong>AJ-04</strong> en Ventas Flow (PT-D3: $11.240M) y la partida no ajustada <strong>PAE-NC-01</strong> (&lt; PAE: $7.570M).
+            </span>
+          </div>
+        </div>
+
+        {/* Barra de alternancia de visualización de Asientos Contables Sugeridos */}
+        <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs font-bold text-slate-700">
-              Visualización de Ajustes:
+              2. Asientos Contables Sugeridos (Detalle):
             </span>
             {!mostrarTodosAjustes ? (
               <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-teal-100 text-teal-800 border border-teal-300">
-                🎯 Solo Ajustes de {activePT.rubro} ({ajustesDelRubroActivo.length})
+                🎯 Solo Asientos de {activePT.rubro} ({ajustesDelRubroActivo.length})
               </span>
             ) : (
               <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900 border border-amber-300">
-                👁️ Todos los Ajustes de la Auditoría ({ajustesState.length})
+                👁️ Todos los Hallazgos de la Auditoría ({ajustesState.length})
               </span>
             )}
             {!mostrarTodosAjustes && activePT.id === 'pt-a' && (
-              <span className="text-[11px] text-slate-500 font-medium">
-                — Enfoque Cátedra: Bienes de Uso cuenta con propuesta de ajuste AJ-01 por $28.340M.
+              <span className="text-[11px] text-slate-600 font-medium">
+                — Enfoque Cátedra: 2 desvíos unificados en <strong>AJ-01</strong> por $28.340M (NIA 450).
+              </span>
+            )}
+            {!mostrarTodosAjustes && activePT.id === 'pt-e' && (
+              <span className="text-[11px] text-emerald-700 font-semibold">
+                — Enfoque Cátedra: Activos Intangibles (Nota 10) validado 100% conforme sin ajustes ($0).
               </span>
             )}
             {!mostrarTodosAjustes && activePT.id === 'pt-b' && (
               <span className="text-[11px] text-emerald-700 font-semibold">
-                — Enfoque Cátedra: Créditos por Ventas validado 100% conforme sin ajustes propuestos (Riesgo de Control Medio).
+                — Enfoque Cátedra: Créditos por Ventas (Nota 5) validado 100% conforme sin ajustes ($0).
               </span>
             )}
           </div>
@@ -2752,127 +2906,183 @@ export default function Etapa2EjecucionView({
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer shadow-xs border bg-white hover:bg-slate-100 text-slate-800 border-slate-300 active:scale-95"
           >
             {mostrarTodosAjustes ? (
-              <>
-                <span>🎯 Ocultar y ver solo ajustes de {activePT.rubro}</span>
-              </>
+              <span>🎯 Ocultar y ver solo {activePT.codigo} ({activePT.rubro.split('(')[0].trim()})</span>
             ) : (
-              <>
-                <span>👁️ Desplegar los otros ajustes de la auditoría (AJ-01 y AJ-04)</span>
-              </>
+              <span>👁️ Desplegar todos los hallazgos de la auditoría (AJ-01, AJ-04 y PAE-NC-01)</span>
             )}
           </button>
         </div>
 
         <div className="space-y-4">
           {ajustesAMostrar.length === 0 ? (
-            <div className="p-8 text-center rounded-xl bg-slate-50 border border-dashed border-slate-300 space-y-2">
+            <div className="p-6 text-center rounded-xl bg-slate-50 border border-dashed border-slate-300 space-y-2">
               <span className="text-2xl block">✅</span>
               <h4 className="text-sm font-extrabold text-slate-800">
-                Sin Ajustes Propuestos para {activePT.rubro}
+                Sin Asientos de Ajuste Propuestos para {activePT.rubro}
               </h4>
-              <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
-                Este rubro no arrojó desvíos materiales ni recomendaciones de ajuste al cierre del ejercicio (saldos validados y conformes).
+              <p className="text-xs text-slate-600 max-w-lg mx-auto leading-relaxed">
+                Este rubro cerró <strong>100% conforme ($0 de ajuste propuesto)</strong> al no arrojar desvíos superiores al PAE ($8.311M). El único ajuste patrimonial de los 3 rubros prioritarios corresponde a <strong>AJ-01 en Bienes de Uso ($28.340M)</strong>.
               </p>
               <button
                 type="button"
                 onClick={() => setMostrarTodosAjustes(true)}
                 className="mt-2 px-3 py-1.5 rounded-lg bg-teal-700 text-white text-xs font-bold hover:bg-teal-800 transition-colors cursor-pointer"
               >
-                👁️ Desplegar todos los ajustes de la auditoría
+                👁️ Ver todos los hallazgos y asientos de la auditoría
               </button>
             </div>
           ) : (
-            ajustesAMostrar.map((item) => (
-            <div
-              key={item.id}
-              className={`rounded-xl border p-4 transition-all ${
-                item.superaPAE
-                  ? item.aceptado
-                    ? 'border-emerald-200 bg-emerald-50/20'
-                    : 'border-red-300 bg-red-50/30'
-                  : 'border-slate-200 bg-slate-50/60'
-              }`}
-            >
-              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3 border-b border-slate-200/80">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="px-2.5 py-0.5 rounded bg-slate-900 text-white font-mono text-xs font-extrabold">
-                    {item.codigoHallazgo} / {item.codigoAjuste}
-                  </span>
-                  <span className="px-2 py-0.5 rounded bg-teal-100 text-teal-800 text-xs font-bold">
-                    Ref: {item.refPT} — {item.rubro}
-                  </span>
-                  <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-bold">
-                    Afirmación: {item.afirmacionAfectada}
-                  </span>
-                  <span
-                    className={`px-2 py-0.5 rounded text-xs font-extrabold font-mono ${
-                      item.superaPAE ? 'bg-red-100 text-red-700' : 'bg-slate-200 text-slate-700'
-                    }`}
-                  >
-                    Monto: ${item.montoMillones.toLocaleString('es-AR')} M{' '}
-                    {item.superaPAE ? '(> PAE $8.311M)' : '(< PAE $8.311M — No Significativo)'}
-                  </span>
-                </div>
+            ajustesAMostrar.map((item) => {
+              const totalDebe = item.asientoContable.reduce((s, l) => s + (l.debe || 0), 0);
+              const totalHaber = item.asientoContable.reduce((s, l) => s + (l.haber || 0), 0);
+              return (
+                <div
+                  key={item.id}
+                  className={`rounded-xl border p-4 transition-all ${
+                    item.superaPAE
+                      ? item.aceptado
+                        ? 'border-emerald-200 bg-emerald-50/20'
+                        : 'border-red-300 bg-red-50/30'
+                      : 'border-slate-200 bg-slate-50/60'
+                  }`}
+                >
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 pb-3 border-b border-slate-200/80">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-2.5 py-0.5 rounded bg-slate-900 text-white font-mono text-xs font-extrabold">
+                        {item.codigoHallazgo} / {item.codigoAjuste}
+                      </span>
+                      <span className="px-2 py-0.5 rounded bg-teal-100 text-teal-800 text-xs font-bold">
+                        Ref: {item.refPT} — {item.rubro}
+                      </span>
+                      <span className="px-2 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-bold">
+                        Afirmación: {item.afirmacionAfectada}
+                      </span>
+                      <span
+                        className={`px-2 py-0.5 rounded text-xs font-extrabold font-mono ${
+                          item.superaPAE ? 'bg-red-100 text-red-700' : 'bg-slate-200 text-slate-700'
+                        }`}
+                      >
+                        Monto: ${item.montoMillones.toLocaleString('es-AR')} M{' '}
+                        {item.superaPAE ? '(> PAE $8.311M)' : '(< PAE $8.311M — No Significativo)'}
+                      </span>
+                    </div>
 
-                {item.superaPAE && (
-                  <label className="inline-flex items-center gap-2 cursor-pointer select-none bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-2xs">
-                    <input
-                      type="checkbox"
-                      checked={item.aceptado}
-                      onChange={() => onToggleAjusteAceptado(item.id)}
-                      className="w-4 h-4 accent-teal-600 rounded cursor-pointer"
-                    />
-                    <span className="text-xs font-bold text-slate-800">
-                      {item.aceptado
-                        ? 'Registrado / Aceptado por Gerencia ✓'
-                        : 'Pendiente / No Registrado por Gerencia'}
-                    </span>
-                  </label>
-                )}
-              </div>
+                    {item.superaPAE && (
+                      <label className="inline-flex items-center gap-2 cursor-pointer select-none bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-2xs">
+                        <input
+                          type="checkbox"
+                          checked={item.aceptado}
+                          onChange={() => onToggleAjusteAceptado(item.id)}
+                          className="w-4 h-4 accent-teal-600 rounded cursor-pointer"
+                        />
+                        <span className="text-xs font-bold text-slate-800">
+                          {item.aceptado
+                            ? 'Registrado / Aceptado por Gerencia ✓'
+                            : 'Pendiente / No Registrado por Gerencia'}
+                        </span>
+                      </label>
+                    )}
+                  </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mt-3 items-start">
-                <div className="lg:col-span-6 space-y-1.5 text-xs">
-                  <p className="text-[11px] font-bold text-teal-800">
-                    Trazabilidad Control Interno: {item.origenCCI}
-                  </p>
-                  <p className="text-slate-700 leading-relaxed">{item.descripcionHallazgo}</p>
-                </div>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 mt-3 items-start">
+                    <div className="lg:col-span-6 space-y-2 text-xs">
+                      <p className="text-[11px] font-bold text-teal-800">
+                        Trazabilidad Control Interno: {item.origenCCI}
+                      </p>
+                      <p className="text-slate-700 leading-relaxed">{item.descripcionHallazgo}</p>
+                      {item.fundamentoNIA450 && (
+                        <div className="p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-950 leading-relaxed">
+                          <strong className="text-amber-900 block mb-0.5">
+                            Fundamento de unificación bajo NIA 450:
+                          </strong>
+                          {item.fundamentoNIA450}
+                        </div>
+                      )}
+                    </div>
 
-                {/* Asiento Contable Propuesto (Debe / Haber) */}
-                <div className="lg:col-span-6 overflow-x-auto rounded-lg border border-slate-200 bg-white">
-                  <table className="w-full text-left border-collapse text-xs font-mono">
-                    <thead>
-                      <tr className="bg-slate-100 text-slate-600 font-sans font-bold text-[10px] uppercase border-b border-slate-200">
-                        <th className="py-1.5 px-3">Asiento Contable Propuesto (Cuentas SAP)</th>
-                        <th className="py-1.5 px-3 text-right">Debe ($M)</th>
-                        <th className="py-1.5 px-3 text-right">Haber ($M)</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {item.asientoContable.map((linea, idx) => (
-                        <tr key={idx}>
-                          <td
-                            className={`py-1.5 px-3 font-sans font-medium text-slate-800 ${
-                              linea.haber > 0 ? 'pl-7 text-slate-600' : ''
-                            }`}
-                          >
-                            {linea.cuenta}
-                          </td>
-                          <td className="py-1.5 px-3 text-right font-bold text-slate-800">
-                            {linea.debe > 0 ? linea.debe.toLocaleString('es-AR') : ''}
-                          </td>
-                          <td className="py-1.5 px-3 text-right font-bold text-slate-800">
-                            {linea.haber > 0 ? linea.haber.toLocaleString('es-AR') : ''}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                    {/* Asiento Contable Propuesto (Debe / Haber) */}
+                    <div className="lg:col-span-6 overflow-x-auto rounded-lg border border-slate-200 bg-white">
+                      <table className="w-full text-left border-collapse text-xs font-mono">
+                        <thead>
+                          <tr className="bg-slate-100 text-slate-600 font-sans font-bold text-[10px] uppercase border-b border-slate-200">
+                            <th className="py-1.5 px-3">Asiento Contable Sugerido (Cuentas SAP)</th>
+                            <th className="py-1.5 px-3 text-right">Debe ($M)</th>
+                            <th className="py-1.5 px-3 text-right">Haber ($M)</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-slate-100">
+                          {item.asientoContable.map((linea, idx) => (
+                            <tr key={idx}>
+                              <td
+                                className={`py-1.5 px-3 font-sans font-medium text-slate-800 ${
+                                  linea.haber > 0 ? 'pl-6 text-slate-600' : ''
+                                }`}
+                              >
+                                {linea.cuenta}
+                              </td>
+                              <td className="py-1.5 px-3 text-right font-bold text-slate-800">
+                                {linea.debe > 0 ? linea.debe.toLocaleString('es-AR') : '—'}
+                              </td>
+                              <td className="py-1.5 px-3 text-right font-bold text-slate-800">
+                                {linea.haber > 0 ? linea.haber.toLocaleString('es-AR') : '—'}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                        <tfoot>
+                          <tr className="bg-slate-50 border-t-2 border-slate-200 font-extrabold text-slate-900">
+                            <td className="py-1.5 px-3 font-sans text-[11px]">
+                              Totales Asiento {item.codigoAjuste}
+                            </td>
+                            <td className="py-1.5 px-3 text-right">{totalDebe.toLocaleString('es-AR')}</td>
+                            <td className="py-1.5 px-3 text-right">{totalHaber.toLocaleString('es-AR')}</td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                      {item.saldoLibros && item.saldoAuditado && (
+                        <div className="px-3 py-1.5 bg-teal-50/60 border-t border-teal-100 text-[11px] font-sans text-teal-950 font-semibold">
+                          Conciliación del rubro: Saldo s/Libros ${item.saldoLibros.toLocaleString('es-AR')}M − Ajuste ({item.montoMillones.toLocaleString('es-AR')}M) = <strong>Saldo Auditado ${item.saldoAuditado.toLocaleString('es-AR')}M</strong>.
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              );
+            })
+          )}
+        </div>
+
+        {/* 3. CONCLUSIÓN GLOBAL DE ACUMULACIÓN E IMPACTO EN EL INFORME DEL AUDITOR */}
+        <div
+          className={`p-4 rounded-xl border text-xs space-y-2 ${
+            totalAjustesGlobalNoRegistrados === 0
+              ? 'bg-emerald-50/60 border-emerald-200 text-emerald-950'
+              : totalAjustesGlobalNoRegistrados < 166225
+              ? 'bg-amber-50/70 border-amber-300 text-amber-950'
+              : 'bg-rose-50 border-rose-300 text-rose-950'
+          }`}
+        >
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="font-extrabold uppercase tracking-wide text-[11px]">
+              3. Conclusión Global de Acumulación e Impacto en el Informe del Auditor (NIA 450 / RT 37)
+            </span>
+            <span className="px-2.5 py-0.5 rounded-full font-bold text-[10px] bg-white/80 border border-current/20">
+              {totalAjustesGlobalNoRegistrados === 0
+                ? 'Todos los ajustes > PAE registrados ✓'
+                : `No registrados: $${totalAjustesGlobalNoRegistrados.toLocaleString('es-AR')}M (< PM $166.225M)`}
+            </span>
+          </div>
+          <p className="leading-relaxed">
+            Evaluados en forma conjunta los tres programas sustantivos de la cátedra (<strong>PT-A, PT-E y PT-B</strong>), la única diferencia patrimonial identificada asciende a <strong>$28.340 M</strong> en Bienes de Uso (<strong>AJ-01</strong>, acumulación de $21.450M de PT-A4 y $6.890M de PT-A1), superando el umbral <strong>PAE ($8.311 M)</strong> y proponiéndose formalmente a la Gerencia al cierre del 31/12/2025.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+            <div className="p-2.5 rounded-lg bg-white/75 border border-black/5">
+              <strong>Con aceptación del ajuste por la Gerencia:</strong> Los saldos quedan debidamente corregidos (Bienes de Uso: $6.789.118M → $6.760.778M; Activos Intangibles: $2.671.525M y Créditos por Ventas: $800.128M conformes sin desvíos), permitiendo emitir una <strong>opinión favorable sin salvedades</strong>.
             </div>
-          )))}
+            <div className="p-2.5 rounded-lg bg-white/75 border border-black/5">
+              <strong>En caso de no registración:</strong> El desvío residual de AJ-01 ($28.340M) permanece por debajo del <strong>Error Tolerable ($83.112 M)</strong> y equivale al <strong>17,05%</strong> de la <strong>Materialidad Global ($166.225 M)</strong>, sin generar distorsión significativa ni generalizada (RT 37 / NIA 700), sin perjuicio de su comunicación en la <strong>Carta de Recomendaciones de Control Interno (CCI-02)</strong>.
+            </div>
+          </div>
         </div>
       </div>
 

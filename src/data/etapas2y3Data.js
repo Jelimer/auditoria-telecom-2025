@@ -95,7 +95,7 @@ export const equipoTrabajoInicial = [
     etapa: "Ejecución",
     responsable: "Grebe",
     rol: "Auditor Senior / Co-Encargado",
-    fecha: "12/01/2026",
+    fecha: "02/02/2026",
     estado: "Observado",
     colorEstado: "red",
     avance: "4/4",
@@ -191,7 +191,7 @@ export const papelesTrabajo = [
     refLegajo: "Legajo Corriente — Sección A (Cédula Sumaria A-1 y Analíticas A-2 a A-5)",
     elaboradoPor: "Grebe",
     revisadoPor: "Pisonero De Biase",
-    fecha: "12/01/2026",
+    fecha: "02/02/2026",
     saldoSegunLibros: 6789118,
     ajustePropuestoNeto: -28340,
     saldoAuditado: 6760778,
@@ -249,20 +249,20 @@ export const papelesTrabajo = [
             paso: "Cotejar las altas del ejercicio (CAPEX) contra órdenes de compra en SAP MM, facturas comerciales, despachos aduaneros y actas de recepción de obra.",
             comoSeEjecuta: "Circuito de Cotejo Documental de Altas (6 pasos): 1) Población: Se seleccionan de SAP FI-AA las incorporaciones > PAE ($8.311M). 2) Trazabilidad a Compras: En SAP MM se verifica la Orden de Compra aprobada con firmas facultadas. 3) Factura comercial: Se coteja la factura del fabricante tecnológico (Nokia, Huawei, Ericsson) y su conversión de moneda extranjera (NIC 21). 4) Despacho aduanero: Se constata el pago de aranceles y fletes aduaneros capitalizados al costo (NIC 16.16). 5) Entrada a depósito: Se verifica el remito de recepción física en almacén (MIGO en SAP). 6) Acta PAC: Se exige el Acta de Puesta en Servicio de Obra firmada por ingenieros de campo.",
             fuentes: "Subdiario SAP FI-AA (Activos Fijos), módulo SAP MM (Compras y Almacenes), despachos aduaneros oficiales de importación y Actas PAC de ingeniería de red.",
-            valores: "Altas anuales de Bienes de Uso por más de $1,3 billones en Nota 9. Umbral de selección PAE: $8.311 millones.",
+            valores: "Altas anuales de Bienes de Uso (CAPEX): $1.351.105 millones en Nota 9. Umbral de selección PAE: $8.311 millones.",
             resultado: "Las incorporaciones de equipamiento importado cuentan con Orden de Compra aprobada en SAP MM, factura comercial del fabricante (Nokia/Huawei/Ericsson), despacho aduanero con aranceles capitalizados (NIC 16.16) y Acta PAC de puesta en servicio (✓)."
           },
           {
             paso: "Ejecutar prueba de corte sobre las obras en curso habilitadas en diciembre de 2025 para comprobar la oportuna activación e inicio de depreciación.",
             comoSeEjecuta: "Procedimiento de corte sobre obras en curso: Según la NIC 16 (párrafo 55), la depreciación comienza cuando el activo está en condiciones de operar. Se audita que no existan obras terminadas que continúen expuestas indebidamente como 'Obras en Curso' al cierre del ejercicio: 1) Se extrae el listado de proyectos en curso de SAP PS (Módulo de Proyectos y Obras) al 31/12/2025. 2) Se cruzan las fechas de habilitación técnica contra los registros de tráfico del centro de monitoreo de red (NOC). 3) Si el nodo o tendido ya operaba tráfico comercial en diciembre, se constata su traspaso a Bienes en Servicio y el registro del cargo de amortización en el ejercicio 2025.",
             fuentes: "Módulo SAP PS (Obras en Curso), Subdiario SAP FI-AA y registros de tráfico de red del NOC (Centro de Monitoreo).",
-            valores: "Obras en curso acumuladas al cierre: $1.285.410 millones en Nota 9.",
+            valores: "Obras en curso al cierre: $337.494 millones (y Materiales por $640.820 millones) en Nota 9.",
             resultado: "El cruce contra los logs de tráfico del NOC confirmó que las obras habilitadas y operativas al 31/12/2025 fueron oportunamente transferidas a bienes en servicio y comenzaron su depreciación en 2025 según NIC 16.55 (✓ ∑)."
           }
         ],
         procedimientoDetalle: "Circuito de Cotejo Documental de Altas (6 pasos): 1) Población: Se seleccionan de SAP FI-AA las incorporaciones > PAE ($8.311M). 2) Trazabilidad a Compras: En SAP MM se verifica la Orden de Compra aprobada con firmas facultadas. 3) Factura comercial: Se coteja la factura del fabricante tecnológico (Nokia, Huawei, Ericsson) y su conversión de moneda extranjera (NIC 21). 4) Despacho aduanero: Se constata el pago de aranceles y fletes aduaneros capitalizados al costo (NIC 16.16). 5) Entrada a depósito: Se verifica el remito de recepción física en almacén (MIGO en SAP). 6) Acta PAC: Se exige el Acta de Puesta en Servicio de Obra firmada por ingenieros de campo. Prueba de corte: Se cruza el listado de Obras en Curso de SAP PS con los registros de tráfico del Centro de Monitoreo de Red (NOC), verificando que ninguna antena operativa en diciembre postergue su amortización.",
         fuentes: "Subdiario SAP FI-AA (Activos Fijos), módulo SAP MM (Compras y Almacenes), despachos aduaneros oficiales de importación y registros de tráfico de red del NOC.",
-        valores: "Altas anuales de Bienes de Uso por más de $1,3 billones en Nota 9. Umbral de selección PAE: $8.311 millones. Obras en curso al cierre: $1.285.410 millones.",
+        valores: "Altas anuales de Bienes de Uso (CAPEX): $1.351.105 millones en Nota 9. Umbral de selección PAE: $8.311 millones. Obras en curso al cierre: $337.494 millones (y Materiales por $640.820 millones).",
         defensaOral: "Profesor, en PT-A2 auditamos el ciclo documental completo de altas: desde la Orden de Compra en SAP MM y la factura del fabricante internacional, pasando por el despacho aduanero con aranceles activados según NIC 16, hasta el Acta PAC de puesta en servicio. Además, con los registros de tráfico del NOC verificamos el corte de obras en curso, asegurando que ninguna red que ya estuviera funcionando en diciembre postergue indebidamente su amortización.",
         afirmacionesDetalle: "Valida Integridad (todas las altas legítimas incorporadas) y Medición (costo de incorporación exacto bajo NIC 16 y corte oportuno de amortizaciones)."
       },
@@ -278,20 +278,20 @@ export const papelesTrabajo = [
             paso: "Solicitar al Registro de la Propiedad Inmueble (RPI) los informes de dominio e inhibición para los inmuebles de la Sociedad.",
             comoSeEjecuta: "Inmuebles propios: Para edificios técnicos, Data Centers y predios de radiobases, se solicitan informes de dominio e inhibición ante el RPI (Registro de la Propiedad Inmueble) para comprobar la inscripción registral a nombre de Telecom Argentina S.A. y la inexistencia de gravámenes o hipotecas no reveladas.",
             fuentes: "Informes de dominio del Registro de la Propiedad Inmueble (RPI), títulos dominiales y contratos de locación de predios técnicos.",
-            valores: "Terrenos y edificios propios por más de $450.000 millones.",
+            valores: "Inmuebles propios por $1.193.638 millones netos (Valor de Origen $1.606.670M) más $3.011 millones reclasificados a activos disponibles para la venta según Nota 9.",
             resultado: "Confirmación registral directa con el RPI (©); títulos dominiales de Data Centers y edificios corporativos inscriptos a nombre de Telecom Argentina S.A. libre de gravámenes o hipotecas no reveladas en Notas (✓)."
           },
           {
             paso: "Solicitar a la Dirección Nacional del Registro Automotor (DNRPA) los informes de dominio de la flota vehicular técnica.",
             comoSeEjecuta: "Flota Vehicular: Para camionetas y utilitarios técnicos de cuadrilla de guardia, se solicitan informes de dominio ante la DNRPA (Dirección Nacional del Registro de la Propiedad Automotor) constatando la titularidad jurídica y libre de prendas.",
-            fuentes: "Títulos, cédulas y constancias registrales de la DNRPA (Dirección Nacional del Registro del Automotor).",
-            valores: "Flota vehicular técnica operativa de más de 3.500 unidades.",
+            fuentes: "Títulos, cédulas y constancias registrales de la DNRPA (Dirección Nacional del Registro de la Propiedad Automotor).",
+            valores: "Rodados (flota vehicular técnica): $76.639 millones netos (Valor de Origen $237.972 millones) según Nota 9.",
             resultado: "Se constató la titularidad registral y libre prenda de las camionetas y utilitarios técnicos de cuadrilla ante la DNRPA (✓)."
           }
         ],
         procedimientoDetalle: "1) Inmuebles propios: Para los predios de Data Centers y edificios corporativos de AMBA e interior, se solicitan informes de dominio e inhibición ante el Registro de la Propiedad Inmueble (RPI) para comprobar la inscripción registral a nombre de Telecom Argentina S.A. y la inexistencia de gravámenes o hipotecas ocultas. 2) Flota vehicular: Para camionetas y utilitarios técnicos de cuadrilla, se solicitan informes ante la Dirección Nacional del Registro de la Propiedad Automotor (DNRPA) constatando titularidad y libre prenda.",
         fuentes: "Informes de dominio del Registro de la Propiedad Inmueble (RPI), títulos y cédulas de la DNRPA (Rodados) y contratos de locación de predios técnicos.",
-        valores: "Terrenos y edificios propios por más de $450.000 millones y flota vehicular técnica de más de 3.500 unidades.",
+        valores: "Inmuebles propios por $1.193.638 millones netos (VO $1.606.670M, más $3.011M reclasificados a venta) y Rodados por $76.639 millones netos (VO $237.972M) según Nota 9.",
         defensaOral: "En PT-A3 validamos la afirmación de Propiedad mediante confirmación externa directa: solicitamos informes de dominio al Registro de la Propiedad Inmueble (RPI) para predios y edificios corporativos, e informes a la DNRPA para los vehículos técnicos, comprobando que todos los bienes pertenezcan legalmente a Telecom y estén libres de gravámenes no revelados en Notas.",
         afirmacionesDetalle: "Valida Propiedad (titularidad jurídica exclusiva de Telecom) y Exposición (ausencia de gravámenes o prendas no reveladas en Nota 9)."
       },
@@ -783,36 +783,36 @@ export const papelesTrabajo = [
           },
           {
             paso: "Prueba Global de Amortizaciones de Activos Intangibles (Recálculo Matemático Independiente).",
-            comoSeEjecuta: "Procedimiento analítico sustantivo para verificar el cargo del ejercicio devengado por amortización de intangibles: 1) Se parte de la amortización del ejercicio anterior reexpresada en moneda de cierre (NIC 29). 2) Se suma la amortización devengada por las altas de software y licencias de 2025 (prorrateo lineal mensual según fecha de puesta en producción). 3) Se suma la amortización de activos intangibles incorporados por la adquisición de TMA (NIIF 3). 4) Se deduce la amortización de intangibles totalmente amortizados al cierre del año anterior. 5) Se compara el resultado teórico contra la columna 'Del ejercicio' de la Nota 10.",
-            fuentes: "Estados Financieros Consolidados 2025 — Nota 10 (Activos Intangibles), Subdiario de Activo Fijo SAP FI-AA y políticas contables de vida útil (Nota 3.k).",
-            valores: "Amortización Teórica Calculada: $274.320 millones vs. Amortización Registrada en Nota 10: $274.320 millones. Diferencia de Auditoría: $0 (< ET $83.112M).",
-            resultado: "La Prueba Global de Amortizaciones de Intangibles arrojó coincidencia exacta ($274.320M teóricos vs $274.320M contables, desvío $0 < ET $83.112M), validando que la medición y alícuotas lineales aplicadas (Espectro: 15-20 años, Software: 3-5 años) son razonables (✓ ∑).",
+            comoSeEjecuta: "Procedimiento analítico sustantivo para verificar el cargo del ejercicio devengado por amortización de intangibles según la Nota 10 (págs. 51-53) y Nota 25 (pág. 80): 1) Se parte de la amortización del ejercicio anterior reexpresada en moneda de cierre ($152.940M en 2024). 2) Se suma la variación neta de altas de software/sistemas, contenidos y costos de contratos 2025 (+$40.776M). 3) Se suma la variación neta de intangibles con incorporación de TMA (+$46.402M en Licencias 5G/3G/4G, Marcas y Cartera). 4) Se deduce la disminución por activos extinguidos / 100% amortizados en Licencias de Núcleo y Diversos (-$5.396M). 5) Se compara el resultado teórico ($234.722M) contra la columna 'Del ejercicio' de la Nota 10 pág. 52 y Nota 25.",
+            fuentes: "Estados Financieros Consolidados 2025 — Nota 10 (Activos Intangibles, págs. 51-53) y Nota 25 (pág. 80), Subdiario SAP FI-AA y políticas de vida útil (Nota 3.k).",
+            valores: "Amortización Teórica Calculada: $234.722 millones vs. Amortización Registrada en Nota 10 y Nota 25: $234.722 millones. Diferencia de Auditoría: $0 (< ET $83.112M).",
+            resultado: "La Prueba Global de Amortizaciones de Intangibles arrojó coincidencia exacta ($234.722M teóricos vs $234.722M contables en Nota 10 pág. 52 y Nota 25 pág. 80, desvío $0 < ET $83.112M), validando la razonabilidad de las alícuotas lineales aplicadas (Licencia PCS/SRCE $621.096M sin cargo por vida útil indefinida) (✓ ∑).",
             tabla: {
               cabeceras: ["Concepto de la Prueba Global", "Importe ($M)", "Fuente / Papel de Trabajo", "Explicación Técnica"],
               filas: [
-                { valores: ["a) Amortización de Intangibles del período anterior (2024)", "$228.450", "EECC 2025 - Nota 10", "Amortización 2024 expresada en moneda de poder adquisitivo del 31/12/2025 (NIC 29)."] },
-                { valores: ["b) (+) Amortización de altas de software y licencias 2025", "+$48.210", "Subdiario SAP / PT-E2", "Alícuotas devengadas prorrateadas mes de puesta en marcha sobre $285.355M."] },
-                { valores: ["c) (+) Amortización de intangibles incorporados por TMA", "+$18.420", "Nota 10 / Nota 29 (NIIF 3)", "Amortización devengada sobre concesiones y carteras incorporadas de TMA."] },
-                { valores: ["d) (-) Amortización de activos extinguidos / 100% amortizados", "-$20.760", "Reporte SAP FI-AA", "Intangibles que completaron su vida útil en 2024 y ya no amortizan en 2025."] },
-                { destacado: true, valores: ["e) (=) Amortización Teórica Calculada del Ejercicio 2025", "$274.320", "Cálculo de Auditoría (a+b+c-d)", "Coincide exactamente con la Nota 10 ($274.320M). Diferencia $0."] }
+                { valores: ["a) Amortización de Intangibles del período anterior (2024)", "$152.940", "EECC 2025 - Nota 10 (pág. 53) y Nota 25", "Amortización 2024 expresada en moneda de poder adquisitivo del 31/12/2025 (NIC 29)."] },
+                { valores: ["b) (+) Amortización de altas de software y licencias 2025", "+$40.776", "Nota 10 (pág. 52) / Subdiario SAP", "Variación neta en Gastos de desarrollo de sistemas (+$10.152M), Contenidos (+$393M) y Costos inc. contratos (+$30.231M)."] },
+                { valores: ["c) (+) Amortización de intangibles incorporados por TMA", "+$46.402", "Nota 10 / Nota 29 (NIIF 3)", "Variación neta en Licencias 5G (+$8.607M), 3G/4G (+$27.884M), Marcas (+$6.745M) y Cartera de clientes (+$3.166M)."] },
+                { valores: ["d) (-) Amortización de activos extinguidos / 100% amortizados", "-$5.396", "Nota 10 (pág. 52) / SAP FI-AA", "Disminución neta en Licencias de Núcleo (-$161M) y Diversos (-$5.235M) por activos extinguidos y bajas."] },
+                { destacado: true, valores: ["e) (=) Amortización Teórica Calculada del Ejercicio 2025", "$234.722", "Cálculo de Auditoría (a+b+c-d)", "Coincide exactamente con Nota 10 pág. 52 y Nota 25 pág. 80 ($234.722M). Diferencia $0."] }
               ]
             }
           },
           {
             paso: "Prueba Global de Valor Residual de Activos Intangibles (Evolución Patrimonial Neta al Cierre).",
-            comoSeEjecuta: "Se verifica la consistencia patrimonial de la Nota 10 mediante la conciliación integral de movimientos netos del ejercicio: Valor Residual al Inicio ($2.494.659M) + Altas de desarrollos de software y licencias ($382.450M) + Incorporación de intangibles identificados en combinación de negocios TMA bajo NIIF 3 ($335.790M) - Bajas / Desincorporaciones ($0M) - Cargo por Amortización del Ejercicio y Efecto Neto ($541.374M total amortización o cargo específico con conversión) = Valor Residual al Cierre Calculado ($2.671.525M).",
-            fuentes: "Cuadro de Evolución de Activos Intangibles de la Nota 10, Asientos de Combinación de Negocios TMA (Nota 29) y Mayor General SAP.",
-            valores: "Valor Residual Teórico: $2.671.525 millones vs. Balance General al 31/12/2025: $2.671.525 millones. Diferencia: $0.",
+            comoSeEjecuta: "Se verifica la consistencia patrimonial de la Nota 10 (págs. 51-53) mediante la conciliación integral de movimientos netos del ejercicio: Valor Residual al Inicio ($2.494.659M: $2.591.842M netos menos $(97.183)M de previsión) + Incorporación de intangibles por adquisición TMA (+$274.183M, Nota 29) + Altas CAPEX del ejercicio (+$134.472M) - Bajas netas ($0M: -$34.549M VO y +$34.549M amort. acum.) - Amortización del Ejercicio, Previsión y Efecto Neto Conversión (-$231.789M = -$234.722M amortización Nota 10/25 + $3.304M conversión monetaria neta - $371M aumento de previsión) = Valor Residual al Cierre Calculado ($2.671.525M = $2.769.079M neto menos $(97.554)M de previsión).",
+            fuentes: "Cuadro de Evolución de Activos Intangibles de la Nota 10 (págs. 51-53), Nota 25, Asientos TMA (Nota 29) y Mayor General SAP.",
+            valores: "Valor Residual Teórico: $2.671.525 millones vs. Balance General / Nota 10 al 31/12/2025: $2.671.525 millones. Diferencia: $0.",
             resultado: "La Prueba Global de Valor Residual cerró con exactitud matemática plena ($2.671.525M calculados vs $2.671.525M en Nota 10, desvío $0), acreditando que el saldo neto de Activos Intangibles expuesto en el Activo No Corriente es íntegro y exacto (✓ ∑).",
             tabla: {
               cabeceras: ["Movimiento Patrimonial", "Importe ($M)", "Fuente / Referencia", "Explicación Técnica"],
               filas: [
-                { valores: ["a) Valor Residual al inicio (31/12/2024)", "$2.494.659", "Nota 10 - Activos Intangibles", "Saldo de apertura neto de amortizaciones al 31/12/2024 reexpresado a moneda de cierre."] },
-                { valores: ["b) (+) Incorporación por combinación de negocios (TMA)", "+$335.790", "Nota 10 / Nota 29 (NIIF 3)", "Licencias, cartera de clientes y relaciones contractuales identificadas a valor razonable."] },
-                { valores: ["c) (+) Altas del Ejercicio (Software y Concesiones)", "+$382.450", "Nota 10 / PT-E2 Paso 1", "Desarrollos de software en SAP PS ($285.355M) y licencias adicionales capitalizadas."] },
-                { valores: ["d) (-) Bajas del Ejercicio", "$0", "Nota 10 / SAP FI-AA", "No se registraron desincorporaciones ni caducidades de licencias de espectro en 2025."] },
-                { valores: ["e) (-) Amortización del Ejercicio y Efecto Neto", "-$541.374", "Nota 10 / Cuadro Anexo", "Amortización acumulada devengada en el ejercicio y ajustes netos de conversión."] },
-                { destacado: true, valores: ["f) (=) Valor Residual al Cierre (31/12/2025)", "$2.671.525", "Nota 10 / Balance General", "Coincide exactamente con el saldo expuesto en el Activo No Corriente. Diferencia $0."] }
+                { valores: ["a) Valor Residual al inicio (31/12/2024)", "$2.494.659", "Nota 10 (págs. 51-53)", "Saldo de apertura neto al 31/12/2024 ($2.591.842M menos $(97.183)M de previsión)."] },
+                { valores: ["b) (+) Incorporación por combinación de negocios (TMA)", "+$274.183", "Nota 10 / Nota 29 (NIIF 3)", "Licencias 5G/3G/4G/PCS, cartera de clientes, marcas y costos de contratos TMA."] },
+                { valores: ["c) (+) Altas del Ejercicio (CAPEX)", "+$134.472", "Nota 10 (pág. 52)", "Costos de contratos ($67.767M), Desarrollo de sistemas ($56.790M), Contenidos ($7.800M), Diversos ($1.898M) y Lic. Núcleo ($217M)."] },
+                { valores: ["d) (-) Bajas del Ejercicio", "$0", "Nota 10 / SAP FI-AA", "Bajas netas $0 (-$34.549M Valor de Origen compensado con +$34.549M de amortización acumulada)."] },
+                { valores: ["e) (-) Amortización del Ejercicio y Efecto Neto Conversión", "-$231.789", "Nota 10 / Nota 25", "Amortización del ejercicio (-$234.722M), aumento previsión (-$371M) y conversión monetaria neta (+$3.304M)."] },
+                { destacado: true, valores: ["f) (=) Valor Residual al Cierre (31/12/2025)", "$2.671.525", "Nota 10 / Balance General", "Coincide exacto con Nota 10 ($2.769.079M menos $(97.554)M previsión). Diferencia $0."] }
               ]
             }
           }
@@ -840,7 +840,7 @@ export const papelesTrabajo = [
           etiqueta: "Paso 2 • Cédula Analítica de Software y Pruebas Globales",
           titulo: "Evaluación de Proyectos de Software (NIC 38.57) y Pruebas Globales de Amortización y Valor Residual",
           afirmacion: "Afirmaciones Auditadas: Integridad, Medición (NIC 38) y Exposición (Nota 10)",
-          relato: "Para los desarrollos de software interno capitalizados en el ejercicio ($285.355M), auditamos en SAP PS y Jira el cumplimiento estricto y cumulativo de los 6 requisitos de la NIC 38.57 (factibilidad técnica, intención, capacidad de uso, beneficios económicos probables, disponibilidad de recursos y medición confiable de desembolsos). Verificamos que sólo se activen horas de desarrollo directo de programadores ($175.900M) y licencias directas ($109.455M), descartando gastos de investigación preliminar. En la prueba de corte de gastos tecnológicos ($42.500M) comprobamos que los costos de soporte y mantenimiento rutinario fueron debidamente imputados a pérdidas en resultados. Por último, recalculamos analíticamente la amortización del ejercicio ($274.320M) y la evolución patrimonial del valor residual ($2.671.525M), verificando coincidencia matemática plena con la Nota 10 (desvío $0 < ET $83.112M). Por lo tanto, el rubro se concluye validado y conforme sin ajustes."
+          relato: "Para los desarrollos de software interno capitalizados en el ejercicio ($285.355M), auditamos en SAP PS y Jira el cumplimiento estricto y cumulativo de los 6 requisitos de la NIC 38.57 (factibilidad técnica, intención, capacidad de uso, beneficios económicos probables, disponibilidad de recursos y medición confiable de desembolsos). Verificamos que sólo se activen horas de desarrollo directo de programadores ($175.900M) y licencias directas ($109.455M), descartando gastos de investigación preliminar. En la prueba de corte de gastos tecnológicos ($42.500M) comprobamos que los costos de soporte y mantenimiento rutinario fueron debidamente imputados a pérdidas en resultados. Por último, recalculamos analíticamente la amortización del ejercicio ($234.722M según Nota 10 pág. 52 y Nota 25 pág. 80) y la evolución patrimonial del valor residual ($2.671.525M), verificando coincidencia matemática plena con la Nota 10 (desvío $0 < ET $83.112M). Por lo tanto, el rubro se concluye validado y conforme sin ajustes."
         }
       ],
       conclusionNarrativa: "A diferencia de Bienes de Uso donde se identificaron desvíos por obsolescencia de centrales de cobre no desincorporadas, en Activos Intangibles la compañía mantuvo un control documental y regulatorio riguroso: las concesiones de espectro y marcas comerciales están 100% vigentes y regularizadas en los registros públicos, los proyectos de software capitalizados satisfacen íntegramente los estándares de la NIC 38.57, y las dos Pruebas Globales sustantivas cerraron con diferencia de $0 frente al balance general. Por ende, conforme a la NIA 700 y la RT 37, se concluye que el rubro Activos Intangibles se encuentra razonablemente presentado en todos sus aspectos significativos al 31 de diciembre de 2025."
@@ -883,18 +883,21 @@ export const hallazgosYAjustes = [
     codigoHallazgo: "H-01",
     codigoAjuste: "AJ-01",
     refPT: "PT-A1 / PT-A4",
-    rubro: "Bienes de Uso",
+    rubro: "Bienes de Uso (PP&E – Nota 9)",
     afirmacionAfectada: "Medición y Existencia",
     origenCCI: "CCI-02 (Preg. 22 y 23) — Falta de baja de centrales analógicas obsoletas y robos/vandalismo en vía pública",
     tipo: "Ajuste de Valuación / Baja de Activos",
-    descripcionHallazgo: "Se detectaron centrales telefónicas analógicas fuera de servicio por migración tecnológica a FTTH ($21.450M) y tramos de red/nodos siniestrados por vandalismo en el 4° trimestre ($6.890M) que continuaban activados en el rubro Bienes de Uso al 31/12/2025.",
+    saldoLibros: 6789118,
+    saldoAuditado: 6760778,
+    descripcionHallazgo: "Acumulación de 2 desvíos del rubro Bienes de Uso al 31/12/2025: a) $21.450M por deterioro adicional sobre centrales telefónicas analógicas de cobre obsoletas fuera de operación comercial tras la migración a FTTH (PT-A4); y b) $6.890M por tramos de fibra óptica y nodos vandalizados/robados en el 4° trimestre que continuaban activos en SAP FI-AA (PT-A1).",
+    fundamentoNIA450: "Individualmente, el desvío de fibra y nodos vandalizados (PT-A1: $6.890M) resulta inferior al umbral mínimo PAE ($8.311M), mientras que la obsolescencia de centrales analógicas (PT-A4: $21.450M) lo supera por sí sola. Conforme a la NIA 450, ambas incorrecciones del mismo rubro se acumulan en un único asiento compuesto por $28.340M ($21.450M + $6.890M), reduciendo la subcuenta 1.1.01 - PP&E Redes e Infraestructura Personal de $5.995.980M a $5.967.640M (Saldo Total Bienes de Uso: $6.789.118M s/libros → $6.760.778M auditado).",
     montoMillones: 28340,
     superaPAE: true,
     impactoPatrimonial: { activo: -28340, pasivo: 0, patrimonioNeto: -28340, resultadoEjercicio: -28340 },
     asientoContable: [
       { cuenta: "Resultado por Desvalorización y Bajas de Bienes de Uso (R-)", debe: 28340, haber: 0 },
-      { cuenta: "Depreciación Acumulada / Previsión Obsolescencia Bienes de Uso (-A)", debe: 0, haber: 21450 },
-      { cuenta: "Bienes de Uso - Redes e Infraestructura Personal (-A)", debe: 0, haber: 6890 }
+      { cuenta: "Depreciación Acumulada / Previsión Obsolescencia Bienes de Uso (-A) [Centrales analógicas obsoletas – PT-A4]", debe: 0, haber: 21450 },
+      { cuenta: "Bienes de Uso - Redes e Infraestructura Personal (-A) [Baja fibra óptica y nodos vandalizados – PT-A1]", debe: 0, haber: 6890 }
     ],
     aceptadoPorGerenciaInicial: true
   },
@@ -940,70 +943,210 @@ export const hallazgosYAjustes = [
 
 export const documentosEtapa3 = {
   memorandoConclusion: {
-    titulo: "MEMORANDO RESUMEN DE AUDITORÍA (ETAPA DE CONCLUSIÓN)",
+    titulo: "MEMORANDO RESUMEN DE AUDITORÍA (ETAPA DE CONCLUSIÓN — NIAs / RT N° 32 & SLOSSE)",
     ordenRealizacion: 2,
     para: "Socio a Cargo del Encargo de Auditoría / Comité de Auditoría",
     de: "Equipo de Auditoría Externa: Grebe - Pisonero De Biase (U.C.P.)",
-    cliente: "Telecom Argentina S.A.",
-    ejercicio: "Estados Contables por el ejercicio finalizado el 31 de diciembre de 2025",
+    cliente: "Telecom Argentina S.A. (CUIT 30-63945373-8 — Entidad Cotizante Oferta Pública CNV)",
+    ejercicio: "Estados Financieros Consolidados por el ejercicio finalizado el 31 de diciembre de 2025 (comparativo 2024)",
     fecha: "18 de febrero de 2026",
+    periodoHechosPosteriores: "01/01/2026 al 20/02/2026 (Fecha de Emisión del Informe — NIA 560)",
     secciones: [
       {
-        subtitulo: "1. Alcance del Trabajo y Enfoque Aplicado (Doctrina Carlos Slosse y RT 37 / RT 53)",
-        contenido: "Hemos completado la auditoría externa de los Estados Contables de Telecom Argentina S.A. al 31/12/2025 siguiendo las 3 etapas secuenciales del proceso de auditoría (Planificación, Ejecución y Conclusión). En virtud de que la evaluación del Control Interno arrojó Riesgo de Control ALTO en los componentes clave de infraestructura y tecnología (Archivo Documental NC 38,46% y Sistema Tecnológico NC 47,62%), aplicamos un enfoque predominantemente sustantivo focalizado en los rubros críticos (Bienes de Uso, Activos Intangibles y Créditos por Ventas), fijando la Materialidad Global en $166.225 millones (1% del Activo Total de $16.622.552 millones), el Error Tolerable en $83.112 millones (50% de PM) y el umbral mínimo de ajustes (PAE) en $8.311 millones."
+        subtitulo: "1. Alcance Normativo (NIAs / RT N° 32 FACPCE), Enfoque Aplicado y Materialidad",
+        normas: "NIA 300 • NIA 315 • NIA 320 • NIA 330 • RT N° 32 FACPCE • Doctrina Carlos A. Slosse",
+        contenido: "Hemos completado la auditoría externa de los Estados Financieros Consolidados de Telecom Argentina S.A. al 31/12/2025 preparados conforme a las Normas de contabilidad NIIF emitidas por el IASB (moneda homogénea NIC 29). Al tratarse de una entidad sujeta al régimen de oferta pública de la CNV bajo NIIF (RT N° 26), el encargo y su dictamen final se rigen por las Normas Internacionales de Auditoría (NIAs) adoptadas mediante la Resolución Técnica N° 32 de la FACPCE, articuladas con las 3 etapas secuenciales de Carlos A. Slosse. En virtud de que la evaluación inicial arrojó Nivel de Confianza BAJO (Riesgo de Control ALTO) en Archivo Documental (CCI-01: 42,31% inicial) y Sistema Tecnológico (CCI-05: 42,86% inicial), y Confianza MEDIA en Sistema Contable (CCI-02: 72,00% inicial), adoptamos un enfoque predominantemente sustantivo fijando la Materialidad Global (PM) en $166.225M (1% del Activo Total de $16.622.552M), Error Tolerable (ET) en $83.112M (50% de PM) y Umbral PAE en $8.311M (5% de ET).",
+        refs: [
+          { label: "Conocimiento del Ente (1A)", view: "etapa1-ente", sub: null },
+          { label: "Matriz 5 CCIs (1B)", view: "etapa1-cci", sub: "sec-ponderacion" },
+          { label: "Revisión Analítica (1C)", view: "etapa1-analisis-eecc", sub: "ratios" },
+          { label: "Materialidad y Rubros (1D)", view: "etapa1-detallada", sub: null }
+        ]
       },
       {
-        subtitulo: "2. Resumen de Resultados de los Programas A, B, C, D, E y F",
-        contenido: "Se ejecutaron en su totalidad los procedimientos previstos en el Trabajo Interino (Oct-Nov 2025), Pre-Cierre (Dic 2025) y Cierre Final (Ene-Feb 2026). Se validaron las cinco afirmaciones (Existencia, Integridad, Propiedad, Medición y Exposición) en los rubros críticos del Balance Consolidado, con foco prioritario en los 3 rubros principales de la cátedra: Bienes de Uso (PP&E $6.789.118M en Nota 9), Créditos por Ventas ($800.128M en Nota 5) y Activos Intangibles ($2.671.525M en Nota 10), junto a Préstamos ($5.436.615M en Nota 14), Ventas ($8.328.814M en Nota 24) y Llaves de Negocio ($4.443.998M en Nota 8 con Valor Recuperable UGE Redes Personal $12.774.695M verificado en PT-F1)."
+        subtitulo: "2. Síntesis de Ejecución Sustantiva sobre Rubros Prioritarios y Alcance Ampliado (PT-A a PT-F)",
+        normas: "NIA 500 • NIA 501 • NIA 505 • NIA 520 • NIA 540 • NIA 620",
+        contenido: "Ejecutamos los procedimientos planificados en Visita Interina (Oct-Nov 2025), Pre-Cierre (Dic 2025) y Cierre Final (Ene-Feb 2026). En los 3 rubros prioritarios de la cátedra: (i) Programa A (PT-A1 a PT-A4 — Bienes de Uso $6.789.118M s/libros netos de previsiones en Nota 9, incl. PPA TMA $1.332.961M): las Pruebas Globales de Amortización ($1.533.091M vs Nota 9 pág. 50) y Valor Residual ($6.859.618M antes de previsiones / $6.789.118M netos) cerraron con $0 de diferencia matemática, detectándose en pruebas de detalle técnicas el desvío compuesto AJ-01 ($28.340M) que lleva el saldo auditado a $6.760.778M; (ii) Programa E (PT-E1 a PT-E2 — Activos Intangibles $2.671.525M en Nota 10, incl. espectro 4G/5G Res. ENACOM 1285/2023 y TMA $274.183M Nota 29): ambas Pruebas Globales ($234.722M amortización Nota 10/25 y $2.671.525M valor residual) cerraron conformes ($0); y (iii) Programa B (PT-B1 a PT-B3 — Créditos por Ventas $800.128M netos sobre $1.071.047M brutos y Previsión NIIF 9 $(270.919)M en Nota 5): circularización B2B a 65 clientes, corte Personal Tech y reproceso 100% TAACs confirmando cobertura total de mora > 180 días, saldo conforme ($0). En alcance ampliado web se auditaron Deuda Financiera ($5.436.615M Nota 14 — PT-C), Ingresos Convergentes ($8.328.814M Nota 24 — PT-D, con reclasificación neutra AJ-04 $11.240M en PT-D3) y Llave de Negocio ($4.443.998M Nota 8 — PT-F1, UGE Redes Personal DCF $12.774.695M con headroom positivo de $334.966M).",
+        refs: [
+          { label: "PT-A: Bienes de Uso", view: "etapa2-ejecucion", sub: "pt-a" },
+          { label: "PT-E: Intangibles", view: "etapa2-ejecucion", sub: "pt-e" },
+          { label: "PT-B: Créditos", view: "etapa2-ejecucion", sub: "pt-b" },
+          { label: "PT-C: Deuda", view: "etapa2-ejecucion", sub: "pt-c" },
+          { label: "PT-D3: Flow NIIF 15", view: "etapa2-ejecucion", sub: "pt-d3" },
+          { label: "PT-F1: Deterioro UGE", view: "etapa2-ejecucion", sub: "pt-f1" }
+        ]
       },
       {
-        subtitulo: "3. Evaluación de Hallazgos, Ajustes Propuestos y Empresa en Marcha",
-        contenido: "Se identificó como único ajuste patrimonial relevante de auditoría el Asiento AJ-01 en Bienes de Uso (por baja de centrales analógicas obsoletas y vandalismo por $28.340M), mientras que Créditos por Ventas (Programa B) fue validado conforme sin ajustes por comprobarse la razonabilidad de la cartera y la suficiencia de la previsión NIIF 9. Adicionalmente, se formuló la reclasificación AJ-04 en Ventas por suscripciones de terceros en Flow ($11.240M, con efecto neutro en resultado y PN). Asimismo, se verificó el pleno cumplimiento de los covenants financieros y la vigencia del principio contable de empresa en funcionamiento (empresa en marcha)."
+        subtitulo: "3. Acumulación de Incorrecciones, Estimaciones y Límites PAE / ET / PM (NIA 450 y NIA 540)",
+        normas: "NIA 450 • NIA 540 • NIC 16 • NIC 36 • NIIF 3 • NIIF 9 • NIIF 15",
+        contenido: "Evaluados conjuntamente los tres programas sustantivos prioritarios de la cátedra (PT-A, PT-E y PT-B), la única diferencia patrimonial relevante asciende a $28.340M en Bienes de Uso (Asiento compuesto AJ-01: $21.450M obsolescencia de centrales analógicas de cobre en PT-A4 + $6.890M fibra óptica y nodos vandalizados en PT-A1), equivalente al 17,05% de PM ($166.225M) y 34,10% de ET ($83.112M). Considerando además el alcance ampliado web (AJ-04 por $11.240M de reclasificación en Ventas/Costos Flow en PT-D3 con efecto neto $0 en Patrimonio Neto y Resultado), el total acumulado ≥ PAE es $39.580M brutos (23,81% de PM). La diferencia menor PAE-NC-01 ($7.570M en PT-C3/O1: vacaciones TI 5G $4.450M + TIE deuda $3.120M) resulta inferior al umbral mínimo PAE ($8.311M). Todas las estimaciones críticas (DCF UGE, PPA TMA y Previsión NIIF 9) carecen de sesgo de la Dirección.",
+        refs: [
+          { label: "Planilla PAE (#sec-pae)", view: "etapa2-ejecucion", sub: "sec-pae" },
+          { label: "PT-A4: Obsolescencia", view: "etapa2-ejecucion", sub: "pt-a4" },
+          { label: "PT-A1: Fibra Vandalizada", view: "etapa2-ejecucion", sub: "pt-a1" }
+        ]
+      },
+      {
+        subtitulo: "4. Empresa en Funcionamiento (NIA 570), Hechos Posteriores (NIA 560) y Otra Información (NIA 720)",
+        normas: "NIA 570 • NIA 560 • NIA 720 • NIA 260 (Comité de Auditoría)",
+        contenido: "Empresa en marcha (NIA 570): el flujo operativo EBITDA ($2.525.535M; margen 30,32%), un endeudamiento neto de 1,84x EBITDA y una cobertura de intereses de 6,54x acreditan pleno cumplimiento de covenants financieros e inexistencia de incertidumbre material sobre continuidad. Hechos posteriores (NIA 560): revisados los actos societarios, cobranzas posteriores, circularizaciones legales (Nota 20 contingencias $563.085M) y cotizaciones entre el 01/01/2026 y el 20/02/2026, no surgieron hechos subsecuentes que exijan ajustes o notas adicionales. Otra información (NIA 720): leímos íntegramente la Memoria Anual Integrada y la Reseña Informativa verificando plena congruencia con los EECC auditados y comunicando las conclusiones al Comité de Auditoría (NIA 260).",
+        refs: [
+          { label: "Covenants y Ratios (1C)", view: "etapa1-analisis-eecc", sub: "ratios" },
+          { label: "PT-F2 / Contingencias", view: "etapa2-ejecucion", sub: "pt-f" }
+        ]
       }
     ]
   },
   cartaControlInterno: {
     ordenRealizacion: 1,
-    destinatario: "Al Directorio y al Comité de Auditoría y Riesgos de Telecom Argentina S.A.",
+    destinatario: "Al Directorio y al Comité de Auditoría de Telecom Argentina S.A.",
+    domicilio: "Gral. Hornos 690 — Ciudad Autónoma de Buenos Aires",
     fecha: "12 de febrero de 2026",
-    introduccion: "Como resultado de nuestra evaluación del sistema de control interno efectuada durante la Etapa de Planificación y corroborada en la Etapa de Ejecución de la auditoría de los Estados Contables al 31/12/2025, exponemos las principales debilidades detectadas y nuestras recomendaciones de mejora:",
+    norma: "NIA 265 (Comunicación de Deficiencias de Control Interno) • Doctrina Carlos A. Slosse",
+    introduccion: "Como resultado de nuestra evaluación del sistema de control interno efectuada sobre los 5 Cuestionarios de Control Interno (CCI) en la Etapa de Planificación y corroborada durante las pruebas sustantivas de la Etapa de Ejecución sobre los Estados Financieros al 31/12/2025, comunicamos formalmente al Directorio y al Comité de Auditoría (NIA 265) las debilidades de diseño u operación detectadas y nuestras recomendaciones de mejora:",
     recomendaciones: [
       {
-        componente: "1. Archivo de la Documentación Sustentable (NC: 38,46% - RC: Alto)",
-        observacion: "Ausencia de auditorías internas específicas bajo la Norma ISO 15.489, demoras y falta de estandarización en la digitalización de certificados de obra de red en sucursales del interior y falta de difusión escrita al personal técnico de campo.",
-        recomendacion: "Implementar un protocolo obligatorio de carga digital en SAP dentro de las 48 hs. de firmado cada certificado de avance de obra en todas las regionales e incorporar revisiones anuales ISO 15.489 en el plan de Auditoría Interna."
+        cciId: "cci-1",
+        codigoCCI: "CCI-01",
+        componenteBase: "1. Archivo de la Documentación Sustentable",
+        fallbackNC: "42,31% — RC: ALTO",
+        preguntasCriticas: "CCI-01 • Preguntas con desvío documental e ISO 15.489 (15 NO / 26 preg.)",
+        observacion: "Ausencia de auditorías internas anuales específicas bajo Norma ISO 15.489, demoras y falta de estandarización en la digitalización de certificados de avance de obra de red FTTH/5G en sucursales del interior y falta de difusión escrita del manual de resguardo documental al personal técnico de campo.",
+        recomendacion: "Implementar un protocolo obligatorio de carga digital en SAP Document Management dentro de las 48 hs. de firmado cada certificado de avance de obra en todas las regionales e incorporar revisiones anuales ISO 15.489 en el plan anual de Auditoría Interna reportado al Comité de Auditoría.",
+        refs: [
+          { label: "Abrir CCI-01", view: "etapa1-cci", sub: "cci-1" },
+          { label: "Impacto PT-A1", view: "etapa2-ejecucion", sub: "pt-a1" }
+        ]
       },
       {
-        componente: "2. Evaluación del Sistema Contable (NC: 80,00% - RC: Bajo)",
-        observacion: "Desfasajes operativos de 24 a 48 hs. en la conciliación de cobranzas externas (Rapipago, Pago Fácil y billeteras) y demoras administrativas menores en facturación corporativa B2B (Personal Tech), sin comprometer la eficacia general del ERP SAP.",
-        recomendacion: "Automatizar vía API en tiempo real la rendición de recaudadores externos y vincular electrónicamente el acta de recepción técnica B2B con la emisión automática de la factura en SAP."
+        cciId: "cci-2",
+        codigoCCI: "CCI-02",
+        componenteBase: "2. Evaluación del Sistema Contable",
+        fallbackNC: "72,00% — RC: MEDIO",
+        preguntasCriticas: "CCI-02 (Preg. 22 y 23) → Hallazgo H-01 / Ajuste AJ-01 ($28.340M en PT-A1/A4)",
+        observacion: "Vinculación directa con AJ-01 ($28.340M): las Preguntas 22 y 23 expusieron demoras operativas en la comunicación desde Ingeniería de Red hacia Contabilidad Patrimonial (SAP FI-AA) para registrar bajas por obsolescencia de centrales analógicas de cobre fuera de servicio comercial ($21.450M en PT-A4) y siniestros/vandalismo de tramos de fibra óptica ($6.890M en PT-A1). Adicionalmente, se observan desfasajes operativos de 24 a 48 hs. en la conciliación de cobranzas externas (Rapipago, Pago Fácil y billeteras) y demoras menores en facturación corporativa B2B (Personal Tech), sin comprometer la integridad general del ERP SAP ni la cobertura 100% de la mora > 180 días en la Previsión NIIF 9 (PT-B3 conforme).",
+        recomendacion: "Integrar un flujo workflow automático entre el sistema de inventario físico de red (OSS/NOC) y SAP FI-AA que dispare órdenes obligatorias de baja o deterioro ante reemplazo de tecnología FTTH o reporte de robo en red, e implementar conciliación vía API en tiempo real con recaudadores externos.",
+        refs: [
+          { label: "Abrir CCI-02", view: "etapa1-cci", sub: "cci-2" },
+          { label: "PT-A4 Obsolescencia", view: "etapa2-ejecucion", sub: "pt-a4" },
+          { label: "PT-B2/B3 Créditos", view: "etapa2-ejecucion", sub: "pt-b2" },
+          { label: "Asiento AJ-01", view: "etapa2-ejecucion", sub: "sec-pae" }
+        ]
       },
       {
-        componente: "3. Sistema de Presupuestos (NC: 77,78% - RC: Bajo)",
-        observacion: "Emisión de órdenes de trabajo de emergencia sin partida presupuestaria previa y falta de vinculación plurianual automatizada en el despliegue 5G.",
-        recomendacion: "Bloquear en el módulo SAP FM/CO la emisión de órdenes sin reserva presupuestaria (habilitando un flujo electrónico de aprobación de urgencia en 2 horas) y parametrizar los reportes de gestión FP&A tanto en moneda nominal como en moneda homogénea (NIC 29)."
+        cciId: "cci-3",
+        codigoCCI: "CCI-03",
+        componenteBase: "3. Sistema de Presupuestos",
+        fallbackNC: "77,78% — RC: BAJO",
+        preguntasCriticas: "CCI-03 • Control presupuestario CAPEX 5G/FTTH y NIC 29",
+        observacion: "Emisión puntual de órdenes de trabajo de emergencia operativa sin partida presupuestaria previa y falta de vinculación plurianual automatizada de desvíos CAPEX vs. proyecciones reales de despliegue 5G en moneda homogénea (NIC 29).",
+        recomendacion: "Bloquear en SAP FM/CO la emisión de órdenes sin reserva presupuestaria (habilitando un flujo electrónico de aprobación de urgencia en 2 horas) y parametrizar tableros mensuales en FP&A con doble vista nominal e indexada NIC 29.",
+        refs: [
+          { label: "Abrir CCI-03", view: "etapa1-cci", sub: "cci-3" },
+          { label: "PT-A Obras/CAPEX", view: "etapa2-ejecucion", sub: "pt-a" }
+        ]
       },
       {
-        componente: "4. Sistema Operativo y Talento Humano (NC: 80,00% - RC: Bajo)",
-        observacion: "Legajos físicos incompletos en personal técnico del interior y acumulación de licencias/vacaciones no gozadas en personal clave de TI/5G.",
-        recomendacion: "Digitalizar el 100% de los legajos del interior y establecer un cronograma escalonado de goce de licencias con back-ups cruzados en Ingeniería."
+        cciId: "cci-4",
+        codigoCCI: "CCI-04",
+        componenteBase: "4. Sistema Operativo y Talento Humano",
+        fallbackNC: "76,67% — RC: BAJO",
+        preguntasCriticas: "CCI-04 (Preg. 12) → Partida menor PAE-NC-01 ($4.450M vacaciones TI < PAE)",
+        observacion: "Legajos físicos incompletos en personal técnico de campo del interior y acumulación de días de vacaciones/licencias no gozadas en especialistas clave de TI/5G sin recálculo automatizado mensual de la provisión laboral (diferencia menor $4.450M incluida en PAE-NC-01, inferior al umbral PAE $8.311M).",
+        recomendacion: "Digitalizar el 100% de los legajos laborales regionales, establecer un cronograma escalonado de goce de licencias con back-ups cruzados en Ingeniería 5G y automatizar en SAP HCM la interfaz mensual del devengamiento de vacaciones.",
+        refs: [
+          { label: "Abrir CCI-04", view: "etapa1-cci", sub: "cci-4" },
+          { label: "PAE-NC-01 (#sec-pae)", view: "etapa2-ejecucion", sub: "sec-pae" }
+        ]
       },
       {
-        componente: "5. Sistema Tecnológico (NC: 47,62% - RC: Alto)",
-        observacion: "Persistencia de interfaces manuales entre sistemas comerciales heredados y el ERP SAP, dependencia de licenciamiento y cronogramas de despliegue de espectro 5G ante el ENACOM, y necesidad de pruebas integrales del Plan de Continuidad (BCP) ante cortes físicos de fibra por vandalismo.",
-        recomendacion: "Culminar la migración definitiva de los facturadores heredados al core convergente único, dar seguimiento continuo a las obligaciones del espectro 5G y ejecutar simulacros semestrales de contingencia física de red."
+        cciId: "cci-5",
+        codigoCCI: "CCI-05",
+        componenteBase: "5. Sistema Tecnológico y TIC",
+        fallbackNC: "42,86% — RC: ALTO",
+        preguntasCriticas: "CCI-05 (Preg. 19) → Reclasificación AJ-04 ($11.240M Flow NIIF 15) + Interfaces",
+        observacion: "Persistencia de interfaces manuales entre sistemas comerciales heredados (incluyendo el entorno post-adquisición TMA) y el ERP SAP, lo que originó la registración bruta en lugar de neta en acuerdos de contenidos de terceros en Flow (AJ-04 por $11.240M en PT-D3), además de requerir seguimiento cercano sobre compromisos de espectro 5G ante ENACOM y simulacros integrales del Plan de Continuidad (BCP).",
+        recomendacion: "Culminar la migración e integración automatizada de los facturadores heredados al core convergente SAP BRIM con regla contable NIIF 15 (Agente vs. Principal), sostener el tablero de hitos regulatorios 5G ENACOM y ejecutar pruebas semestrales certificadas del BCP.",
+        refs: [
+          { label: "Abrir CCI-05", view: "etapa1-cci", sub: "cci-5" },
+          { label: "PT-D3 Flow", view: "etapa2-ejecucion", sub: "pt-d3" },
+          { label: "PT-E1 Espectro", view: "etapa2-ejecucion", sub: "pt-e1" }
+        ]
       }
     ]
   },
   cartaRepresentacion: {
     ordenRealizacion: 3,
-    fecha: "20 de febrero de 2026 (Previo a la emisión del Informe Final)",
+    fecha: "20 de febrero de 2026 (Misma fecha que el Informe del Auditor — NIA 580.14)",
+    norma: "NIA 580 (Manifestaciones Escritas) • NIA 450.14 • NIA 540 • NIA 550 • NIA 560",
+    destinatario: "A los Señores Auditores Externos Independientes: Estudio GREBE — PISONERO DE BIASE (Contadores Públicos — U.C.P.)",
+    membreteCliente: "TELECOM ARGENTINA S.A. — CUIT 30-63945373-8 — Domicilio Legal: Gral. Hornos 690, C.A.B.A.",
     firmantes: "Presidente del Directorio, Gerente General (CEO) y Director de Administración y Finanzas (CFO) de Telecom Argentina S.A.",
     puntosClave: [
-      "Reconocimiento de la responsabilidad de la Dirección por la preparación y presentación razonable de los Estados Contables al 31/12/2025 conforme a las Normas Internacionales de Información Financiera (NIIF / NIC) en moneda homogénea (NIC 29).",
-      "Confirmación de que se ha puesto a disposición del equipo de auditoría (Grebe - Pisonero De Biase) la totalidad de los registros contables en SAP, actas de Asamblea, Directorio y Comité de Auditoría, contratos B2B y resoluciones del ENACOM.",
-      "Manifestación de que los supuestos utilizados en el Test de Recuperabilidad de la UGE Redes Personal ($12.774.695 millones) reflejan la mejor estimación de la Gerencia sobre flujos futuros y tasas de descuento (WACC).",
-      "Inexistencia de hechos posteriores al 31/12/2025 hasta la fecha del informe que requieran ajuste o revelación adicional en las Notas a los Estados Contables."
+      {
+        titulo: "1. Responsabilidad sobre los EECC Consolidados bajo NIIF y Control Interno (NIA 580.10 / NIA 240)",
+        texto: "Reconocemos nuestra responsabilidad por la preparación y presentación razonable de los Estados Financieros Consolidados al 31/12/2025 (comparativos 2024/2023) de conformidad con las Normas de contabilidad NIIF emitidas por el IASB, reexpresados en moneda homogénea de cierre (NIC 29), así como por el diseño e implementación del control interno necesario para prevenir o detectar incorrecciones materiales por fraude o error.",
+        norma: "NIA 580.10 / NIA 240",
+        refView: "etapa1-analisis-eecc",
+        refSub: "esp",
+        refLabel: "Ver EECC Base (1C)"
+      },
+      {
+        titulo: "2. Acceso Irrestricto a Registros SAP, Actas Societarias y Regulaciones ENACOM/CNV (NIA 580.11)",
+        texto: "Confirmamos haber puesto a disposición del equipo auditor (Grebe - Pisonero De Biase) la totalidad de la contabilidad en ERP SAP, los libros rubricados (Inventarios y Balances), las actas de Asamblea, Directorio y Comité de Auditoría celebradas hasta la fecha, los contratos corporativos B2B, y las resoluciones del ENACOM (Res. 1285/2023 espectro 5G) y de la CNV.",
+        norma: "NIA 580.11",
+        refView: "etapa2-ejecucion",
+        refSub: "pt-e1",
+        refLabel: "Ver PT-E1 (ENACOM/INPI)"
+      },
+      {
+        titulo: "3. Evaluación de Incorrecciones Identificadas y Declaración sobre Partidas No Ajustadas (NIA 450.14)",
+        texto: "Confirmamos haber revisado el resumen de diferencias acumuladas en la Planilla de Ajustes Propuestos (AJ-01 por $28.340M en Bienes de Uso y reclasificación AJ-04 por $11.240M en Ingresos/Costos Flow). Asimismo, declaramos que los desvíos inferiores al umbral mínimo PAE de $8.311M (PAE-NC-01 por $7.570M) y cualquier eventual incorrección no corregida son inmateriales, tanto individualmente como en conjunto, respecto de los estados financieros consolidados en su conjunto.",
+        norma: "NIA 450.14",
+        refView: "etapa2-ejecucion",
+        refSub: "sec-pae",
+        refLabel: "Ver Planilla PAE"
+      },
+      {
+        titulo: "4. Combinación de Negocios Telefónica Móviles Argentina S.A. — PPA NIIF 3 (Notas 9, 10 y 29)",
+        texto: "Manifestamos que la medición a valor razonable al 24/02/2025 de los activos identificables adquiridos y pasivos asumidos de TMA ($1.332.961M en PP&E y $274.183M en Activos Intangibles, según Notas 9, 10 y 29) refleja la mejor evidencia técnica independiente disponible y no omitió activos ni pasivos contingentes identificables bajo NIIF 3.",
+        norma: "NIIF 3 / Nota 29",
+        refView: "etapa2-ejecucion",
+        refSub: "pt-a",
+        refLabel: "Ver PT-A / PT-E"
+      },
+      {
+        titulo: "5. Test de Deterioro Llave de Negocio (UGE Redes Personal) y Estimaciones Contables (NIA 540 / NIC 36)",
+        texto: "Confirmamos que los métodos, datos y supuestos significativos empleados en las estimaciones contables —en particular el modelo DCF para el Valor Recuperable de la UGE Redes Personal ($12.774.695M frente a valor libros asignado $12.439.729M; cobertura positiva $334.966M con WACC real post-impuestos 11,85% y crecimiento perpetuo 1,5% en Nota 8 y Nota 3.u.1)— son razonables y consistentes con la intención y capacidad operativa de la Sociedad.",
+        norma: "NIA 540 / NIC 36",
+        refView: "etapa2-ejecucion",
+        refSub: "pt-f1",
+        refLabel: "Ver PT-F1 (DCF)"
+      },
+      {
+        titulo: "6. Contingencias Judiciales, Regulatorias y Fiscales (NIA 501 / NIC 37 — Nota 20)",
+        texto: "Hemos informado y entregado al equipo auditor todas las confirmaciones de asesores legales externos sobre reclamos judiciales, laborales, civiles, impositivos y regulatorios existentes al cierre, asegurando que las provisiones por $563.085M expuestas en la Nota 20 reflejan adecuadamente el pasivo probable medido con base en las mejores estimaciones disponibles.",
+        norma: "NIA 501 / Nota 20",
+        refView: "etapa2-ejecucion",
+        refSub: "pt-f",
+        refLabel: "Ver PT-F2 (Legales)"
+      },
+      {
+        titulo: "7. Partes Relacionadas (NIA 550 / NIC 24 — Nota 28) y Principio de Empresa en Marcha (NIA 570)",
+        texto: "Confirmamos la revelación íntegra de la identidad de todas las partes relacionadas (accionistas controlantes y entidades vinculadas en Nota 28) y de sus saldos/transacciones celebradas en condiciones equivalentes a las de mercado, así como nuestra evaluación de que no existen incertidumbres materiales ni incumplimientos de covenants (Deuda Neta/EBITDA 1,84x) que comprometan la continuidad operativa por los próximos 12 meses.",
+        norma: "NIA 550 / NIA 570",
+        refView: "etapa2-ejecucion",
+        refSub: "pt-c",
+        refLabel: "Ver PT-C (Covenants)"
+      },
+      {
+        titulo: "8. Hechos Posteriores al Cierre del Ejercicio (NIA 560)",
+        texto: "Desde el 1° de enero de 2026 hasta el 20 de febrero de 2026 (fecha del presente documento y del Informe del Auditor Independiente) no han ocurrido eventos o circunstancias adicionales que requieran ajuste contable ni revelación complementaria en las Notas a los Estados Financieros Consolidados.",
+        norma: "NIA 560",
+        refView: "etapa1-detallada",
+        refSub: null,
+        refLabel: "Cronograma Cierre"
+      }
     ]
   }
 };

@@ -51,13 +51,15 @@ export default function ResumenIntegralView({
   const ncPromedio = 100 - riPromedio;
 
   // Cálculos dinámicos de Ajustes PAE (Etapa 2 -> Etapa 3)
+  const MATERIALIDAD_GLOBAL = materialidadData.materialidadGlobal.importe; // $166.225M
   const ajustesMateriales = ajustesState.filter((a) => a.superaPAE);
   const totalAjustesPropuestos = ajustesMateriales.reduce((s, a) => s + a.montoMillones, 0);
   const ajustesAceptados = ajustesMateriales.filter((a) => a.aceptado);
   const ajustesRechazados = ajustesMateriales.filter((a) => !a.aceptado);
   const montoAceptado = ajustesAceptados.reduce((s, a) => s + a.montoMillones, 0);
   const montoNoRegistrado = ajustesRechazados.reduce((s, a) => s + a.montoMillones, 0);
-  const esOpinionLimpia = ajustesRechazados.length === 0;
+  const esLimpiaEstricta = montoNoRegistrado === 0;
+  const esOpinionLimpia = montoNoRegistrado < MATERIALIDAD_GLOBAL;
 
   // Avance promedio del equipo
   const avanceEquipo = Math.round(
@@ -82,8 +84,8 @@ export default function ResumenIntegralView({
               Expediente Ejecutivo de Auditoría Externa — {proyectoMeta.cliente} (EECC 2025)
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              Auditores a Cargo: <strong className="text-slate-800">{proyectoMeta.encargados} (Contadores Públicos — U.C.P.)</strong> • Doctrina:{' '}
-              <strong className="text-teal-700">Carlos Slosse & RT 37 (modif. RT 53) • Marco Contable: NIIF / NIC (CNV)</strong>
+              Auditores a Cargo: <strong className="text-slate-800">{proyectoMeta.encargados} (Contadores Públicos — U.C.P.)</strong> • Normativa:{' '}
+              <strong className="text-teal-700">Carlos Slosse &amp; NIAs (RT N° 32 FACPCE — CNV) • Marco Contable: NIIF / NIC (IASB)</strong>
             </p>
           </div>
 
@@ -166,7 +168,11 @@ export default function ResumenIntegralView({
               Dictamen Final (20/02/26)
             </span>
             <span className="text-xs font-extrabold text-indigo-950 block mt-0.5">
-              {esOpinionLimpia ? 'Favorable sin Salvedades' : 'Opinión con Salvedades'}
+              {esLimpiaEstricta
+                ? 'Favorable sin Salvedades'
+                : esOpinionLimpia
+                ? 'Favorable s/Salvedades (< PM)'
+                : 'Opinión con Salvedades'}
             </span>
             <span className="text-[10px] text-indigo-600 block">
               No ajustado: ${montoNoRegistrado.toLocaleString('es-AR')}M
@@ -340,7 +346,7 @@ export default function ResumenIntegralView({
                   Ratios Financieros Clave (2025 vs. 2024)
                 </span>
                 <p className="text-slate-600 leading-relaxed">
-                  Liquidez Corriente: <strong>0,48x</strong> (24: 0,39x) • Prueba Ácida: <strong>0,46x</strong> • Endeudamiento: <strong>1,38x</strong> (24: 0,98x) • Solvencia: <strong>1,72x</strong> • Deuda/EBITDA: <strong>2,15x</strong> • Plazo Cobro: <strong>35,1 días</strong> (+8,9d) • Margen EBITDA: <strong>30,32%</strong> • ROE: <strong>-2,08%</strong>.
+                  Liquidez Corriente: <strong>0,48x</strong> (24: 0,39x) • Prueba Ácida: <strong>0,46x</strong> • Endeudamiento: <strong>1,38x</strong> (24: 0,98x) • Solvencia (A/P): <strong>1,72x</strong> • Solvencia Bruta (PN/P): <strong>0,72</strong> (PN/A: 42,01%) • Deuda/EBITDA: <strong>2,15x</strong> (Neta: 1,84x) • Cobertura EBITDA/Int.: <strong>6,54x</strong> • Plazo Cobro: <strong>35,02 días</strong> (+8,91d) • Margen EBITDA: <strong>30,32%</strong> • ROE: <strong>-2,08%</strong>.
                 </p>
               </div>
             </div>
@@ -586,17 +592,24 @@ export default function ResumenIntegralView({
                   <span className="px-2 py-0.5 rounded bg-amber-500 text-white font-extrabold text-[10px]">
                     1° REALIZADO • 12/02/2026
                   </span>
-                  <span className="font-mono text-[10px] text-slate-500">LC-01</span>
+                  <span className="font-mono text-[10px] text-slate-500">LC-01 • NIA 265</span>
                 </div>
                 <h4 className="font-extrabold text-slate-900 text-sm">
                   Carta de Recomendaciones de Control Interno
                 </h4>
                 <p className="text-slate-600 mt-1.5 leading-relaxed">
-                  Comunica al Directorio y Comité de Auditoría las debilidades detectadas en los 5 CCI (ISO 15489, archivo de obras interior, conciliación API 24-48 hs cobranzas externas, corte B2B Personal Tech, previsión mora &gt; 180 días, bajas centrales analógicas, reserva presupuestaria SAP y rotación en Compras).
+                  Comunica al Directorio y Comité de Auditoría las debilidades de los 5 CCI: archivo de obras interior (ISO 15.489), conciliación API 24-48 hs y bajas en SAP FI-AA (Preg. 22-23 CCI-02 → AJ-01 $28.340M), reserva presupuestaria SAP, licencias clave TI/5G (PAE-NC-01) y migración de interfaces Flow (AJ-04 $11.240M).
                 </p>
               </div>
-              <div className="mt-3 pt-2 border-t border-amber-200/80 font-bold text-amber-900 text-[11px]">
-                5 Recomendaciones Formales Emitidas
+              <div className="mt-3 pt-2 border-t border-amber-200/80 flex items-center justify-between font-bold text-amber-900 text-[11px]">
+                <span>5 Recomendaciones Formales Emitidas</span>
+                <button
+                  type="button"
+                  onClick={() => onNavigate && onNavigate('etapa3-informe', 'carta-ci')}
+                  className="no-print text-indigo-700 hover:underline cursor-pointer"
+                >
+                  Abrir LC-01 →
+                </button>
               </div>
             </div>
 
@@ -607,17 +620,24 @@ export default function ResumenIntegralView({
                   <span className="px-2 py-0.5 rounded bg-teal-700 text-white font-extrabold text-[10px]">
                     2° REALIZADO • 18/02/2026
                   </span>
-                  <span className="font-mono text-[10px] text-slate-500">LC-02</span>
+                  <span className="font-mono text-[10px] text-slate-500">LC-02 • NIA 450</span>
                 </div>
                 <h4 className="font-extrabold text-slate-900 text-sm">
                   Memorando Resumen de Auditoría
                 </h4>
                 <p className="text-slate-600 mt-1.5 leading-relaxed">
-                  Documento interno elevado al Socio donde los encargados (Grebe - Pisonero De Biase) evalúan el cumplimiento de los Programas A-E, la suficiencia de la evidencia obtenida, la condición de empresa en marcha, el cumplimiento de covenants y la resolución de la Planilla PAE.
+                  Documento interno elevado al Socio donde los encargados (Grebe - Pisonero De Biase) evalúan el cumplimiento de los Programas A–F, suficiencia de evidencia, empresa en marcha (NIA 570), covenants (1,84x / 6,54x), hechos posteriores (NIA 560) y resolución de la Planilla PAE.
                 </p>
               </div>
-              <div className="mt-3 pt-2 border-t border-teal-200/80 font-bold text-teal-900 text-[11px]">
-                Aprobado previo a emitir el dictamen
+              <div className="mt-3 pt-2 border-t border-teal-200/80 flex items-center justify-between font-bold text-teal-900 text-[11px]">
+                <span>Aprobado previo al dictamen</span>
+                <button
+                  type="button"
+                  onClick={() => onNavigate && onNavigate('etapa3-informe', 'memorando')}
+                  className="no-print text-indigo-700 hover:underline cursor-pointer"
+                >
+                  Abrir LC-02 →
+                </button>
               </div>
             </div>
 
@@ -628,17 +648,24 @@ export default function ResumenIntegralView({
                   <span className="px-2 py-0.5 rounded bg-purple-700 text-white font-extrabold text-[10px]">
                     3° REALIZADO • 20/02/2026 (Pre-Firma)
                   </span>
-                  <span className="font-mono text-[10px] text-slate-500">LC-03</span>
+                  <span className="font-mono text-[10px] text-slate-500">LC-03 • NIA 580</span>
                 </div>
                 <h4 className="font-extrabold text-slate-900 text-sm">
                   Carta de Representación de la Dirección
                 </h4>
                 <p className="text-slate-600 mt-1.5 leading-relaxed">
-                  Manifestaciones escritas firmadas por el Presidente, CEO y CFO confirmando la integridad de la información suministrada en SAP, la razonabilidad de los supuestos del Test de Deterioro UGE Personal ($12.774.695M) y la inexistencia de hechos posteriores no revelados.
+                  Manifestaciones escritas del Presidente, CEO y CFO confirmando integridad de SAP, evaluación PAE (NIA 450.14), PPA TMA (NIIF 3 Nota 29), DCF UGE Redes Personal ($12.774.695M), contingencias ($563.085M Nota 20), partes relacionadas (Nota 28) y hechos posteriores (NIA 560).
                 </p>
               </div>
-              <div className="mt-3 pt-2 border-t border-purple-200/80 font-bold text-purple-900 text-[11px]">
-                Requisito obligatorio RT 37 / RT 53
+              <div className="mt-3 pt-2 border-t border-purple-200/80 flex items-center justify-between font-bold text-purple-900 text-[11px]">
+                <span>Requisito obligatorio NIA 580</span>
+                <button
+                  type="button"
+                  onClick={() => onNavigate && onNavigate('etapa3-informe', 'carta-gerencia')}
+                  className="no-print text-indigo-700 hover:underline cursor-pointer"
+                >
+                  Abrir LC-03 →
+                </button>
               </div>
             </div>
 
@@ -655,22 +682,33 @@ export default function ResumenIntegralView({
                   <span className="px-2 py-0.5 rounded bg-slate-900 text-white font-extrabold text-[10px]">
                     4° ÚLTIMO • 20/02/2026 (Emisión)
                   </span>
-                  <span className="font-mono text-[10px] text-slate-500">RT 37 / 53</span>
+                  <span className="font-mono text-[10px] text-slate-500">NIAs / RT 32</span>
                 </div>
                 <h4 className="font-extrabold text-slate-900 text-sm">
-                  Informe del Auditor Independiente
+                  Informe de Auditoría Independiente
                 </h4>
                 <p className="text-slate-700 mt-1.5 leading-relaxed">
-                  Culminación del proceso secuencial. Incluye sección de Opinión, Fundamento, Cuestiones Clave de la Auditoría (KAM: Recuperabilidad UGE Personal $12.774.695M e Ingresos Convergentes IT) e Informe sobre Requerimientos Legales (ARCA / CNV).
+                  Emitido bajo NIAs (RT N° 32 FACPCE): Opinión NIIF, Fundamento IAASB, Independencia IESBA, 3 Cuestiones Clave (KAM NIA 701: UGE $12.774.695M, PPA TMA/PP&E e Ingresos/NIIF 9), Otra Información (NIA 720), Comité de Auditoría, SIPA ($33.699.737.311) y Art. 21 CNV.
                 </p>
               </div>
-              <div className="mt-3 pt-2 border-t border-slate-300 font-extrabold text-xs">
-                Dictamen Emitido:{' '}
-                <span className={esOpinionLimpia ? 'text-emerald-800' : 'text-red-700'}>
-                  {esOpinionLimpia
-                    ? 'OPINIÓN FAVORABLE SIN SALVEDADES'
-                    : `OPINIÓN CON SALVEDADES ($${montoNoRegistrado.toLocaleString('es-AR')}M)`}
-                </span>
+              <div className="mt-3 pt-2 border-t border-slate-300 flex items-center justify-between gap-2 font-extrabold text-xs">
+                <div>
+                  Dictamen:{' '}
+                  <span className={esOpinionLimpia ? 'text-emerald-800' : 'text-red-700'}>
+                    {esLimpiaEstricta
+                      ? 'FAVORABLE SIN SALVEDADES'
+                      : esOpinionLimpia
+                      ? `FAVORABLE S/SALVEDADES ($${montoNoRegistrado.toLocaleString('es-AR')}M < PM)`
+                      : `CON SALVEDADES ($${montoNoRegistrado.toLocaleString('es-AR')}M)`}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => onNavigate && onNavigate('etapa3-informe', 'informe')}
+                  className="no-print text-indigo-700 hover:underline cursor-pointer shrink-0"
+                >
+                  Abrir Informe →
+                </button>
               </div>
             </div>
           </div>
@@ -682,7 +720,7 @@ export default function ResumenIntegralView({
                 TRABAJO PRÁCTICO INTEGRAL DE AUDITORÍA EXTERNA — TELECOM ARGENTINA S.A. (EECC 2025)
               </p>
               <p className="text-slate-300 mt-0.5">
-                Marco Teórico: Carlos A. Slosse • Normas de Auditoría: RT 37 (modif. RT 53) • Normas Contables del Ente: NIIF / NIC (IASB - Normas CNV)
+                Marco Teórico: Carlos A. Slosse • Normas de Auditoría: NIAs (RT N° 32 FACPCE — CNV) • Normas Contables del Ente: NIIF / NIC (IASB)
               </p>
             </div>
             <div className="text-right shrink-0">

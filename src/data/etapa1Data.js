@@ -13,7 +13,7 @@ export const proyectoMeta = {
   firmaAuditora: "Estudio Contable & Auditoría Externa (Ref. PwC / Equipo Académico)",
   fechaElaboracion: "20 de octubre de 2026",
   marcoNormativoContable: "Normas Internacionales de Información Financiera (NIIF / NIC - IASB) exigidas por CNV y SEC",
-  marcoNormativoAuditoria: "Resolución Técnica N° 37 (modificada por RT N° 53 - FACPCE) y doctrina de Carlos Slosse",
+  marcoNormativoAuditoria: "Normas Internacionales de Auditoría (NIAs — RT N° 32 FACPCE para emisoras CNV bajo NIIF), articuladas con RT N° 37 (modif. RT N° 53) y doctrina de Carlos Slosse",
   enfoqueGeneral: "Predominantemente Sustantivo (Nivel de Confianza Global BAJO 20,00% / Riesgo de Control ALTO 80,00%)"
 };
 
@@ -60,11 +60,11 @@ export const marcoTeoricoSlosse = {
       objetivo: "Evaluar el efecto acumulado de los hallazgos y ajustes sobre los Estados Contables en relación con la Materialidad, revisar hechos posteriores al cierre y condición de empresa en marcha, obtener la Carta de Representación de la Gerencia y emitir el Informe del Auditor Independiente y la Carta de Control Interno.",
       subetapas: [
         "3.1. Evaluación cuantitativa y cualitativa de ajustes propuestos frente a PM ($166.225M) y ET ($83.112M)",
-        "3.2. Revisión de Hechos Posteriores al 31/12/2025 y obtención de la Carta de Gerencia (RT 37 / RT 53)",
+        "3.2. Revisión de Hechos Posteriores al 31/12/2025 (NIA 560) y obtención de la Carta de Representación de la Dirección (NIA 580)",
         "3.3. Redacción del Memorando Resumen de Auditoría y Carta de Recomendaciones de Control Interno",
         "3.4. Emisión del Informe del Auditor Independiente (con Cuestiones Clave de Auditoría - KAM)"
       ],
-      entregables: ["Memorando Resumen de Auditoría", "Carta de Recomendaciones a la Gerencia", "Carta de Representación de la Dirección", "Informe del Auditor Independiente (RT 37 / RT 53)"]
+      entregables: ["Carta de Control Interno (NIA 265)", "Memorando Resumen de Auditoría", "Carta de Representación de la Dirección (NIA 580)", "Informe del Auditor Independiente (NIAs — RT N° 32 FACPCE)"]
     }
   ],
   afirmacionesDefinicion: [
@@ -728,7 +728,7 @@ export const materialidadData = {
         },
         {
           subtitulo: "3. ¿Cómo incide en el Tipo de Informe del Auditor (RT 37) si la Dirección NO corrige los errores?",
-          texto: "• Si los errores no corregidos son menores al umbral mínimo ($8.311M): Opinión Favorable SIN Salvedades (Limpia).\n• Si los errores no corregidos superan el umbral y son significativos (ej. nuestros ajustes AJ-01 a AJ-04 por $78.230M) pero están acotados a rubros puntuales sin invalidar todo el balance: Opinión Favorable CON Salvedades («Excepto por...»).\n• Si la suma de errores no corregidos supera ampliamente la Significatividad Global ($166.225M) y su efecto es GENERALIZADO en todo el balance: Opinión Adversa (Desfavorable)."
+          texto: "• Si los errores no corregidos son menores al umbral mínimo ($8.311M): Opinión Favorable SIN Salvedades (Limpia).\n• Si los errores no corregidos superan el umbral y son significativos (ej. nuestro ajuste patrimonial AJ-01 por $28.340M y la reclasificación AJ-04 por $11.240M, que suman $39.580M) pero quedan acotados por debajo de la Materialidad Global ($166.225M): no distorsionan los EECC en su conjunto; en cambio, si desvíos materiales no ajustados superaran dicho umbral de forma acotada a rubros puntuales: Opinión Favorable CON Salvedades («Excepto por...»).\n• Si la suma de errores no corregidos supera ampliamente la Significatividad Global ($166.225M) y su efecto es GENERALIZADO en todo el balance: Opinión Adversa (Desfavorable)."
         }
       ]
     }
@@ -790,12 +790,12 @@ export const rubrosSignificativos = [
     esPrioritario: true,
     naturaleza: "Activo No Corriente",
     saldoContable: 6789118,
-    composicionSaldo: "$6.789.118 millones en PP&E Nota 9 (2024: $5.696.731M, +19,18%). Integrado en UGEs Nota 3.v: $12.439.729M Redes Personal + $1.645.414M Redes TMA",
+    composicionSaldo: "$6.789.118 millones en Bienes de Uso / PP&E Nota 9 (2024: $5.696.731M, +19,18%). En Nota 3.b (Segmentos), integra el bloque 'Activos Fijos e Intangibles' por $14.695.795M ($14.085.143M entre Redes Personal $12.439.729M y Redes TMA $1.645.414M, más $610.652M Otros).",
     participacionActivo: "40,84% directo en PP&E (88,03% sumando Llaves, Intangibles y Der. de Uso)",
     riesgoInherente: "ALTO",
     riesgoControl: "ALTO",
     riesgoDeteccion: "BAJO (Mayor alcance sustantivo)",
-    importancia: "Representa el activo individual más relevante del Estado de Situación Financiera ($6.789.118 millones en PP&E Nota 9, y $14.085.143 millones integrando las UGEs Redes Personal y TMA). Presenta un Riesgo de Control ALTO debido a fallas en el seguimiento de obras en curso, obsolescencia de centrales analógicas no dadas de baja, falta de estandarización en legajos digitales en sucursales y vulnerabilidad física por robos/vandalismo en la vía pública.",
+    importancia: "Bienes de Uso (PP&E — Nota 9: $6.789.118 millones) representa el rubro individual más relevante del Estado de Situación Financiera (40,84% del Activo Total), e integra junto con Intangibles, Llaves, Derechos de Uso y Prop. de Inversión el total de 'Activos Fijos e Intangibles' en las UGEs Redes Personal y TMA ($14.085.143 millones s/ Nota 3.b; test de recuperabilidad en Nota 3.u.1). Presenta un Riesgo de Control ALTO debido a fallas en el seguimiento de obras en curso, obsolescencia de centrales analógicas no dadas de baja, falta de estandarización en legajos digitales en sucursales y vulnerabilidad física por robos/vandalismo en la vía pública.",
     afirmaciones: [
       {
         afirmacion: "Existencia",
@@ -879,13 +879,13 @@ export const rubrosSignificativos = [
             texto: "Cotejar las altas del ejercicio (CAPEX) contra órdenes de compra en SAP MM, facturas comerciales, despachos aduaneros y actas de recepción de obra.",
             comoSeHace: "Circuito de Cotejo Documental de Altas (de libros a terreno en 6 pasos): 1) Población y Muestra: Se extrae del subdiario contable SAP FI-AA (Subdiario de Activos Fijos) el reporte de altas del año, seleccionando las partidas > PAE ($8.311M). 2) Trazabilidad a Compras: Del asiento contable se rastrea al módulo SAP MM (Compras y Almacenes) para verificar la Orden de Compra aprobada según la matriz de firmas y autorizaciones. 3) Factura Comercial: Se coteja la factura del fabricante tecnológico (Nokia, Huawei, Ericsson) y su conversión de moneda extranjera (NIC 21). 4) Despacho Aduanero: Se audita el despacho oficial aduanero validando que fletes y aranceles se hayan activado como mayor costo del bien (NIC 16.16). 5) Entrada a Depósito: Se verifica el remito de recepción física en almacén (movimiento MIGO en SAP). 6) Acta PAC: Se exige el Acta de Puesta en Servicio de Obra (PAC) firmada por ingenieros de campo, que acredita que el activo está instalado, conectado a la red y listo para operar, habilitando legalmente su amortización.",
             fuentes: "Módulo SAP FI-AA (Activos Fijos), SAP MM (Compras y Almacenes), despachos aduaneros y Actas PAC de ingeniería de red.",
-            valores: "Altas anuales de Bienes de Uso por más de $1,3 billones en Nota 9. Umbral de selección PAE: $8.311 millones."
+            valores: "Altas anuales de Bienes de Uso (CAPEX): $1.351.105 millones en Nota 9. Umbral de selección PAE: $8.311 millones."
           },
           {
             texto: "Ejecutar prueba de corte sobre las obras en curso habilitadas en diciembre de 2025 para comprobar la oportuna activación e inicio de depreciación.",
             comoSeHace: "Procedimiento de corte sobre obras en curso: Según la NIC 16 (párrafo 55), la depreciación comienza cuando el activo está en condiciones de operar. Se audita que no existan obras terminadas que continúen expuestas indebidamente como 'Obras en Curso' al cierre del ejercicio: 1) Se extrae el listado de proyectos en curso de SAP PS (Módulo de Proyectos y Obras) al 31/12/2025. 2) Se cruzan las fechas de habilitación técnica contra los registros de tráfico del centro de monitoreo de red (NOC). 3) Si el nodo o tendido ya operaba tráfico comercial en diciembre, se constata su traspaso a Bienes en Servicio y el registro del cargo de amortización en el ejercicio 2025.",
             fuentes: "Módulo SAP PS (Obras en Curso), Subdiario SAP FI-AA y registros de tráfico de red del NOC (Centro de Monitoreo).",
-            valores: "Obras en curso acumuladas al cierre: $1.285.410 millones en Nota 9."
+            valores: "Obras en curso al cierre: $337.494 millones (y Materiales por $640.820 millones) en Nota 9."
           }
         ]
       },
@@ -896,7 +896,7 @@ export const rubrosSignificativos = [
             texto: "Solicitar al Registro de la Propiedad Inmueble (RPI) y al DNRPA los informes de dominio para inmuebles y flota vehicular adquiridos en el ejercicio.",
             comoSeHace: "1) Inmuebles: Para edificios técnicos, Data Centers y predios de radiobases, se solicitan informes de dominio e inhibición ante el RPI (Registro de la Propiedad Inmueble) para validar que estén inscriptos a nombre de Telecom Argentina S.A. y verificar la inexistencia de hipotecas o gravámenes ocultos. 2) Flota Vehicular: Para camionetas y utilitarios técnicos de cuadrilla de guardia, se solicitan informes de dominio ante la DNRPA (Dirección Nacional del Registro de la Propiedad Automotor) constatando titularidad libre de prendas.",
             fuentes: "Informes de dominio del RPI (Inmuebles), títulos y cédulas de la DNRPA (Rodados) y contratos de locación de terrenos para antenas.",
-            valores: "Inmuebles propios por más de $450.000 millones y flota vehicular técnica de más de 3.500 unidades."
+            valores: "Inmuebles propios por $1.193.638 millones netos (VO $1.606.670M, más $3.011M reclasificados a venta) y Rodados por $76.639 millones netos (VO $237.972M) según Nota 9."
           }
         ]
       },
@@ -1248,9 +1248,9 @@ export const rubrosSignificativos = [
         Pasos: [
           {
             texto: "Efectuar el recálculo independiente de amortizaciones según vidas útiles remanentes.",
-            comoSeHace: "Procedimiento analítico sustantivo de recálculo matemático independiente: 1) Se solicita a Contabilidad el Subdiario de Bienes de Uso e Intangibles de SAP FI-AA (Subdiario de Activos Fijos) y la Nota 10. 2) Se toman los Valores de Origen reexpresados por inflación (NIC 29) y las vidas útiles de la política contable (Licencias 4G/5G: 15 a 20 años lineal; Software: 3 a 5 años). 3) Se aplica la fórmula matemática: Amortización Teórica = (Valor Origen Reexpresado / Vida Útil en Meses) × Meses de uso en 2025. 4) Se compara la sumatoria contra el cargo contable ($274.320M en Anexo de Intangibles). Al no superar el Error Tolerable ($ET = $83.112M), el cálculo queda validado.",
-            fuentes: "Subdiario SAP FI-AA, tablas de vida útil aprobadas por Directorio, Nota 10 y Nota 3.k.",
-            valores: "Cargo anual a amortizaciones de $274.320 millones sobre un parque de intangibles de $2.671.525 millones."
+            comoSeHace: "Procedimiento analítico sustantivo de recálculo matemático independiente: 1) Se solicita a Contabilidad el Subdiario de Bienes de Uso e Intangibles de SAP FI-AA (Subdiario de Activos Fijos) y la Nota 10. 2) Se toman los Valores de Origen reexpresados por inflación (NIC 29) y las vidas útiles de la política contable (Licencias 4G/5G: 15 a 20 años lineal; Software: 3 a 5 años). 3) Se aplica la fórmula matemática: Amortización Teórica = (Valor Origen Reexpresado / Vida Útil en Meses) × Meses de uso en 2025. 4) Se compara la sumatoria contra el cargo contable ($234.722M en Nota 10 pág. 52 y Nota 25 pág. 80). Al no superar el Error Tolerable ($ET = $83.112M), el cálculo queda validado.",
+            fuentes: "Subdiario SAP FI-AA, tablas de vida útil aprobadas por Directorio, Nota 10, Nota 25 y Nota 3.k.",
+            valores: "Cargo anual a amortizaciones de $234.722 millones sobre un parque de intangibles neto de $2.671.525 millones (Nota 10 y Nota 25)."
           },
           {
             texto: "Verificar la presentación y revelación integral en la Nota 10 de los Estados Contables.",

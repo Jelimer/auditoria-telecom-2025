@@ -72,7 +72,7 @@ export default function DashboardView({
           <div>
             <div className="flex items-center gap-2">
               <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-teal-50 text-teal-700 border border-teal-200">
-                Auditoría Externa Secuencial — RT 37 / RT 53 & Carlos Slosse
+                Auditoría Externa Secuencial — NIAs (RT N° 32) / RT 37 &amp; Carlos Slosse
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-lime-50 text-lime-700 border border-lime-200">
                 EECC 31/12/2025
@@ -183,8 +183,8 @@ export default function DashboardView({
         <div className="bg-white rounded-xl border border-indigo-200 p-3.5 shadow-xs bg-gradient-to-br from-white to-indigo-50/30 col-span-2 lg:col-span-1">
           <p className="text-[11px] font-bold uppercase text-indigo-700">Opinión Proyectada</p>
           <p className="text-sm font-extrabold text-indigo-900 mt-1">
-            {ajustesNoRegistrados > materialidadData.errorTolerable.importe
-              ? 'Con Salvedades (RT 37)'
+            {ajustesNoRegistrados >= materialidadData.materialidadGlobal.importe
+              ? 'Con Salvedades (NIA / RT 32)'
               : 'Favorable sin Salvedades'}
           </p>
           <p className="text-[11px] text-indigo-600 mt-0.5">
@@ -267,21 +267,21 @@ export default function DashboardView({
 
                 <div>
                   <div className="flex justify-between text-xs font-semibold text-slate-700 mb-1">
-                    <span>Ejecución (Programas A-E y Papeles de Trabajo)</span>
+                    <span>Ejecución (Programas A-F y Papeles de Trabajo)</span>
                     <span className="text-teal-700 font-bold">92% Ejecutada</span>
                   </div>
                   <div className="w-full h-3.5 bg-slate-200 rounded-full overflow-hidden flex">
-                    <div className="bg-red-500 h-full" style={{ width: '18%' }} title="Hallazgos H-01 a H-03" />
+                    <div className="bg-red-500 h-full" style={{ width: '18%' }} title="Hallazgos H-01 / H-04 / PAE" />
                     <div className="bg-amber-500 h-full" style={{ width: '24%' }} title="Pruebas de Corte B2B" />
                     <div className="bg-yellow-400 h-full" style={{ width: '22%' }} title="Circularizaciones Bancos y Clientes" />
-                    <div className="bg-lime-500 h-full" style={{ width: '20%' }} title="Recálculos USD y Depreciaciones" />
+                    <div className="bg-lime-500 h-full" style={{ width: '20%' }} title="Pruebas Globales PP&E e Intangibles" />
                     <div className="bg-blue-500 h-full" style={{ width: '16%' }} title="Test Deterioro UGE Personal" />
                   </div>
                 </div>
 
                 <div>
                   <div className="flex justify-between text-xs font-semibold text-slate-700 mb-1">
-                    <span>Finalización (Memorando, Carta CI e Informe RT 37)</span>
+                    <span>Finalización (Carta CI, Memorando, Carta Gerencia e Informe NIA / RT 32)</span>
                     <span className="text-purple-700 font-bold">88% En Cierre</span>
                   </div>
                   <div className="w-full h-3.5 bg-slate-200 rounded-full overflow-hidden flex">

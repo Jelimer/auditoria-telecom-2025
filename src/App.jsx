@@ -144,7 +144,7 @@ const NAV_ITEMS = [
   {
     id: 'etapa3-informe',
     shortLabel: '3. Conclusión e Informe',
-    label: 'Etapa 3: Carta CI, Memorando, Carta Gerencia e Informe (RT 37/53)',
+    label: 'Etapa 3: Carta CI, Memorando, Carta Gerencia e Informe (NIAs / RT N° 32)',
     etapaTag: 'Etapa 3: Conclusión',
     icon: Award,
     subItems: [
@@ -257,15 +257,26 @@ export default function App() {
 
   // Estado interactivo de los Ajustes Propuestos (PAE)
   const [ajustesState, setAjustesState] = useState(() => {
+    const mapAceptado = {};
     try {
-      const saved = localStorage.getItem('audiia_ajustes_v2');
-      if (saved) return JSON.parse(saved);
+      const saved = localStorage.getItem('audiia_ajustes_v3');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          parsed.forEach((item) => {
+            if (item && item.id) mapAceptado[item.id] = item.aceptado;
+          });
+        }
+      }
     } catch {
       // ignore
     }
     return hallazgosYAjustes.map((a) => ({
       ...a,
-      aceptado: a.aceptadoPorGerenciaInicial
+      aceptado:
+        typeof mapAceptado[a.id] === 'boolean'
+          ? mapAceptado[a.id]
+          : a.aceptadoPorGerenciaInicial
     }));
   });
 
@@ -289,7 +300,7 @@ export default function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('audiia_ajustes_v2', JSON.stringify(ajustesState));
+      localStorage.setItem('audiia_ajustes_v3', JSON.stringify(ajustesState));
     } catch {
       // ignore
     }
@@ -615,7 +626,7 @@ export default function App() {
                     <span className="text-lime-600">{activeBrand.suffix}</span>
                   </span>
                   <span className="block text-[10px] font-semibold text-slate-400 -mt-1">
-                    Auditoría Externa • RT 37
+                    Auditoría Externa • NIAs / Slosse
                   </span>
                 </div>
               )}
@@ -727,7 +738,7 @@ export default function App() {
               </span>
               <span className="hidden xl:inline-block text-xs font-semibold text-slate-500">
                 Autores: <strong className="text-slate-800">{proyectoMeta.encargados} (U.C.P.)</strong> •{' '}
-                <strong className="text-teal-700">Slosse &amp; RT 37 / RT 53 (Auditoría) • NIIF / NIC (Telecom)</strong>
+                <strong className="text-teal-700">Slosse &amp; NIAs / RT N° 32 (Auditoría) • NIIF / NIC (Telecom)</strong>
               </span>
             </div>
 
@@ -858,6 +869,7 @@ export default function App() {
 
           {activeView === 'etapa3-informe' && (
             <Etapa3InformeView
+              cciCalculados={cciCalculados}
               ajustesState={ajustesState}
               onToggleAjusteAceptado={handleToggleAjusteAceptado}
               onNavigate={handleNavigate}

@@ -337,7 +337,7 @@ const espFilas = [
     s2024: 0,
     alerta: 'Media',
     programaVinculado: 'PROGRAMA A (PT-A)',
-    lectura: 'Alta neta de $63.866M (0,38% del Activo) por reclasificación de inmuebles desafectados de la operación (ej. ex edificios de centrales telefónicas) destinados a renta/inversión.'
+    lectura: 'Alta neta de $63.866M (0,38% del Activo: $21.164M terrenos y $42.702M inmuebles) originada por la incorporación de TMA (Nota 29: +$71.209M), menos depreciaciones $(2.028)M y bajas netas $(5.315)M según Nota 12.'
   },
   {
     id: 'anc-total',
@@ -891,18 +891,18 @@ const ratiosFinancieros = [
     preguntaClave: PREGUNTAS_CLAVE.DINERO,
     categoria: '2. ¿Hay suficiente dinero? — Generación de Caja',
     nombre: 'Monetización del resultado operativo',
-    formula: 'efectivo generado por las operaciones / EBIAT',
-    calculo2025: '$2.525.535 M (Flujo Op. / EBITDA) / $292.531 M (EBIAT = EBIT × 0,65)  [Con EBIAT contable $496.479M: 5,09x]',
-    calculo2024: '$1.532.381 M / -$125.239 M (EBIAT 2024)  [Con EBIAT contable -$730.913M: -2,10x]',
-    valor2025: '8,63x (863,3%)',
-    valor2024: '-12,24x (-1223,6%)',
-    notaAlternativaMatriz: 'Con EBIAT = EBIT×(1-0,35): 8,63x (2025) y -12,24x (2024) | Con EBIAT = EBIT+Imp.Gan.: 5,09x (2025) y -2,10x (2024)',
-    variacion: 'Positivización por EBIT > 0',
+    formula: 'flujo neto de efectivo operativo (EFE) / EBIAT',
+    calculo2025: '$2.385.858 M (CFO EFE p.11) / $292.531 M (EBIT × 0,65)  [Con EBIAT contable $496.479M: 4,81x]',
+    calculo2024: '$4.067.513 M (CFO EFE p.11) / -$125.239 M (EBIAT 2024)  [Con EBIAT contable -$730.913M: -5,56x]',
+    valor2025: '8,16x (815,6%)',
+    valor2024: '-32,48x (c/EBIAT < 0)',
+    notaAlternativaMatriz: 'EFE CFO / EBIAT (EBIT×0,65): 8,16x (2025) y -32,48x (2024) | Con EBIAT contable (EBIT+Imp.): 4,81x (2025) y -5,56x (2024)',
+    variacion: 'Conversión > 8x (EBIT positivo)',
     semaforo: 'emerald',
     queRepresenta:
-      'Mide cuántas veces el resultado operativo después de impuestos (EBIAT) se convierte en flujo de efectivo operativo real. En una telco capital-intensiva, como las Depreciaciones y Amortizaciones ($2.075.488M) son un gasto contable NO erogable muy elevado, el efectivo generado por las operaciones ($2.525.535M de flujo operativo antes de capital de trabajo, o $2.184.920M neto de WK) multiplica por 8,63x (ó 5,09x tomando EBIAT contable = EBIT $450.047M + Impuesto $46.432M = $496.479M) al EBIAT.',
+      'Mide cuántas veces el resultado operativo después de impuestos (EBIAT) se convierte en flujo neto de efectivo operativo real según el Estado de Flujo de Efectivo (p. 11). En una telco capital-intensiva, como las Depreciaciones, Amortizaciones y Deterioro ($2.075.488M en Nota 25) son cargos contables no erogables muy elevados, la generación efectiva de las operaciones ($2.385.858M en 2025 y $4.067.513M en 2024) multiplica por 8,16x (ó 4,81x tomando EBIAT contable = EBIT $450.047M + Impuesto $46.432M = $496.479M) al EBIAT.',
     impactoAuditoria:
-      'Valida la capacidad real de generación de fondos operativos frente al alto cargo contable por amortizaciones, pero exige verificar en PT-B2 y PT-B3 que el aumento de Créditos por Ventas (+$409.813M) no erosione la cobranza efectiva.'
+      'Valida la capacidad real de generación de fondos operativos frente al alto cargo contable por amortizaciones, pero exige verificar en PT-B2 y PT-B3 que el aumento de Créditos por Ventas (+$409.813M) y las variaciones de capital de trabajo no erosionen la cobranza efectiva.'
   },
   {
     id: 'rat-6',
@@ -910,16 +910,16 @@ const ratiosFinancieros = [
     preguntaClave: PREGUNTAS_CLAVE.DINERO,
     categoria: '2. ¿Hay suficiente dinero? — Generación de Caja',
     nombre: 'Relación flujo libre (free cash-flow) / EBIAT',
-    formula: '(efectivo generado por las operaciones - efectivo aplicado a las inversiones) / EBIAT',
-    calculo2025: '($2.525.535 M - $1.269.253 M Inv. Neta) / $292.531 M  [Con EBIAT contable $496.479M: 2,53x]',
-    calculo2024: '($1.532.381 M - $1.725.057 M) / -$125.239 M',
-    valor2025: '4,29x (429,5%)',
-    valor2024: '1,54x (c/EBIAT < 0)',
-    notaAlternativaMatriz: 'Flujo Libre = Flujo Operativo ($2.525.535M) - Variación CAPEX/Intang. ($1.269.253M) = $1.256.282M',
-    variacion: 'Generación FCF positiva',
-    semaforo: 'emerald',
+    formula: '(flujo neto operativo + flujo neto de inversión EFE) / EBIAT  [ó (CFO - CAPEX pagado) / EBIAT]',
+    calculo2025: 'Total EFE: ($2.385.858M - $3.011.630M) / $292.531M = -2,14x  |  FCF Orgánico (CFO - CAPEX pagado $1.490.635M = +$895.223M): +3,06x',
+    calculo2024: 'Total EFE: ($4.067.513M - $504.380M) / -$125.239M = -28,45x  |  FCF Orgánico (+$3.548.937M) / -$125.239M = -28,34x',
+    valor2025: '-2,14x Total (ó +3,06x Org.)',
+    valor2024: '-28,45x (c/EBIAT < 0)',
+    notaAlternativaMatriz: 'Total EFE (incl. M&A TMA -$1.304.037M): -2,14x (-$625.772M) | FCF Orgánico (CFO - CAPEX PP&E/Intang. $1.490.635M): +3,06x (+$895.223M)',
+    variacion: 'Impacto M&A TMA (-$1.304k M)',
+    semaforo: 'amber',
     queRepresenta:
-      'Relaciona el Flujo de Caja Libre (Free Cash Flow = Efectivo operativo menos efectivo aplicado a inversiones en bienes de uso e intangibles) con el EBIAT. Demuestra que luego de financiar la expansión de red 5G y fibra FTTH, Telecom conserva excedente de caja libre para atender el servicio de su deuda financiera.',
+      'Relaciona el Flujo de Caja Libre con el EBIAT usando el Estado de Flujo de Efectivo real (p. 11). Tomando el Flujo neto utilizado en inversión total (-$3.011.630M), el FCF total arroja -$625.772M (-2,14x EBIAT; ó -1,26x con EBIAT contable) por los pagos netos no recurrentes de adquisición de TMA (-$1.304.037M) y colocaciones financieras netas (-$289.517M). En cambio, aislando el Flujo Libre Orgánico del negocio (CFO $2.385.858M menos CAPEX pagado en PP&E e Intangibles $1.490.635M = +$895.223M), Telecom conserva +3,06x EBIAT tras financiar redes 5G/FTTH.',
     impactoAuditoria:
       'Se cruza directamente con las proyecciones de Free Cash Flow (FCF) utilizadas por la Gerencia en el Test de Deterioro de la Llave de Negocio (PT-F1, UGE Redes Personal).'
   },
@@ -929,18 +929,18 @@ const ratiosFinancieros = [
     preguntaClave: PREGUNTAS_CLAVE.DINERO,
     categoria: '2. ¿Hay suficiente dinero? — Generación de Caja',
     nombre: 'Reinversión de amortizaciones',
-    formula: 'inversión en activos fijos / amortizaciones y depreciaciones',
-    calculo2025: 'Altas Brutas PP&E ($3.167.875M) / D,A&D ($2.075.488M)  [Con Δ Neta PP&E $1.092.387M / $2.075.488M = 52,63%]',
-    calculo2024: 'Altas Brutas PP&E ($1.725.057M) / D,A&D ($1.725.057M)',
-    valor2025: '152,63% (ó 52,63% Neta)',
-    valor2024: '100,00%',
-    notaAlternativaMatriz: '152,63% (1,53x) tomando Altas Brutas (ΔPP&E + D,A&D) | 52,63% (0,53x) tomando solo ΔPP&E del Balance ($1.092.387M / $2.075.488M)',
-    variacion: '+52,63 p.p. (Expansión CAPEX)',
-    semaforo: 'emerald',
+    formula: '(pagos por compras de PP&E + intangibles EFE) / D,A&D',
+    calculo2025: '$1.490.635 M ($1.355.061M PP&E + $135.574M Intang. EFE) / $2.075.488 M D,A&D  [Homog. s/Depr+Amort $1.767.813M: 84,32% | Solo PP&E dev. N.9: 88,13%]',
+    calculo2024: '$518.576 M ($457.953M PP&E + $60.623M Intang. EFE) / $1.725.057 M D,A&D  [Homog. $1.465.838M: 35,38% | Solo PP&E dev. N.9: 52,60%]',
+    valor2025: '71,82% (ó 84,32% Homog.)',
+    valor2024: '30,06% (ó 35,38%)',
+    notaAlternativaMatriz: '71,82% s/D,A&D Total ER (0,7182; = Word) | 84,32% s/(Depr.PP&E + Amort.Intang. N.25) | 88,13% solo PP&E devengado Nota 9',
+    variacion: '+41,76 p.p. (Acelera < 100%)',
+    semaforo: 'amber',
     queRepresenta:
-      'Compara el esfuerzo de inversión en bienes de uso (CAPEX) con el desgaste anual por depreciaciones y amortizaciones ($2.075.488M en Nota 25). Como el saldo neto de PP&E creció en +$1.092.387M (de $5.696.731M a $6.789.118M) después de absorber las depreciaciones del año, la inversión bruta superó en un 52,63% a las amortizaciones (ratio bruto 152,63% = 1,53x; o si se divide únicamente la variación neta patrimonial de PP&E $1.092.387M sobre D,A&D $2.075.488M arroja 52,63% = 0,53x).',
+      'Compara el esfuerzo orgánico de CAPEX pagado en efectivo según el EFE (p. 11: $1.355.061M de PP&E + $135.574M de Intangibles = $1.490.635M en 2025; $518.576M en 2024) frente al desgaste anual ($2.075.488M D,A&D total en Nota 25), evitando computar como reinversión la incorporación M&A de TMA ($1.332.961M en Nota 29). Sobre D,A&D total asciende de 30,06% a 71,82% (y al 84,32% si se compara homogéneamente contra Depr. PP&E + Amort. Intangibles = $1.767.813M, o al 88,13% tomando solo CAPEX devengado PP&E Nota 9 $1.351.105M sobre Depr. PP&E $1.533.091M). En todos los criterios sigue debajo del 100%, confirmando reposición selectiva en 5G/FTTH mientras perduran activos legados de cobre.',
     impactoAuditoria:
-      'Fundamenta el alcance sustantivo del Programa A (PT-A2): revisión documental de las adiciones de CAPEX 5G/FTTH y corte de obras en curso habilitadas en diciembre 2025.'
+      'Fundamenta el alcance sustantivo del Programa A: validación documental de altas CAPEX reales y corte de obras en curso (PT-A2) y revisión de obsolescencia / baja de centrales analógicas en desuso (PT-A4: Ajuste AJ-01 por $28.340M).'
   },
   {
     id: 'rat-8',
@@ -948,18 +948,18 @@ const ratiosFinancieros = [
     preguntaClave: PREGUNTAS_CLAVE.DINERO,
     categoria: '2. ¿Hay suficiente dinero? — Generación de Caja',
     nombre: 'Cash out resultados',
-    formula: 'dividendos / resultado neto',
-    calculo2025: '$87 M (Div. a pagar ESP) / -$145.304 M  [ó s/Div. distribuidos ECP $127.615M / -$145.304M = -87,83%]',
-    calculo2024: '$902 M (Div. a pagar ESP) / $1.359.230 M',
-    valor2025: '-0,06%',
-    valor2024: '0,07%',
-    notaAlternativaMatriz: 'Usando línea "Dividendos a pagar" del ESP ($87M en 2025 y $902M en 2024)',
-    variacion: '-0,13 p.p.',
+    formula: 'dividendos pagados en efectivo (EFE) / resultado neto',
+    calculo2025: '$37.926 M ($20.286M Control. + $17.640M No Ctrl. EFE p.12) / -$145.304 M  [Total ECP c/Bonos y créd. $239.663M / -$145.304M = -164,94%]',
+    calculo2024: '$12.634 M (Pago div. no ctrl. EFE p.12) / $1.359.230 M  [Total ECP c/Bonos $170.071M / $1.359.230M = 12,51%]',
+    valor2025: '-26,10% (Efectivo EFE)',
+    valor2024: '0,93% (Efectivo EFE)',
+    notaAlternativaMatriz: 'Efectivo EFE p.12 ($37.926M vs $12.634M): -26,10% vs 0,93% | Total ECP/N.22 incl. Bonos ($239.663M vs $170.071M): -164,94% vs 12,51%',
+    variacion: 'Salida en efectivo c/pérdida',
     semaforo: 'amber',
     queRepresenta:
-      'Mide la proporción del resultado neto que sale de la compañía en concepto de dividendos. Tomando el saldo de "Dividendos a pagar" expuesto en el Pasivo Corriente ($87M en 2025 vs. $902M en 2024) sobre el Resultado Neto ($(145.304)M en 2025 y $1.359.230M en 2024), la relación es marginal (-0,06% y 0,07%). El signo negativo en 2025 obedece a la pérdida neta contable del período.',
+      'Mide la proporción del resultado neto que egresa en efectivo como dividendos según el Estado de Flujo de Efectivo (p. 12). En 2025 Telecom pagó $37.926M en efectivo ($20.286M a accionistas controlantes y $17.640M a no controlantes) pese a cerrar con pérdida contable de $(145.304)M (relación -26,10%), frente a $12.634M pagados en 2024 (0,93% sobre ganancia de $1.359.230M). Además, según ECP y Nota 22, distribuyó en 2025 $189.790M en especie (Bonos Globales 2030) y $16.680M por compensación fiscal, totalizando $239.663M desafectados de Reserva Facultativa.',
     impactoAuditoria:
-      'Requiere verificar en Actas de Asamblea de Accionistas (PT-C2) las distribuciones aprobadas y el cumplimiento de restricciones contractuales (covenants) para el pago de dividendos.'
+      'Requiere verificar en Actas de Asamblea de Accionistas y Directorio (Nota 22 / PT-C2) la legalidad de la desafectación de reservas facultativas y el cumplimiento de restricciones contractuales (covenants) para distribuir dividendos en efectivo y en especie.'
   },
 
   // ==========================================================================
@@ -1037,13 +1037,13 @@ const ratiosFinancieros = [
     calculo2024: '$584.980 M / ($3.910.577 M Costos Erogables / 365 = $10.713,91 M/día)',
     valor2025: '69,74 días',
     valor2024: '54,60 días',
-    notaAlternativaMatriz: 'Con Total Costos Erogables (Ventas - EBITDA = $5.803.279M): 69,74 d vs 54,60 d | Con Cuentas x Pagar Cte+NC ($1.129.134M): 71,02 d vs 56,62 d',
+    notaAlternativaMatriz: 'Con Total Costos Erogables (Ventas - EBITDA = $5.803.279M): 69,74 d vs 54,60 d | Excluyendo Costos laborales Nota 25 ($1.961.097M / $1.346.737M -> base $3.842.182M): 105,34 d vs 83,28 d | Con Cuentas x Pagar Cte+NC ($1.129.134M): 71,02 d vs 56,62 d',
     variacion: '+15,14 días (+27,73%)',
     semaforo: 'amber',
     queRepresenta:
-      'Mide el plazo promedio de pago a proveedores comerciales (Cuentas por pagar corrientes Nota 13: $1.108.820M en 2025 vs. $584.980M en 2024) en relación con los costos y gastos operativos erogables diarios ($5.803.279M / 365). El estiramiento de 54,60 a 69,74 días (+15,14 días, con una suba del +89,55% en el saldo de Cuentas por pagar) evidencia que Telecom financió parte de su fuerte CAPEX y operatoria alargando los plazos con sus proveedores comerciales.',
+      'Mide el plazo promedio de pago a proveedores comerciales (Cuentas por pagar corrientes Nota 13: $1.108.820M en 2025 vs. $584.980M en 2024) sobre los costos y gastos operativos erogables diarios (Ventas - EBITDA = $5.803.279M / 365). El salto del +89,55% en Cuentas por Pagar eleva el plazo de 54,60 a 69,74 días (+15,14 d), porque el saldo de cierre incluye $358.056M de adquisiciones de PP&E e Intangibles financiadas por cuentas por pagar (EFE p. 12: transacciones que no representan efectivo, vs. $267.562M en 2024). Sensibilidad metodológica: si se excluyen los Costos laborales ($1.961.097M en ER/Nota 25), el ratio asciende a 105,34 días en 2025 (vs. 83,28 d en 2024).',
     impactoAuditoria:
-      'Exige realizar pruebas de pasivos comerciales omitidos al cierre y corte de recepción de insumos/servicios en diciembre 2025 (CCI-04 y PT-A2).'
+      'Exige cruzar los pasivos comerciales al cierre con las altas de CAPEX financiadas a plazo ($358.056M en EFE) y ejecutar pruebas de pasivos omitidos y corte de recepción en diciembre 2025 (PT-A2).'
   },
   {
     id: 'rat-13',
@@ -1053,17 +1053,17 @@ const ratiosFinancieros = [
     categoria: '3A. Inversión y Capital de Trabajo Operativo',
     nombre: 'Ciclo de conversión a caja (en días)',
     formula: 'días de clientes + días de stock - días de proveedores',
-    calculo2025: '35,02 d + 5,00 d - 69,74 d = -29,72 d  [ó usando Stock s/Costo Equipos (100,56 d): +65,84 días]',
-    calculo2024: '26,11 d + 7,42 d - 54,60 d = -21,07 d  [ó usando Stock s/Costo Equipos (111,96 d): +83,47 días]',
+    calculo2025: '35,02 d + 5,00 d - 69,74 d = -29,72 d  [sin sueldos (105,34 d): -65,32 d | s/Stock Equipos (100,56 d): +65,84 d]',
+    calculo2024: '26,11 d + 7,42 d - 54,60 d = -21,07 d  [sin sueldos (83,28 d): -49,75 d | s/Stock Equipos (111,96 d): +83,47 d]',
     valor2025: '-29,72 d (ó 65,84 d)',
     valor2024: '-21,07 d (ó 83,47 d)',
-    notaAlternativaMatriz: '-29,72 d vs -21,07 d (con Stock s/Costos Erogables) | +65,84 d vs +83,47 d (con Stock s/Costo de Equipos 100,56 d)',
+    notaAlternativaMatriz: '-29,72 d vs -21,07 d (base homogénea Costos Erogables) | -65,32 d vs -49,75 d (excluyendo Costos laborales del pago a proveedores) | +65,84 d vs +83,47 d (con Stock s/Costo de Equipos 100,56 d)',
     variacion: '-8,65 días (Mayor financiación comercial)',
     semaforo: 'emerald',
     queRepresenta:
-      'Refleja el plazo neto entre el cobro a los abonados y el pago a los proveedores. Tomando la base homogénea de costos operativos erogables, el ciclo es negativo (-29,72 días en 2025 vs. -21,07 días en 2024), típico de la industria de telecomunicaciones donde se cobra mensualmente por abono y se paga a proveedores a 70 días (si en tu Excel sumás los 100,56 días específicos del rubro equipos, el resultado aritmético de las 3 celdas es +65,84 días en 2025 vs. +83,47 días en 2024).',
+      'Refleja el plazo neto entre el cobro a los abonados y el pago a los proveedores. Tomando la base homogénea de costos operativos erogables (Ventas - EBITDA), el ciclo resulta negativo (-29,72 días en 2025 vs. -21,07 días en 2024), típico de la industria de telecomunicaciones donde se cobra mensualmente por abono y se financia parte de la operación y del CAPEX ($358.056M en EFE) con proveedores. Si se excluyen los sueldos del denominador de proveedores (105,34 d), el ciclo baja a -65,32 días; si en cambio se suman los 100,56 días específicos del rubro equipos, da +65,84 días en 2025 vs. +83,47 días en 2024.',
     impactoAuditoria:
-      'Explica por qué Telecom puede operar de forma sostenida con ratios de Liquidez Corriente inferiores a 1,00x sin entrar en cesación de pagos operativa.'
+      'Explica por qué Telecom puede operar con Liquidez Corriente inferior a 1,00x (0,48x) apalancándose en financiamiento comercial (Nota 13 +89,55% y $358.056M de CAPEX en Cuentas por Pagar).'
   },
   {
     id: 'rat-14',
@@ -1196,18 +1196,18 @@ const ratiosFinancieros = [
     preguntaClave: PREGUNTAS_CLAVE.INVERSION_FINANC,
     categoria: '3B. Financiación, Endeudamiento y Solvencia',
     nombre: 'Solvencia Bruta',
-    formula: 'patrimonio neto / pasivo total',
-    calculo2025: '$6.983.308 M / $9.639.244 M',
-    calculo2024: '$7.280.927 M / $7.112.817 M',
-    valor2025: '0,72',
-    valor2024: '1,02',
-    notaAlternativaMatriz: '0,72x (72,45%) en 2025 vs. 1,02x (102,36%) en 2024 (Inversa del Endeudamiento Total)',
-    variacion: '-0,30 (-29,22%)',
+    formula: 'patrimonio neto / pasivo total  [ó Variante Cátedra: patrimonio neto / activo total]',
+    calculo2025: '$6.983.308 M / $9.639.244 M = 0,72  |  Var. PN/Activo: $6.983.308 M / $16.622.552 M = 0,42 (42,01%)',
+    calculo2024: '$7.280.927 M / $7.112.817 M = 1,02  |  Var. PN/Activo: $7.280.927 M / $14.393.744 M = 0,51 (50,58%)',
+    valor2025: '0,72 (PN/Act: 0,42)',
+    valor2024: '1,02 (PN/Act: 0,51)',
+    notaAlternativaMatriz: '0,72x (72,45%) vs 1,02x (102,36%) s/PN/Pasivo Total | Variante Cátedra (Soporte E190: PN/Activo Total): 0,42 (42,01%) en 2025 vs 0,51 (50,58%) en 2024 (-8,57 p.p.)',
+    variacion: '-0,30 (-29,22%) | PN/Act: -8,57 p.p.',
     semaforo: 'amber',
     queRepresenta:
-      'Es la inversa del Endeudamiento Total y mide cuántos pesos de Patrimonio Neto respaldan cada $1,00 de Pasivo Total. Mientras en 2024 el capital propio superaba a las deudas totales (1,02x = 102,36%), en 2025 cubre el 72,45% del Pasivo Total ($0,72 por cada $1,00 de deuda).',
+      'Es la inversa del Endeudamiento Total y mide cuántos pesos de Patrimonio Neto respaldan cada $1,00 de Pasivo Total. Mientras en 2024 el capital propio superaba a las deudas totales (1,02x = 102,36%), en 2025 cubre el 72,45% del Pasivo Total ($0,72 por cada $1,00 de deuda). Bajo la variante de proporción patrimonial sobre Activo Total (Soporte Cálculo E190: PN / Activo Total), la financiación propia pasa del 50,58% (0,51) en 2024 al 42,01% (0,42) en 2025 (-8,57 p.p.).',
     impactoAuditoria:
-      'Demuestra que la garantía de los acreedores descansa en la correcta valuación y recuperabilidad de los activos no corrientes (PP&E, Llaves e Intangibles).'
+      'Demuestra que la garantía de los acreedores (solo 42,01% financiado con PN frente a 57,99% con Pasivos) descansa en la correcta existencia y valuación de los activos no corrientes (Bienes de Uso PT-A e Intangibles PT-E).'
   },
   {
     id: 'rat-21',
@@ -1241,7 +1241,7 @@ const ratiosFinancieros = [
     calculo2024: '($1.411.178 M + $2.374.802 M = $3.785.980 M) / $1.532.381 M',
     valor2025: '2,15x',
     valor2024: '2,47x',
-    notaAlternativaMatriz: '2,15 años de EBITDA en 2025 vs. 2,47 años en 2024 (Deuda Neta/EBITDA = 1,83x vs. 2,16x)',
+    notaAlternativaMatriz: '2,15 años de EBITDA en 2025 vs. 2,47 años en 2024 (Deuda Neta/EBITDA = 1,84x vs. 2,17x)',
     variacion: '-0,32x (Mejora capacidad de repago)',
     semaforo: 'emerald',
     queRepresenta:
@@ -1257,17 +1257,17 @@ const ratiosFinancieros = [
     categoria: '3B. Financiación, Endeudamiento y Solvencia',
     nombre: 'Cobertura de intereses (EBITDA)',
     formula: 'EBIT (o EBITDA)/ Intereses por financiación negociada',
-    calculo2025: 'Con EBITDA: $2.525.535M / $748.840M = 3,37x  |  Con EBIT: $450.047M / $748.840M = 0,60x',
-    calculo2024: 'Con EBITDA: $1.532.381M / $1.914.786M = 0,80x  |  Con EBIT: -$192.676M / $1.914.786M = -0,10x',
-    valor2025: '3,37x (c/EBIT: 0,60x)',
-    valor2024: '0,80x (c/EBIT: -0,10x)',
-    notaAlternativaMatriz: 'Usando Costos financieros Nota 26 ($748.840M en 2025): con EBITDA da 3,37x (-3,37x con signo) y con EBIT da 0,60x (-0,60x con signo)',
-    variacion: 'Cobertura EBITDA 3,37 veces',
+    calculo2025: 'Con EBITDA: $2.525.535M / $386.126M = 6,54x  |  Con EBIT: $450.047M / $386.126M = 1,17x (Nota 26: Intereses de préstamos)',
+    calculo2024: 'Con EBITDA: $1.532.381M / $173.837M = 8,82x  |  Con EBIT: -$192.676M / $173.837M = -1,11x (Nota 26: Intereses de préstamos)',
+    valor2025: '6,54x (c/EBIT: 1,17x)',
+    valor2024: '8,82x (c/EBIT: -1,11x)',
+    notaAlternativaMatriz: 'Base Intereses puros Nota 26 ($386.126M vs $173.837M): EBITDA 6,54x vs 8,82x (EBIT 1,17x vs -1,11x) | Con Total Costos Financieros ($748.840M en 2025, incluye Dif. Cambio): EBITDA 3,37x / EBIT 0,60x',
+    variacion: '-2,28x EBITDA (EBIT revierte de -1,11x a +1,17x)',
     semaforo: 'emerald',
     queRepresenta:
-      'Mide cuántas veces el resultado operativo cubre los Costos Financieros (Nota 26: -$748.840M en 2025). Medido con EBITDA ($2.525.535M / $748.840M), Telecom cubre 3,37 veces sus costos financieros totales; medido con EBIT ($450.047M / $748.840M), cubre 0,60 veces (lo que explica por qué el resultado antes de impuestos es negativo en -$191.736M). En 2024 la línea de Costos Financieros fue una ganancia contable de +$1.914.786M por licuación inflacionaria de la deuda en USD.',
+      'Mide cuántas veces el resultado operativo cubre los Intereses de préstamos devengados por financiación negociada (Nota 26 p. 81: -$386.126M en 2025 vs. -$173.837M en 2024). Medido con EBITDA ($2.525.535M / $386.126M), Telecom cubre 6,54 veces sus intereses puros (frente a 8,82x en 2024); medido con EBIT ($450.047M / $386.126M), cubre 1,17 veces (revirtiendo el -1,11x negativo de 2024). Nota alternativa: si se toma el subtotal completo "Total costos financieros" de Nota 26 (-$748.840M en 2025, que añade -$367.191M de diferencias de cambio de préstamos y +$4.477M de actualización UVA), la cobertura pasa a 3,37x s/EBITDA y 0,60x s/EBIT (mientras en 2024 ese subtotal fue una ganancia de +$1.914.786M por licuación inflacionaria).',
     impactoAuditoria:
-      'Vincula el análisis de solvencia con la auditoría del devengamiento de intereses por Tasa Efectiva (TIE) y diferencias de cambio en PT-C3.'
+      'Acredita capacidad operativa para servir intereses contractuales (6,54x EBITDA; covenants), y explica cómo la carga financiera ampliada (diferencias de cambio +$367.191M) lleva el resultado antes de impuestos a -$191.736M (PT-C3).'
   },
   {
     id: 'rat-24',
@@ -1369,7 +1369,7 @@ const matrizVinculacionAuditoria = [
   },
   {
     alertaAnalitica:
-      '2. Fuerte expansión de PP&E / Bienes de Uso (+19,18%, de $5.696.731M a $6.789.118M en Nota 9, 40,84% del Activo), Reinversión Bruta de Amortizaciones del 152,63% y cargo por D, A & D de $(2.075.488)M (24,92% de las Ventas en Nota 25).',
+      '2. Fuerte expansión de PP&E / Bienes de Uso (+19,18%, de $5.696.731M a $6.789.118M en Nota 9, 40,84% del Activo) por CAPEX orgánico ($1.351.105M) e incorporación TMA ($1.332.961M), con Reinversión Orgánica de Amortizaciones del 71,82% (88,13% solo PP&E dev.) y cargo por D, A & D de $(2.075.488)M (24,92% de las Ventas en Nota 25).',
     rubroYPrograma: 'PP&E (Bienes de Uso) — PROGRAMA A (PT-A)',
     afirmacionesCriticas: 'Existencia, Medición (Obsolescencia/Depreciación) e Integridad',
     procedimientosAplicados:
@@ -1399,17 +1399,17 @@ const matrizVinculacionAuditoria = [
   },
   {
     alertaAnalitica:
-      '5. Salto del +43,60% en Préstamos Totales ($5.436.615M en Nota 14), suba del Endeudamiento Total a 1,38x y del Endeudamiento Financiero a 0,78x (Apalancamiento Total 2,38x y Neto 1,78x), junto a Costos Financieros de -$748.840M (Nota 26).',
+      '5. Salto del +43,60% en Préstamos Totales ($5.436.615M en Nota 14), suba del Endeudamiento Total a 1,38x y del Endeudamiento Financiero a 0,78x (Apalancamiento Total 2,38x y Neto 1,78x; Solvencia Bruta PN/Pasivo 0,72 y PN/Activo 42,01%), junto a Intereses de Préstamos de -$386.126M y Costos Financieros Totales de -$748.840M (Nota 26).',
     rubroYPrograma: 'Préstamos — PROGRAMA C (PT-C)',
     afirmacionesCriticas: 'Medición (Valuación Moneda Extranjera y TIE), Integridad y Exposición',
     procedimientosAplicados:
-      '• Circularización directa al 100% de los bancos acreedores, organismos multilaterales (IFC/BID/Finnvera) y Caja de Valores S.A. (PT-C1).\n• Recálculo independiente del 100% de la deuda en moneda extranjera (US$ 3.736,5M) al TC vendedor BNA $/US$ 1.455,00 al 31/12/2025 y devengamiento por tasa efectiva (PT-C3).\n• Verificación de ratios de resguardo (Repago en EBITDA = 2,15x; Cobertura EBITDA/Intereses = 3,37x) y apertura de vencimientos (PT-C4).',
+      '• Circularización directa al 100% de los bancos acreedores, organismos multilaterales (IFC/BID/Finnvera) y Caja de Valores S.A. (PT-C1).\n• Recálculo independiente del 100% de la deuda en moneda extranjera (US$ 3.736,5M) al TC vendedor BNA $/US$ 1.455,00 al 31/12/2025 y devengamiento por tasa efectiva (PT-C3).\n• Verificación de ratios de resguardo (Repago en EBITDA = 2,15x bruta / 1,84x neta; Cobertura EBITDA/Intereses puros Nota 26 = 6,54x ó 3,37x s/Costos Fin. Totales) y apertura de vencimientos (PT-C4).',
     hallazgoVinculado:
       'Valuación en USD conforme; identificada diferencia menor en gastos de emisión por TIE de $3.120M (trasladada como partida no ajustada PAE-NC-01 por ser inferior al umbral PAE de $8.311M).'
   },
   {
     alertaAnalitica:
-      '6. Expansión de Ventas del +53,02% ($8.328.814M en Nota 24), mejora de la Rotación del Activo de 0,38x a 0,50x y Margen EBITDA de 30,32%, junto al estiramiento de Días de Proveedores a 69,74 días y aumento de Provisiones (+654,47% en Nota 20).',
+      '6. Expansión de Ventas del +53,02% ($8.328.814M en Nota 24), mejora de la Rotación del Activo de 0,38x a 0,50x y Margen EBITDA de 30,32%, junto al estiramiento de Días de Proveedores a 69,74 días ($358.056M de CAPEX financiado por cuentas por pagar en EFE p. 12) y aumento de Provisiones (+654,47% en Nota 20).',
     rubroYPrograma: 'Ventas y Costos — PROGRAMA D (PT-D) [🔗 Vinculado a PT-B]',
     afirmacionesCriticas: 'Integridad, Propiedad y Exposición (NIIF 15 Principal vs. Agente)',
     procedimientosAplicados:
@@ -1484,7 +1484,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
               +105,25% ($799.188M)
             </span>
             <span className="text-[10px] text-rose-700 font-semibold block">
-              2024: $389.375M • DSO: 35,1 días
+              2024: $389.375M • DSO: 35,02 días
             </span>
           </div>
 
@@ -1947,9 +1947,9 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                   Intang. 16,07%
                 </div>
                 <div
-                  style={{ width: '5.33%' }}
+                  style={{ width: '5.32%' }}
                   className="bg-slate-500 text-white text-[9px] font-extrabold flex items-center justify-center"
-                  title="Derechos de Uso (4,38%) + Otros ANC (0,95%)"
+                  title="Derechos de Uso (4,38%) + Otros ANC (0,94%)"
                 >
                   5,3%
                 </div>
@@ -1976,7 +1976,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="w-3 h-3 rounded-xs bg-slate-500 shrink-0" />
-                  <span><strong>Der. Uso (N.11) y Otros ANC:</strong> 5,33% ($885.099M)</span>
+                  <span><strong>Der. Uso (N.11) y Otros ANC:</strong> 5,32% ($884.099M)</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <span className="w-3 h-3 rounded-xs bg-amber-500 shrink-0" />
@@ -2594,9 +2594,10 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                   • <strong>Costo de equipos vendidos diario:</strong> 2025 = <code>$288.668M / 365 = $790,87M/día</code> | 2024 = <code>$259.216M / 365 = $710,18M/día</code>.
                 </div>
                 <div className="p-2.5 rounded-lg bg-white border border-slate-200">
-                  <strong className="text-amber-800 block">3. EBIAT (Resultado Operativo después de Impuestos):</strong>
-                  • <strong>Criterio Tasa Legal (EBIT × [1 - 0,35]):</strong> 2025 = <code>$450.047M × 0,65 = $292.531M</code> | 2024 = <code>-$192.676M × 0,65 = -$125.239M</code>.<br />
-                  • <strong>Criterio Impuesto ER (EBIT + Imp. Ganancias Nota 16):</strong> 2025 = <code>$450.047M + $46.432M = $496.479M</code> | 2024 = <code>-$192.676M - $538.237M = -$730.913M</code>.
+                  <strong className="text-amber-800 block">3. EBIAT y Flujos del EFE (p. 11–12):</strong>
+                  • <strong>EBIAT Tasa Legal (EBIT × 0,65):</strong> 2025 = <code>$292.531M</code> | 2024 = <code>-$125.239M</code> <em>(Contable ER: <code>$496.479M</code> / <code>-$730.913M</code>)</em>.<br />
+                  • <strong>Flujo Operativo (CFO):</strong> 2025 = <code>$2.385.858M</code> | 2024 = <code>$4.067.513M</code> • <strong>Flujo Inversión (CFI):</strong> <code>-$3.011.630M</code> / <code>-$504.380M</code>.<br />
+                  • <strong>CAPEX Pagado (PP&E + Intang.):</strong> 2025 = <code>$1.490.635M</code> | 2024 = <code>$518.576M</code> • <strong>Div. Efectivo:</strong> <code>$37.926M</code> / <code>$12.634M</code>.
                 </div>
               </div>
             </div>
@@ -2617,7 +2618,42 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
               Relación entre el Análisis Horizontal/Vertical, los Ratios Financieros y las Pruebas Sustantivas a Aplicar
             </h3>
             <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-              Conforme a <strong>Carlos A. Slosse</strong>, los procedimientos analíticos en la Etapa de Planificación sirven como un <em>«mapa de calor»</em> para dirigir los esfuerzos de auditoría hacia las áreas donde los saldos contables presentan variaciones inusuales o relaciones financieras atípicas. A continuación se vincula cada hallazgo analítico del Balance de Telecom S.A. con los <strong>Programas de Trabajo (A a E)</strong> y los <strong>Papeles de Trabajo (PT-A a PT-E)</strong>:
+              Conforme a <strong>Carlos A. Slosse</strong>, los procedimientos analíticos en la Etapa de Planificación sirven como un <em>«mapa de calor»</em> para dirigir los esfuerzos de auditoría hacia las áreas donde los saldos contables presentan variaciones inusuales o relaciones financieras atípicas. A continuación se sintetiza cómo el <strong>Análisis H/V, los Ratios Financieros y la Evaluación del Control Interno (CCI)</strong> convergen en los <strong>3 rubros prioritarios seleccionados para ejecutar pruebas sustantivas</strong> y se vinculan con los <strong>Programas de Trabajo (A a F)</strong>:
+            </p>
+          </div>
+
+          {/* Bloque de Convergencia: H/V + Ratios + CCI -> 3 Rubros Seleccionados */}
+          <div className="p-4 rounded-xl bg-gradient-to-br from-slate-50 to-teal-50/60 border border-teal-200 space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <h4 className="text-xs font-extrabold uppercase tracking-wider text-teal-950">
+                ¿Por qué el Análisis H/V y los Ratios justifican seleccionar Bienes de Uso (PT-A), Créditos por Ventas (PT-B) y Activos Intangibles (PT-E)?
+              </h4>
+              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-teal-700 text-white">
+                Convergencia Riesgo Inherente + Riesgo de Control Alto
+              </span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div className="p-3 rounded-lg bg-white border border-teal-200 space-y-1">
+                <div className="font-extrabold text-teal-900">1. Bienes de Uso (Nota 9 — PT-A)</div>
+                <p className="text-slate-600 leading-relaxed">
+                  <strong>H/V + Ratios:</strong> Mayor peso vertical del Balance (<strong>40,84% del Activo = $6.789.118M</strong>; AH <strong>+19,18%</strong>) dentro de una <strong>Inmovilización del 88,97%</strong>. Las amortizaciones totales pesan <strong>24,92% de las Ventas</strong> ($2.075.488M), la <strong>Reinversión Orgánica (71,82%)</strong> no compensa todo el desgaste, y el EFE p. 12 revela <strong>$358.056M de CAPEX financiado vía Proveedores</strong> (estirando Días de Proveedores a <strong>69,74 d</strong>). Combinado con <strong>CCI Nivel de Confianza Bajo (38,46%)</strong>, exige inspección física, bajas por obsolescencia y corte CAPEX.
+                </p>
+              </div>
+              <div className="p-3 rounded-lg bg-white border border-rose-200 space-y-1">
+                <div className="font-extrabold text-rose-900">2. Créditos por Ventas (Nota 5 — PT-B)</div>
+                <p className="text-slate-600 leading-relaxed">
+                  <strong>H/V + Ratios:</strong> Principal <strong>alerta horizontal (+105,25% = $799.188M ctes.)</strong> frente a Ventas (+53,02%), disparando los <strong>Días de Clientes (DSO) de 26,11 a 35,02 días (+8,91 d)</strong> tras incorporar el 100% de TMA ($421.919M) contra 10 meses de ingresos y mayor mora. Como la <strong>Liquidez Corriente (0,48x)</strong> y <strong>Ácida (0,46x)</strong> dependen críticamente de su realización, requiere circularización, corte e interfaces con Ventas (PT-D) y recálculo de Previsión NIIF 9 ($(270.919)M).
+                </p>
+              </div>
+              <div className="p-3 rounded-lg bg-white border border-indigo-200 space-y-1">
+                <div className="font-extrabold text-indigo-900">3. Activos Intangibles (Nota 10 — PT-E)</div>
+                <p className="text-slate-600 leading-relaxed">
+                  <strong>H/V + Ratios:</strong> Concentra el <strong>16,07% del Activo ($2.671.525M</strong>; AH <strong>+7,09%</strong>), con <strong>+$274.183M</strong> incorporados de TMA, <strong>+$134.472M</strong> de CAPEX y <strong>-$234.722M</strong> de amortización anual (Nota 25). Ante una <strong>Solvencia Bruta ajustada (0,72 s/Pasivo y 42,01% PN/Activo)</strong> y un <strong>NC Bajo (47,62% Tecnología)</strong>, el respaldo patrimonial exige validar títulos ENACOM/INPI, activaciones NIC 38 y amortizaciones.
+                </p>
+              </div>
+            </div>
+            <p className="text-[11px] text-teal-900 leading-relaxed">
+              <strong>Complemento sobre deuda y resultados:</strong> El endeudamiento financiero queda respaldado operativamente por <strong>Repago en EBITDA (2,15x bruto / 1,84x neto)</strong> y <strong>Cobertura EBITDA/Intereses puros Nota 26 (6,54x)</strong>, mientras los demás programas (<strong>PT-C, PT-D y PT-F1 de consulta</strong>) completan el mapa analítico global.
             </p>
           </div>
 
@@ -2706,6 +2742,21 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
           )}
         </div>
 
+        {/* Síntesis de Convergencia: H/V + Ratios + Control Interno -> 3 Rubros Seleccionados */}
+        <div className="p-4 rounded-xl bg-slate-800/80 border border-teal-500/40 text-xs text-slate-200 space-y-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold text-[10px]">
+              SÍNTESIS DE SELECCIÓN (3 RUBROS AUDITADOS EN PROFUNDIDAD)
+            </span>
+            <span className="text-teal-300 font-bold">
+              Bienes de Uso (PT-A) + Créditos por Ventas (PT-B) + Activos Intangibles (PT-E)
+            </span>
+          </div>
+          <p className="text-slate-300 leading-relaxed">
+            La selección del alcance de auditoría surge directamente de cruzar <strong>H/V + Ratios + Control Interno</strong>: (1) <strong>Bienes de Uso ($6.789.118M — 40,84% AV, +19,18% AH)</strong> e <strong>Intangibles ($2.671.525M — 16,07% AV, +7,09% AH)</strong> explican la fuerte <strong>Inmovilización (88,97%)</strong>, absorben la amortización crítica (<strong>D,A&amp;D 24,92% s/Ventas</strong>), registran <strong>Reinversión Orgánica inferior al 100% (71,82%)</strong> más <strong>$358.056M de CAPEX en Cuentas por Pagar (Días Proveedores 69,74 d)</strong> y sostienen una <strong>Solvencia Bruta ajustada (0,72 s/Pasivo o 42,01% PN/Activo)</strong> bajo <strong>NC Bajo (38,46% / 47,62%)</strong>; y (2) <strong>Créditos por Ventas ($799.188M ctes.)</strong> marca la mayor anomalía horizontal (<strong>+105,25%</strong>, duplicando al +53,02% de Ventas) y eleva el <strong>DSO de 26,11 a 35,02 días (+8,91 d)</strong>, condicionando toda la <strong>Liquidez Ácida (0,46x)</strong>. El resto de los bloques (Préstamos con <strong>Cobertura EBITDA 6,54x / Repago neto 1,84x</strong>, Ventas y Llaves/PT-F1) se integran como soporte transversal y de consulta.
+          </p>
+        </div>
+
         {/* Grilla de los 6 Rubros Críticos (Destacando los 3 Prioritarios de la Cátedra) */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs">
           {/* RUBRO 1 - PROGRAMA A */}
@@ -2724,7 +2775,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
               </span>
             </div>
             <div className="text-slate-300 leading-relaxed">
-              <strong className="text-amber-300">¿Por qué se aplica sobre este rubro?</strong> Es el rubro individual de mayor peso vertical del Balance (<strong>40,84% del Activo Total</strong>, y <strong>$14.085.143M</strong> integrando las UGEs en Nota 3.v), registra una expansión real de <strong>+$1.092.387M (+19,18%)</strong> por inversiones CAPEX en redes 5G/FTTH, origina una nueva línea de <em>Propiedades de Inversión</em> (<strong>$63.866M</strong> en Nota 12) y genera un cargo por <em>D, A &amp; D</em> de <strong>$(2.075.488)M (24,92% de las Ventas en Nota 25)</strong>, en un contexto donde el CCI-02 reveló falta de baja de centrales analógicas obsoletas y siniestros en vía pública.
+              <strong className="text-amber-300">¿Por qué se aplica sobre este rubro?</strong> Es el rubro individual de mayor peso vertical del Balance (<strong>$6.789.118M</strong> en PP&amp;E Nota 9 — <strong>40,84% del Activo Total</strong>, integrando el bloque de <em>Activos Fijos e Intangibles</em> de Redes Personal y TMA por <strong>$14.085.143M</strong> en Nota 3.b; test UGE en Nota 3.u.1), registra una expansión real de <strong>+$1.092.387M (+19,18%)</strong> explicada por CAPEX orgánico en 5G/FTTH (<strong>$1.351.105M</strong>) y la incorporación de TMA (<strong>$1.332.961M</strong>, Nota 29) —con reinversión orgánica de amortizaciones del <strong>71,82%</strong> (<strong>88,13%</strong> PP&amp;E dev.)—, suma además <em>Propiedades de Inversión</em> (<strong>$63.866M</strong> en Nota 12 provenientes de TMA) y genera un cargo por <em>D, A &amp; D</em> de <strong>$(2.075.488)M (24,92% de las Ventas en Nota 25)</strong>, en un contexto donde el CCI-02 reveló falta de baja de centrales analógicas obsoletas y siniestros en vía pública.
             </div>
             <div className="p-3 rounded-lg bg-slate-900/90 border border-slate-700/80 text-slate-200 space-y-1">
               <strong className="text-teal-300 block uppercase text-[10px] tracking-wider">
@@ -2742,7 +2793,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                   ).
                 </li>
                 <li>
-                  <strong>Confirmación dominial externa</strong> ante el Registro de la Propiedad Inmueble (RPI) para inmuebles operativos y desafectados en Nota 12 (
+                  <strong>Confirmación dominial externa</strong> ante el Registro de la Propiedad Inmueble (RPI) para inmuebles operativos, activos disponibles para la venta (<strong>$3.011M</strong> en Nota 3.j/9) y propiedades de inversión (<strong>Nota 12</strong>) (
                   <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-a3')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-A3 ↗</button>
                   ).
                 </li>
@@ -2772,7 +2823,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                 </span>
               </div>
               <span className="font-mono font-bold text-rose-300 text-[11px]">
-                AV: 4,81% | AH: +105,25% | DSO: 35,1d
+                AV: 4,81% | AH: +105,25% | DSO: 35,02d
               </span>
             </div>
             <div className="text-slate-300 leading-relaxed">
@@ -2836,7 +2887,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
                   ).
                 </li>
                 <li>
-                  <strong>Comprobación de cumplimiento de Covenants financieros</strong> (ratio <em>Deuda Financiera / EBITDA = 2,15x bruta / 1,83x neta</em>) y adecuada clasificación entre corriente y no corriente (
+                  <strong>Comprobación de cumplimiento de Covenants financieros</strong> (ratio <em>Deuda Financiera / EBITDA = 2,15x bruta / 1,84x neta</em>; <em>Cobertura EBITDA/Intereses puros Nota 26 = 6,54x</em>) y adecuada clasificación entre corriente y no corriente (
                   <button type="button" onClick={() => onNavigate('etapa2-ejecucion', 'pt-c4')} className="underline text-amber-300 font-bold hover:text-amber-200 cursor-pointer">PT-C4 ↗</button>
                   ).
                 </li>

@@ -287,7 +287,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                 3. Umbral Mínimo de Ajustes (PAE = $8.311M — 5% de la PM):
               </strong>
               <span className="text-slate-300">
-                Es el filtro de lo «claramente insignificante». Todo desvío que encontremos en la Etapa 2 que sea <strong>mayor a $8.311M</strong> (como los ajustes <code>AJ-01</code> a <code>AJ-04</code>) debe llevarse obligatoriamente a la Planilla de Ajustes Propuestos para exigir su corrección; si es menor a $8.311M (como los $3.120M de <code>PAE-NC-01</code>), se deja constancia pero no afecta la opinión.
+                Es el filtro de lo «claramente insignificante». Todo desvío que encontremos en la Etapa 2 que sea <strong>mayor a $8.311M</strong> (como el ajuste patrimonial <code>AJ-01</code> por $28.340M y la reclasificación <code>AJ-04</code> por $11.240M) debe llevarse obligatoriamente a la Planilla de Ajustes Propuestos para exigir su corrección; si es menor a $8.311M (como los $7.570M acumulados en <code>PAE-NC-01</code>), se deja constancia pero no afecta la opinión.
               </span>
             </div>
           </div>
