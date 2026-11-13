@@ -4,6 +4,7 @@ export const marcasAuditoria = [
   { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (factura CAE/ARCA, acta de recepción B2B, escritura RPI, títulos INPI o resolución ENACOM)." },
   { simbolo: "∑", significado: "Suma vertical y horizontal verificada sin diferencias mediante recálculo independiente." },
   { simbolo: "©", significado: "Saldo o registro confirmado directamente por tercero u organismo independiente (circularización bancaria, Caja de Valores S.A., cliente B2B, Boletín Oficial o INPI)." },
+  { simbolo: "b", significado: "Cobranza posterior en el mes de enero de 2026 verificada contra extractos bancarios oficiales (procedimiento alternativo NIA 505 / Carlos A. Slosse)." },
   { simbolo: "⊗", significado: "Observación / Desvío de control interno o diferencia de auditoría trasladada a la Planilla de Ajustes Propuestos (PAE)." },
   { simbolo: "§", significado: "Cotejado con el Libro Mayor General y Balance de Sumas y Saldos del sistema ERP SAP al 31/12/2025." },
   { simbolo: "t", significado: "Tarifas y costos de personal validados contra nómina de sueldos (SAP HR) y contratos de consultoría técnica externa." },
@@ -19,11 +20,12 @@ export const marcasPorRubro = {
     { simbolo: "©", significado: "Saldo o registro confirmado directamente por tercero u organismo independiente (Registro de la Propiedad Inmueble y peritajes técnicos externos)." }
   ],
   "pt-b": [
-    { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (facturas de venta electrónicas CAE/ARCA, remitos conformados B2B y recibos oficiales de cobranza)." },
+    { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (contratos B2B, actas de recepción, facturas electrónicas CAE/ARCA y conciliaciones de interfaz)." },
     { simbolo: "§", significado: "Cotejado con el Libro Mayor General y Balance de Sumas y Saldos del sistema ERP SAP al 31/12/2025." },
-    { simbolo: "∑", significado: "Suma vertical y horizontal verificada sin diferencias mediante recálculo independiente." },
-    { simbolo: "⊗", significado: "Observación / Desvío de control interno o diferencia de auditoría trasladada a la Planilla de Ajustes Propuestos (PAE)." },
-    { simbolo: "©", significado: "Saldo o registro confirmado directamente por tercero u organismo independiente (circularización externa directa a clientes corporativos B2B y confirmaciones bancarias)." }
+    { simbolo: "∑", significado: "Suma vertical y horizontal verificada sin diferencias mediante recálculo matemático independiente." },
+    { simbolo: "©", significado: "Saldo o registro confirmado directamente por tercero independiente (confirmación escrita positiva directa a clientes corporativos B2B)." },
+    { simbolo: "b", significado: "Cobranza posterior en el mes de enero de 2026 verificada contra extractos bancarios oficiales (procedimiento alternativo NIA 505 / Carlos A. Slosse)." },
+    { simbolo: "⊗", significado: "Observación / Desvío de control interno o diferencia de auditoría trasladada a la Planilla de Ajustes Propuestos (PAE)." }
   ],
   "pt-c": [
     { simbolo: "✓", significado: "Cotejado con documentación respaldatoria original (contratos de financiamiento con organismos multilaterales IFC/BID, prospectos de emisión de ONs y liquidaciones de intereses)." },
@@ -407,9 +409,9 @@ export const papelesTrabajo = [
     saldoAuditado: 800128,
     estadoPT: "Conforme (Sin Ajustes Propuestos)",
     cedulaSumaria: [
-      { subcuenta: "1.1.03 - Créditos por Ventas Corrientes (Nota 5)", saldoLibros: 1070107, debe: 0, haber: 0, saldoAuditado: 1070107, marca: "§ ✓ ©", refPT: "PT-B1 / PT-B2" },
-      { subcuenta: "1.2.03 - Créditos por Ventas No Corrientes (Nota 5)", saldoLibros: 940, debe: 0, haber: 0, saldoAuditado: 940, marca: "§ ✓ ©", refPT: "PT-B1" },
-      { subcuenta: "1.1.03.09 - Previsión para Deudores Incobrables Corriente (Nota 5)", saldoLibros: -270919, debe: 0, haber: 0, saldoAuditado: -270919, marca: "§ ✓ ©", refPT: "PT-B3" }
+      { subcuenta: "1.1.03 - Créditos por Ventas Corrientes (Nota 5)", saldoLibros: 1070107, debe: 0, haber: 0, saldoAuditado: 1070107, marca: "§ ✓ © b", refPT: "PT-B1 / PT-B2" },
+      { subcuenta: "1.2.03 - Créditos por Ventas No Corrientes (Nota 5)", saldoLibros: 940, debe: 0, haber: 0, saldoAuditado: 940, marca: "§ ✓", refPT: "PT-B1" },
+      { subcuenta: "1.1.03.09 - Previsión para Deudores Incobrables Corriente (Nota 5)", saldoLibros: -270919, debe: 0, haber: 0, saldoAuditado: -270919, marca: "§ ✓ ∑", refPT: "PT-B3" }
     ],
     procedimientosEjecutados: [
       {
@@ -418,14 +420,14 @@ export const papelesTrabajo = [
         nombre: "Confirmación Escrita Directa a Grandes Clientes Corporativos B2B (Personal Tech) y Cobranzas Posteriores",
         afirmaciones: ["Existencia", "Propiedad"],
         marca: "§ ✓ © b ∑",
-        muestra: "65 grandes cuentas corporativas B2B clave representativas de $385.420 millones (36% del total bruto de créditos) + procedimiento alternativo sobre cuentas no respondidas y segmento B2C masivo en extractos bancarios de enero 2026.",
+        muestra: "65 clientes corporativos B2B (Personal Tech) por $385.420 millones (36,0% del total bruto) y un lote estratificado de 1.500 cuentas masivas B2C por $48.200 millones, totalizando $433.620 millones (40,5% de la cartera bruta de $1.071.047M sobre el universo consolidado de más de 41,6 millones de líneas móviles, 6,1M internet y 3,9M TV).",
         pasosConResultado: [
           {
             paso: "Circularización externa directa (positiva) bajo NIA 505 a una muestra estratificada de 65 grandes cuentas corporativas B2B de Personal Tech.",
-            comoSeEjecuta: "Se seleccionan de los subdiarios de clientes en SAP SD/FI las 65 principales cuentas corporativas. Se preparan solicitudes de confirmación escrita directa (positiva) con firma facultada de la Dirección Financiera de Telecom, remitiéndose con instrucciones expresas de responder directamente al equipo de auditoría.",
-            fuentes: "Subdiario de Clientes Corporativos en SAP SD/FI, contratos marco de telecomunicaciones y cartas de confirmación directa recibidas.",
-            valores: "Muestra estratificada de 65 cuentas corporativas B2B por $385.420 millones.",
-            resultado: "Se recibieron 59 respuestas conformes directas ($366.620 millones confirmados sin discrepancias por los clientes corporativos) (© §).",
+            comoSeEjecuta: "Se seleccionan del subdiario de clientes en SAP las 65 principales cuentas corporativas. Se preparan solicitudes de confirmación escrita directa (positiva) con firma facultada de la Dirección Financiera de Telecom, remitiéndose con instrucciones expresas de responder directamente al equipo de auditoría.",
+            fuentes: "Subdiario de clientes en SAP, contratos marco de telecomunicaciones y cartas de confirmación directa recibidas.",
+            valores: "Muestra estratificada de 65 cuentas corporativas B2B ($385.420M) + 1.500 cuentas masivas B2C ($48.200M) = $433.620 millones (40,5% del total bruto).",
+            resultado: "Se recibieron 59 respuestas conformes directas ($357.820 millones confirmados sin discrepancias por los clientes corporativos) (© §).",
             tabla: {
               cabeceras: ["Ref.", "Cliente Corporativo B2B / Lote Muestral", "Saldo s/ Libros SAP ($M)", "Confirmación Directa Tercero ($M)", "Cobranza Enero 2026 ($M)", "Diferencia ($M)", "Marcas y Estado"],
               filas: [
@@ -439,28 +441,21 @@ export const papelesTrabajo = [
                 { valores: ["8", "Cervecería y Maltería Quilmes S.A.I.C.A.", "$18.420", "$18.420", "$18.420", "$0", "§ ✓ © Conforme"] },
                 { valores: ["9", "Resto Muestra B2B (57 cuentas corporativas)", "$152.100", "$144.300", "$152.100", "$0", "§ ✓ © b Conforme (Extr. Enero)"] },
                 { valores: ["10", "Lote Muestral B2C Masivo (1.500 cuentas residenciales)", "$48.200", "N/A (Masivo)", "$48.200", "$0", "§ ✓ b Conforme (Extr. Bco Galicia/Nación)"] },
-                { destacado: true, valores: ["∑", "Total Muestra Auditada Créditos por Ventas", "$433.620", "$366.620", "$433.620", "$0", "§ ∑ Validado 100% Conforme"] }
+                { destacado: true, valores: ["∑", "Total Muestra Auditada Créditos por Ventas", "$433.620", "$357.820", "$433.620", "$0", "§ ∑ Validado 100% Conforme"] }
               ]
             }
           },
           {
             paso: "Aplicación de procedimientos alternativos de auditoría sobre las cuentas no contestadas y segmento masivo B2C mediante verificación de cobros posteriores en enero 2026.",
-            comoSeEjecuta: "Para las 6 cuentas corporativas que no respondieron en término ($18.800M de Techint y cuentas menores por $7.800M) y para una muestra representativa del segmento masivo B2C ($48.200M), el equipo de auditoría aplicó el procedimiento alternativo conforme a la NIA 505 y Carlos A. Slosse: se cotejaron los recibos correlativos de cobranza en SAP contra los extractos bancarios oficiales de enero 2026 de Banco Nación, Galicia, Macro y Santander, verificando la acreditación íntegra de los fondos.",
-            fuentes: "Extractos bancarios de enero 2026 de BNA, Galicia, Macro y Santander, avisos de transferencia y recibos de cobranza en SAP FI.",
-            valores: "Cobranzas posteriores verificadas por un total de $74.800 millones en enero 2026.",
+            comoSeEjecuta: "Para las 6 cuentas corporativas que no respondieron en término ($19.800M de Techint y cuentas menores por $7.800M) y para una muestra representativa del segmento masivo B2C ($48.200M), el equipo de auditoría aplicó el procedimiento alternativo conforme a la NIA 505 y Carlos A. Slosse: se cotejaron los recibos correlativos de cobranza en SAP contra los extractos bancarios oficiales de enero 2026 de Banco Nación, Galicia, Macro y Santander, verificando la acreditación íntegra de los fondos.",
+            fuentes: "Extractos bancarios de enero 2026 de BNA, Galicia, Macro y Santander, avisos de transferencia y recibos de cobranza en SAP.",
+            valores: "Cobranzas posteriores verificadas por un total de $75.800 millones en enero 2026.",
             resultado: "Se verificó la cancelación efectiva y cobro posterior del 100% de los saldos auditados en extractos bancarios de enero 2026, sin registrarse saldos incobrables o ficticios (✓ b §)."
-          },
-          {
-            paso: "Análisis técnico de contexto patrimonial sobre la evolución interanual y combinación de negocios TMA (NIIF 3).",
-            comoSeEjecuta: "Se analizó la evolución del saldo comercial ($800.128M vs $389.375M en 2024), constatando que la incorporación del stock consolidado de créditos de Telefónica Móviles Argentina S.A. ($421.919M medidos a valor razonable bajo NIIF 3) justifica técnicamente el incremento del rubro frente al crecimiento de las ventas, corroborando la plena razonabilidad y exposición de la Nota 5.",
-            fuentes: "Nota 5 y Nota 29 de los Estados Financieros, informe de PPA bajo NIIF 3 y balance consolidado en SAP.",
-            valores: "Stock de créditos incorporado de TMA por $421.919 millones.",
-            resultado: "La composición de saldos de la cartera unificada se encuentra adecuadamente expuesta y respaldada conforme a las NIIF (✓ § ∑)."
           }
         ],
-        procedimientoDetalle: "1) Circularización B2B: Se remitieron solicitudes directas a 65 grandes cuentas corporativas de Personal Tech, recibiendo 59 respuestas conformes sin discrepancias. 2) Cobros posteriores: Para las cuentas sin respuesta y el lote muestral B2C masivo, se verificó el 100% del cobro en extractos bancarios de enero 2026. 3) Cartera consolidada: Se constató la razonabilidad patrimonial del saldo incorporado de TMA bajo NIIF 3 sin registrarse desvíos de valuación.",
-        fuentes: "Subdiario de clientes SAP SD/FI, cartas de circularización directa de saldos, extractos bancarios de enero 2026 y Nota 5 de los Estados Financieros.",
-        valores: "Muestra auditada total de $433.620 millones sobre $1.071.047M de créditos brutos totales.",
+        procedimientoDetalle: "1) Circularización B2B: Se remitieron solicitudes directas a 65 grandes cuentas corporativas de Personal Tech, recibiendo 59 respuestas conformes sin discrepancias ($357.820M). 2) Cobros posteriores: Para las 6 cuentas sin respuesta ($27.600M) y el lote muestral B2C masivo ($48.200M), se verificó el 100% del cobro ($75.800M) en extractos bancarios de enero 2026 sin diferencias ($0).",
+        fuentes: "Subdiario de clientes en SAP, cartas de confirmación positiva directa, extractos bancarios de enero 2026 y Nota 5 de los Estados Financieros.",
+        valores: "Muestra auditada total de $433.620 millones (40,5%) sobre $1.071.047M de créditos brutos totales ($357.820M confirmados directamente y $75.800M validados por cobros posteriores en enero 2026).",
         defensaOral: "Profesor, en PT-B1 auditamos la Existencia y Propiedad de los saldos por cobrar comerciales. Aplicamos una confirmación escrita directa (positiva) a 65 grandes clientes corporativos B2B de Personal Tech, obteniendo 59 respuestas conformes directas. Para las 6 cuentas que no respondieron en término y para el segmento de consumo masivo B2C, aplicamos el procedimiento alternativo estándar según Carlos A. Slosse y la NIA 505: cotejamos la efectiva cobranza posterior en los extractos bancarios oficiales de enero 2026 en Banco Nación, Galicia, Macro y Santander. El 100% de la muestra fue verificado sin diferencias ($0). No se proponen ajustes.",
         afirmacionesDetalle: "Valida Existencia (deudores reales y exigibles) y Propiedad (titularidad jurídica exclusiva de Telecom sin cesiones no contabilizadas)."
       },
@@ -470,16 +465,16 @@ export const papelesTrabajo = [
         nombre: "Prueba de Corte de Facturación B2B (Personal Tech) y Conciliación de Interfaces Recaudadoras Externas",
         afirmaciones: ["Integridad", "Medición"],
         marca: "§ ✓ b ∑",
-        muestra: "100% de contratos B2B con hitos y actas de recepción emitidas entre el 15/12/2025 y el 15/01/2026 ($74.250M) y 100% de los lotes de liquidación e interfaces de cobranza externa (Rapipago, Pago Fácil, Billeteras Virtuales) al 31/12/2025 ($36.890M conciliados con extractos bancarios de enero 2026).",
+        muestra: "100% de contratos B2B con hitos y actas de recepción emitidas entre el 15/12/2025 y el 15/01/2026 ($54.650M) y 100% de los lotes de liquidación e interfaces de cobranza externa (Rapipago, Pago Fácil, Billeteras Virtuales) al 31/12/2025 ($36.890M conciliados con extractos bancarios de enero 2026).",
         pasosConResultado: [
           {
             paso: "Prueba sustantiva de corte de facturación de servicios corporativos B2B (Personal Tech) bajo NIIF 15 para validar el devengamiento en el período correspondiente.",
-            comoSeEjecuta: "Se cotejan las actas de recepción de servicios corporativos de conectividad Cloud, SD-WAN y ciberseguridad emitidas entre el 15/12/2025 y el 15/01/2026 contra el módulo de facturación SAP SD. Se comprueba que los ingresos por prestaciones concluidas antes del 31/12/2025 se encuentren devengados en el ejercicio 2025 y que los servicios correspondientes a enero 2026 no se hayan anticipado indebidamente.",
-            fuentes: "Actas de conformidad de servicios B2B, órdenes de trabajo, contratos marco corporativos y subdiario de facturación SAP SD.",
-            valores: "Muestra de contratos corporativos por un monto de $74.250 millones entre el 15/12/2025 y el 15/01/2026.",
+            comoSeEjecuta: "Se cotejan las actas de recepción de servicios corporativos de conectividad Cloud, SD-WAN y ciberseguridad emitidas entre el 15/12/2025 y el 15/01/2026 contra el módulo de facturación en SAP. Se comprueba que los ingresos por prestaciones concluidas antes del 31/12/2025 se encuentren devengados en el ejercicio 2025 y que los servicios correspondientes a enero 2026 no se hayan anticipado indebidamente.",
+            fuentes: "Actas de conformidad de servicios B2B, órdenes de trabajo, contratos marco corporativos y subdiario de facturación en SAP.",
+            valores: "Muestra de contratos corporativos por un monto de $54.650 millones entre el 15/12/2025 y el 15/01/2026.",
             resultado: "Se verificó que los servicios corporativos con hito completado al 31/12/2025 se encontraban devengados en el ejercicio 2025 y los hitos de enero 2026 fueron imputados en el nuevo ejercicio, constatando el correcto corte contable bajo NIIF 15 (✓ §).",
             tabla: {
-              cabeceras: ["Ítem / Contrato / Interfaz", "Fecha Acta / Liq.", "Fecha Fac. SAP", "Período Imputado", "Monto ($M)", "Inspección Documental y Bancaria", "Marcas y Estado"],
+              cabeceras: ["Ítem / Contrato / Interfaz", "Fecha Acta / Liq.", "Fecha Fac. SAP / Cierre Interfaz", "Período Imputado", "Monto ($M)", "Inspección Documental y Bancaria", "Marcas y Estado"],
               filas: [
                 { valores: ["Contrato B2B Fibra Óptica - Hito 4", "22/12/2025", "28/12/2025", "Ejercicio 2025", "$14.500", "Acta conforme y devengado en 2025", "§ ✓ Conforme"] },
                 { valores: ["Contrato Datacenter Corp. - Abono Dic", "30/12/2025", "31/12/2025", "Ejercicio 2025", "$18.200", "Servicio prestado e imputado en 2025", "§ ✓ Conforme"] },
@@ -494,14 +489,14 @@ export const papelesTrabajo = [
           },
           {
             paso: "Auditoría de conciliaciones de interfaces con agentes de cobranza externa al 31/12/2025 (Rapipago, Pago Fácil y Billeteras Virtuales).",
-            comoSeEjecuta: "Se examinan las rendiciones de recaudación masiva de agentes externos (Gire S.A. / Rapipago, Western Union / Pago Fácil) y billeteras virtuales (Mercado Pago, Modo) al 31/12/2025 por $36.890 millones en tránsito. Se cotejan contra las acreditaciones bancarias de los primeros días hábiles de enero 2026 y la desafectación en los auxiliares de clientes en SAP FI-CA.",
-            fuentes: "Archivos EDI de rendición diaria de recaudadores, extractos bancarios de enero 2026 y subdiario de cobranzas SAP.",
+            comoSeEjecuta: "Se examinan las rendiciones de recaudación masiva de agentes externos (Gire S.A. / Rapipago, Western Union / Pago Fácil) y billeteras virtuales (Mercado Pago, Modo) al 31/12/2025 por $36.890 millones en tránsito. Se cotejan contra las acreditaciones bancarias de los primeros días hábiles de enero 2026 y la desafectación en los auxiliares de clientes en SAP.",
+            fuentes: "Archivos EDI de rendición diaria de recaudadores, extractos bancarios de enero 2026 y subdiario de cobranzas en SAP.",
             valores: "Cobranzas masivas en tránsito al cierre por $36.890 millones.",
             resultado: "Se constató que las partidas en tránsito se encontraban adecuadamente conciliadas e impactadas en las cuentas de clientes al 31/12/2025, acreditándose íntegramente en los extractos bancarios del 02/01/2026 sin diferencias ni ingresos omitidos (✓ b §)."
           }
         ],
-        procedimientoDetalle: "1) Corte B2B NIIF 15: Se auditaron actas y contratos firmados entre el 15/12/2025 y el 15/01/2026 por $74.250M, constatando su devengamiento en el período correspondiente. 2) Conciliación de interfaces: Se revisaron los lotes de recaudación externa de fin de año por $36.890M, verificando su acreditación bancaria en término en enero 2026 y su correcta imputación contable sin diferencias ($0).",
-        fuentes: "Actas de conformidad B2B, contratos marco, órdenes de facturación en SAP SD, rendiciones de agentes recaudadores y extractos bancarios de enero 2026.",
+        procedimientoDetalle: "1) Corte B2B NIIF 15: Se auditaron actas y contratos firmados entre el 15/12/2025 y el 15/01/2026 por $54.650M, constatando su devengamiento en el período correspondiente. 2) Conciliación de interfaces: Se revisaron los lotes de recaudación externa de fin de año por $36.890M, verificando su acreditación bancaria en término en enero 2026 y su correcta imputación contable sin diferencias ($0).",
+        fuentes: "Actas de conformidad B2B, contratos marco, órdenes de facturación en SAP, rendiciones de agentes recaudadores y extractos bancarios de enero 2026.",
         valores: "Total procedimiento de corte e interfaces de $91.540 millones verificado conforme.",
         defensaOral: "Profesor, en PT-B2 auditamos el corte de operaciones al 31/12/2025 con dos enfoques: primero, seleccionamos las actas de conformidad de servicios corporativos B2B de Personal Tech emitidas entre el 15/12/2025 y el 15/01/2026, comprobando que los ingresos y sus créditos asociados se devengaron en el ejercicio que correspondía bajo NIIF 15; segundo, auditamos las interfaces de cobranza con recaudadores externos (Rapipago, Pago Fácil y billeteras virtuales) con corte al 31/12/2025, corroborando que los fondos en tránsito se acreditaron en los extractos bancarios de los primeros días hábiles de enero 2026 sin desvíos ni omisiones de cobros. Diferencia: $0. Conforme.",
         afirmacionesDetalle: "Valida Integridad (registro íntegro de operaciones devengadas) y Medición (corte estricto de ingresos y créditos bajo NIIF 15)."
@@ -510,20 +505,20 @@ export const papelesTrabajo = [
         ref: "PT-B3",
         bloquePrograma: "3. Evaluación y Recálculo de la Previsión para Incobrables NIIF 9 con TAACs (Medición)",
         nombre: "Recálculo de la Matriz de Antigüedad de Deuda (Aging) y Pérdida Crediticia Esperada (ECL NIIF 9) con TAACs",
-        afirmaciones: ["Medición", "Exposición"],
+        afirmaciones: ["Medición"],
         marca: "§ ✓ ∑",
-        muestra: "100% del padrón unificado de deudores en ERP SAP ($1.071.047M brutos, >18 millones de abonados) mediante software de auditoría asistido por computador (TAACs).",
+        muestra: "100% del padrón unificado de deudores en ERP SAP ($1.071.047M brutos; universo de más de 41,6 millones de líneas móviles, 6,1M internet y 3,9M TV) mediante software de auditoría asistido por computador (TAACs).",
         pasosConResultado: [
           {
             paso: "Extracción y reproceso analítico del 100% de la base unificada de antigüedad de saldos (aging) al 31/12/2025 mediante TAACs.",
             comoSeEjecuta: "Mediante scripts de auditoría en Python/TAACs sobre la base unificada de partidas abiertas de SAP FI-AR / FI-CA, se recalcula la antigüedad exacta de cada documento por fecha de vencimiento contractual, clasificándolos en 5 tramos cronológicos: corrientes a vencer, 1 a 30 días, 31 a 90 días, 91 a 180 días y más de 180 días de mora.",
-            fuentes: "Base de partidas abiertas de SAP FSCM y Convergent Invoicing al 31/12/2025.",
-            valores: "Padrón unificado de más de 18 millones de abonados y saldos brutos por $1.071.047 millones ($1.070.107M corrientes y $940M no corrientes).",
+            fuentes: "Base unificada de deudores y partidas abiertas en ERP SAP (módulos FI-AR y FI-CA) al 31/12/2025.",
+            valores: "Padrón unificado de más de 41,6 millones de líneas móviles, 6,1M internet y 3,9M TV, con saldos brutos por $1.071.047 millones ($1.070.107M corrientes y $940M no corrientes).",
             resultado: "El reproceso analítico con TAACs confirmó la integridad matemática y adecuada estratificación de la cartera por tramos de morosidad sin partidas omitidas ni duplicadas (∑ §)."
           },
           {
             paso: "Verificación de la cobertura al 100% de los deudores con morosidad superior a 180 días y recálculo de la matriz de pérdida crediticia esperada (NIIF 9).",
-            comoSeEjecuta: "Conforme a la NIIF 9 (enfoque simplificado de pérdidas crediticias esperadas), se valida que la totalidad de los deudores con mora superior a 180 días ($85.684 millones) se encuentren contemplados en la matriz de previsión al 100%. Asimismo, se aplica la matriz de probabilidad de pérdida sobre los tramos restantes incorporando tasas históricas de incobrabilidad y factores macroeconómicos forward-looking (riesgo país e inflación).",
+            comoSeEjecuta: "Conforme a la NIIF 9 (enfoque simplificado de pérdidas crediticias esperadas), se valida que la totalidad de los deudores con mora superior a 180 días ($85.684 millones) se encuentren contemplados en la matriz de previsión al 100%. Asimismo, se aplica la matriz de probabilidad de pérdida sobre los tramos restantes incorporando tasas históricas de incobrabilidad y la ponderación de variables macroeconómicas predictivas (ajuste macroeconómico prospectivo por inflación y riesgo crediticio futuro por $123.018 millones, exigido por NIIF 9).",
             fuentes: "Modelo actuarial de riesgo crediticio de Telecom, matrices históricas de morosidad y Nota 5 de los Estados Financieros.",
             valores: "Cartera bruta de $1.071.047 millones y previsión registrada en libros de $(270.919) millones.",
             resultado: "El recálculo independiente arrojó una previsión de $(270.919) millones, coincidiendo de forma exacta con el saldo contable registrado por la Sociedad en la Nota 5. Diferencia de auditoría: $0. Conforme (✓ ∑ §).",
@@ -535,49 +530,49 @@ export const papelesTrabajo = [
                 { valores: ["Vencidos de 31 a 90 días", "$74.973", "7,0%", "22,0%", "$16.494", "$16.494", "$0", "§ ✓ Conforme"] },
                 { valores: ["Vencidos de 91 a 180 días", "$42.842", "4,0%", "55,0%", "$23.563", "$23.563", "$0", "§ ✓ Conforme"] },
                 { valores: ["Vencidos > 180 días (Gestión Judicial)", "$85.684", "8,0%", "100,0%", "$85.684", "$85.684", "$0", "§ ✓ Conforme (100% Prev.)"] },
-                { valores: ["Componente Forward-Looking Macroeconómico", "N/A", "N/A", "Riesgo País / Inflación", "$123.018", "$123.018", "$0", "§ ✓ Conforme NIIF 9"] },
+                { valores: ["Ajuste Macroeconómico Prospectivo (Escenarios Futuros – NIIF 9)", "N/A", "N/A", "Riesgo País / Inflación", "$123.018", "$123.018", "$0", "§ ✓ Conforme NIIF 9"] },
                 { destacado: true, valores: ["Total Cartera / Previsión Acumulada", "$1.071.047", "100,0%", "25,3% (Efectiva)", "$(270.919)", "$(270.919)", "$0", "§ ∑ Validado Conforme"] }
               ]
             }
           }
         ],
-        procedimientoDetalle: "1) Reproceso con TAACs: Se procesó el 100% de la base de datos de deudores en SAP clasificando los saldos por antigüedad. 2) Mora > 180 días: Se comprobó que el 100% de los deudores con morosidad superior a 180 días ($85.684M) están cubiertos al 100% en la previsión. 3) Recálculo NIIF 9: Se aplicó la matriz de pérdida crediticia esperada incorporando variables históricas y forward-looking, obteniendo una previsión requerida de $(270.919)M coincidente al 100% con los libros.",
-        fuentes: "Padrón unificado de partidas abiertas SAP FSCM, tablas de parámetros NIIF 9 y Nota 5 de los Estados Contables.",
+        procedimientoDetalle: "1) Reproceso con TAACs: Se procesó el 100% de la base de datos de deudores en SAP clasificando los saldos por antigüedad. 2) Mora > 180 días: Se comprobó que el 100% de los deudores con morosidad superior a 180 días ($85.684M) están cubiertos al 100% en la previsión. 3) Recálculo NIIF 9: Se aplicó la matriz de pérdida crediticia esperada incorporando variables históricas y el ajuste macroeconómico prospectivo por inflación y riesgo crediticio futuro ($123.018M), obteniendo una previsión requerida de $(270.919)M coincidente al 100% con los libros.",
+        fuentes: "Padrón unificado de partidas abiertas en SAP (FI-AR / FI-CA), tablas de parámetros NIIF 9 y Nota 5 de los Estados Contables.",
         valores: "Padrón de $1.071.047M brutos. Previsión contable $(270.919)M vs Previsión auditada $(270.919)M. Diferencia: $0.",
         defensaOral: "Profesor, en PT-B3 auditamos la afirmación de Medición de la Previsión para Deudores Incobrables bajo NIIF 9 mediante software de auditoría asistido por computador (TAACs) sobre la totalidad de los deudores. Comprobamos dos aspectos centrales: primero, que la totalidad de los clientes con morosidad superior a 180 días ($85.684 millones) se encuentran previsionados al 100%; segundo, recalculamos de forma independiente la matriz de pérdida crediticia esperada integrando factores macroeconómicos de la economía argentina. El recálculo arrojó exactamente $(270.919) millones, igual al saldo contable expuesto en la Nota 5. La previsión es razonable y suficiente. No se requiere ajuste.",
-        afirmacionesDetalle: "Valida Medición (valuación de deudores incobrables conforme a la Pérdida Crediticia Esperada de NIIF 9) y Exposición (revelación de la evolución de la previsión en Nota 5)."
+        afirmacionesDetalle: "Valida Medición (valuación de deudores incobrables conforme a la Pérdida Crediticia Esperada de NIIF 9)."
       }
     ],
     conclusionRubro: "El rubro Créditos por Ventas ($800.128M netos consolidado) se valida conforme a NIIF 9 y NIIF 15 sin proponer asientos de ajuste al cierre del ejercicio. La confirmación escrita directa B2B, las cobranzas posteriores en extractos bancarios de enero 2026, la prueba de corte e interfaces recaudadoras, y el recálculo con TAACs de la previsión para incobrables ratificaron la razonabilidad y suficiencia de los saldos contables.",
     resumenMetodologicoRubro: {
       titulo: "Exposición Metodológica Integral: Auditoría de Créditos por Ventas (Nota 5)",
       subtitulo: "Fundamentación técnica secuencial de las Cédulas Analíticas PT-B1, PT-B2 y PT-B3: circularización corporativa B2B, cobranzas posteriores en extractos bancarios, corte de facturación e interfaces, y recálculo con TAACs de la previsión bajo NIIF 9.",
-      tituloSintesis: "Conclusión del Rubro Créditos por Ventas bajo NIA 500 / RT 37 — Validación Conforme Sin Ajustes",
-      introduccion: "El rubro Créditos por Ventas representa un saldo neto consolidado de $800.128 millones al 31/12/2025 ($1.070.107M corrientes y $940M no corrientes menos $(270.919)M de previsión en Nota 5). En concordancia con el Riesgo de Control MEDIO (72%) determinado en la matriz de evaluación del control interno (Tabla 25), estructuramos un enfoque sustantivo integral basado en circularización escrita directa y cobros posteriores (PT-B1), prueba de corte de facturación e interfaces de recaudación al cierre (PT-B2) y recálculo masivo de la morosidad y pérdida crediticia esperada mediante software TAACs (PT-B3). Los procedimientos ejecutados confirmaron que los saldos se encuentran íntegros, válidos y razonablemente medidos sin necesidad de ajustes.",
+      tituloSintesis: "Conclusión del Rubro Créditos por Ventas bajo NIA 500 (RT N° 32) / NIIF 9 y 15 — Validación Conforme Sin Ajustes",
+      introduccion: "El rubro Créditos por Ventas representa un saldo neto consolidado de $800.128 millones al 31/12/2025 ($1.070.107M corrientes y $940M no corrientes menos $(270.919)M de previsión en Nota 5). En concordancia con el Nivel de Confianza MEDIO (72,00%) y el Riesgo de Control MEDIO (28,00%) determinados en la matriz de evaluación del control interno (CCI-02), estructuramos un enfoque sustantivo integral basado en circularización escrita directa y cobros posteriores (PT-B1), prueba de corte de facturación e interfaces de recaudación al cierre (PT-B2) y recálculo masivo de la morosidad y pérdida crediticia esperada mediante software TAACs (PT-B3). Los procedimientos ejecutados confirmaron que los saldos se encuentran íntegros, válidos y razonablemente medidos sin necesidad de ajustes.",
       pasosNarrativos: [
         {
           pt: "PT-B1",
           etiqueta: "Paso 1 • Confirmación Directa y Cobros Posteriores",
           titulo: "Circularización a Grandes Clientes Corporativos B2B (Personal Tech) y Cobranzas Posteriores",
           afirmacion: "Afirmaciones Auditadas: Existencia y Propiedad (NIA 505 / Slosse)",
-          relato: "En PT-B1 auditamos la existencia real y titularidad de los créditos seleccionando una muestra estratificada de 65 grandes cuentas corporativas B2B de Personal Tech ($385.420M). Enviamos cartas de confirmación escrita directa (positiva) bajo control de auditoría, obteniendo 59 respuestas conformes directas ($366.620M) sin discrepancias (©). Para las 6 cuentas corporativas no contestadas en término ($18.800M de Techint y cuentas menores por $7.800M) y para una muestra de 1.500 cuentas del segmento masivo B2C ($48.200M), aplicamos el procedimiento alternativo estándar según la NIA 505 y Carlos A. Slosse: cotejamos la efectiva cobranza posterior en los extractos bancarios oficiales de enero 2026 en Banco Nación, Galicia, Macro y Santander, validando la cancelación efectiva del 100% de dichos saldos (✓ b). Diferencia: $0. Conforme."
+          relato: "En PT-B1 auditamos la existencia real y titularidad de los créditos seleccionando una muestra estratificada de 65 grandes cuentas corporativas B2B de Personal Tech ($385.420M). Enviamos cartas de confirmación escrita directa (positiva) bajo control de auditoría, obteniendo 59 respuestas conformes directas ($357.820M) sin discrepancias (©). Para las 6 cuentas corporativas no contestadas en término ($19.800M de Techint y cuentas menores por $7.800M) y para una muestra de 1.500 cuentas del segmento masivo B2C ($48.200M), aplicamos el procedimiento alternativo estándar según la NIA 505 y Carlos A. Slosse: cotejamos la efectiva cobranza posterior en los extractos bancarios oficiales de enero 2026 en Banco Nación, Galicia, Macro y Santander, validando la cancelación efectiva del 100% de dichos saldos (✓ b). Diferencia: $0. Conforme."
         },
         {
           pt: "PT-B2",
           etiqueta: "Paso 2 • Corte de Facturación e Interfaces de Cobro",
           titulo: "Prueba de Corte de Facturación B2B (Personal Tech) y Conciliación de Interfaces Recaudadoras Externas",
-          afirmacion: "Afirmaciones Auditadas: Integridad y Medición / Devengado (NIIF 15 / RT 37)",
-          relato: "En PT-B2 auditamos el corte de operaciones al cierre examinando los contratos corporativos B2B y actas de recepción técnica emitidas entre el 15/12/2025 y el 15/01/2026 ($74.250M), junto con la totalidad de los lotes de liquidación e interfaces de recaudadores externos (Rapipago, Pago Fácil y billeteras virtuales) al 31/12 ($36.890M en tránsito). Constatamos que los servicios prestados con hito al cierre se encontraban devengados en el ejercicio 2025 y los hitos de enero 2026 se registraron en el ejercicio siguiente de conformidad con la NIIF 15. Asimismo, las cobranzas en tránsito se conciliaron íntegramente contra los extractos bancarios del 02/01/2026 sin diferencias ni ingresos omitidos. Diferencia: $0. Conforme."
+          afirmacion: "Afirmaciones Auditadas: Integridad y Medición (corte bajo NIIF 15 / RT N° 32)",
+          relato: "En PT-B2 auditamos el corte de operaciones al cierre examinando los contratos corporativos B2B y actas de recepción técnica emitidas entre el 15/12/2025 y el 15/01/2026 ($54.650M), junto con la totalidad de los lotes de liquidación e interfaces de recaudadores externos (Rapipago, Pago Fácil y billeteras virtuales) al 31/12 ($36.890M en tránsito). Constatamos que los servicios prestados con hito al cierre se encontraban devengados en el ejercicio 2025 y los hitos de enero 2026 se registraron en el ejercicio siguiente de conformidad con la NIIF 15. Asimismo, las cobranzas en tránsito se conciliaron íntegramente contra los extractos bancarios del 02/01/2026 sin diferencias ni ingresos omitidos. Diferencia: $0. Conforme."
         },
         {
           pt: "PT-B3",
           etiqueta: "Paso 3 • Reproceso NIIF 9 y Pérdida Crediticia Esperada con TAACs",
           titulo: "Recálculo de la Matriz de Antigüedad de Deuda (Aging) y Previsión Acumulada NIIF 9 con TAACs",
-          afirmacion: "Afirmaciones Auditadas: Medición (Valuación NIIF 9) y Exposición (Nota 5)",
-          relato: "En PT-B3 ejecutamos un reproceso de auditoría asistido por computador (TAACs) sobre el 100% del padrón unificado de deudores de Telecom en SAP ($1.071.047 millones de saldos brutos y más de 18 millones de líneas activas). Clasificamos cronológicamente la cartera por tramos de vencimiento, comprobando que la totalidad de los deudores con morosidad superior a 180 días ($85.684M) se encuentran cubiertos al 100%. Al recalcular de forma independiente la matriz simplificada de Pérdida Crediticia Esperada (ECL NIIF 9) incorporando tasas históricas de incumplimiento y factores macroeconómicos forward-looking, obtuvimos una provisión requerida de $(270.919) millones, coincidente de forma exacta con la cifra contabilizada por la Sociedad en la Nota 5. La estimación contable es suficiente y razonable. Diferencia de auditoría: $0. Conforme sin ajustes."
+          afirmacion: "Afirmaciones Auditadas: Medición (NIIF 9 / Nota 5)",
+          relato: "En PT-B3 ejecutamos un reproceso de auditoría asistido por computador (TAACs) sobre el 100% del padrón unificado de deudores de Telecom en SAP ($1.071.047 millones de saldos brutos y más de 41,6 millones de líneas móviles activas). Clasificamos cronológicamente la cartera por tramos de vencimiento, comprobando que la totalidad de los deudores con morosidad superior a 180 días ($85.684M) se encuentran cubiertos al 100%. Al recalcular de forma independiente la matriz simplificada de Pérdida Crediticia Esperada (ECL NIIF 9) incorporando tasas históricas de incumplimiento y el ajuste macroeconómico prospectivo por inflación y riesgo crediticio futuro ($123.018M), obtuvimos una provisión requerida de $(270.919) millones, coincidente de forma exacta con la cifra contabilizada por la Sociedad en la Nota 5. La estimación contable es suficiente y razonable. Diferencia de auditoría: $0. Conforme sin ajustes."
         }
       ],
-      conclusionNarrativa: "En base a las pruebas sustantivas realizadas conforme a las Normas Internacionales de Auditoría (NIA 500, NIA 505 y NIA 520) y a la Resolución Técnica N° 37 de la FACPCE, se concluye que el rubro Créditos por Ventas de Telecom Argentina S.A. al 31 de diciembre de 2025 presenta un saldo neto auditado de $800.128 millones que refleja razonablemente los derechos de cobro de la entidad en todos sus aspectos significativos, con saldos existentes, íntegros, de su legítima propiedad y adecuadamente valuados bajo NIIF 9 y NIIF 15. No se identificaron desvíos materiales ni se proponen ajustes contables al cierre del ejercicio auditado."
+      conclusionNarrativa: "En base a las pruebas sustantivas realizadas conforme a las Normas Internacionales de Auditoría (NIA 500, NIA 505 y NIA 520, adoptadas por la Resolución Técnica N° 32 de la FACPCE), se concluye que el rubro Créditos por Ventas de Telecom Argentina S.A. al 31 de diciembre de 2025 presenta un saldo neto auditado de $800.128 millones que refleja razonablemente los derechos de cobro de la entidad en todos sus aspectos significativos, con saldos existentes, íntegros, de su legítima propiedad y adecuadamente valuados bajo NIIF 9 y NIIF 15. No se identificaron desvíos materiales ni se proponen ajustes contables al cierre del ejercicio auditado."
     }
   },
   {

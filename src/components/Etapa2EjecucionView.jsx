@@ -2004,7 +2004,7 @@ export default function Etapa2EjecucionView({
                         (activePT.id === 'pt-a'
                           ? 'Fundamentación del Ajuste AJ-01 por $28.340M bajo la NIA 450 y Evaluación de Materialidad'
                           : activePT.id === 'pt-b'
-                          ? 'Conclusión del Rubro Créditos por Ventas bajo NIA 500 / RT 37 — Validación Conforme Sin Ajustes'
+                          ? 'Conclusión del Rubro Créditos por Ventas bajo NIA 500 (RT N° 32) / NIIF 9 y 15 — Validación Conforme Sin Ajustes'
                           : `Conclusión General del Rubro ${activePT.rubro.split('(')[0].trim()} (RT 37 / NIA 500) — Validación Conforme`);
 
                       return (

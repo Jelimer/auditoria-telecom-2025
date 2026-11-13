@@ -1047,9 +1047,9 @@ export const rubrosSignificativos = [
     composicionSaldo: "$799.188M Corriente (Créditos brutos $1.070.107M —comunes $1.067.130M— menos Previsión NIIF 9 $(270.919)M) + $940M No Corriente = $800.128M (Incluye incorporación TMA $421.919M bajo NIIF 3)",
     participacionActivo: "4,81% del Activo Total (Duplicación interanual +105,25%)",
     riesgoInherente: "ALTO",
-    riesgoControl: "ALTO",
+    riesgoControl: "MEDIO",
     riesgoDeteccion: "BAJO",
-    importancia: "Registra un saldo neto consolidado de $800.128 millones ($799.188M corrientes y $940M no corrientes en Nota 5), duplicándose (+105,25%) frente a 2024 ($389.375M) mientras las Ventas crecieron +53,02%. El Riesgo Inherente ALTO proviene de 3 factores bajo NIIF: 1) La adquisición de Telefónica Móviles Argentina S.A. (TMA) el 24/02/2025 (NIIF 3), que incorpora al cierre el 100% del stock de créditos de TMA ($421.919M a valor razonable) mientras el Estado de Resultados consolida solo 10 meses de ventas de TMA (mar-dic 2025); 2) El aumento de la morosidad (créditos comunes brutos por $1.067.130M y Previsión Acumulada NIIF 9 por $(270.919)M en Nota 5); y 3) El Riesgo de Control ALTO por desfasajes en cobranzas externas, corte B2B y carteras migradas con mora > 180 días.",
+    importancia: "Registra un saldo neto consolidado de $800.128 millones ($799.188M corrientes y $940M no corrientes en Nota 5), duplicándose (+105,25%) frente a 2024 ($389.375M) mientras las Ventas crecieron +53,02%. La combinación de Riesgo Inherente ALTO y Riesgo de Control MEDIO (28,00% según CCI-02) proviene de 3 factores bajo NIIF: 1) La adquisición de Telefónica Móviles Argentina S.A. (TMA) el 24/02/2025 (NIIF 3), que incorpora al cierre el 100% del stock de créditos de TMA ($421.919M a valor razonable) mientras el Estado de Resultados consolida solo 10 meses de ventas de TMA (mar-dic 2025); 2) El riesgo inherente de morosidad y valuación de la cartera unificada (créditos comunes brutos por $1.067.130M, saldos > 180 días migrados y Previsión Acumulada NIIF 9 por $(270.919)M en Nota 5); y 3) Debilidades puntuales de control detectadas en CCI-02 (desfasajes de 24-48 hs en cobranzas externas, demoras en corte B2B y re-imputación de débitos rechazados).",
     afirmaciones: [
       {
         afirmacion: "Existencia",
@@ -1097,7 +1097,7 @@ export const rubrosSignificativos = [
         riesgo: "Incorrecta separación entre créditos corrientes y no corrientes, o revelación incompleta del riesgo de crédito, evolución de la previsión NIIF 9 y saldos con partes relacionadas.",
         controlClave: "Parametrización en SAP de los vencimientos contractuales y lista de chequeo de revelaciones NIIF revisada por la Gerencia de Contabilidad.",
         naturalezaProc: "Revisión de la presentación y revelación en los Estados Contables.",
-        instrumento: "Cotejar la Nota 5 con el balance de sumas y saldos de SAP, verificando que las notas clasifiquen adecuadamente los créditos según su vencimiento (a vencer y vencidos por tramos) y expongan las concentraciones de riesgo de crédito (NIIF 7), la evolución de la previsión NIIF 9 y los saldos con partes relacionadas (NIC 24).",
+        instrumento: "Cotejar la Nota 5 con el balance de sumas y saldos de SAP, verificando que las notas clasifiquen adecuadamente los créditos según su vencimiento (a vencer y vencidos por tramos) y expongan adecuadamente los saldos con partes relacionadas (Nota 28.b / NIC 24), el activo contractual NIIF 15, la evolución de la previsión NIIF 9 y los desgloses de riesgo crediticio conforme a NIIF 7 (Nota 27).",
         oportunidad: "Cierre definitivo.",
         alcance: "Revisión del 100% de los desgloses de la Nota 5 y anexos vinculados (NIIF 7)."
       }

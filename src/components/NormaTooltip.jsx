@@ -390,7 +390,7 @@ export const TERMINOS_AUDITORIA_DICCIONARIO = {
     afirmaciones: 'Integridad y Medición',
     queEs: 'Scripts de software (ej. Python, ACL, SQL) que permiten al auditor reprocesar de forma automática y masiva el 100% de los datos de un sistema contable como SAP.',
     utilidadMesa:
-      'Frente a 18 millones de abonados y millones de documentos abiertos, permite al auditor recalcular toda la cartera en segundos sin recurrir a muestreos manuales.'
+      'Frente a más de 41,6 millones de líneas móviles, 6,1 millones de accesos a internet y millones de documentos abiertos, permite al auditor recalcular toda la cartera en segundos sin recurrir a muestreos manuales.'
   },
   PERSONAL_TECH: {
     termino: 'Personal Tech (Unidad B2B de Telecom)',
