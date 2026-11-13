@@ -465,61 +465,61 @@ export const papelesTrabajo = [
         nombre: "Prueba de Corte de Facturación B2B (Personal Tech) y Conciliación de Interfaces Recaudadoras Externas",
         afirmaciones: ["Integridad", "Medición"],
         marca: "§ ✓ b ∑",
-        muestra: "100% de contratos B2B con hitos y actas de recepción emitidas entre el 15/12/2025 y el 15/01/2026 ($54.650M) y 100% de los lotes de liquidación e interfaces de cobranza externa (Rapipago, Pago Fácil, Billeteras Virtuales) al 31/12/2025 ($36.890M conciliados con extractos bancarios de enero 2026).",
+        muestra: "100% de los contratos corporativos B2B con actas de entrega emitidas entre el 15/12/2025 y el 15/01/2026 ($54.650M) y 100% de los lotes de cierre de recaudadores externos (Rapipago, Pago Fácil y billeteras virtuales) al 31/12/2025 ($36.890M conciliados con extractos bancarios de enero 2026).",
         pasosConResultado: [
           {
             paso: "Prueba sustantiva de corte de facturación de servicios corporativos B2B (Personal Tech) bajo NIIF 15 para validar el devengamiento en el período correspondiente.",
-            comoSeEjecuta: "Se cotejan las actas de recepción de servicios corporativos de conectividad Cloud, SD-WAN y ciberseguridad emitidas entre el 15/12/2025 y el 15/01/2026 contra el módulo de facturación en SAP. Se comprueba que los ingresos por prestaciones concluidas antes del 31/12/2025 se encuentren devengados en el ejercicio 2025 y que los servicios correspondientes a enero 2026 no se hayan anticipado indebidamente.",
-            fuentes: "Actas de conformidad de servicios B2B, órdenes de trabajo, contratos marco corporativos y subdiario de facturación en SAP.",
+            comoSeEjecuta: "Se comparan las actas de conformidad de los servicios corporativos de conectividad Cloud, SD-WAN y ciberseguridad emitidas entre el 15/12/2025 y el 15/01/2026 contra las facturas registradas en SAP. Se comprueba que los trabajos concluidos hasta el 31/12/2025 queden contabilizados en el ejercicio 2025 y que los servicios prestados en enero de 2026 se registren recién en el año siguiente, sin adelantar ni omitir ingresos.",
+            fuentes: "Actas de conformidad de servicios B2B, órdenes de trabajo, contratos corporativos y facturas registradas en SAP.",
             valores: "Muestra de contratos corporativos por un monto de $54.650 millones entre el 15/12/2025 y el 15/01/2026.",
-            resultado: "Se verificó que los servicios corporativos con hito completado al 31/12/2025 se encontraban devengados en el ejercicio 2025 y los hitos de enero 2026 fueron imputados en el nuevo ejercicio, constatando el correcto corte contable bajo NIIF 15 (✓ §).",
+            resultado: "Se verificó que los servicios corporativos terminados al 31/12/2025 quedaron imputados en el ejercicio 2025 y los entregados en enero de 2026 en el ejercicio siguiente, constatando un corte contable correcto bajo NIIF 15 (✓ §).",
             tabla: {
-              cabeceras: ["Ítem / Contrato / Interfaz", "Fecha Acta / Liq.", "Fecha Fac. SAP / Cierre Interfaz", "Período Imputado", "Monto ($M)", "Inspección Documental y Bancaria", "Marcas y Estado"],
+              cabeceras: ["Ítem / Contrato / Canal de Cobro", "Fecha Acta / Cierre", "Fecha Fac. SAP / Acredit.", "Período Imputado", "Monto ($M)", "Inspección Documental y Bancaria", "Marcas y Estado"],
               filas: [
-                { valores: ["Contrato B2B Fibra Óptica - Hito 4", "22/12/2025", "28/12/2025", "Ejercicio 2025", "$14.500", "Acta conforme y devengado en 2025", "§ ✓ Conforme"] },
+                { valores: ["Contrato B2B Fibra Óptica - Etapa 4", "22/12/2025", "28/12/2025", "Ejercicio 2025", "$14.500", "Acta conforme y devengado en 2025", "§ ✓ Conforme"] },
                 { valores: ["Contrato Datacenter Corp. - Abono Dic", "30/12/2025", "31/12/2025", "Ejercicio 2025", "$18.200", "Servicio prestado e imputado en 2025", "§ ✓ Conforme"] },
-                { valores: ["Contrato Soluciones Cloud - Hito Enero", "05/01/2026", "08/01/2026", "Ejercicio 2026", "$12.100", "Devengado en 2026; corte correcto sin anticipación", "§ ✓ Conforme"] },
-                { valores: ["Contrato Provisión Enlaces 5G - Fase 1", "12/01/2026", "14/01/2026", "Ejercicio 2026", "$9.850", "Hito certificado e imputado en 2026", "§ ✓ Conforme"] },
-                { valores: ["Interfaz Rapipago (Cobranzas 29-31/12)", "31/12/2025", "31/12/2025", "Ejercicio 2025", "$16.420", "Acreditación en cuenta Bco Nación 02/01/26", "§ ✓ b Conforme"] },
-                { valores: ["Interfaz Pago Fácil (Cobranzas 29-31/12)", "31/12/2025", "31/12/2025", "Ejercicio 2025", "$12.870", "Acreditación en cuenta Bco Galicia 02/01/26", "§ ✓ b Conforme"] },
-                { valores: ["Interfaz Billeteras (Mercado Pago / Modo)", "31/12/2025", "31/12/2025", "Ejercicio 2025", "$7.600", "Conciliación de API y extracto bancario 02/01/26", "§ ✓ b Conforme"] },
+                { valores: ["Contrato Soluciones Cloud - Entrega Ene", "05/01/2026", "08/01/2026", "Ejercicio 2026", "$12.100", "Devengado en 2026; corte correcto", "§ ✓ Conforme"] },
+                { valores: ["Contrato Provisión Enlaces 5G - Etapa 1", "12/01/2026", "14/01/2026", "Ejercicio 2026", "$9.850", "Servicio certificado e imputado en 2026", "§ ✓ Conforme"] },
+                { valores: ["Rapipago (Cobranzas 29-31/12)", "31/12/2025", "31/12/2025", "Ejercicio 2025", "$16.420", "Acreditación en cuenta Bco Nación 02/01/26", "§ ✓ b Conforme"] },
+                { valores: ["Pago Fácil (Cobranzas 29-31/12)", "31/12/2025", "31/12/2025", "Ejercicio 2025", "$12.870", "Acreditación en cuenta Bco Galicia 02/01/26", "§ ✓ b Conforme"] },
+                { valores: ["Billeteras (Mercado Pago / Modo)", "31/12/2025", "31/12/2025", "Ejercicio 2025", "$7.600", "Cierre del recaudador y extracto bancario 02/01/26", "§ ✓ b Conforme"] },
                 { destacado: true, valores: ["Total Procedimiento de Corte e Interfaces", "-", "-", "-", "$91.540", "Verificado 100% en término y debidamente imputado", "§ ∑ Validado Conforme"] }
               ]
             }
           },
           {
-            paso: "Auditoría de conciliaciones de interfaces con agentes de cobranza externa al 31/12/2025 (Rapipago, Pago Fácil y Billeteras Virtuales).",
-            comoSeEjecuta: "Se examinan las rendiciones de recaudación masiva de agentes externos (Gire S.A. / Rapipago, Western Union / Pago Fácil) y billeteras virtuales (Mercado Pago, Modo) al 31/12/2025 por $36.890 millones en tránsito. Se cotejan contra las acreditaciones bancarias de los primeros días hábiles de enero 2026 y la desafectación en los auxiliares de clientes en SAP.",
-            fuentes: "Archivos EDI de rendición diaria de recaudadores, extractos bancarios de enero 2026 y subdiario de cobranzas en SAP.",
+            paso: "Auditoría de conciliaciones con agentes de cobranza externa al 31/12/2025 (Rapipago, Pago Fácil y Billeteras Virtuales).",
+            comoSeEjecuta: "Se revisan los reportes de cierre de recaudación masiva de agentes externos (Rapipago, Pago Fácil) y billeteras virtuales (Mercado Pago, Modo) al 31/12/2025 por $36.890 millones en tránsito. Se cotejan contra las acreditaciones reales en los extractos bancarios del primer día hábil de enero 2026 y contra la cancelación de la deuda en las cuentas de clientes en SAP.",
+            fuentes: "Reportes de cierre diario de recaudadores y billeteras, extractos bancarios de enero 2026 y registros de cobranza en SAP.",
             valores: "Cobranzas masivas en tránsito al cierre por $36.890 millones.",
-            resultado: "Se constató que las partidas en tránsito se encontraban adecuadamente conciliadas e impactadas en las cuentas de clientes al 31/12/2025, acreditándose íntegramente en los extractos bancarios del 02/01/2026 sin diferencias ni ingresos omitidos (✓ b §)."
+            resultado: "Se constató que las partidas en tránsito estaban correctamente conciliadas y descargadas de las cuentas de clientes al 31/12/2025, acreditándose íntegramente en los extractos bancarios del 02/01/2026 sin diferencias ni cobros omitidos (✓ b §)."
           }
         ],
-        procedimientoDetalle: "1) Corte B2B NIIF 15: Se auditaron actas y contratos firmados entre el 15/12/2025 y el 15/01/2026 por $54.650M, constatando su devengamiento en el período correspondiente. 2) Conciliación de interfaces: Se revisaron los lotes de recaudación externa de fin de año por $36.890M, verificando su acreditación bancaria en término en enero 2026 y su correcta imputación contable sin diferencias ($0).",
-        fuentes: "Actas de conformidad B2B, contratos marco, órdenes de facturación en SAP, rendiciones de agentes recaudadores y extractos bancarios de enero 2026.",
-        valores: "Total procedimiento de corte e interfaces de $91.540 millones verificado conforme.",
-        defensaOral: "Profesor, en PT-B2 auditamos el corte de operaciones al 31/12/2025 con dos enfoques: primero, seleccionamos las actas de conformidad de servicios corporativos B2B de Personal Tech emitidas entre el 15/12/2025 y el 15/01/2026, comprobando que los ingresos y sus créditos asociados se devengaron en el ejercicio que correspondía bajo NIIF 15; segundo, auditamos las interfaces de cobranza con recaudadores externos (Rapipago, Pago Fácil y billeteras virtuales) con corte al 31/12/2025, corroborando que los fondos en tránsito se acreditaron en los extractos bancarios de los primeros días hábiles de enero 2026 sin desvíos ni omisiones de cobros. Diferencia: $0. Conforme.",
+        procedimientoDetalle: "1) Corte B2B NIIF 15: Se compararon las actas de conformidad y contratos entre el 15/12/2025 y el 15/01/2026 ($54.650M) con SAP, constatando su registración en el período correcto. 2) Recaudadores externos: Se revisaron los cierres de fin de año de Rapipago, Pago Fácil y billeteras ($36.890M), verificando su acreditación bancaria el 02/01/2026 y la baja en cuenta de clientes sin diferencias ($0).",
+        fuentes: "Actas de conformidad B2B, contratos marco, facturas en SAP, reportes de agentes recaudadores y extractos bancarios de enero 2026.",
+        valores: "Total procedimiento de corte y recaudadores de $91.540 millones verificado conforme.",
+        defensaOral: "Profesor, en PT-B2 auditamos el corte de operaciones al 31/12/2025 en dos frentes: primero, comparamos las actas de conformidad de servicios B2B entregados entre el 15/12/2025 y el 15/01/2026 contra SAP para confirmar que cada ingreso quedó en el ejercicio en que realmente se prestó el servicio (NIIF 15); segundo, controlamos las cobranzas de fin de año de Rapipago, Pago Fácil y billeteras virtuales en tránsito al 31/12, verificando que los clientes quedaron cancelados al cierre y que el dinero entró completo al banco el 2 de enero de 2026. Diferencia: $0.",
         afirmacionesDetalle: "Valida Integridad (registro íntegro de operaciones devengadas) y Medición (corte estricto de ingresos y créditos bajo NIIF 15)."
       },
       {
         ref: "PT-B3",
         bloquePrograma: "3. Evaluación y Recálculo de la Previsión para Incobrables NIIF 9 con TAACs (Medición)",
-        nombre: "Recálculo de la Matriz de Antigüedad de Deuda (Aging) y Pérdida Crediticia Esperada (ECL NIIF 9) con TAACs",
+        nombre: "Recálculo de la Antigüedad de Deuda y Pérdida Crediticia Esperada (NIIF 9) con TAACs",
         afirmaciones: ["Medición"],
         marca: "§ ✓ ∑",
-        muestra: "100% del padrón unificado de deudores en ERP SAP ($1.071.047M brutos; universo de más de 41,6 millones de líneas móviles, 6,1M internet y 3,9M TV) mediante software de auditoría asistido por computador (TAACs).",
+        muestra: "100% del padrón unificado de deudores en SAP ($1.071.047M brutos; más de 41,6 millones de líneas móviles, 6,1M internet y 3,9M TV) analizado mediante herramientas de auditoría asistidas por computadora (TAACs).",
         pasosConResultado: [
           {
-            paso: "Extracción y reproceso analítico del 100% de la base unificada de antigüedad de saldos (aging) al 31/12/2025 mediante TAACs.",
-            comoSeEjecuta: "Mediante scripts de auditoría en Python/TAACs sobre la base unificada de partidas abiertas de SAP FI-AR / FI-CA, se recalcula la antigüedad exacta de cada documento por fecha de vencimiento contractual, clasificándolos en 5 tramos cronológicos: corrientes a vencer, 1 a 30 días, 31 a 90 días, 91 a 180 días y más de 180 días de mora.",
-            fuentes: "Base unificada de deudores y partidas abiertas en ERP SAP (módulos FI-AR y FI-CA) al 31/12/2025.",
+            paso: "Extracción y recálculo del 100% de la base unificada de antigüedad de saldos de deudores al 31/12/2025 mediante TAACs.",
+            comoSeEjecuta: "Mediante herramientas de auditoría asistidas por computadora (TAACs), se extrae la totalidad de los saldos a cobrar registrados en SAP (grandes clientes y cartera masiva, incluyendo la cartera migrada de TMA) y se recalcula la antigüedad exacta de cada factura según su vencimiento, ordenándolas en 5 tramos de atraso: a vencer, 1 a 30 días, 31 a 90 días, 91 a 180 días y más de 180 días de mora.",
+            fuentes: "Padrón unificado de deudores y facturas pendientes de cobro en SAP al 31/12/2025.",
             valores: "Padrón unificado de más de 41,6 millones de líneas móviles, 6,1M internet y 3,9M TV, con saldos brutos por $1.071.047 millones ($1.070.107M corrientes y $940M no corrientes).",
-            resultado: "El reproceso analítico con TAACs confirmó la integridad matemática y adecuada estratificación de la cartera por tramos de morosidad sin partidas omitidas ni duplicadas (∑ §)."
+            resultado: "El recálculo con TAACs confirmó la suma matemática exacta y la correcta clasificación de la cartera por tramos de atraso, sin facturas omitidas ni duplicadas (∑ §)."
           },
           {
-            paso: "Verificación de la cobertura al 100% de los deudores con morosidad superior a 180 días y recálculo de la matriz de pérdida crediticia esperada (NIIF 9).",
-            comoSeEjecuta: "Conforme a la NIIF 9 (enfoque simplificado de pérdidas crediticias esperadas), se valida que la totalidad de los deudores con mora superior a 180 días ($85.684 millones) se encuentren contemplados en la matriz de previsión al 100%. Asimismo, se aplica la matriz de probabilidad de pérdida sobre los tramos restantes incorporando tasas históricas de incobrabilidad y la ponderación de variables macroeconómicas predictivas (ajuste macroeconómico prospectivo por inflación y riesgo crediticio futuro por $123.018 millones, exigido por NIIF 9).",
-            fuentes: "Modelo actuarial de riesgo crediticio de Telecom, matrices históricas de morosidad y Nota 5 de los Estados Financieros.",
+            paso: "Verificación de la cobertura al 100% de los deudores con mora mayor a 180 días y recálculo de la previsión esperada (NIIF 9).",
+            comoSeEjecuta: "Siguiendo la NIIF 9 (modelo de pérdida crediticia esperada), primero validamos que el 100% de los clientes con atraso mayor a 180 días ($85.684 millones) esté previsionado en su totalidad. Luego, sobre los tramos restantes aplicamos los porcentajes históricos de incobrabilidad de Telecom y el ajuste macroeconómico prospectivo por inflación y riesgo crediticio futuro ($123.018 millones) que exige la NIIF 9.",
+            fuentes: "Estadísticas históricas de incobrabilidad de Telecom, proyecciones macroeconómicas y Nota 5 de los Estados Financieros.",
             valores: "Cartera bruta de $1.071.047 millones y previsión registrada en libros de $(270.919) millones.",
             resultado: "El recálculo independiente arrojó una previsión de $(270.919) millones, coincidiendo de forma exacta con el saldo contable registrado por la Sociedad en la Nota 5. Diferencia de auditoría: $0. Conforme (✓ ∑ §).",
             tabla: {
@@ -536,8 +536,8 @@ export const papelesTrabajo = [
             }
           }
         ],
-        procedimientoDetalle: "1) Reproceso con TAACs: Se procesó el 100% de la base de datos de deudores en SAP clasificando los saldos por antigüedad. 2) Mora > 180 días: Se comprobó que el 100% de los deudores con morosidad superior a 180 días ($85.684M) están cubiertos al 100% en la previsión. 3) Recálculo NIIF 9: Se aplicó la matriz de pérdida crediticia esperada incorporando variables históricas y el ajuste macroeconómico prospectivo por inflación y riesgo crediticio futuro ($123.018M), obteniendo una previsión requerida de $(270.919)M coincidente al 100% con los libros.",
-        fuentes: "Padrón unificado de partidas abiertas en SAP (FI-AR / FI-CA), tablas de parámetros NIIF 9 y Nota 5 de los Estados Contables.",
+        procedimientoDetalle: "1) Reproceso con TAACs: Se analizó el 100% de los deudores en SAP ordenándolos por días de atraso. 2) Mora > 180 días: Se comprobó que toda la deuda vencida hace más de 180 días ($85.684M) está previsionada al 100%. 3) Recálculo NIIF 9: Se aplicaron las tasas históricas por tramo más el ajuste macroeconómico prospectivo por inflación y riesgo crediticio futuro ($123.018M), obteniendo una previsión de $(270.919)M idéntica a los libros.",
+        fuentes: "Padrón completo de saldos a cobrar en SAP, parámetros de incobrabilidad NIIF 9 y Nota 5 de los Estados Contables.",
         valores: "Padrón de $1.071.047M brutos. Previsión contable $(270.919)M vs Previsión auditada $(270.919)M. Diferencia: $0.",
         defensaOral: "Profesor, en PT-B3 auditamos la afirmación de Medición de la Previsión para Deudores Incobrables bajo NIIF 9 mediante software de auditoría asistido por computador (TAACs) sobre la totalidad de los deudores. Comprobamos dos aspectos centrales: primero, que la totalidad de los clientes con morosidad superior a 180 días ($85.684 millones) se encuentran previsionados al 100%; segundo, recalculamos de forma independiente la matriz de pérdida crediticia esperada integrando factores macroeconómicos de la economía argentina. El recálculo arrojó exactamente $(270.919) millones, igual al saldo contable expuesto en la Nota 5. La previsión es razonable y suficiente. No se requiere ajuste.",
         afirmacionesDetalle: "Valida Medición (valuación de deudores incobrables conforme a la Pérdida Crediticia Esperada de NIIF 9)."
@@ -562,7 +562,7 @@ export const papelesTrabajo = [
           etiqueta: "Paso 2 • Corte de Facturación e Interfaces de Cobro",
           titulo: "Prueba de Corte de Facturación B2B (Personal Tech) y Conciliación de Interfaces Recaudadoras Externas",
           afirmacion: "Afirmaciones Auditadas: Integridad y Medición (corte bajo NIIF 15 / RT N° 32)",
-          relato: "En PT-B2 auditamos el corte de operaciones al cierre examinando los contratos corporativos B2B y actas de recepción técnica emitidas entre el 15/12/2025 y el 15/01/2026 ($54.650M), junto con la totalidad de los lotes de liquidación e interfaces de recaudadores externos (Rapipago, Pago Fácil y billeteras virtuales) al 31/12 ($36.890M en tránsito). Constatamos que los servicios prestados con hito al cierre se encontraban devengados en el ejercicio 2025 y los hitos de enero 2026 se registraron en el ejercicio siguiente de conformidad con la NIIF 15. Asimismo, las cobranzas en tránsito se conciliaron íntegramente contra los extractos bancarios del 02/01/2026 sin diferencias ni ingresos omitidos. Diferencia: $0. Conforme."
+          relato: "En PT-B2 auditamos el corte de operaciones al cierre comparando las actas de conformidad de los servicios B2B entregados entre el 15/12/2025 y el 15/01/2026 ($54.650M) contra SAP, junto con los reportes de cierre de recaudadores externos (Rapipago, Pago Fácil y billeteras virtuales) al 31/12 ($36.890M en tránsito). Constatamos que los trabajos terminados hasta el 31/12/2025 quedaron contabilizados en 2025 y los entregados en enero 2026 en el ejercicio siguiente bajo NIIF 15. Asimismo, las cobranzas en tránsito se acreditaron íntegramente en los extractos bancarios del 02/01/2026 sin diferencias ni ingresos omitidos. Diferencia: $0. Conforme."
         },
         {
           pt: "PT-B3",
