@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { documentosEtapa3 } from '../data/etapas2y3Data';
 import { proyectoMeta } from '../data/etapa1Data';
+import { NormaTooltip } from './NormaTooltip';
 
 export default function Etapa3InformeView({
   cciCalculados = [],
@@ -120,6 +121,13 @@ export default function Etapa3InformeView({
         <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div>
             <div className="flex flex-wrap items-center gap-2">
+              <NormaTooltip
+                code="RT 32"
+                variant="pill"
+                pillClassName="bg-indigo-800 text-lime-300 hover:bg-indigo-900"
+                align="left"
+                placement="bottom"
+              />
               <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-indigo-600 text-white">
                 ETAPA 3 — CONCLUSIÓN, CIERRE TÉCNICO Y EMISIÓN DEL INFORME BAJO NIAs (RT N° 32 FACPCE)
               </span>
@@ -284,7 +292,7 @@ export default function Etapa3InformeView({
             </p>
             <ul className="list-disc pl-5 space-y-1 text-red-100 leading-relaxed">
               <li>
-                <strong className="text-white">Tipo de Opinión (NO cambia — sigue Favorable sin Salvedades):</strong> El desvío sin ajustar ({((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de PM; impacto patrimonial neto ${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M) queda muy por debajo del <strong>Error Tolerable ($83.112M)</strong> y de la <strong>Materialidad Global ($166.225M)</strong>. Según la <strong>NIA 450 y NIA 700</strong>, no distorsiona significativamente los EECC consolidados en su conjunto (solo pasaría a <em>Opinión con Salvedades — NIA 705</em> si superara los $166.225M).
+                <strong className="text-white">Tipo de Opinión (NO cambia — sigue Favorable sin Salvedades):</strong> El desvío sin ajustar ({((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de PM; impacto patrimonial neto ${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M) queda muy por debajo del <strong>Error Tolerable ($83.112M)</strong> y de la <strong>Materialidad Global ($166.225M)</strong>. Según la <NormaTooltip code="NIA 450" /> y <NormaTooltip code="NIA 700" />, no distorsiona significativamente los EECC consolidados en su conjunto (solo pasaría a <em>Opinión con Salvedades — <NormaTooltip code="NIA 705" /></em> si superara los $166.225M).
               </li>
               <li>
                 <strong className="text-white">Lo que SÍ cambia en el Informe y Legajo de Cierre:</strong>{' '}
@@ -292,7 +300,7 @@ export default function Etapa3InformeView({
                   'Bienes de Uso queda en libros en $6.789.118M sin depurar los $28.340M obsoletos/siniestrados; '}
                 {ajustesPendientes.some((a) => a.id === 'aj-4') &&
                   'Ventas y Costos Flow quedan expuestos en bruto (+$11.240M, efecto $0 en PN y Resultado); '}
-                se activa la <strong>constancia NIA 450</strong> dentro del bloque <em>1. Opinión</em>, la <strong>Carta de Representación (NIA 450.14)</strong> incorpora obligatoriamente el anexo firmado por CEO/CFO declarando inmaterial el desvío no corregido, y se refuerza la comunicación al <strong>Directorio / Comité de Auditoría (CCI-02 / NIA 260)</strong>.
+                se activa la <strong>constancia <NormaTooltip code="NIA 450" /></strong> dentro del bloque <em>1. Opinión</em>, la <strong>Carta de Representación (<NormaTooltip code="NIA 450" />.14)</strong> incorpora obligatoriamente el anexo firmado por CEO/CFO declarando inmaterial el desvío no corregido, y se refuerza la comunicación al <strong>Directorio / Comité de Auditoría (CCI-02 / <NormaTooltip code="NIA 260" />)</strong>.
               </li>
             </ul>
           </div>
@@ -311,8 +319,10 @@ export default function Etapa3InformeView({
         <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs max-w-4xl mx-auto space-y-5">
           <div className="border-b border-slate-200 pb-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="px-2.5 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-extrabold">
-                PASO 1 DE CIERRE • 12/02/2026 — CARTA DE CONTROL INTERNO (NIA 265 / SLOSSE)
+              <span className="px-2.5 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-extrabold inline-flex flex-wrap items-center gap-1">
+                <span>PASO 1 DE CIERRE • 12/02/2026 — CARTA DE CONTROL INTERNO (</span>
+                <NormaTooltip code="NIA 265" align="left" placement="bottom" />
+                <span>/ SLOSSE)</span>
               </span>
               <span className="text-xs font-mono font-bold text-slate-500">
                 Ref: Legajo Conclusión LC-01
@@ -404,8 +414,12 @@ export default function Etapa3InformeView({
         <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs max-w-4xl mx-auto space-y-5">
           <div className="border-b border-slate-200 pb-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="px-2.5 py-0.5 rounded bg-teal-100 text-teal-800 text-xs font-extrabold">
-                PASO 2 DE CIERRE • 18/02/2026 — ANTES DE EMITIR EL DICTAMEN (SLOSSE / NIA 220 & 450)
+              <span className="px-2.5 py-0.5 rounded bg-teal-100 text-teal-800 text-xs font-extrabold inline-flex flex-wrap items-center gap-1">
+                <span>PASO 2 DE CIERRE • 18/02/2026 — ANTES DE EMITIR EL DICTAMEN (SLOSSE /</span>
+                <NormaTooltip code="NIA 220" align="center" placement="bottom" />
+                <span>&amp;</span>
+                <NormaTooltip code="NIA 450" align="center" placement="bottom" />
+                <span>)</span>
               </span>
               <span className="text-xs font-mono font-bold text-slate-500">
                 Ref: Legajo Conclusión LC-02
@@ -575,8 +589,10 @@ export default function Etapa3InformeView({
         <div className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs max-w-4xl mx-auto space-y-5">
           <div className="border-b border-slate-200 pb-4 space-y-2">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="px-2.5 py-0.5 rounded bg-purple-100 text-purple-800 text-xs font-extrabold">
-                PASO 3 DE CIERRE • 20/02/2026 (MISMA FECHA DEL INFORME — NIA 580.14)
+              <span className="px-2.5 py-0.5 rounded bg-purple-100 text-purple-800 text-xs font-extrabold inline-flex flex-wrap items-center gap-1">
+                <span>PASO 3 DE CIERRE • 20/02/2026 (MISMA FECHA DEL INFORME —</span>
+                <NormaTooltip code="NIA 580" align="left" placement="bottom" />
+                <span>.14)</span>
               </span>
               <span className="text-xs font-mono font-bold text-slate-500">
                 Ref: Legajo Conclusión LC-03
@@ -607,7 +623,7 @@ export default function Etapa3InformeView({
             }`}
           >
             <p className="font-extrabold">
-              Anexo de Manifestaciones s/ Planilla de Ajustes Propuestos (NIA 450.14 — Estado en Vivo):
+              Anexo de Manifestaciones s/ Planilla de Ajustes Propuestos (<NormaTooltip code="NIA 450" />.14 — Estado en Vivo):
             </p>
             <p className="mt-1 leading-relaxed">
               {esLimpiaEstricta
@@ -858,16 +874,16 @@ export default function Etapa3InformeView({
                     Obtenemos conocimiento del control interno relevante para la auditoría con el fin de diseñar procedimientos de auditoría que sean adecuados en función de las circunstancias y no con la finalidad de expresar una opinión sobre la eficacia del control interno del Grupo.
                   </li>
                   <li>
-                    Evaluamos lo adecuado de las políticas contables aplicadas y la razonabilidad de las estimaciones contables y la correspondiente información revelada por el Directorio (NIA 540).
+                    Evaluamos lo adecuado de las políticas contables aplicadas y la razonabilidad de las estimaciones contables y la correspondiente información revelada por el Directorio (<NormaTooltip code="NIA 540" />).
                   </li>
                   <li>
-                    Concluimos sobre lo adecuado de la utilización, por el Directorio, del principio contable de <strong>empresa en funcionamiento</strong> y, basándonos en la evidencia obtenida, si existe o no una incertidumbre material relacionada con hechos o con condiciones que puedan generar dudas significativas sobre la capacidad del Grupo para continuar como empresa en funcionamiento (<strong>NIA 570</strong>).
+                    Concluimos sobre lo adecuado de la utilización, por el Directorio, del principio contable de <strong>empresa en funcionamiento</strong> y, basándonos en la evidencia obtenida, si existe o no una incertidumbre material relacionada con hechos o con condiciones que puedan generar dudas significativas sobre la capacidad del Grupo para continuar como empresa en funcionamiento (<NormaTooltip code="NIA 570" />).
                   </li>
                   <li>
                     Evaluamos la presentación global, la estructura y el contenido de los estados financieros consolidados, incluida la información revelada, y si representan las transacciones y hechos subyacentes de un modo que logren la presentación razonable.
                   </li>
                   <li>
-                    Obtenemos evidencia de auditoría suficiente y adecuada en relación con la información financiera de las entidades o actividades de negocio dentro del Grupo para expresar una opinión sobre los estados financieros consolidados (<strong>Auditoría de Grupos — NIA 600</strong>), siendo los únicos responsables de nuestra opinión de auditoría.
+                    Obtenemos evidencia de auditoría suficiente y adecuada en relación con la información financiera de las entidades o actividades de negocio dentro del Grupo para expresar una opinión sobre los estados financieros consolidados (<strong>Auditoría de Grupos — <NormaTooltip code="NIA 600" /></strong>), siendo los únicos responsables de nuestra opinión de auditoría.
                   </li>
                   <li>
                     Nos comunicamos con el <strong>Comité de Auditoría</strong> en relación con, entre otras cuestiones, el alcance y el momento de realización de la auditoría y los hallazgos significativos, incluida cualquier deficiencia significativa en el control interno (Carta CI LC-01), nuestra declaración de independencia y las cuestiones clave de la auditoría (KAM).
@@ -944,10 +960,10 @@ export default function Etapa3InformeView({
                 <strong className="text-white">2. Sección Autónoma «Independencia» (IESBA):</strong> Exige declarar independencia conforme al <em>Código del IESBA</em> para <strong>entidades de interés público</strong> además del Código Local (CABA).
               </div>
               <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
-                <strong className="text-white">3. Otra Información (NIA 720) y KAM (NIA 701):</strong> Incluye sección explícita sobre la <em>Memoria Anual Integrada y Reseña</em> tras las Cuestiones Clave de Auditoría.
+                <strong className="text-white">3. Otra Información (<NormaTooltip code="NIA 720" />) y KAM (<NormaTooltip code="NIA 701" />):</strong> Incluye sección explícita sobre la <em>Memoria Anual Integrada y Reseña</em> tras las Cuestiones Clave de Auditoría.
               </div>
               <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
-                <strong className="text-white">4. Comité de Auditoría y Grupo (NIA 600) + CNV:</strong> Reconoce la supervisión del Comité de Auditoría, la responsabilidad de grupo (TMA/subsidiarias), SIPA ($33.699.737.311) y el ratio de honorarios Art. 21 inc. b CNV.
+                <strong className="text-white">4. Comité de Auditoría y Grupo (<NormaTooltip code="NIA 600" />) + CNV:</strong> Reconoce la supervisión del Comité de Auditoría, la responsabilidad de grupo (TMA/subsidiarias), SIPA ($33.699.737.311) y el ratio de honorarios Art. 21 inc. b CNV.
               </div>
             </div>
           </div>

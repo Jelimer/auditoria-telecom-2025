@@ -9,7 +9,8 @@ import {
   ArrowRight,
   Filter,
   Lightbulb,
-  X
+  X,
+  RotateCcw
 } from 'lucide-react';
 import {
   materialidadData,
@@ -18,6 +19,26 @@ import {
   presupuestoHonorarios,
   marcoTeoricoSlosse
 } from '../data/etapa1Data';
+import { NormaTooltip, renderTextWithNormas } from './NormaTooltip';
+import { EditableRichBlock } from './RichTextBox';
+
+const PLAN_DETALLADA_STORAGE_KEY = 'audiia_plan_detallada_custom_v1';
+
+const MAT_BANNER_DEFAULTS = {
+  'mat-banner-titulo':
+    '¿Qué es la Materialidad (Significatividad) y qué se pretende en este punto 1.4?',
+  'mat-banner-intro':
+    'En una compañía de la escala de <b>Telecom Argentina S.A.</b> (con un Activo Total de <b>$16.622.552 millones</b>, es decir, más de 16,6 billones de pesos), el auditor externo <b>no busca exactitud matemática al centavo</b>, sino <b>razonabilidad</b>. La <b>Materialidad o Significatividad</b> (según Carlos Slosse y la RT 37) es el <i>«termómetro o umbral numérico»</i> a partir del cual un error u omisión contable es tan grande que podría cambiar la decisión económica de un usuario que lee el Balance (un accionista en la bolsa, un banco acreedor o la CNV).',
+  'mat-card-1-titulo': '1. Materialidad Global (PM = $166.225M — 1% del Activo):',
+  'mat-card-1-desc':
+    'Es el techo máximo para el Balance en su conjunto. Si al terminar la auditoría la suma de errores que la empresa se niega a corregir supera los <b>$166.225M</b>, los Estados Contables están distorsionados de forma generalizada.',
+  'mat-card-2-titulo': '2. Error Tolerable (ET = $83.112M — 50% de la PM):',
+  'mat-card-2-desc':
+    'Es el límite máximo de error que toleramos dentro de <b>cada rubro individual</b> (por ejemplo, dentro de Bienes de Uso o dentro de Créditos por Ventas). Se fija a la mitad de la PM por prudencia, para evitar que varios errores medianos en distintas cuentas sumen más que la PM global, y nos sirve para definir el <b>tamaño de las muestras</b> a revisar.',
+  'mat-card-3-titulo': '3. Umbral Mínimo de Ajustes (PAE = $8.311M — 5% de la PM):',
+  'mat-card-3-desc':
+    'Es el filtro de lo «claramente insignificante». Todo desvío que encontremos en la Etapa 2 que sea <b>mayor a $8.311M</b> (como el ajuste patrimonial <code>AJ-01</code> por $28.340M y la reclasificación <code>AJ-04</code> por $11.240M) debe llevarse obligatoriamente a la Planilla de Ajustes Propuestos para exigir su corrección; si es menor a $8.311M (como los $7.570M acumulados en <code>PAE-NC-01</code>), se deja constancia pero no afecta la opinión.'
+};
 
 export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTargetTick }) {
   const [selectedRubroId, setSelectedRubroId] = useState('rubro-1');
@@ -26,6 +47,58 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
   const [modalTeorico, setModalTeorico] = useState(null); // null | materialidadData.materialidadGlobal.fundamentoTeorico | etc.
   const [expandedProcedimientos, setExpandedProcedimientos] = useState({});
   const [expandAllProcedimientos, setExpandAllProcedimientos] = useState(false);
+  const [customTexts, setCustomTexts] = useState(() => {
+    try {
+      const saved = localStorage.getItem(PLAN_DETALLADA_STORAGE_KEY);
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  const handleSaveCustomText = (key, newVal) => {
+    setCustomTexts((prev) => {
+      const updated = { ...prev, [key]: newVal };
+      try {
+        localStorage.setItem(PLAN_DETALLADA_STORAGE_KEY, JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      return updated;
+    });
+  };
+
+  const handleResetCustomText = (key) => {
+    if (!window.confirm('¿Deseas restablecer este texto a su redacción original?')) return;
+    setCustomTexts((prev) => {
+      const updated = { ...prev };
+      delete updated[key];
+      try {
+        localStorage.setItem(PLAN_DETALLADA_STORAGE_KEY, JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      return updated;
+    });
+  };
+
+  const handleResetAllMaterialidadTexts = () => {
+    if (
+      !window.confirm(
+        '¿Estás seguro de que deseas restablecer todos los textos editados de Materialidad (1.4) a su versión original?'
+      )
+    ) {
+      return;
+    }
+    setCustomTexts({});
+    try {
+      localStorage.removeItem(PLAN_DETALLADA_STORAGE_KEY);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const totalCustomCount = Object.keys(customTexts).length;
 
   useEffect(() => {
     // Solo reaccionar ante una navegación intencional (disparada por subTargetTick)
@@ -70,9 +143,18 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
       <div id="sec-1c-materialidad" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
         <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-100">
           <div>
-            <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-teal-600 text-white">
-              ETAPA 1.4 Y 1.5 — PLANIFICACIÓN DETALLADA (MATERIALIDAD, AFIRMACIONES Y PROGRAMAS A-E)
-            </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <NormaTooltip
+                code="NIA 320"
+                variant="pill"
+                pillClassName="bg-teal-800 text-lime-300 hover:bg-teal-900"
+                align="left"
+                placement="bottom"
+              />
+              <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-teal-600 text-white">
+                ETAPA 1.4 Y 1.5 — PLANIFICACIÓN DETALLADA (MATERIALIDAD, AFIRMACIONES Y PROGRAMAS A-E)
+              </span>
+            </div>
             <h2 className="text-xl font-extrabold text-slate-900 mt-2">
               Materialidad, Selección de Rubros Significativos, Matriz de Afirmaciones y Programas de Trabajo
             </h2>
@@ -256,39 +338,117 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
           </div>
         )}
 
-        {/* Explicación Didáctica de qué es la Materialidad y qué se pretende en el punto 1.4 */}
+        {/* Explicación Didáctica de qué es la Materialidad y qué se pretende en el punto 1.4 (Editable) */}
         <div className="mt-5 p-4 rounded-xl bg-slate-900 text-white border border-teal-500/40 space-y-2.5 text-xs">
-          <div className="flex items-center gap-2 text-lime-400 font-extrabold uppercase tracking-wider text-[11px]">
-            <Calculator className="w-4 h-4 shrink-0" />
-            ¿Qué es la Materialidad (Significatividad) y qué se pretende en este punto 1.4?
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-start gap-2 text-lime-400 font-extrabold uppercase tracking-wider text-[11px] flex-1 min-w-0">
+              <Calculator className="w-4 h-4 shrink-0 mt-0.5" />
+              <div className="flex-1 min-w-0">
+                <EditableRichBlock
+                  value={customTexts['mat-banner-titulo']}
+                  defaultValue={MAT_BANNER_DEFAULTS['mat-banner-titulo']}
+                  onSave={(val) => handleSaveCustomText('mat-banner-titulo', val)}
+                  onReset={() => handleResetCustomText('mat-banner-titulo')}
+                  label="Título de Materialidad (1.4)"
+                  isDark={true}
+                  textClassName="text-lime-400 font-extrabold uppercase tracking-wider text-[11px]"
+                  minHeightClass="min-h-[38px]"
+                  showModifiedBadge={false}
+                />
+              </div>
+            </div>
+            {totalCustomCount > 0 && (
+              <button
+                type="button"
+                onClick={handleResetAllMaterialidadTexts}
+                className="no-print inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/35 border border-amber-400/40 text-amber-200 text-[10px] font-bold cursor-pointer transition-colors"
+                title="Restablecer todos los textos editados de este bloque"
+              >
+                <RotateCcw className="w-3 h-3" /> Restablecer textos ({totalCustomCount})
+              </button>
+            )}
           </div>
-          <p className="text-slate-200 leading-relaxed">
-            En una compañía de la escala de <strong>Telecom Argentina S.A.</strong> (con un Activo Total de <strong>$16.622.552 millones</strong>, es decir, más de 16,6 billones de pesos), el auditor externo <strong>no busca exactitud matemática al centavo</strong>, sino <strong>razonabilidad</strong>. La <strong>Materialidad o Significatividad</strong> (según Carlos Slosse y la RT 37) es el <em>«termómetro o umbral numérico»</em> a partir del cual un error u omisión contable es tan grande que podría cambiar la decisión económica de un usuario que lee el Balance (un accionista en la bolsa, un banco acreedor o la CNV).
-          </p>
+
+          <EditableRichBlock
+            value={customTexts['mat-banner-intro']}
+            defaultValue={MAT_BANNER_DEFAULTS['mat-banner-intro']}
+            onSave={(val) => handleSaveCustomText('mat-banner-intro', val)}
+            onReset={() => handleResetCustomText('mat-banner-intro')}
+            label="Explicación general de Materialidad (1.4)"
+            isDark={true}
+            textClassName="text-slate-200 leading-relaxed text-xs"
+            minHeightClass="min-h-[76px]"
+          />
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1">
-            <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-              <strong className="text-teal-300 block mb-0.5">
-                1. Materialidad Global (PM = $166.225M — 1% del Activo):
-              </strong>
-              <span className="text-slate-300">
-                Es el techo máximo para el Balance en su conjunto. Si al terminar la auditoría la suma de errores que la empresa se niega a corregir supera los <strong>$166.225M</strong>, los Estados Contables están distorsionados de forma generalizada.
-              </span>
+            <div className="p-3 rounded-lg bg-white/5 border border-white/10 space-y-1">
+              <EditableRichBlock
+                value={customTexts['mat-card-1-titulo']}
+                defaultValue={MAT_BANNER_DEFAULTS['mat-card-1-titulo']}
+                onSave={(val) => handleSaveCustomText('mat-card-1-titulo', val)}
+                onReset={() => handleResetCustomText('mat-card-1-titulo')}
+                label="Título Tarjeta 1 (PM)"
+                isDark={true}
+                textClassName="font-bold text-teal-300 text-xs"
+                minHeightClass="min-h-[36px]"
+                showModifiedBadge={false}
+              />
+              <EditableRichBlock
+                value={customTexts['mat-card-1-desc']}
+                defaultValue={MAT_BANNER_DEFAULTS['mat-card-1-desc']}
+                onSave={(val) => handleSaveCustomText('mat-card-1-desc', val)}
+                onReset={() => handleResetCustomText('mat-card-1-desc')}
+                label="Descripción Materialidad Global (PM)"
+                isDark={true}
+                textClassName="text-slate-300 text-xs leading-relaxed"
+                minHeightClass="min-h-[72px]"
+              />
             </div>
-            <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-              <strong className="text-amber-300 block mb-0.5">
-                2. Error Tolerable (ET = $83.112M — 50% de la PM):
-              </strong>
-              <span className="text-slate-300">
-                Es el límite máximo de error que toleramos dentro de <strong>cada rubro individual</strong> (por ejemplo, dentro de Bienes de Uso o dentro de Créditos por Ventas). Se fija a la mitad de la PM por prudencia, para evitar que varios errores medianos en distintas cuentas sumen más que la PM global, y nos sirve para definir el <strong>tamaño de las muestras</strong> a revisar.
-              </span>
+            <div className="p-3 rounded-lg bg-white/5 border border-white/10 space-y-1">
+              <EditableRichBlock
+                value={customTexts['mat-card-2-titulo']}
+                defaultValue={MAT_BANNER_DEFAULTS['mat-card-2-titulo']}
+                onSave={(val) => handleSaveCustomText('mat-card-2-titulo', val)}
+                onReset={() => handleResetCustomText('mat-card-2-titulo')}
+                label="Título Tarjeta 2 (ET)"
+                isDark={true}
+                textClassName="font-bold text-amber-300 text-xs"
+                minHeightClass="min-h-[36px]"
+                showModifiedBadge={false}
+              />
+              <EditableRichBlock
+                value={customTexts['mat-card-2-desc']}
+                defaultValue={MAT_BANNER_DEFAULTS['mat-card-2-desc']}
+                onSave={(val) => handleSaveCustomText('mat-card-2-desc', val)}
+                onReset={() => handleResetCustomText('mat-card-2-desc')}
+                label="Descripción Error Tolerable (ET)"
+                isDark={true}
+                textClassName="text-slate-300 text-xs leading-relaxed"
+                minHeightClass="min-h-[72px]"
+              />
             </div>
-            <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-              <strong className="text-rose-300 block mb-0.5">
-                3. Umbral Mínimo de Ajustes (PAE = $8.311M — 5% de la PM):
-              </strong>
-              <span className="text-slate-300">
-                Es el filtro de lo «claramente insignificante». Todo desvío que encontremos en la Etapa 2 que sea <strong>mayor a $8.311M</strong> (como el ajuste patrimonial <code>AJ-01</code> por $28.340M y la reclasificación <code>AJ-04</code> por $11.240M) debe llevarse obligatoriamente a la Planilla de Ajustes Propuestos para exigir su corrección; si es menor a $8.311M (como los $7.570M acumulados en <code>PAE-NC-01</code>), se deja constancia pero no afecta la opinión.
-              </span>
+            <div className="p-3 rounded-lg bg-white/5 border border-white/10 space-y-1">
+              <EditableRichBlock
+                value={customTexts['mat-card-3-titulo']}
+                defaultValue={MAT_BANNER_DEFAULTS['mat-card-3-titulo']}
+                onSave={(val) => handleSaveCustomText('mat-card-3-titulo', val)}
+                onReset={() => handleResetCustomText('mat-card-3-titulo')}
+                label="Título Tarjeta 3 (PAE)"
+                isDark={true}
+                textClassName="font-bold text-rose-300 text-xs"
+                minHeightClass="min-h-[36px]"
+                showModifiedBadge={false}
+              />
+              <EditableRichBlock
+                value={customTexts['mat-card-3-desc']}
+                defaultValue={MAT_BANNER_DEFAULTS['mat-card-3-desc']}
+                onSave={(val) => handleSaveCustomText('mat-card-3-desc', val)}
+                onReset={() => handleResetCustomText('mat-card-3-desc')}
+                label="Descripción Umbral PAE"
+                isDark={true}
+                textClassName="text-slate-300 text-xs leading-relaxed"
+                minHeightClass="min-h-[72px]"
+              />
             </div>
           </div>
         </div>
@@ -772,7 +932,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
             <Calculator className="w-5 h-5 text-teal-700 shrink-0" />
             <div>
               <span className="text-[10px] font-extrabold uppercase tracking-wider text-teal-700 block">
-                Etapa 1.5.C — Presupuesto de Honorarios y Recursos (Slosse / NIA 300)
+                Etapa 1.5.C — Presupuesto de Honorarios y Recursos (Slosse / <NormaTooltip code="NIA 300" />)
               </span>
               <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
                 4. Presupuesto de Tiempo y Costos de Auditoría (Honorarios Profesionales — Noviembre 2026)
@@ -971,7 +1131,12 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
               I. Objetivo y Marco Normativo del Encargo
             </h4>
             <p className="text-slate-700 leading-relaxed">
-              Emitir una opinión independiente sobre los Estados Contables Consolidados de <strong>Telecom Argentina S.A.</strong> al 31/12/2025 conforme a la RT 37 (modif. RT 53) de la FACPCE, verificando la aplicación de las Normas Internacionales de Información Financiera (NIIF / NIC del IASB - Normas CNV) en moneda homogénea (NIC 29).
+              {renderTextWithNormas(
+                'Emitir una opinión independiente sobre los Estados Contables Consolidados de '
+              )}
+              <strong>Telecom Argentina S.A.</strong> al 31/12/2025 conforme a la{' '}
+              <NormaTooltip code="RT 37" /> (modif. <NormaTooltip code="RT 53" />) y{' '}
+              <NormaTooltip code="RT 32" /> de la FACPCE, verificando la aplicación de las Normas Internacionales de Información Financiera (NIIF / NIC del IASB - Normas CNV) en moneda homogénea (<NormaTooltip code="NIC 29" />).
             </p>
           </div>
 

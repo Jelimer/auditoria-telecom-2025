@@ -35,7 +35,13 @@ import {
   X
 } from 'lucide-react';
 import { conocimientoEnte } from '../data/etapa1Data';
-import { renderFormattedRichText } from './Etapa2EjecucionView';
+import { NormaTooltip, renderFormattedRichText } from './NormaTooltip';
+import {
+  RichTextBox,
+  sanitizeRichHtml,
+  normalizeRichHtmlForDisplay,
+  toEditableHtml
+} from './RichTextBox';
 
 export default function Etapa1EnteView({ onNavigate }) {
   const [selectedVertical, setSelectedVertical] = useState(
@@ -55,7 +61,72 @@ export default function Etapa1EnteView({ onNavigate }) {
 
   const [editingKey, setEditingKey] = useState(null);
   const [tempEditText, setTempEditText] = useState('');
+  const [legalHeaderDraft, setLegalHeaderDraft] = useState(null);
   const textareaRef = useRef(null);
+
+  const DEFAULT_LEGAL_HEADER = {
+    subtitulo: 'Leyes y Regulaciones en la Auditoría de Estados Financieros',
+    titulo:
+      'Marco Regulatorio de Telecomunicaciones, Privacidad, Competencia y Régimen Impositivo',
+    resumen:
+      conocimientoEnte.marcoRegulatorio?.resumen ||
+      'Comprensión del marco legal y regulatorio que afecta de manera directa las cifras contables y las contingencias.',
+    sector: 'Sector Convergente TIC'
+  };
+
+  const handleStartLegalHeaderEdit = () => {
+    setEditingKey('ente-legal-header');
+    setLegalHeaderDraft({
+      subtitulo:
+        customTexts['ente-legal-subtitulo'] ?? DEFAULT_LEGAL_HEADER.subtitulo,
+      titulo: toEditableHtml(
+        customTexts['ente-legal-titulo'] ?? DEFAULT_LEGAL_HEADER.titulo
+      ),
+      resumen: toEditableHtml(
+        customTexts['ente-legal-resumen'] ?? DEFAULT_LEGAL_HEADER.resumen
+      ),
+      sector: customTexts['ente-legal-sector'] ?? DEFAULT_LEGAL_HEADER.sector
+    });
+  };
+
+  const handleSaveLegalHeader = () => {
+    if (!legalHeaderDraft) return;
+    const updated = {
+      ...customTexts,
+      'ente-legal-subtitulo': legalHeaderDraft.subtitulo,
+      'ente-legal-titulo': sanitizeRichHtml(legalHeaderDraft.titulo),
+      'ente-legal-resumen': sanitizeRichHtml(legalHeaderDraft.resumen),
+      'ente-legal-sector': legalHeaderDraft.sector
+    };
+    setCustomTexts(updated);
+    try {
+      localStorage.setItem('audiia_ente_custom_v1', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    setEditingKey(null);
+    setLegalHeaderDraft(null);
+  };
+
+  const handleResetLegalHeader = () => {
+    const ok = window.confirm(
+      '¿Deseas restablecer el encabezado del Marco Regulatorio a su texto original?'
+    );
+    if (!ok) return;
+    const updated = { ...customTexts };
+    delete updated['ente-legal-subtitulo'];
+    delete updated['ente-legal-titulo'];
+    delete updated['ente-legal-resumen'];
+    delete updated['ente-legal-sector'];
+    setCustomTexts(updated);
+    try {
+      localStorage.setItem('audiia_ente_custom_v1', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    setEditingKey(null);
+    setLegalHeaderDraft(null);
+  };
 
   const handleStartEdit = (key, defaultText) => {
     setEditingKey(key);
@@ -154,6 +225,14 @@ export default function Etapa1EnteView({ onNavigate }) {
                 title="Añadir negrita (**texto**)"
               >
                 B
+              </button>
+              <button
+                type="button"
+                onClick={() => applyFormat('*', '*')}
+                className="px-2 py-0.5 rounded bg-white hover:bg-teal-100 border border-teal-300 italic font-serif font-extrabold text-slate-800 text-xs shadow-2xs cursor-pointer"
+                title="Añadir cursiva (*texto*)"
+              >
+                I
               </button>
               <button
                 type="button"
@@ -321,9 +400,13 @@ export default function Etapa1EnteView({ onNavigate }) {
         <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100">
           <div>
             <div className="flex items-center gap-2">
-              <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-indigo-600 text-white">
-                NIA 315
-              </span>
+              <NormaTooltip
+                code="NIA 315"
+                variant="pill"
+                pillClassName="bg-indigo-600 text-white hover:bg-indigo-700"
+                align="left"
+                placement="bottom"
+              />
               <span className="text-xs font-extrabold uppercase tracking-wide text-indigo-900 bg-indigo-50 px-2.5 py-0.5 rounded-md border border-indigo-200">
                 Complejidad del Entorno de Tecnología de la Información
               </span>
@@ -529,28 +612,166 @@ export default function Etapa1EnteView({ onNavigate }) {
       {/* 1.1.C. MARCO LEGAL, REGULATORIO Y MATRIZ IMPOSITIVA (NIA 250) */}
       {/* ========================================================= */}
       <div id="sec-1a-legal" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-5">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-purple-700 text-white">
-                NIA 250
-              </span>
-              <span className="text-xs font-extrabold uppercase tracking-wide text-purple-900 bg-purple-50 px-2.5 py-0.5 rounded-md border border-purple-200">
-                Leyes y Regulaciones en la Auditoría de Estados Financieros
-              </span>
+        {editingKey === 'ente-legal-header' && legalHeaderDraft ? (
+          <div className="pb-5 border-b border-slate-100 mb-5 space-y-3 bg-purple-50/40 p-4 rounded-xl border border-purple-200">
+            <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-purple-200">
+              <div className="flex items-center gap-2">
+                <NormaTooltip
+                  code="NIA 250"
+                  variant="pill"
+                  pillClassName="bg-purple-700 text-white hover:bg-purple-800"
+                  align="left"
+                  placement="bottom"
+                />
+                <span className="text-xs font-extrabold text-purple-950 uppercase">
+                  Editando Encabezado — Marco Regulatorio
+                </span>
+              </div>
+              {['ente-legal-subtitulo', 'ente-legal-titulo', 'ente-legal-resumen', 'ente-legal-sector'].some(
+                (k) => customTexts[k] !== undefined
+              ) && (
+                <button
+                  type="button"
+                  onClick={handleResetLegalHeader}
+                  className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-800 hover:underline cursor-pointer"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" /> Restablecer encabezado original
+                </button>
+              )}
             </div>
-            <h3 className="text-lg font-extrabold text-slate-900 mt-2">
-              Marco Regulatorio de Telecomunicaciones, Privacidad, Competencia y Régimen Impositivo
-            </h3>
-            <p className="text-xs text-slate-500 mt-0.5">
-              {conocimientoEnte.marcoRegulatorio?.resumen ||
-                'Comprensión del marco legal y regulatorio que afecta de manera directa las cifras contables y las contingencias.'}
-            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+              <div>
+                <label className="block text-[10px] font-extrabold uppercase text-purple-900 mb-1">
+                  Etiqueta / Antetítulo
+                </label>
+                <input
+                  type="text"
+                  value={legalHeaderDraft.subtitulo}
+                  onChange={(e) =>
+                    setLegalHeaderDraft((prev) => ({ ...prev, subtitulo: e.target.value }))
+                  }
+                  className="w-full px-3 py-1.5 rounded-lg border border-purple-300 bg-white text-slate-900 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-purple-400"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] font-extrabold uppercase text-purple-900 mb-1">
+                  Badge Derecho (Sector)
+                </label>
+                <input
+                  type="text"
+                  value={legalHeaderDraft.sector}
+                  onChange={(e) =>
+                    setLegalHeaderDraft((prev) => ({ ...prev, sector: e.target.value }))
+                  }
+                  className="w-full px-3 py-1.5 rounded-lg border border-purple-300 bg-white text-slate-900 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-purple-400"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-extrabold uppercase text-purple-900 mb-1">
+                Título Principal (podés usar Negrita, Cursiva y Subrayado)
+              </label>
+              <RichTextBox
+                value={legalHeaderDraft.titulo}
+                onChange={(html) =>
+                  setLegalHeaderDraft((prev) => ({ ...prev, titulo: html }))
+                }
+                minHeightClass="min-h-[48px]"
+                boxClassName="text-sm font-bold text-slate-900"
+                compact
+              />
+            </div>
+
+            <div>
+              <label className="block text-[10px] font-extrabold uppercase text-purple-900 mb-1">
+                Subtítulo / Resumen (podés usar Negrita, Cursiva y Subrayado)
+              </label>
+              <RichTextBox
+                value={legalHeaderDraft.resumen}
+                onChange={(html) =>
+                  setLegalHeaderDraft((prev) => ({ ...prev, resumen: html }))
+                }
+                minHeightClass="min-h-[68px]"
+                boxClassName="text-xs text-slate-700"
+                compact
+              />
+            </div>
+
+            <div className="flex items-center gap-2 pt-1">
+              <button
+                type="button"
+                onClick={handleSaveLegalHeader}
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-teal-700 hover:bg-teal-800 text-white text-xs font-bold cursor-pointer"
+              >
+                <Check className="w-3.5 h-3.5" /> Guardar encabezado
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setEditingKey(null);
+                  setLegalHeaderDraft(null);
+                }}
+                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 text-xs font-semibold cursor-pointer"
+              >
+                <X className="w-3.5 h-3.5" /> Cancelar
+              </button>
+            </div>
           </div>
-          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
-            Sector Convergente TIC
-          </span>
-        </div>
+        ) : (
+          <div className="group flex flex-wrap items-start justify-between gap-3 pb-4 border-b border-slate-100 mb-5">
+            <div className="flex-1 min-w-0">
+              <div className="flex flex-wrap items-center gap-2">
+                <NormaTooltip
+                  code="NIA 250"
+                  variant="pill"
+                  pillClassName="bg-purple-700 text-white hover:bg-purple-800"
+                  align="left"
+                  placement="bottom"
+                />
+                <span className="text-xs font-extrabold uppercase tracking-wide text-purple-900 bg-purple-50 px-2.5 py-0.5 rounded-md border border-purple-200">
+                  {customTexts['ente-legal-subtitulo'] ?? DEFAULT_LEGAL_HEADER.subtitulo}
+                </span>
+                {['ente-legal-subtitulo', 'ente-legal-titulo', 'ente-legal-resumen', 'ente-legal-sector'].some(
+                  (k) => customTexts[k] !== undefined
+                ) && (
+                  <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-900 border border-amber-200">
+                    Editado
+                  </span>
+                )}
+              </div>
+              <h3 className="text-lg font-extrabold text-slate-900 mt-2">
+                {renderFormattedRichText(
+                  normalizeRichHtmlForDisplay(
+                    customTexts['ente-legal-titulo'] ?? DEFAULT_LEGAL_HEADER.titulo
+                  )
+                )}
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5 whitespace-pre-line">
+                {renderFormattedRichText(
+                  normalizeRichHtmlForDisplay(
+                    customTexts['ente-legal-resumen'] ?? DEFAULT_LEGAL_HEADER.resumen
+                  )
+                )}
+              </p>
+            </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-purple-100 text-purple-800 border border-purple-200">
+                {customTexts['ente-legal-sector'] ?? DEFAULT_LEGAL_HEADER.sector}
+              </span>
+              <button
+                type="button"
+                onClick={handleStartLegalHeaderEdit}
+                className="no-print inline-flex items-center gap-1 px-2 py-1 rounded-lg border border-purple-200 bg-purple-50/70 hover:bg-purple-100 text-purple-800 text-[11px] font-bold cursor-pointer transition-colors"
+                title="Editar encabezado del Marco Regulatorio"
+              >
+                <Pencil className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Editar</span>
+              </button>
+            </div>
+          </div>
+        )}
 
         {/* Ejes Regulatorios: Selector y Detalle */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
@@ -657,7 +878,7 @@ export default function Etapa1EnteView({ onNavigate }) {
           </div>
           <div className="mt-3 p-3 rounded-lg bg-purple-50/60 border border-purple-200 text-xs text-slate-700">
             <span className="font-extrabold text-purple-900 block text-[11px] uppercase mb-1">
-              Procedimientos de Planeación (NIA 250):
+              Procedimientos de Planeación (<NormaTooltip code="NIA 250" />):
             </span>
             {renderEditableBlock({
               fieldKey: 'ente-procedimientos-nia250',
@@ -1038,10 +1259,21 @@ export default function Etapa1EnteView({ onNavigate }) {
       <div id="sec-1a-fraude" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
         <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-100 mb-5">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-red-600 text-white">
-                NIA 240 / NIA 315
-              </span>
+            <div className="flex flex-wrap items-center gap-2">
+              <NormaTooltip
+                code="NIA 240"
+                variant="pill"
+                pillClassName="bg-red-600 text-white hover:bg-red-700"
+                align="left"
+                placement="bottom"
+              />
+              <NormaTooltip
+                code="NIA 315"
+                variant="pill"
+                pillClassName="bg-red-700 text-white hover:bg-red-800"
+                align="left"
+                placement="bottom"
+              />
               <span className="text-xs font-extrabold uppercase tracking-wide text-red-900 bg-red-50 px-2.5 py-0.5 rounded-md border border-red-200">
                 Valoración del Riesgo de Fraude &amp; Componentes COSO
               </span>
@@ -1050,7 +1282,7 @@ export default function Etapa1EnteView({ onNavigate }) {
               Presunciones Obligatorias de Fraude y Componentes del Control Interno
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
-              La NIA 240 exige mantener escepticismo profesional y asumir dos presunciones obligatorias de riesgo de fraude durante la planificación:
+              La <NormaTooltip code="NIA 240" /> exige mantener escepticismo profesional y asumir dos presunciones obligatorias de riesgo de fraude durante la planificación:
             </p>
           </div>
           {onNavigate && (
@@ -1148,9 +1380,11 @@ export default function Etapa1EnteView({ onNavigate }) {
             {/* Doble panel: Utilidad en Auditoría Externa vs Relevancia en Telecom (SOX 404) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5 pt-1">
               <div className="p-3.5 rounded-xl bg-blue-50/50 border border-blue-200">
-                <span className="text-xs font-extrabold text-blue-950 uppercase tracking-wide flex items-center gap-1.5 mb-1.5">
+                <span className="text-xs font-extrabold text-blue-950 uppercase tracking-wide flex flex-wrap items-center gap-1.5 mb-1.5">
                   <Calculator className="w-4 h-4 text-blue-700" />
-                  ¿Para qué lo utiliza el Auditor Externo? (NIA 315 &amp; Slosse)
+                  <span>¿Para qué lo utiliza el Auditor Externo? (</span>
+                  <NormaTooltip code="NIA 315" />
+                  <span> &amp; Slosse)</span>
                 </span>
                 {renderEditableBlock({
                   fieldKey: 'ente-coso-utilidad',
@@ -1180,13 +1414,13 @@ export default function Etapa1EnteView({ onNavigate }) {
 
         {/* Los 5 Componentes del Control Interno (COSO) */}
         <div className="mt-6 pt-5 border-t border-slate-100">
-          <div className="text-xs font-extrabold text-slate-900 uppercase tracking-wide mb-3 flex items-center justify-between">
+          <div className="text-xs font-extrabold text-slate-900 uppercase tracking-wide mb-3 flex flex-wrap items-center justify-between gap-2">
             <span className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-teal-700" />
               Los 5 Componentes Interrelacionados del Control Interno
             </span>
-            <span className="text-[11px] text-slate-500 font-medium">
-              Base doctrinaria de los 5 Cuestionarios CCI evaluados en la Etapa 1B
+            <span className="text-[11px] text-slate-500 font-medium normal-case">
+              5 pilares transversales COSO (no son 1-a-1 los 5 cuestionarios CCI de Etapa 1B; cada CCI evalúa varios pilares a la vez)
             </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
