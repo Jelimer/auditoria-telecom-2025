@@ -1306,7 +1306,7 @@ export default function Etapa2EjecucionView({
                       <div className="mb-2">
                         <div className="flex items-center justify-between gap-2">
                           <h5 className={`${isPTA ? 'text-sm sm:text-base' : 'text-xs'} font-extrabold text-slate-900`}>
-                            {currentProcNombre}
+                            {renderFormattedRichText(currentProcNombre)}
                             {isNombreCustom && (
                               <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-400 text-slate-900 ml-1.5 align-middle">
                                 ✏️ Editado
@@ -1327,6 +1327,7 @@ export default function Etapa2EjecucionView({
 
                         {isEditingNombre && (
                           <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-300 space-y-2 mt-1">
+                            <FormattingToolbar onFormat={applyFormat} isDark={false} compact={true} />
                             <input
                               type="text"
                               value={tempEditText}
@@ -1400,6 +1401,7 @@ export default function Etapa2EjecucionView({
 
                         {isEditingMuestra ? (
                           <div className="space-y-2 mt-1">
+                            <FormattingToolbar onFormat={applyFormat} isDark={false} />
                             <textarea
                               ref={textareaRef}
                               rows={3}
@@ -1436,8 +1438,8 @@ export default function Etapa2EjecucionView({
                             </div>
                           </div>
                         ) : (
-                          <p className={`${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'} text-slate-700 leading-relaxed bg-slate-100/80 p-2.5 rounded-lg border border-slate-200`}>
-                            {currentMuestra}
+                          <p className={`${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'} text-slate-700 leading-relaxed bg-slate-100/80 p-2.5 rounded-lg border border-slate-200 whitespace-pre-line`}>
+                            {renderFormattedRichText(currentMuestra)}
                           </p>
                         )}
                       </div>
@@ -1483,7 +1485,7 @@ export default function Etapa2EjecucionView({
                                         {!isEditingHeader ? (
                                           <div className="flex-1">
                                             <span className={`${isPTA ? 'text-xs sm:text-sm' : 'text-[11px]'} font-bold text-slate-800 leading-snug`}>
-                                              {currentPasoHeader}
+                                              {renderFormattedRichText(currentPasoHeader)}
                                             </span>
                                             {isHeaderCustom && (
                                               <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-400 text-slate-900 ml-1.5 inline-block">
@@ -1523,6 +1525,7 @@ export default function Etapa2EjecucionView({
 
                                     {isEditingHeader && (
                                       <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-300 space-y-2">
+                                        <FormattingToolbar onFormat={applyFormat} isDark={false} compact={true} />
                                         <textarea
                                           ref={textareaRef}
                                           rows={2}
