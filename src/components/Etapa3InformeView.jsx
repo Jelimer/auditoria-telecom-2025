@@ -794,7 +794,7 @@ export default function Etapa3InformeView({
                       </div>
                     </div>
                     <p className="text-slate-700">
-                      <strong>Descripción del riesgo:</strong> El Grupo incorporó al 24/02/2025 activos netos de Telefónica Móviles Argentina S.A. (TMA) bajo NIIF 3 ($1.332.961M en PP&E y $274.183M en Intangibles — Nota 29) y gestiona una infraestructura de capital intensivo ($9.460.643M entre PP&E e Intangibles) con Riesgo de Control Alto en archivo de obras y tecnología (CCI-01 42,31% / CCI-05 42,86%).
+                      <strong>Descripción del riesgo:</strong> El Grupo incorporó al 24/02/2025 activos netos de Telefónica Móviles Argentina S.A. (TMA) bajo NIIF 3 ($1.332.961M en PP&E y $274.183M en Intangibles — Nota 29) y gestiona una infraestructura de capital intensivo ($9.460.643M entre PP&E e Intangibles) con Riesgo de Control Alto en archivo de obras y tecnología (CCI-01 38,46% / CCI-05 47,62%).
                     </p>
                     <p className="text-slate-700">
                       <strong>Cómo se trató en la auditoría:</strong> Auditamos el <em>Purchase Price Allocation</em> (PPA) de TMA, inspeccionamos físicamente 16 Data Centers y 85 radiobases 5G (PT-A1), verificamos titularidad dominial en RPI/RNPA (PT-A3) y licencias ENACOM/INPI (PT-E1), y ejecutamos Pruebas Globales de Amortización (PP&E $1.533.091M; Intangibles $234.722M) y Valor Residual con desvío aritmético $0. Complementariamente, pruebas de detalle técnicas detectaron bajas omitidas en SAP FI-AA consolidadas en <strong>AJ-01 por $28.340M</strong> ($21.450M centrales analógicas obsoletas en PT-A4 + $6.890M fibra vandalizada en PT-A1).

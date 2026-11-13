@@ -84,7 +84,7 @@
 
 ## 4. Parámetros de Significatividad / Materialidad y Planilla PAE Unificada (`NIA 320` y `NIA 450`)
 1. **Materialidad / Significatividad Global de Planeación (`PM`):** **`$166.225 millones`** (`1,00%` sobre el Activo Total de `$16.622.552M`).
-2. **Error Tolerable (`ET`) / Significatividad de Ejecución:** **`$83.112 millones`** (`50%` de `PM`, adoptado con prudencia por Riesgo de Control ALTO en los componentes críticos `CCI-01 Archivo Documental 42,31%` y `CCI-05 Sistema Tecnológico 42,86%`, frente a `CCI-02 Sistema Contable 72,00% RC Medio`, `CCI-03 Presupuestos 77,78% RC Bajo` y `CCI-04 Operativo 76,67% RC Bajo`).
+2. **Error Tolerable (`ET`) / Significatividad de Ejecución:** **`$83.112 millones`** (`50%` de `PM`, adoptado con prudencia por Riesgo de Control ALTO en los componentes críticos `CCI-01 Archivo Documental 38,46%` [10/26] y `CCI-05 Sistema Tecnológico 47,62%` [10/21], frente a `CCI-02 Sistema Contable 72,00% RC Medio` [18/25 según Matriz Word y PT-B], `CCI-03 Presupuestos 77,78% RC Bajo` [21/27] y `CCI-04 Operativo 80,00% RC Bajo` [24/30]).
 3. **Umbral Mínimo para Acumular Ajustes (`PAE` — NIA 450):** **`$8.311 millones`** (`5%` de `PM`).
 4. **Planilla de Ajustes Propuestos (PAE — Únicas partidas vigentes, sin `AJ-02` ni `AJ-03`):**
    - **`AJ-01` (`$28.340M` — `PT-A1 / PT-A4`, Bienes de Uso):** único ajuste patrimonial relevante dentro de los 3 rubros prioritarios de la cátedra (`$21.450M` centrales analógicas de cobre obsoletas en `PT-A4` + `$6.890M` fibra óptica/nodos vandalizados en `PT-A1`), acumulable bajo NIA 450; lleva el saldo de `$6.789.118M` a **`$6.760.778M`**. Representa el **`17,05%` de PM (`$166.225M`)** y el **`34,10%` de ET (`$83.112M`)**.
@@ -135,8 +135,10 @@
 
 ## 8. Funcionalidades Interactivas de la Plataforma Web
 - **Persistencia en LocalStorage:**
-  - `audiia_cci_v5`: respuestas editables de los 5 Cuestionarios de Control Interno (conectadas en vivo con Dashboard, Etapa 3 Carta CI y Resumen Integral).
+  - `audiia_cci_v6`: respuestas editables de los 5 Cuestionarios de Control Interno alineadas al Word AE 4 (conectadas en vivo con Dashboard, Síntesis de Exposición 1B, Etapa 3 Carta CI y Resumen Integral).
   - `audiia_ajustes_v3`: estado de aceptación/rechazo de los 2 ajustes PAE vigentes (`AJ-01` y `AJ-04`) + partida menor `PAE-NC-01`, sincronizado con la barra roja de impacto en Etapa 3, Dashboard y Resumen Integral.
   - `audiia_equipo_v2`, `audiia_pasos_narrativos_v1`, `audiia_conclusiones_v1` y `audiia_zoom_level`.
+- **Cuadro Síntesis para Exposición Oral (`1B. Control Interno` — `#sec-sintesis-exposicion`):** tabla ejecutiva de Fortalezas, Debilidades e Impacto de los 5 CCI con porcentajes NC/RC en vivo y botón **«Modo Exposición»** para ocultar/expandir las 129 preguntas durante la defensa.
+- **Guion Hilo Conductor para Clase (`Hoja Resumen` — pestaña `guion` / sidebar `4.0`):** narrativa didáctica en 7 eslabones (`1A → 1B → 1C → 1D → Etapa 2 → PAE → Etapa 3`) con «Qué hicimos», «Por qué conecta», guion oral y defensa de preguntas frecuentes de cátedra.
 - **Glosario de Marcas Inteligente por Rubro:** adapta ejemplos y oculta marcas no aplicables (`t` y `h` exclusivas de Intangibles).
 - **Ruta del Documento Word Activo del Usuario:** `C:\Users\jelim\Desktop\AUD 2026\AE 4\AE 4 - Planificación Detallada - copia (2) - Actualizado.docx`.

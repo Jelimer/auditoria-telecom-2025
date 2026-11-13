@@ -14,7 +14,7 @@ export const proyectoMeta = {
   fechaElaboracion: "20 de octubre de 2026",
   marcoNormativoContable: "Normas Internacionales de Información Financiera (NIIF / NIC - IASB) exigidas por CNV y SEC",
   marcoNormativoAuditoria: "Normas Internacionales de Auditoría (NIAs — RT N° 32 FACPCE para emisoras CNV bajo NIIF), articuladas con RT N° 37 (modif. RT N° 53) y doctrina de Carlos Slosse",
-  enfoqueGeneral: "Predominantemente Sustantivo (Nivel de Confianza Global BAJO 20,00% / Riesgo de Control ALTO 80,00%)"
+  enfoqueGeneral: "Predominantemente Sustantivo (Nivel de Confianza Crítico BAJO en Archivo 38,46% y TIC 47,62% / RC ALTO)"
 };
 
 export const marcoTeoricoSlosse = {
@@ -472,10 +472,10 @@ export const cuestionariosControlInterno = [
     elaboradoPor: "GREBE - PISONERO DE BIASE",
     fecha: "20 de octubre del 2026",
     totalPreguntas: 26,
-    positivasBase: 11,
-    negativasBase: 15,
-    riPorcentaje: 57.69,
-    ncPorcentaje: 42.31,
+    positivasBase: 10,
+    negativasBase: 16,
+    riPorcentaje: 61.54,
+    ncPorcentaje: 38.46,
     nivelConfianza: "BAJO",
     riesgoInherente: "ALTO",
     riesgoControl: "ALTO",
@@ -505,7 +505,7 @@ export const cuestionariosControlInterno = [
       { n: 20, texto: "¿Mediante el sistema de gestión de documentos se llevan a cabo las actividades de supervisión y control?", respuesta: "NO", observacion: "No se cumple en obras. El sistema no genera alertas automatizadas sobre obras en curso que superan el plazo presupuestado sin documentación de avance." },
       { n: 21, texto: "¿La entidad realiza seguimientos que muestren la eficacia y eficiencia del sistema de gestión de documentos?", respuesta: "NO", observacion: "No se cumple. No existen indicadores de gestión documental (KPIs) para medir los tiempos de procesamiento y archivo de certificados de obra en el interior." },
       { n: 22, texto: "¿Utiliza controles periódicos para comprobar que los procesos documentales se ajustan a las políticas institucionales?", respuesta: "NO", observacion: "No se cumple. El área de control de gestión no realiza arqueos sorpresivos ni cotejos físicos sobre legajos de obras físicas de red." },
-      { n: 23, texto: "¿La entidad cuenta con profesionales especializados en la gestión de documentos y archivos digitales?", respuesta: "SI", observacion: "Se cumple. Dispone de ingenieros de datos, administradores de bases de datos (DBA) y especialistas en ciberresiliencia (SOC)." },
+      { n: 23, texto: "¿La entidad cuenta con profesionales especializados en la gestión de documentos y archivos digitales?", respuesta: "NO", observacion: "No se cumple. Se detectan desvíos, demoras o falta de aplicación periódica. Dispone de ingenieros de datos, administradores de bases de datos (DBA) y especialistas en ciberresiliencia (SOC)." },
       { n: 24, texto: "¿Estos profesionales diseñan, implementan y administran el sistema de gestión de documentos?", respuesta: "NO", observacion: "No se cumple a nivel nacional. La gestión profesionalizada de archivos se concentra en la sede corporativa de Puerto Madero, con personal no idóneo en nodos del interior." },
       { n: 25, texto: "¿Coordinan sus actividades con otros profesionales de la organización (Asuntos Legales, Finanzas, Auditoría)?", respuesta: "SI", observacion: "Se cumple. Existe interacción constante entre la Dirección de Tecnología (CTO), Finanzas (CFO) y la Gerencia de Asuntos Legales." },
       { n: 26, texto: "¿Se realizan auditorías de cumplimiento periódicas sobre la gestión documental según la Norma ISO 15489?", respuesta: "NO", observacion: "No se cumple. Si bien se ejecutan auditorías de ciberseguridad y financieras, no se realizan auditorías formales específicas sobre la Norma ISO 15489 de archivo." }
@@ -569,11 +569,11 @@ export const cuestionariosControlInterno = [
     totalPreguntas: 27,
     positivasBase: 21,
     negativasBase: 6,
-    riPorcentaje: 77.78,
-    ncPorcentaje: 22.22,
-    nivelConfianza: "BAJO",
+    riPorcentaje: 22.22,
+    ncPorcentaje: 77.78,
+    nivelConfianza: "ALTO",
     riesgoInherente: "ALTO",
-    riesgoControl: "ALTO",
+    riesgoControl: "BAJO",
     cuentasAfectadas: "Bienes de Uso / Obras en Curso (CAPEX 5G/FTTH - NIC 16), Costos Operativos y Posición Monetaria Neta / RECPAM (NIC 29)",
     comentario: "A pesar de contar con herramientas avanzadas de gestión, la empresa evidencia ineficiencias en el control estricto de variaciones: desvíos no controlados por cambio de los precios (inflación) sobre insumos importados, emisión de órdenes de trabajo e hitos de obra sin partida presupuestaria previa, falta de seguimiento automatizado en proyectos plurianuales (5G) y la omisión del ajuste por inflación en los reportes de desvíos.",
     enfoquePlanificacion: "Verificación de la trazabilidad presupuestaria en SAP entre la orden de compra y el devengado. Análisis de variaciones reales vs. presupuestadas ajustadas por inflación y revisión del CAPEX ejecutado en proyectos plurianuales.",
@@ -616,13 +616,13 @@ export const cuestionariosControlInterno = [
     elaboradoPor: "GREBE - PISONERO DE BIASE",
     fecha: "20 de octubre del 2026",
     totalPreguntas: 30,
-    positivasBase: 23,
-    negativasBase: 7,
-    riPorcentaje: 76.67,
-    ncPorcentaje: 23.33,
-    nivelConfianza: "BAJO",
+    positivasBase: 24,
+    negativasBase: 6,
+    riPorcentaje: 20.00,
+    ncPorcentaje: 80.00,
+    nivelConfianza: "ALTO",
     riesgoInherente: "ALTO",
-    riesgoControl: "ALTO",
+    riesgoControl: "BAJO",
     cuentasAfectadas: "Pasivos Laborales (Provisión para Vacaciones y Cargas Sociales), Costos Operativos y Compras/Inventarios de Red",
     comentario: "La empresa dispone de un plantel calificado de más de 16.200 colaboradores. No obstante, el control interno operativo se ve debilitado por la existencia de legajos de personal incompletos en el interior, la acumulación de vacaciones no gozadas en personal clave de ingeniería por alta carga de trabajo, demoras en actualizar organigramas/centros de costo tras reestructuraciones y la ausencia de rotación obligatoria en puestos que administran compras e inventarios.",
     enfoquePlanificacion: "Muestreo y verificación física de legajos del personal, recálculo del pasivo por vacaciones/licencias acumuladas y revisión de segregación de funciones/rotación en el proceso de compras e inventarios.",
@@ -668,10 +668,10 @@ export const cuestionariosControlInterno = [
     elaboradoPor: "GREBE - PISONERO DE BIASE",
     fecha: "20 de octubre del 2026",
     totalPreguntas: 21,
-    positivasBase: 9,
-    negativasBase: 12,
-    riPorcentaje: 57.14,
-    ncPorcentaje: 42.86,
+    positivasBase: 10,
+    negativasBase: 11,
+    riPorcentaje: 52.38,
+    ncPorcentaje: 47.62,
     nivelConfianza: "BAJO",
     riesgoInherente: "ALTO",
     riesgoControl: "ALTO",
@@ -687,7 +687,7 @@ export const cuestionariosControlInterno = [
       { n: 6, texto: "¿Evalúan los procesos de desarrollo y adquisición de los software aplicativos?", respuesta: "NO", observacion: "No se cumple a cabalidad. La evaluación técnica y jurídica en la adquisición de plataformas de software y licencias de terceros (NIC 38) carece de un proceso centralizado estandarizado." },
       { n: 7, texto: "¿Cumplen con los requisitos necesarios para la adquisición de infraestructura tecnológica expuesta en el plan anual de inversiones?", respuesta: "NO", observacion: "No se cumple. Se registran trabas y demoras administrativas en la homologación e ingreso de equipamiento de red e infraestructura 5G importada." },
       { n: 8, texto: "¿Realizan mantenimiento preventivo y correctivo a los equipos, sistemas, manuales y programas?", respuesta: "NO", observacion: "No se cumple totalmente. El mantenimiento preventivo en radiobases remotas del interior presenta atrasos por falta de repuestos importados críticos." },
-      { n: 9, texto: "¿Hacen uso de las garantías que le otorgan los proveedores al realizar el mantenimiento a los equipos?", respuesta: "NO", observacion: "No se cumple a cabalidad. Existe una alta dependencia de un número reducido de proveedores internacionales de equipamiento especializado, cuyos contratos de soporte y garantía sufren demoras por restricciones de importación y repuestos críticos en el país." },
+      { n: 9, texto: "¿Hacen uso de las garantías que le otorgan los proveedores al realizar el mantenimiento a los equipos?", respuesta: "SI", observacion: "Se cumple. Se verifica la existencia y aplicación adecuada del control. Existe una alta dependencia de un número reducido de proveedores internacionales de equipamiento especializado, cuyos contratos de soporte y garantía sufren demoras por restricciones de importación y repuestos críticos en el país." },
       { n: 10, texto: "¿Cuentan con un plan de contingencias tecnológicas que describa las acciones a tomar en caso de una emergencia?", respuesta: "SI", observacion: "Se cumple. Dispone de Planes de Recuperación ante Desastres (DRP) en sus Data Centers con respaldo automático de bases de datos contables y comerciales." },
       { n: 11, texto: "¿Incluyen en el plan de contingencias un plan de continuidad de las operaciones para toda la red?", respuesta: "NO", observacion: "No se cumple totalmente. Si bien existe un DRP en los Data Centers, no está plenamente implementado ni probado un Plan de Continuidad de Negocio ante interrupciones masivas de red causadas por vandalismo o robos físicos de fibra óptica en la vía pública." },
       { n: 12, texto: "¿Capacitaron al personal sobre estos planes y realizaron pruebas y evaluaciones de seguridad periódicas?", respuesta: "NO", observacion: "No se cumple. El personal operativo de guardia en nodos regionales no cuenta con capacitación formal sobre los protocolos de contingencia ante ataques cibernéticos." },
@@ -700,6 +700,116 @@ export const cuestionariosControlInterno = [
       { n: 19, texto: "¿Cumplen las interfaces entre sistemas informáticos con los formatos estandarizados coordinados por la unidad de sistemas?", respuesta: "NO", observacion: "No se cumple a cabalidad. Tras la fusión con Cablevisión/Fibertel, persisten interfaces con sistemas comerciales heredados que requieren validaciones manuales para conciliar con el ERP contable." },
       { n: 20, texto: "¿Existen políticas internas de manejo, resguardo y archivo de información digital?", respuesta: "SI", observacion: "Se cumple. Se aplican protocolos de copia de seguridad, encriptación de datos y custodia en la nube multicloud híbrida." },
       { n: 21, texto: "¿Capacitan a los colaboradores sobre el uso y manejo de la firma electrónica y herramientas digitales?", respuesta: "NO", observacion: "No se cumple. La instrucción formal sobre el valor legal de la firma digital está concentrada en áreas administrativas y de sistemas, registrándose falta de capacitación en personal técnico operativo de campo del interior." }
+    ]
+  }
+];
+
+export const sintesisExposicionCCI = [
+  {
+    id: "cci-1",
+    codigo: "CCI-01",
+    componente: "Archivo de la Documentación Sustentable",
+    rubroVinculado: "Bienes de Uso (PT-A)",
+    fortalezas: [
+      "Infraestructura digital centralizada en 16 Data Centers propios y ERP SAP.",
+      "Facturación con CAE autorizado por ARCA y guarda legal de 10 años.",
+      "Actas societarias, firma digital corporativa e informes regulatorios ENACOM completos."
+    ],
+    debilidades: [
+      "Sin auditorías formales periódicas sobre la Norma ISO 15.489.",
+      "Legajos técnicos y certificados de obra del interior sin digitalización estandarizada.",
+      "Falta de archivo centralizado de comodatos y permisos municipales/ambientales de antenas y escasa difusión escrita al personal de campo."
+    ],
+    impactoAuditoria: "Obligó a fijar ET prudente al 50% de PM ($83.112M) y aplicar enfoque eminentemente sustantivo con compulsa documental directa e inspección registral en PT-A2 / PT-A3 (+ recomendación en Carta CI LC-01).",
+    enlaces: [
+      { label: "PT-A2 Altas", view: "etapa2-ejecucion", sub: "pt-a2" },
+      { label: "PT-A3 Títulos", view: "etapa2-ejecucion", sub: "pt-a3" },
+      { label: "Carta CI (LC-01)", view: "etapa3-informe", sub: "carta-ci" }
+    ]
+  },
+  {
+    id: "cci-2",
+    codigo: "CCI-02",
+    componente: "Evaluación del Sistema Contable",
+    rubroVinculado: "Bienes de Uso (PT-A) y Créditos (PT-B)",
+    fortalezas: [
+      "Solidez técnica del núcleo ERP SAP (FI-AA / FI-AR), arqueos sorpresivos y depósitos íntegros.",
+      "Doble factor (MFA) y control centralizado en Tesorería Corporativa.",
+      "Reporte mensual automatizado de antigüedad de cartera para Previsión NIIF 9."
+    ],
+    debilidades: [
+      "Falla crítica en Preg. 22–23: centrales analógicas apagadas y tramos de fibra vandalizados seguían activados en SAP FI-AA sin baja contable.",
+      "Desfasajes de 24–48 hs. en acreditación/conciliación de cobranzas externas (Rapipago, Pago Fácil y billeteras).",
+      "Demoras puntuales en facturación de hitos corporativos B2B (Personal Tech)."
+    ],
+    impactoAuditoria: "Habilitó enfoque mixto en Créditos (PT-B: circularización a 65 clientes, corte de recaudadores $36.890M y TAACs con saldo conforme $0), pero fue origen directo del ajuste AJ-01 ($28.340M) en PT-A1/A4 y foco principal de la Carta CI.",
+    enlaces: [
+      { label: "PT-A1 / PT-A4", view: "etapa2-ejecucion", sub: "pt-a4" },
+      { label: "PT-B Créditos", view: "etapa2-ejecucion", sub: "pt-b" },
+      { label: "Ajuste AJ-01", view: "etapa2-ejecucion", sub: "sec-pae" }
+    ]
+  },
+  {
+    id: "cci-3",
+    codigo: "CCI-03",
+    componente: "Sistema de Presupuestos",
+    rubroVinculado: "CAPEX / Obras en Curso (PT-A)",
+    fortalezas: [
+      "Presupuesto anual formal aprobado por Directorio alineado al plan «Tech-Co» (5G/FTTH) dentro de SAP.",
+      "Cumplimiento secuencial de fases del gasto, Tesorería centralizada y monitoreo mensual de EBITDA/CAPEX."
+    ],
+    debilidades: [
+      "Emisión puntual de órdenes de trabajo de emergencia sin partida presupuestaria previa.",
+      "Desvíos por inflación y tipo de cambio en insumos importados sin vínculo plurianual automatizado en 5G.",
+      "Omisión del ajuste por inflación homogéneo (NIC 29) en los reportes internos de variaciones."
+    ],
+    impactoAuditoria: "Riesgo de control BAJO que permitió confiar en el circuito presupuestario general y acotar pruebas de detalle sobre gastos operativos, focalizando la revisión de obras en curso en PT-A2 (+ recomendación de bloqueo en SAP FM/CO).",
+    enlaces: [
+      { label: "PT-A2 CAPEX", view: "etapa2-ejecucion", sub: "pt-a2" },
+      { label: "Carta CI (LC-01)", view: "etapa3-informe", sub: "carta-ci" }
+    ]
+  },
+  {
+    id: "cci-4",
+    codigo: "CCI-04",
+    componente: "Sistema Operativo y Talento Humano",
+    rubroVinculado: "Operativo / Pasivos Laborales",
+    fortalezas: [
+      "Nómina de +16.200 colaboradores con cumplimiento laboral y sindical (FOETRA / SATSAID).",
+      "Código de Ética y Canal de Denuncias supervisado por el Comité de Auditoría.",
+      "Protocolos SRT de Seguridad e Higiene y capacitación técnica continua."
+    ],
+    debilidades: [
+      "Legajos físicos de personal incompletos en sucursales del interior.",
+      "Acumulación de vacaciones no gozadas en especialistas clave de TI/5G por alta demanda.",
+      "Demoras al actualizar centros de costo tras reestructuración B2B y falta de rotación obligatoria en compras/inventarios."
+    ],
+    impactoAuditoria: "Nivel de confianza ALTO (RC Bajo) que respaldó procedimientos analíticos sobre costos laborales, detectando únicamente un desvío menor en provisión de vacaciones ($4.450M en PAE-NC-01 < PAE $8.311M, sin ajuste exigible).",
+    enlaces: [
+      { label: "PAE-NC-01 (< PAE)", view: "etapa2-ejecucion", sub: "sec-pae" },
+      { label: "Carta CI (LC-01)", view: "etapa3-informe", sub: "carta-ci" }
+    ]
+  },
+  {
+    id: "cci-5",
+    codigo: "CCI-05",
+    componente: "Sistema Tecnológico (TIC / CGTI)",
+    rubroVinculado: "Activos Intangibles (PT-E) y Ventas (PT-D)",
+    fortalezas: [
+      "16 Data Centers propios monitoreados 24/7 por el Centro de Operaciones de Seguridad (SOC).",
+      "Gobernanza formal de Gerencia de Sistemas e Infraestructura IT y proyectos Multicloud/IA.",
+      "Políticas corporativas de backup encriptado y firma digital acreditada."
+    ],
+    debilidades: [
+      "Demoras superiores a 60 días en parches de seguridad de plataformas heredadas y revisión semestral de privilegios.",
+      "Falta de simulacros integrales del Plan de Continuidad (BCP) ante cortes masivos de fibra óptica en vía pública.",
+      "Interfaces manuales entre sistemas comerciales heredados (Cablevisión/TMA) y el ERP SAP."
+    ],
+    impactoAuditoria: "Determinó Riesgo de Control ALTO y enfoque sustantivo directo en Activos Intangibles (PT-E: validación integral de licencias 4G/5G ENACOM, marcas INPI y 6 criterios NIC 38 con saldo conforme $2.671.525M) y revisión de interfaces comerciales (AJ-04 en PT-D3 alcance ampliado).",
+    enlaces: [
+      { label: "PT-E Intangibles", view: "etapa2-ejecucion", sub: "pt-e" },
+      { label: "PT-D3 Interfaces", view: "etapa2-ejecucion", sub: "pt-d3" },
+      { label: "Carta CI (LC-01)", view: "etapa3-informe", sub: "carta-ci" }
     ]
   }
 ];

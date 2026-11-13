@@ -7,9 +7,13 @@ import {
   RotateCcw,
   Calculator,
   ShieldAlert,
+  ShieldCheck,
   Search,
-  ArrowUpRight
+  ArrowUpRight,
+  Eye,
+  EyeOff
 } from 'lucide-react';
+import { sintesisExposicionCCI } from '../data/etapa1Data';
 
 const CCI_PT_TARGETS = {
   'cci-1': { targetPT: 'pt-a', label: 'PT-A: Bienes de Uso (420 hs)' },
@@ -123,14 +127,16 @@ export default function Etapa1ControlInternoView({
   const [selectedId, setSelectedId] = useState(cuestionariosState[0]?.id || 'cci-1');
   const [filtroRespuesta, setFiltroRespuesta] = useState('TODOS'); // 'TODOS' | 'NO' | 'SI'
   const [busqueda, setBusqueda] = useState('');
+  const [mostrarDetalleEncuestas, setMostrarDetalleEncuestas] = useState(true);
 
   useEffect(() => {
     if (!subTarget) return;
     if (subTarget.startsWith('cci-')) {
       setSelectedId(subTarget);
-    } else if (subTarget === 'sec-ponderacion') {
+      setMostrarDetalleEncuestas(true);
+    } else if (subTarget === 'sec-ponderacion' || subTarget === 'sec-sintesis-exposicion') {
       setTimeout(() => {
-        const el = document.getElementById('sec-ponderacion');
+        const el = document.getElementById(subTarget);
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 60);
     }
@@ -232,7 +238,178 @@ export default function Etapa1ControlInternoView({
         </div>
       </div>
 
+      {/* SÍNTESIS EJECUTIVA PARA EXPOSICIÓN ORAL: FORTALEZAS Y DEBILIDADES DE LOS 5 CCI */}
+      <div
+        id="sec-sintesis-exposicion"
+        className="bg-white rounded-2xl border border-teal-200 p-6 shadow-xs scroll-mt-20 space-y-4"
+      >
+        <div className="flex flex-wrap items-start justify-between gap-3 pb-4 border-b border-slate-100">
+          <div>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-extrabold bg-teal-900 text-lime-300">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              CUADRO SÍNTESIS PARA EXPOSICIÓN ORAL • 129 PREGUNTAS EN 5 SISTEMAS
+            </span>
+            <h3 className="text-lg font-extrabold text-slate-900 mt-2">
+              Fortalezas, Debilidades Críticas e Impacto en la Auditoría (CCI-01 a CCI-05)
+            </h3>
+            <p className="text-xs text-slate-500 mt-0.5 max-w-3xl">
+              Resumen didáctico para defender en clase el relevamiento del Control Interno sin necesidad de leer las 129 preguntas una por una. Los porcentajes de{' '}
+              <strong className="text-slate-700">NC / RC</strong> reflejan en tiempo real la matriz matemática vigente.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setMostrarDetalleEncuestas((v) => !v)}
+            className={`px-3.5 py-2 rounded-xl text-xs font-extrabold border inline-flex items-center gap-2 transition-all cursor-pointer ${
+              mostrarDetalleEncuestas
+                ? 'bg-slate-900 text-lime-300 border-slate-800 hover:bg-slate-800'
+                : 'bg-teal-700 text-white border-teal-700 hover:bg-teal-800 shadow-sm'
+            }`}
+          >
+            {mostrarDetalleEncuestas ? (
+              <>
+                <EyeOff className="w-4 h-4" />
+                Modo Exposición: Ocultar 129 preguntas
+              </>
+            ) : (
+              <>
+                <Eye className="w-4 h-4" />
+                Mostrar detalle de 129 preguntas
+              </>
+            )}
+          </button>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr className="bg-slate-900 text-white uppercase tracking-wider text-[11px]">
+                <th className="py-3 px-3 rounded-tl-lg w-44">Sistema / Rubro</th>
+                <th className="py-3 px-3 text-center w-36">NC / RC (En vivo)</th>
+                <th className="py-3 px-3 w-64">Fortalezas Clave («SÍ»)</th>
+                <th className="py-3 px-3 w-64">Debilidades Críticas («NO»)</th>
+                <th className="py-3 px-3 rounded-tr-lg">Impacto en Etapa 2 y Etapa 3</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-200">
+              {sintesisExposicionCCI.map((item) => {
+                const calc = cciCalculados.find((c) => c.id === item.id);
+                const rcLabel = calc?.rcLabel || 'MEDIO';
+                const badgeStyle =
+                  rcLabel === 'ALTO'
+                    ? 'bg-red-100 text-red-700 border-red-200'
+                    : rcLabel === 'MEDIO'
+                    ? 'bg-amber-100 text-amber-800 border-amber-200'
+                    : 'bg-emerald-100 text-emerald-700 border-emerald-200';
+                return (
+                  <tr key={item.id} className="hover:bg-teal-50/40 align-top">
+                    <td className="py-3 px-3">
+                      <span className="inline-block px-2 py-0.5 rounded bg-teal-900 text-white font-mono text-[10px] font-extrabold">
+                        {item.codigo}
+                      </span>
+                      <p className="font-extrabold text-slate-900 mt-1 leading-snug">
+                        {item.componente}
+                      </p>
+                      <span className="inline-block mt-1 px-2 py-0.5 rounded bg-slate-100 text-slate-700 font-semibold text-[10px]">
+                        {item.rubroVinculado}
+                      </span>
+                      <div className="mt-2">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedId(item.id);
+                            setMostrarDetalleEncuestas(true);
+                          }}
+                          className="text-[11px] font-bold text-teal-700 hover:text-teal-900 underline cursor-pointer"
+                        >
+                          Ver preguntas ({calc ? `${calc.total}` : ''}) ↓
+                        </button>
+                      </div>
+                    </td>
+                    <td className="py-3 px-3 text-center">
+                      {calc && (
+                        <div className="space-y-1.5">
+                          <div className="font-mono font-extrabold text-slate-900 text-sm">
+                            NC {calc.nc.toFixed(2)}%
+                          </div>
+                          <div className="text-[11px] text-slate-500">
+                            {calc.positivas} SÍ / {calc.negativas} NO ({calc.total})
+                          </div>
+                          <span
+                            className={`inline-block px-2 py-0.5 rounded border font-extrabold text-[10px] ${badgeStyle}`}
+                          >
+                            RC {calc.rc.toFixed(2)}% ({rcLabel})
+                          </span>
+                        </div>
+                      )}
+                    </td>
+                    <td className="py-3 px-3">
+                      <ul className="space-y-1.5 text-slate-700 leading-relaxed">
+                        {item.fortalezas.map((f, idx) => (
+                          <li key={idx} className="flex items-start gap-1.5">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
+                            <span>{f}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </td>
+                    <td className="py-3 px-3">
+                      <ul className="space-y-1.5 text-slate-700 leading-relaxed">
+                        {item.debilidades.map((d, idx) => (
+                          <li key={idx} className="flex items-start gap-1.5">
+                            <AlertCircle className="w-3.5 h-3.5 text-red-600 shrink-0 mt-0.5" />
+                            <span>{d}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </td>
+                    <td className="py-3 px-3 space-y-2">
+                      <p className="text-slate-700 leading-relaxed">{item.impactoAuditoria}</p>
+                      {item.enlaces && item.enlaces.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 pt-1">
+                          {item.enlaces.map((lnk, i) => (
+                            <button
+                              key={i}
+                              type="button"
+                              onClick={() => onNavigate && onNavigate(lnk.view, lnk.sub)}
+                              className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 font-bold text-[10px] transition-colors cursor-pointer"
+                            >
+                              {lnk.label}
+                              <ArrowUpRight className="w-3 h-3" />
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {/* Cuestionario Activo + Su Matriz de Nivel de Confianza y Riesgo de Control */}
+      {!mostrarDetalleEncuestas && (
+        <div className="bg-slate-900 text-white rounded-2xl border border-teal-500/40 p-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5 text-xs">
+            <EyeOff className="w-4 h-4 text-lime-400 shrink-0" />
+            <span>
+              <strong className="text-lime-300">Modo Exposición Oral activo:</strong> las 129 preguntas detalladas están ocultas para agilizar la lectura en clase.
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setMostrarDetalleEncuestas(true)}
+            className="px-3 py-1.5 rounded-lg bg-lime-400 hover:bg-lime-300 text-slate-950 font-extrabold text-xs inline-flex items-center gap-1.5 cursor-pointer"
+          >
+            <Eye className="w-3.5 h-3.5" />
+            Expandir detalle de 129 preguntas
+          </button>
+        </div>
+      )}
+
+      {mostrarDetalleEncuestas && (
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Tabla de Preguntas del CCI Activo (8 columnas) */}
         <div className="lg:col-span-8 bg-white rounded-2xl border border-slate-200 p-5 shadow-xs">
@@ -530,6 +707,7 @@ export default function Etapa1ControlInternoView({
           </div>
         </div>
       </div>
+      )}
 
       {/* GUÍA RÁPIDA DE CORRESPONDENCIA: COMPONENTE -> RIESGO DE CONTROL -> PAPEL DE TRABAJO (ETAPA 2) */}
       <div id="sec-guia-correspondencia" className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs scroll-mt-20">
@@ -719,7 +897,7 @@ export default function Etapa1ControlInternoView({
             </span>
           </div>
           <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-teal-200 border border-white/15">
-            Doctrina: Carlos A. Slosse &amp; RT 37 / RT 53
+            Doctrina: Carlos A. Slosse &amp; NIAs / RT 37 (modif. RT 53)
           </span>
         </div>
 
@@ -742,7 +920,7 @@ export default function Etapa1ControlInternoView({
               2. ¿Qué se hace concretamente acá?
             </strong>
             <p className="text-slate-200">
-              Aplicamos los <strong>5 Cuestionarios de Control Interno (CCI)</strong> verificando qué controles se cumplen («SÍ») y cuáles fallan («NO»). Con esas respuestas calculamos matemáticamente la <strong>Matriz de Confianza y Riesgo</strong> de cada componente. Al detectar fallas críticas en legajos de obras físicas, radiobases 5G y tecnología (CCI-01 con NC 38,46% y CCI-05 con NC 47,62%), el <strong>Riesgo de Control (RC) resultó ALTO</strong> en los rubros estructurales de infraestructura y tecnología (Bienes de Uso e Intangibles), mientras que en los sistemas contable, presupuestario y operativo el <strong>Riesgo de Control resultó BAJO (NC entre 77,78% y 80,00%)</strong>.
+              Aplicamos los <strong>5 Cuestionarios de Control Interno (CCI)</strong> verificando qué controles se cumplen («SÍ») y cuáles fallan («NO»). Con esas respuestas calculamos matemáticamente la <strong>Matriz de Confianza y Riesgo</strong> de cada componente. Al detectar fallas críticas en legajos de obras físicas, radiobases 5G y tecnología (CCI-01 con NC 38,46% y CCI-05 con NC 47,62%), el <strong>Riesgo de Control (RC) resultó ALTO</strong> en los rubros estructurales de infraestructura y tecnología (Bienes de Uso e Intangibles), mientras que el <strong>Sistema Contable (CCI-02) arrojó Riesgo de Control MEDIO (NC 72,00%)</strong> y los sistemas presupuestario (CCI-03) y operativo (CCI-04) arrojaron <strong>Riesgo de Control BAJO (NC 77,78% y 80,00%)</strong>.
             </p>
           </div>
 

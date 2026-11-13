@@ -87,6 +87,7 @@ const NAV_ITEMS = [
     etapaTag: 'Etapa 1: Planificación',
     icon: ClipboardCheck,
     subItems: [
+      { id: 'sec-sintesis-exposicion', label: '1.2.0. Síntesis: Fortalezas y Debilidades', type: 'scroll' },
       { id: 'cci-1', label: '1.2.A. CCI-01: Archivo Documental', type: 'tab' },
       { id: 'cci-2', label: '1.2.B. CCI-02: Sistema Contable', type: 'tab' },
       { id: 'cci-3', label: '1.2.C. CCI-03: Presupuestos', type: 'tab' },
@@ -169,6 +170,7 @@ const NAV_ITEMS = [
     etapaTag: 'Síntesis Consolidada',
     icon: BookOpenCheck,
     subItems: [
+      { id: 'guion', label: '4.0. Guion e Hilo Conductor (Clase)', type: 'tab' },
       { id: 'todas', label: '4.1. Expediente Completo (3 Etapas)', type: 'tab' },
       { id: 'etapa1', label: '4.2. Síntesis Etapa 1 (Planificación)', type: 'tab' },
       { id: 'etapa2', label: '4.3. Síntesis Etapa 2 (Ejecución)', type: 'tab' },
@@ -248,7 +250,7 @@ export default function App() {
   // Estado interactivo de los 5 Cuestionarios de Control Interno
   const [cuestionariosState, setCuestionariosState] = useState(() => {
     try {
-      const saved = localStorage.getItem('audiia_cci_v5');
+      const saved = localStorage.getItem('audiia_cci_v6');
       return saved ? JSON.parse(saved) : cuestionariosControlInterno;
     } catch {
       return cuestionariosControlInterno;
@@ -292,7 +294,7 @@ export default function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('audiia_cci_v5', JSON.stringify(cuestionariosState));
+      localStorage.setItem('audiia_cci_v6', JSON.stringify(cuestionariosState));
     } catch {
       // ignore
     }
@@ -538,6 +540,8 @@ export default function App() {
   const handleResetCuestionarios = () => {
     try {
       localStorage.removeItem('audiia_cci_v4');
+      localStorage.removeItem('audiia_cci_v5');
+      localStorage.removeItem('audiia_cci_v6');
     } catch {
       // ignore
     }

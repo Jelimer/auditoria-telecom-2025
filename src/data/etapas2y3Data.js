@@ -955,7 +955,7 @@ export const documentosEtapa3 = {
       {
         subtitulo: "1. Alcance Normativo (NIAs / RT N° 32 FACPCE), Enfoque Aplicado y Materialidad",
         normas: "NIA 300 • NIA 315 • NIA 320 • NIA 330 • RT N° 32 FACPCE • Doctrina Carlos A. Slosse",
-        contenido: "Hemos completado la auditoría externa de los Estados Financieros Consolidados de Telecom Argentina S.A. al 31/12/2025 preparados conforme a las Normas de contabilidad NIIF emitidas por el IASB (moneda homogénea NIC 29). Al tratarse de una entidad sujeta al régimen de oferta pública de la CNV bajo NIIF (RT N° 26), el encargo y su dictamen final se rigen por las Normas Internacionales de Auditoría (NIAs) adoptadas mediante la Resolución Técnica N° 32 de la FACPCE, articuladas con las 3 etapas secuenciales de Carlos A. Slosse. En virtud de que la evaluación inicial arrojó Nivel de Confianza BAJO (Riesgo de Control ALTO) en Archivo Documental (CCI-01: 42,31% inicial) y Sistema Tecnológico (CCI-05: 42,86% inicial), y Confianza MEDIA en Sistema Contable (CCI-02: 72,00% inicial), adoptamos un enfoque predominantemente sustantivo fijando la Materialidad Global (PM) en $166.225M (1% del Activo Total de $16.622.552M), Error Tolerable (ET) en $83.112M (50% de PM) y Umbral PAE en $8.311M (5% de ET).",
+        contenido: "Hemos completado la auditoría externa de los Estados Financieros Consolidados de Telecom Argentina S.A. al 31/12/2025 preparados conforme a las Normas de contabilidad NIIF emitidas por el IASB (moneda homogénea NIC 29). Al tratarse de una entidad sujeta al régimen de oferta pública de la CNV bajo NIIF (RT N° 26), el encargo y su dictamen final se rigen por las Normas Internacionales de Auditoría (NIAs) adoptadas mediante la Resolución Técnica N° 32 de la FACPCE, articuladas con las 3 etapas secuenciales de Carlos A. Slosse. En virtud de que la evaluación inicial arrojó Nivel de Confianza BAJO (Riesgo de Control ALTO) en Archivo Documental (CCI-01: 38,46% inicial) y Sistema Tecnológico (CCI-05: 47,62% inicial), y Confianza MEDIA en Sistema Contable (CCI-02: 72,00% inicial), adoptamos un enfoque predominantemente sustantivo fijando la Materialidad Global (PM) en $166.225M (1% del Activo Total de $16.622.552M), Error Tolerable (ET) en $83.112M (50% de PM) y Umbral PAE en $8.311M (5% de PM).",
         refs: [
           { label: "Conocimiento del Ente (1A)", view: "etapa1-ente", sub: null },
           { label: "Matriz 5 CCIs (1B)", view: "etapa1-cci", sub: "sec-ponderacion" },
@@ -1009,8 +1009,8 @@ export const documentosEtapa3 = {
         cciId: "cci-1",
         codigoCCI: "CCI-01",
         componenteBase: "1. Archivo de la Documentación Sustentable",
-        fallbackNC: "42,31% — RC: ALTO",
-        preguntasCriticas: "CCI-01 • Preguntas con desvío documental e ISO 15.489 (15 NO / 26 preg.)",
+        fallbackNC: "38,46% — RC: ALTO",
+        preguntasCriticas: "CCI-01 • Preguntas con desvío documental e ISO 15.489 (16 NO / 26 preg.)",
         observacion: "Ausencia de auditorías internas anuales específicas bajo Norma ISO 15.489, demoras y falta de estandarización en la digitalización de certificados de avance de obra de red FTTH/5G en sucursales del interior y falta de difusión escrita del manual de resguardo documental al personal técnico de campo.",
         recomendacion: "Implementar un protocolo obligatorio de carga digital en SAP Document Management dentro de las 48 hs. de firmado cada certificado de avance de obra en todas las regionales e incorporar revisiones anuales ISO 15.489 en el plan anual de Auditoría Interna reportado al Comité de Auditoría.",
         refs: [
@@ -1050,7 +1050,7 @@ export const documentosEtapa3 = {
         cciId: "cci-4",
         codigoCCI: "CCI-04",
         componenteBase: "4. Sistema Operativo y Talento Humano",
-        fallbackNC: "76,67% — RC: BAJO",
+        fallbackNC: "80,00% — RC: BAJO",
         preguntasCriticas: "CCI-04 (Preg. 12) → Partida menor PAE-NC-01 ($4.450M vacaciones TI < PAE)",
         observacion: "Legajos físicos incompletos en personal técnico de campo del interior y acumulación de días de vacaciones/licencias no gozadas en especialistas clave de TI/5G sin recálculo automatizado mensual de la provisión laboral (diferencia menor $4.450M incluida en PAE-NC-01, inferior al umbral PAE $8.311M).",
         recomendacion: "Digitalizar el 100% de los legajos laborales regionales, establecer un cronograma escalonado de goce de licencias con back-ups cruzados en Ingeniería 5G y automatizar en SAP HCM la interfaz mensual del devengamiento de vacaciones.",
@@ -1063,7 +1063,7 @@ export const documentosEtapa3 = {
         cciId: "cci-5",
         codigoCCI: "CCI-05",
         componenteBase: "5. Sistema Tecnológico y TIC",
-        fallbackNC: "42,86% — RC: ALTO",
+        fallbackNC: "47,62% — RC: ALTO",
         preguntasCriticas: "CCI-05 (Preg. 19) → Reclasificación AJ-04 ($11.240M Flow NIIF 15) + Interfaces",
         observacion: "Persistencia de interfaces manuales entre sistemas comerciales heredados (incluyendo el entorno post-adquisición TMA) y el ERP SAP, lo que originó la registración bruta en lugar de neta en acuerdos de contenidos de terceros en Flow (AJ-04 por $11.240M en PT-D3), además de requerir seguimiento cercano sobre compromisos de espectro 5G ante ENACOM y simulacros integrales del Plan de Continuidad (BCP).",
         recomendacion: "Culminar la migración e integración automatizada de los facturadores heredados al core convergente SAP BRIM con regla contable NIIF 15 (Agente vs. Principal), sostener el tablero de hitos regulatorios 5G ENACOM y ejecutar pruebas semestrales certificadas del BCP.",

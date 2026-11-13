@@ -980,7 +980,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
               II. Síntesis de Riesgos y Enfoque Determinado
             </h4>
             <p className="text-slate-700 leading-relaxed">
-              Habiendo relevado los 5 componentes de Control Interno (Archivo Documental NC 38,46% - RC ALTO; Sistema Tecnológico NC 47,62% - RC ALTO; Sistema Contable NC 80,00% - RC BAJO; Presupuestos NC 77,78% - RC BAJO y Operativo NC 80,00% - RC BAJO), el Riesgo de Control resulta <strong>ALTO</strong> en los rubros críticos de infraestructura y tecnología. En consecuencia, se define un <strong>Enfoque Predominantemente Sustantivo</strong> con pruebas de detalle exhaustivas focalizadas en Bienes de Uso (PT-A), Activos Intangibles (PT-E) y Créditos por Ventas (PT-B), aplicando procedimientos analíticos sustantivos sobre los restantes.
+              Habiendo relevado los 5 componentes de Control Interno (Archivo Documental NC 38,46% - RC ALTO; Sistema Tecnológico NC 47,62% - RC ALTO; Sistema Contable NC 72,00% - RC MEDIO; Presupuestos NC 77,78% - RC BAJO y Operativo NC 80,00% - RC BAJO), el Riesgo de Control resulta <strong>ALTO</strong> en los rubros críticos de infraestructura y tecnología. En consecuencia, se define un <strong>Enfoque Predominantemente Sustantivo</strong> con pruebas de detalle exhaustivas focalizadas en Bienes de Uso (PT-A), Activos Intangibles (PT-E) y Créditos por Ventas (PT-B), aplicando procedimientos analíticos sustantivos sobre los restantes.
             </p>
           </div>
 
@@ -991,7 +991,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
             <p className="text-slate-700 leading-relaxed">
               • <strong>Materialidad Global de Planeación (PM):</strong> $166.225 millones (1% del Activo Total de $16.622.552M).<br />
               • <strong>Error Tolerable (ET):</strong> $83.112 millones (50% de PM).<br />
-              • <strong>Monto Mínimo de Ajustes (PAE):</strong> $8.311 millones (5% de ET).
+              • <strong>Monto Mínimo de Ajustes (PAE):</strong> $8.311 millones (5% de PM).
             </p>
           </div>
 

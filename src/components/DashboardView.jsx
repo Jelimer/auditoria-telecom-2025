@@ -64,6 +64,11 @@ export default function DashboardView({
     .filter((a) => !a.aceptado)
     .reduce((s, a) => s + Math.abs(a.impactoPatrimonial.resultadoEjercicio || a.montoMillones), 0);
 
+  // Cálculo global CCI desde el cuestionario vivo
+  const totalPregCCI = (cciCalculados || []).reduce((s, c) => s + (c.total || 0), 0);
+  const totalPosCCI = (cciCalculados || []).reduce((s, c) => s + (c.positivas || 0), 0);
+  const ncGlobalPct = totalPregCCI > 0 ? ((totalPosCCI / totalPregCCI) * 100).toFixed(2).replace('.', ',') : '0,00';
+
   return (
     <div className="space-y-6">
       {/* Banner Superior: Proceso Secuencial de las 3 Etapas (Carlos Slosse + RT 37/53) */}
@@ -178,7 +183,7 @@ export default function DashboardView({
         <div className="bg-white rounded-xl border border-rose-200 p-3.5 shadow-xs bg-gradient-to-br from-white to-rose-50/30">
           <p className="text-[11px] font-bold uppercase text-rose-700">Umbral Mínimo (PAE)</p>
           <p className="text-lg font-extrabold text-rose-900 mt-0.5">${materialidadData.montoMinimoAjuste.importe.toLocaleString('es-AR')} M</p>
-          <p className="text-[11px] text-rose-600 mt-0.5">5% de ET (Ajuste Mínimo)</p>
+          <p className="text-[11px] text-rose-600 mt-0.5">5% de PM (Ajuste Mínimo)</p>
         </div>
         <div className="bg-white rounded-xl border border-indigo-200 p-3.5 shadow-xs bg-gradient-to-br from-white to-indigo-50/30 col-span-2 lg:col-span-1">
           <p className="text-[11px] font-bold uppercase text-indigo-700">Opinión Proyectada</p>
@@ -229,7 +234,7 @@ export default function DashboardView({
                   Hallazgos
                 </span>
                 <span className="text-xs font-semibold text-red-600">
-                  5 Hallazgos (4 superan PAE $8.311M)
+                  {ajustesState.length} Partidas PAE ({ajustesMateriales.length} superan $8.311M)
                 </span>
               </div>
               <SemiGaugeChart
@@ -393,10 +398,10 @@ export default function DashboardView({
                   <span className="font-semibold text-slate-500">Encargado:</span>
                   <span className="font-bold text-teal-800">{proyectoMeta.encargados}</span>
                 </div>
-                <div className="flex justify-between py-1.5">
+                <div className="flex justify-between py-1.5 gap-2 items-center">
                   <span className="font-semibold text-slate-500">Resultado Global CCI:</span>
-                  <span className="px-2 py-0.5 rounded bg-red-100 text-red-700 font-extrabold">
-                    NC Promedio: 20,00% (BAJO) / RC: ALTO
+                  <span className="px-2 py-0.5 rounded bg-red-100 text-red-700 font-extrabold text-right">
+                    NC Promedio: {ncGlobalPct}% | Críticos: CCI-01/05 (RC ALTO)
                   </span>
                 </div>
               </div>

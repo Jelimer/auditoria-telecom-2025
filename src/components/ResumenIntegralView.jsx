@@ -11,14 +11,20 @@ import {
   Layers,
   Calendar,
   Users,
-  ArrowUpRight
+  ArrowUpRight,
+  Mic,
+  MessageSquareQuote,
+  Compass,
+  ArrowRight,
+  ShieldCheck
 } from 'lucide-react';
 import {
   proyectoMeta,
   conocimientoEnte,
   materialidadData,
   rubrosSignificativos,
-  cronogramaAuditoria
+  cronogramaAuditoria,
+  sintesisExposicionCCI
 } from '../data/etapa1Data';
 import {
   papelesTrabajo,
@@ -34,10 +40,10 @@ export default function ResumenIntegralView({
   subTarget,
   subTargetTick
 }) {
-  const [filtroSeccion, setFiltroSeccion] = useState('todas'); // 'todas' | 'etapa1' | 'etapa2' | 'etapa3'
+  const [filtroSeccion, setFiltroSeccion] = useState('todas'); // 'todas' | 'guion' | 'etapa1' | 'etapa2' | 'etapa3'
 
   useEffect(() => {
-    if (subTarget && ['todas', 'etapa1', 'etapa2', 'etapa3'].includes(subTarget)) {
+    if (subTarget && ['todas', 'guion', 'etapa1', 'etapa2', 'etapa3'].includes(subTarget)) {
       setFiltroSeccion(subTarget);
     }
   }, [subTarget, subTargetTick]);
@@ -92,6 +98,7 @@ export default function ResumenIntegralView({
           <div className="flex flex-wrap items-center gap-2 no-print">
             {[
               { id: 'todas', label: 'Ver las 3 Etapas Completas' },
+              { id: 'guion', label: 'Guion Hilo Conductor (Clase)', isGuion: true },
               { id: 'etapa1', label: 'Solo Etapa 1' },
               { id: 'etapa2', label: 'Solo Etapa 2' },
               { id: 'etapa3', label: 'Solo Etapa 3' }
@@ -99,12 +106,17 @@ export default function ResumenIntegralView({
               <button
                 key={b.id}
                 onClick={() => setFiltroSeccion(b.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-colors ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer transition-colors inline-flex items-center gap-1.5 ${
                   filtroSeccion === b.id
-                    ? 'bg-teal-700 text-white'
+                    ? b.isGuion
+                      ? 'bg-indigo-700 text-white shadow-xs'
+                      : 'bg-teal-700 text-white'
+                    : b.isGuion
+                    ? 'bg-indigo-50 text-indigo-800 border border-indigo-200 hover:bg-indigo-100'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
                 }`}
               >
+                {b.isGuion && <Mic className="w-3.5 h-3.5" />}
                 {b.label}
               </button>
             ))}
@@ -190,6 +202,277 @@ export default function ResumenIntegralView({
           </div>
         </div>
       </div>
+
+      {/* =====================================================================
+          GUION HILO CONDUCTOR PARA EXPOSICIÓN ORAL EN CLASE (7 ESLABONES)
+         ===================================================================== */}
+      {filtroSeccion === 'guion' && (
+        <div className="space-y-6">
+          <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-teal-950 text-white rounded-2xl border border-indigo-500/40 p-6 shadow-md space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-extrabold bg-lime-400 text-slate-950">
+                <Mic className="w-3.5 h-3.5" />
+                GUION HILO CONDUCTOR — EXPOSICIÓN ORAL PASO A PASO
+              </span>
+              <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-white/10 text-teal-200 border border-white/15">
+                Sincronizado con {cciCalculados.length} CCI ({ncPromedio.toFixed(2)}% NC prom.) •{' '}
+                {esOpinionLimpia ? 'Dictamen Favorable Sin Salvedades' : 'Dictamen Modificado'}
+              </span>
+            </div>
+            <h3 className="text-xl font-extrabold text-white">
+              Cómo se conecta todo el trabajo práctico: del Conocimiento del Ente al Informe del Auditor
+            </h3>
+            <p className="text-xs text-slate-200 leading-relaxed max-w-4xl">
+              Esta hoja ordena la lógica de nuestra auditoría en <strong>7 eslabones secuenciales</strong> (siguiendo a{' '}
+              <strong>Carlos A. Slosse</strong> y las <strong>NIAs — RT N° 32 FACPCE</strong>). Cada bloque explica{' '}
+              <strong className="text-lime-300">qué hicimos</strong>,{' '}
+              <strong className="text-amber-300">por qué llevó al paso siguiente</strong> y{' '}
+              <strong className="text-teal-300">una frase clara para decir en clase</strong>, con acceso directo a la pantalla correspondiente.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                paso: 'ESLABÓN 1 • ETAPA 1A',
+                titulo: 'Conocimiento del Ente, Negocio y Marco Normativo',
+                navView: 'etapa1-ente',
+                navSub: null,
+                navLabel: 'Abrir 1A. Conocimiento del Ente',
+                queHicimos:
+                  'Relevamos la estructura societaria y regulatoria de Telecom Argentina S.A. al 31/12/2025 (EECC consolidados bajo NIIF en moneda homogénea NIC 29, con un Activo Total de $16.622.552M y Ventas de $8.328.814M), incluyendo el impacto de la adquisición de Telefónica Móviles Argentina S.A. (TMA) el 24/02/2025 bajo NIIF 3 y la regulación CNV / ENACOM.',
+                porQueConecta:
+                  'Porque nadie puede evaluar riesgos ni diseñar pruebas sin entender primero cómo genera valor el cliente: el 88,97% de su activo es No Corriente (PP&E, Espectro 5G y Llave de Negocio) y cotiza en CNV/SEC bajo normas NIIF, lo que exige auditar bajo NIAs (RT N° 32 FACPCE).',
+                fraseOral:
+                  '«Empezamos entendiendo el negocio de Telecom: es una empresa capital-intensiva con casi el 89% de su activo inmovilizado en redes, espectro y llaves tras adquirir TMA en 2025, que aplica NIIF y se audita bajo NIAs (RT N° 32) con plazo perentorio de 70 días corridos ante la CNV.»'
+              },
+              {
+                paso: 'ESLABÓN 2 • ETAPA 1B',
+                titulo: 'Evaluación del Control Interno (5 CCI — 129 Preguntas)',
+                navView: 'etapa1-cci',
+                navSub: 'sec-sintesis-exposicion',
+                navLabel: 'Abrir Cuadro Síntesis (Fortalezas y Debilidades)',
+                queHicimos:
+                  'Aplicamos 5 Cuestionarios de Control Interno (129 preguntas): CCI-01 Archivo Documental (38,46% NC / RC ALTO), CCI-02 Sistema Contable (72,00% NC / RC MEDIO), CCI-03 Presupuestos (77,78% NC / RC BAJO), CCI-04 Operativo (80,00% NC / RC BAJO) y CCI-05 Tecnológico/CGTI (47,62% NC / RC ALTO). Resumimos sus fortalezas y debilidades para exponer sin recitar las 129 preguntas.',
+                porQueConecta:
+                  'Determina en qué sistemas podemos apoyarnos y en cuáles no. Las fallas en CCI-01 (legajos de obras/ISO 15.489), CCI-05 (interfaces y parches TIC) y la falla puntual de CCI-02 Preg. 22–23 (bajas de red no comunicadas a SAP FI-AA) fijan un Enfoque Predominantemente Sustantivo en Bienes de Uso e Intangibles, y mixto en Créditos.',
+                fraseOral:
+                  '«Al medir los 5 sistemas vimos un contraste claro: Presupuestos (77,78%) y Operativo (80,00%) son sólidos, Contable es medio (72,00% pero con falla en bajas de activos fijos), mientras que Archivo (38,46%) y Tecnología (47,62%) dieron Riesgo de Control ALTO. Eso nos impide confiar en los controles para reducir pruebas y define un enfoque sustantivo.»'
+              },
+              {
+                paso: 'ESLABÓN 3 • ETAPA 1C',
+                titulo: 'Revisión Analítica Preliminar: Análisis Horizontal, Vertical y Ratios',
+                navView: 'etapa1-analisis-eecc',
+                navSub: null,
+                navLabel: 'Abrir 1C. Análisis H/V y Ratios',
+                queHicimos:
+                  'Comparando EECC 2025 vs 2024 detectamos alertas cuantitativas clave: PP&E representa el 40,84% del Activo (+38,16% por TMA y CAPEX), Intangibles el 16,07% (+18,32%), Créditos por Ventas creció +105,25% (llevando el DSO de 26,11 a 35,02 días con Liquidez Corriente de 0,48x) y el Resultado antes de IG pasó a pérdida ($(191.736)M).',
+                porQueConecta:
+                  'Valida con números dónde está el riesgo de error material y explica dos decisiones técnicas inmediatas del paso siguiente: elegir qué rubros auditar prioritariamente y qué base usar para la Materialidad.',
+                fraseOral:
+                  '«El análisis H/V y los ratios nos mostraron exactamente dónde mirar: Bienes de Uso concentra el 40,84% del activo, Créditos se duplicó (+105,25%) tensionando la liquidez (0,48x), y la pérdida contable antes de impuestos de $(191.736)M invalida usar el resultado para calcular la materialidad.»'
+              },
+              {
+                paso: 'ESLABÓN 4 • ETAPA 1D',
+                titulo: 'Planificación Detallada: Materialidad (NIA 320), Presupuesto y Programas',
+                navView: 'etapa1-plan-detallada',
+                navSub: null,
+                navLabel: 'Abrir 1D. Planificación Detallada',
+                queHicimos:
+                  'Fijamos la Significatividad Global (PM) sobre el Activo Total: 1% = $166.225M. Por el RC ALTO en Archivo y TIC bajamos el Error Tolerable (ET) al límite prudente del 50% de PM ($83.112M) y definimos el umbral PAE en el 5% de PM ($8.311M). Armamos los programas sustantivos y el presupuesto de 1.220 horas en 3 meses (420 hs PT-A, 120 hs PT-B, 50 hs PT-E).',
+                porQueConecta:
+                  'Traduce el diagnóstico estratégico en reglas matemáticas concretas para la Etapa 2: cuánto tamaño debe tener la muestra y a partir de qué monto ($8.311M) una diferencia debe proponerse como ajuste.',
+                fraseOral:
+                  '«Como hubo pérdida contable y Telecom es capital-intensiva, calculamos la Materialidad sobre el Activo Total: $166.225M. Como el control interno en Archivo y TIC dio riesgo alto, fuimos al piso prudente del 50% para Error Tolerable ($83.112M) y fijamos el piso PAE en $8.311M. Con esa vara salimos al campo.»'
+              },
+              {
+                paso: 'ESLABÓN 5 • ETAPA 2',
+                titulo: 'Ejecución de Papeles de Trabajo Sustantivos (PT-A, PT-E y PT-B)',
+                navView: 'etapa2-ejecucion',
+                navSub: 'pt-a',
+                navLabel: 'Abrir Etapa 2 (PT-A / PT-E / PT-B)',
+                queHicimos:
+                  'Ejecutamos los 3 programas priorizados: en PT-A (PP&E $6.789.118M) las pruebas globales de amortización ($1.533.091M) y valor residual cerraron a $0, pero la inspección física y de bajas vinculada a CCI-02 Preg. 22–23 halló centrales analógicas en desuso ($21.450M) y fibra vandalizada ($6.890M) sin dar de baja en SAP ⇒ AJ-01 por $28.340M. En PT-E (Intangibles $2.671.525M, Nota 10/25 $234.722M amort.) y PT-B (Créditos $800.128M netos, circularización 65 B2B y recálculo Previsión NIIF 9) no hubo desvíos ($0).',
+                porQueConecta:
+                  'Cierra el círculo causal con la Etapa 1: justamente en los rubros donde CCI-01 y CCI-02 habían alertado debilidades aparecieron los $28.340M sin bajar (AJ-01); donde CCI-02/03/04 dieron mayor resguardo y pruebas analíticas globales, los saldos cerraron conformes.',
+                fraseOral:
+                  '«En el campo ejecutamos PT-A, PT-E y PT-B. Aunque las pruebas globales matemáticas de amortizaciones cerraron a cero, al inspeccionar bajas físicas —guiados por la falla 22-23 de CCI-02— encontramos $28.340M en centrales analógicas apagadas y fibra vandalizada que seguían en el activo. Intangibles y Créditos validaron conformes.»'
+              },
+              {
+                paso: 'ESLABÓN 6 • ETAPA 2 (CIERRE)',
+                titulo: 'Planilla PAE de Ajustes Acumulados vs. Significatividad (NIA 450)',
+                navView: 'etapa2-ejecucion',
+                navSub: 'sec-pae',
+                navLabel: 'Abrir Planilla PAE Unificada',
+                queHicimos:
+                  'Evaluamos las diferencias acumuladas contra nuestros umbrales: AJ-01 ($28.340M en Bienes de Uso) supera el PAE ($8.311M) y se propone formalmente a la Gerencia; en el alcance ampliado web se agrega AJ-04 ($11.240M de reclasificación neutra en Flow NIIF 15) y la partida menor PAE-NC-01 (< $8.311M), que no requiere ajuste.',
+                porQueConecta:
+                  'Define técnicamente el sentido de la opinión del auditor. AJ-01 representa solo el 17,05% de PM ($166.225M) y el 34,10% de ET ($83.112M). Si la Dirección lo acepta, el saldo queda corregido ($6.760.778M); e incluso si no lo registrara, el desvío no supera la Materialidad Global ni es generalizado.',
+                fraseOral:
+                  '«Acumulamos AJ-01 ($28.340M) en la planilla PAE porque supera los $8.311M. Con la aceptación de la Gerencia se corrige el balance; y aun en el escenario hipotético de no ajuste, representa el 17,05% de nuestra materialidad global ($166.225M), sin generar distorsión significativa ni generalizada.»'
+              },
+              {
+                paso: 'ESLABÓN 7 • ETAPA 3',
+                titulo: 'Culminación: 4 Documentos Finales del Auditor',
+                navView: 'etapa3-informe',
+                navSub: 'informe',
+                navLabel: 'Abrir Etapa 3 (Conclusión e Informe)',
+                queHicimos:
+                  'Emitimos los 4 entregables de cierre al 20/02/2026: (1) Carta única de Recomendaciones de Control Interno (NIA 265) reportando las debilidades CCI-01..05; (2) Memorando Final de Auditoría documentando PAE y estimaciones (DCF UGE, PPA TMA, NIIF 9); (3) Carta de Representación / Manifestaciones Escritas firmada por la Dirección (NIA 580); e (4) Informe de Auditoría Independiente bajo NIAs (RT N° 32 FACPCE) con Opinión Favorable Sin Salvedades, 3 KAM (NIA 701) e Información Especial SIPA/CNV.',
+                porQueConecta:
+                  'Completa el circuito profesional: lo que no modifica la opinión igualmente vuelve a la empresa como valor agregado (Carta de Recomendaciones NIA 265), la Gerencia respalda sus afirmaciones por escrito (Carta de Representación NIA 580) y los usuarios externos reciben el Dictamen limpio bajo NIIF/NIAs.',
+                fraseOral:
+                  '«Cerramos el encargo con cuatro documentos bien diferenciados: una sola Carta de Recomendaciones (NIA 265) para corregir fallas de control interno, el Memorando de Conclusión, la Carta de Representación firmada por la Dirección (NIA 580), y el Informe del Auditor bajo NIAs (RT N° 32) con Opinión Favorable Sin Salvedades y 3 Cuestiones Clave.»'
+              }
+            ].map((step, idx) => (
+              <div
+                key={idx}
+                className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs hover:border-indigo-300 transition-colors"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
+                  <div className="flex items-center gap-2.5">
+                    <span className="w-7 h-7 rounded-full bg-indigo-900 text-lime-300 font-extrabold text-xs inline-flex items-center justify-center shrink-0">
+                      {idx + 1}
+                    </span>
+                    <div>
+                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 block">
+                        {step.paso}
+                      </span>
+                      <h4 className="text-sm sm:text-base font-extrabold text-slate-900">
+                        {step.titulo}
+                      </h4>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => onNavigate && onNavigate(step.navView, step.navSub)}
+                    className="no-print px-3 py-1.5 rounded-lg bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 text-xs font-extrabold inline-flex items-center gap-1 cursor-pointer"
+                  >
+                    {step.navLabel}
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-3 text-xs leading-relaxed">
+                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                    <strong className="text-slate-800 uppercase text-[10px] tracking-wider block mb-1">
+                      1. ¿Qué hicimos concretamente?
+                    </strong>
+                    <p className="text-slate-600">{step.queHicimos}</p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-amber-50/60 border border-amber-200">
+                    <strong className="text-amber-900 uppercase text-[10px] tracking-wider flex items-center gap-1 mb-1">
+                      <Compass className="w-3.5 h-3.5 text-amber-700" />
+                      2. ¿Por qué conecta con el paso siguiente?
+                    </strong>
+                    <p className="text-amber-950/90">{step.porQueConecta}</p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-indigo-50/70 border border-indigo-200">
+                    <strong className="text-indigo-900 uppercase text-[10px] tracking-wider flex items-center gap-1 mb-1">
+                      <MessageSquareQuote className="w-3.5 h-3.5 text-indigo-700" />
+                      3. Qué decir en voz alta (Guion oral)
+                    </strong>
+                    <p className="text-indigo-950 italic">{step.fraseOral}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Mini Cuadro Síntesis Fortalezas y Debilidades dentro del Guion para no cambiar de pestaña si preguntan */}
+          <div className="bg-white rounded-2xl border border-teal-200 p-5 shadow-xs space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-teal-700" />
+                <h4 className="text-sm font-extrabold text-slate-900">
+                  Ayuda-Memoria Rápida: Fortalezas y Debilidades de los 5 CCI (sin abrir las 129 preguntas)
+                </h4>
+              </div>
+              <button
+                type="button"
+                onClick={() => onNavigate && onNavigate('etapa1-cci', 'sec-sintesis-exposicion')}
+                className="no-print text-xs font-bold text-teal-700 hover:underline inline-flex items-center gap-1 cursor-pointer"
+              >
+                Abrir cuadro completo en 1B <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+              {sintesisExposicionCCI.map((item) => {
+                const calc = cciCalculados.find((c) => c.id === item.id);
+                return (
+                  <div key={item.id} className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="font-extrabold text-teal-900">
+                        {item.codigo}: {item.componente}
+                      </span>
+                      {calc && (
+                        <span
+                          className={`px-2 py-0.5 rounded font-extrabold text-[10px] ${
+                            calc.rcLabel === 'ALTO'
+                              ? 'bg-red-100 text-red-700'
+                              : calc.rcLabel === 'MEDIO'
+                              ? 'bg-amber-100 text-amber-800'
+                              : 'bg-emerald-100 text-emerald-700'
+                          }`}
+                        >
+                          NC {calc.nc.toFixed(2)}% / RC {calc.rcLabel}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-emerald-800">
+                      <strong>Fortaleza:</strong> {item.fortalezas[0]}
+                    </p>
+                    <p className="text-red-700">
+                      <strong>Debilidad:</strong> {item.debilidades[0]}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 5 Preguntas Frecuentes del Tribunal */}
+          <div className="bg-slate-900 text-white rounded-2xl border border-slate-800 p-5 space-y-3">
+            <h4 className="text-sm font-extrabold text-lime-300 uppercase tracking-wider">
+              5 Preguntas Clave de Cátedra — Cómo defender cada decisión técnica
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                <strong className="text-amber-300 block mb-1">
+                  1. ¿Por qué tomaron 1% del Activo Total como Materialidad y no el Resultado?
+                </strong>
+                <p className="text-slate-200">
+                  Porque en 2025 Telecom arrojó pérdida antes de IG ($(191.736)M) y es una empresa intensiva en capital (88,97% Activo No Corriente). Según Slosse y NIA 320, cuando el resultado es negativo o volátil se toma un benchmark patrimonial estable (0,5%–2% del Activo → punto medio 1% = $166.225M).
+                </p>
+              </div>
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                <strong className="text-amber-300 block mb-1">
+                  2. ¿Por qué el Error Tolerable es el 50% de la Materialidad ($83.112M) y no 75%?
+                </strong>
+                <p className="text-slate-200">
+                  Porque Slosse y NIA 320 fijan 50% cuando el Riesgo de Control es ALTO. Como CCI-01 Archivo (38,46%) y CCI-05 TIC (47,62%) dieron riesgo alto en los rubros más pesados, reducimos el margen tolerable a la mitad para ampliar muestras.
+                </p>
+              </div>
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                <strong className="text-amber-300 block mb-1">
+                  3. ¿Cambia la opinión si Telecom se niega a registrar AJ-01 ($28.340M)?
+                </strong>
+                <p className="text-slate-200">
+                  No: aun si la Gerencia no registrara AJ-01 ($28.340M), equivale apenas al 17,05% de PM ($166.225M) y al 34,10% de ET ($83.112M). Al no superar la materialidad ni distorsionar los EECC en su conjunto, la opinión sigue siendo Favorable Sin Salvedades y el desvío se informa en la Carta de Recomendaciones / Comité de Auditoría.
+                </p>
+              </div>
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                <strong className="text-amber-300 block mb-1">
+                  4. ¿Hay una o dos cartas en la Etapa 3 y por qué usan RT N° 32 / NIAs?
+                </strong>
+                <p className="text-slate-200">
+                  Son dos cartas distintas dirigidas a la Dirección/Comité: (a) la <strong>Carta de Recomendaciones de Control Interno (NIA 265)</strong>, emitida por el auditor para señalar debilidades CCI; y (b) la <strong>Carta de Representación (NIA 580)</strong>, firmada por el cliente confirmando sus EECC. Además, por cotizar en CNV (régimen NIIF obligatorio), Telecom se audita bajo <strong>NIAs (RT N° 32 FACPCE)</strong>, no solo RT N° 37 local.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* =====================================================================
           SECCIÓN 1: RESUMEN COMPLETO DE LA ETAPA 1 (PLANIFICACIÓN)
@@ -297,7 +580,15 @@ export default function ResumenIntegralView({
                         {c.nc.toFixed(2)}%
                       </td>
                       <td className="py-2.5 px-3 text-center">
-                        <span className="px-2 py-0.5 rounded bg-red-100 text-red-700 font-extrabold text-[11px]">
+                        <span
+                          className={`px-2 py-0.5 rounded font-extrabold text-[11px] ${
+                            c.rcLabel === 'ALTO'
+                              ? 'bg-red-100 text-red-700'
+                              : c.rcLabel === 'MEDIO'
+                              ? 'bg-amber-100 text-amber-800'
+                              : 'bg-emerald-100 text-emerald-700'
+                          }`}
+                        >
                           NC {c.ncLabel} / RC {c.rcLabel}
                         </span>
                       </td>
