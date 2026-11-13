@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Printer,
   CheckCircle2,
@@ -16,7 +16,14 @@ import {
   MessageSquareQuote,
   Compass,
   ArrowRight,
-  ShieldCheck
+  ShieldCheck,
+  Pencil,
+  Check,
+  RotateCcw,
+  Bold,
+  Italic,
+  Underline,
+  Eraser
 } from 'lucide-react';
 import {
   proyectoMeta,
@@ -31,6 +38,222 @@ import {
   documentosEtapa3
 } from '../data/etapas2y3Data';
 
+const GUION_STORAGE_KEY = 'audiia_guion_oral_v1';
+
+const GUION_ESLABONES_BASE = [
+  {
+    id: 'eslabon-1',
+    paso: 'ESLABÓN 1 • ETAPA 1A',
+    titulo: 'Conocimiento del Ente, Negocio y Marco Normativo',
+    navView: 'etapa1-ente',
+    navSub: null,
+    navLabel: 'Abrir 1A. Conocimiento del Ente',
+    queHicimos:
+      'Relevamos la estructura societaria y regulatoria de Telecom Argentina S.A. al 31/12/2025 (EECC consolidados bajo NIIF en moneda homogénea NIC 29, Activo Total $16.622.552M y Ventas $8.328.814M), incluyendo la compra de Telefónica Móviles Argentina S.A. (TMA) el 24/02/2025 bajo NIIF 3 (PPA Nota 29: PP&E +$1.332.961M, Intangibles +$274.183M, Créditos $421.919M y Llave residual $12.840M) y la regulación CNV / ENACOM.',
+    porQueConecta:
+      'Porque nadie puede evaluar riesgos ni diseñar pruebas sin entender primero cómo genera valor el cliente: el 88,97% de su activo es No Corriente (PP&E, Espectro 5G y Llave de Negocio) y cotiza en CNV/SEC bajo normas NIIF, lo que exige auditar bajo NIAs (RT N° 32 FACPCE).',
+    fraseOral:
+      '«Empezamos entendiendo el negocio de Telecom: es una empresa capital-intensiva con casi el 89% de su activo inmovilizado en redes, espectro y llaves tras adquirir TMA el 24/02/2025 a valor razonable (NIIF 3), que aplica NIIF y se audita bajo NIAs (RT N° 32) con plazo perentorio de 70 días corridos ante la CNV.»'
+  },
+  {
+    id: 'eslabon-2',
+    paso: 'ESLABÓN 2 • ETAPA 1B',
+    titulo: 'Evaluación del Control Interno (5 CCI — 129 Preguntas)',
+    navView: 'etapa1-cci',
+    navSub: 'sec-sintesis-exposicion',
+    navLabel: 'Abrir Cuadro Síntesis (Fortalezas y Debilidades)',
+    queHicimos:
+      'Aplicamos 5 Cuestionarios de Control Interno (129 preguntas): CCI-01 Archivo Documental (38,46% NC / RC ALTO), CCI-02 Sistema Contable (72,00% NC / RC MEDIO), CCI-03 Presupuestos (77,78% NC / RC BAJO), CCI-04 Operativo (80,00% NC / RC BAJO) y CCI-05 Tecnológico/CGTI (47,62% NC / RC ALTO). Resumimos sus fortalezas y debilidades para exponer sin recitar las 129 preguntas.',
+    porQueConecta:
+      'Determina en qué sistemas podemos apoyarnos y en cuáles no. Las fallas en CCI-01 (legajos de obras/ISO 15.489), CCI-05 (interfaces y parches TIC) y la falla puntual de CCI-02 Preg. 22–23 (bajas de red no comunicadas a SAP FI-AA) fijan un Enfoque Predominantemente Sustantivo en Bienes de Uso e Intangibles, y mixto en Créditos.',
+    fraseOral:
+      '«Al medir los 5 sistemas vimos un contraste claro: Presupuestos (77,78%) y Operativo (80,00%) son sólidos, Contable es medio (72,00% pero con falla en bajas de activos fijos), mientras que Archivo (38,46%) y Tecnología (47,62%) dieron Riesgo de Control ALTO. Eso nos impide confiar en los controles para reducir pruebas y define un enfoque sustantivo.»'
+  },
+  {
+    id: 'eslabon-3',
+    paso: 'ESLABÓN 3 • ETAPA 1C',
+    titulo: 'Revisión Analítica Preliminar: Análisis Horizontal, Vertical y Ratios',
+    navView: 'etapa1-analisis-eecc',
+    navSub: null,
+    navLabel: 'Abrir 1C. Análisis H/V y Ratios',
+    queHicimos:
+      'Comparando EECC 2025 vs 2024 detectamos alertas cuantitativas clave: PP&E representa el 40,84% del Activo (+19,18% por TMA y CAPEX), Intangibles el 16,07% (+7,09%), Créditos por Ventas creció +105,25% mientras Ventas subió +53,02% (porque el Balance suma el 100% del stock de créditos de TMA al cierre —$421.919M— frente a ~10 meses de ventas de TMA mar–dic en Resultados, llevando el DSO de 26,11 a 35,02 días con Liquidez 0,48x) y el Resultado antes de IG pasó a pérdida ($(191.736)M).',
+    porQueConecta:
+      'Valida con números dónde está el riesgo de error material y explica dos decisiones técnicas inmediatas del paso siguiente: elegir qué rubros auditar prioritariamente y qué base usar para la Materialidad.',
+    fraseOral:
+      '«El análisis H/V y los ratios nos mostraron exactamente dónde mirar: Bienes de Uso concentra el 40,84% del activo, Créditos se duplicó (+105,25% vs +53,02% Ventas por consolidar el 100% del saldo al cierre contra 10 meses de ingresos de TMA más mayor mora) tensionando la liquidez (0,48x), y la pérdida antes de impuestos ($(191.736)M) invalida usar el resultado para la materialidad.»'
+  },
+  {
+    id: 'eslabon-4',
+    paso: 'ESLABÓN 4 • ETAPA 1D',
+    titulo: 'Planificación Detallada: Materialidad (NIA 320), Presupuesto y Programas',
+    navView: 'etapa1-plan-detallada',
+    navSub: null,
+    navLabel: 'Abrir 1D. Planificación Detallada',
+    queHicimos:
+      'Fijamos la Significatividad Global (PM) sobre el Activo Total: 1% = $166.225M. Por el RC ALTO en Archivo y TIC bajamos el Error Tolerable (ET) al límite prudente del 50% de PM ($83.112M) y definimos el umbral PAE en el 5% de PM ($8.311M). Armamos los programas sustantivos y el presupuesto de 1.220 horas en 3 meses (420 hs PT-A, 120 hs PT-B, 50 hs PT-E).',
+    porQueConecta:
+      'Traduce el diagnóstico estratégico en reglas matemáticas concretas para la Etapa 2: cuánto tamaño debe tener la muestra y a partir de qué monto ($8.311M) una diferencia debe proponerse como ajuste.',
+    fraseOral:
+      '«Como hubo pérdida contable y Telecom es capital-intensiva, calculamos la Materialidad sobre el Activo Total: $166.225M. Como el control interno en Archivo y TIC dio riesgo alto, fuimos al piso prudente del 50% para Error Tolerable ($83.112M) y fijamos el piso PAE en $8.311M. Con esa vara salimos al campo.»'
+  },
+  {
+    id: 'eslabon-5',
+    paso: 'ESLABÓN 5 • ETAPA 2',
+    titulo: 'Ejecución de Papeles de Trabajo Sustantivos (PT-A, PT-E y PT-B)',
+    navView: 'etapa2-ejecucion',
+    navSub: 'pt-a',
+    navLabel: 'Abrir Etapa 2 (PT-A / PT-E / PT-B)',
+    queHicimos:
+      'Ejecutamos los 3 programas priorizados: en PT-A (PP&E $6.789.118M) las pruebas globales de amortización ($1.533.091M) y valor residual cerraron a $0, pero la inspección física y de bajas vinculada a CCI-02 Preg. 22–23 halló centrales analógicas en desuso ($21.450M) y fibra vandalizada ($6.890M) sin dar de baja en SAP ⇒ AJ-01 por $28.340M. En PT-E (Intangibles $2.671.525M, Nota 10/25 $234.722M amort.) y PT-B (Créditos $800.128M netos, circularización 65 B2B y recálculo Previsión NIIF 9) no hubo desvíos ($0).',
+    porQueConecta:
+      'Cierra el círculo causal con la Etapa 1: justamente en los rubros donde CCI-01 y CCI-02 habían alertado debilidades aparecieron los $28.340M sin bajar (AJ-01); donde CCI-02/03/04 dieron mayor resguardo y pruebas analíticas globales, los saldos cerraron conformes.',
+    fraseOral:
+      '«En el campo ejecutamos PT-A, PT-E y PT-B. Aunque las pruebas globales matemáticas de amortizaciones cerraron a cero, al inspeccionar bajas físicas —guiados por la falla 22-23 de CCI-02— encontramos $28.340M en centrales analógicas apagadas y fibra vandalizada que seguían en el activo. Intangibles y Créditos validaron conformes.»'
+  },
+  {
+    id: 'eslabon-6',
+    paso: 'ESLABÓN 6 • ETAPA 2 (CIERRE)',
+    titulo: 'Planilla PAE de Ajustes Acumulados vs. Significatividad (NIA 450)',
+    navView: 'etapa2-ejecucion',
+    navSub: 'sec-pae',
+    navLabel: 'Abrir Planilla PAE Unificada',
+    queHicimos:
+      'Evaluamos las diferencias acumuladas contra nuestros umbrales: AJ-01 ($28.340M en Bienes de Uso) supera el PAE ($8.311M) y se propone formalmente a la Gerencia; en el alcance ampliado web se agrega AJ-04 ($11.240M de reclasificación neutra en Flow NIIF 15) y la partida menor PAE-NC-01 (< $8.311M), que no requiere ajuste.',
+    porQueConecta:
+      'Define técnicamente el sentido de la opinión del auditor. AJ-01 representa solo el 17,05% de PM ($166.225M) y el 34,10% de ET ($83.112M). Si la Dirección lo acepta, el saldo queda corregido ($6.760.778M); e incluso si no lo registrara, el desvío no supera la Materialidad Global ni es generalizado.',
+    fraseOral:
+      '«Acumulamos AJ-01 ($28.340M) en la planilla PAE porque supera los $8.311M. Con la aceptación de la Gerencia se corrige el balance; y aun en el escenario hipotético de no ajuste, representa el 17,05% de nuestra materialidad global ($166.225M), sin generar distorsión significativa ni generalizada.»'
+  },
+  {
+    id: 'eslabon-7',
+    paso: 'ESLABÓN 7 • ETAPA 3',
+    titulo: 'Culminación: 4 Documentos Finales del Auditor',
+    navView: 'etapa3-informe',
+    navSub: 'informe',
+    navLabel: 'Abrir Etapa 3 (Conclusión e Informe)',
+    queHicimos:
+      'Emitimos los 4 entregables de cierre al 20/02/2026: (1) Carta única de Recomendaciones de Control Interno (NIA 265) reportando las debilidades CCI-01..05; (2) Memorando Final de Auditoría documentando PAE y estimaciones (DCF UGE, PPA TMA, NIIF 9); (3) Carta de Representación / Manifestaciones Escritas firmada por la Dirección (NIA 580); e (4) Informe de Auditoría Independiente bajo NIAs (RT N° 32 FACPCE) con Opinión Favorable Sin Salvedades, 3 KAM (NIA 701) e Información Especial SIPA/CNV.',
+    porQueConecta:
+      'Completa el circuito profesional: lo que no modifica la opinión igualmente vuelve a la empresa como valor agregado (Carta de Recomendaciones NIA 265), la Gerencia respalda sus afirmaciones por escrito (Carta de Representación NIA 580) y los usuarios externos reciben el Dictamen limpio bajo NIIF/NIAs.',
+    fraseOral:
+      '«Cerramos el encargo con cuatro documentos bien diferenciados: una sola Carta de Recomendaciones (NIA 265) para corregir fallas de control interno, el Memorando de Conclusión, la Carta de Representación firmada por la Dirección (NIA 580), y el Informe del Auditor bajo NIAs (RT N° 32) con Opinión Favorable Sin Salvedades y 3 Cuestiones Clave.»'
+  }
+];
+
+function sanitizeGuionHtml(raw) {
+  if (!raw || typeof raw !== 'string') return '';
+  return raw
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+    .replace(/\son\w+="[^"]*"/gi, '')
+    .replace(/\son\w+='[^']*'/gi, '')
+    .replace(/javascript:/gi, '');
+}
+
+function GuionRichTextBox({ value, baseValue, onChange, onReset, boxClassName = '', placeholder = '' }) {
+  const editorRef = useRef(null);
+
+  useEffect(() => {
+    if (!editorRef.current) return;
+    const clean = sanitizeGuionHtml(value);
+    if (editorRef.current.innerHTML !== clean) {
+      editorRef.current.innerHTML = clean;
+    }
+  }, [value]);
+
+  const applyFormat = (cmd) => {
+    if (!editorRef.current) return;
+    editorRef.current.focus();
+    try {
+      document.execCommand(cmd, false, null);
+      onChange(sanitizeGuionHtml(editorRef.current.innerHTML));
+    } catch {
+      // ignore unsupported browser command
+    }
+  };
+
+  const handleInput = () => {
+    if (!editorRef.current) return;
+    onChange(sanitizeGuionHtml(editorRef.current.innerHTML));
+  };
+
+  const isModified = value !== baseValue;
+
+  return (
+    <div className="space-y-1.5">
+      <div className="flex flex-wrap items-center justify-between gap-1 bg-white border border-slate-300 rounded-lg px-2 py-1 shadow-2xs">
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              applyFormat('bold');
+            }}
+            title="Negrita (Ctrl+B)"
+            className="w-7 h-7 rounded hover:bg-slate-100 text-slate-800 inline-flex items-center justify-center border border-transparent hover:border-slate-300 cursor-pointer"
+          >
+            <Bold className="w-3.5 h-3.5" />
+          </button>
+          <button
+            type="button"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              applyFormat('italic');
+            }}
+            title="Cursiva (Ctrl+I)"
+            className="w-7 h-7 rounded hover:bg-slate-100 text-slate-800 inline-flex items-center justify-center border border-transparent hover:border-slate-300 cursor-pointer"
+          >
+            <Italic className="w-3.5 h-3.5" />
+          </button>
+          <button
+            type="button"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              applyFormat('underline');
+            }}
+            title="Subrayado (Ctrl+U)"
+            className="w-7 h-7 rounded hover:bg-slate-100 text-slate-800 inline-flex items-center justify-center border border-transparent hover:border-slate-300 cursor-pointer"
+          >
+            <Underline className="w-3.5 h-3.5" />
+          </button>
+          <button
+            type="button"
+            onMouseDown={(e) => {
+              e.preventDefault();
+              applyFormat('removeFormat');
+            }}
+            title="Quitar formato del texto seleccionado"
+            className="w-7 h-7 rounded hover:bg-slate-100 text-slate-600 inline-flex items-center justify-center border border-transparent hover:border-slate-300 cursor-pointer"
+          >
+            <Eraser className="w-3.5 h-3.5" />
+          </button>
+        </div>
+        {isModified && (
+          <button
+            type="button"
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={onReset}
+            title="Restaurar texto original"
+            className="px-2 py-0.5 rounded text-[10px] font-bold text-amber-800 bg-amber-50 hover:bg-amber-100 border border-amber-200 inline-flex items-center gap-1 cursor-pointer"
+          >
+            <RotateCcw className="w-3 h-3" />
+            Restaurar
+          </button>
+        )}
+      </div>
+      <div
+        ref={editorRef}
+        contentEditable
+        suppressContentEditableWarning
+        onInput={handleInput}
+        onBlur={handleInput}
+        aria-label={placeholder || 'Editor de guion'}
+        className={`min-h-[110px] p-2.5 rounded-lg bg-white border-2 border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-300 leading-relaxed [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline ${boxClassName}`}
+      />
+    </div>
+  );
+}
+
 export default function ResumenIntegralView({
   cciCalculados,
   ajustesState,
@@ -41,6 +264,65 @@ export default function ResumenIntegralView({
   subTargetTick
 }) {
   const [filtroSeccion, setFiltroSeccion] = useState('todas'); // 'todas' | 'guion' | 'etapa1' | 'etapa2' | 'etapa3'
+  const [guionEdits, setGuionEdits] = useState(() => {
+    try {
+      const saved = localStorage.getItem(GUION_STORAGE_KEY);
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+  const [editingAllGuion, setEditingAllGuion] = useState(false);
+  const [editingSteps, setEditingSteps] = useState({});
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(GUION_STORAGE_KEY, JSON.stringify(guionEdits));
+    } catch {
+      // ignore storage errors
+    }
+  }, [guionEdits]);
+
+  const handleUpdateGuionField = (stepId, field, htmlVal) => {
+    setGuionEdits((prev) => ({
+      ...prev,
+      [stepId]: {
+        ...(prev[stepId] || {}),
+        [field]: htmlVal
+      }
+    }));
+  };
+
+  const handleResetGuionField = (stepId, field) => {
+    setGuionEdits((prev) => {
+      const copy = { ...prev };
+      if (copy[stepId]) {
+        const nextStep = { ...copy[stepId] };
+        delete nextStep[field];
+        if (Object.keys(nextStep).length === 0) {
+          delete copy[stepId];
+        } else {
+          copy[stepId] = nextStep;
+        }
+      }
+      return copy;
+    });
+  };
+
+  const handleResetAllGuion = () => {
+    setGuionEdits({});
+    setEditingAllGuion(false);
+    setEditingSteps({});
+  };
+
+  const toggleStepEdit = (stepId) => {
+    setEditingSteps((prev) => ({
+      ...prev,
+      [stepId]: !(editingAllGuion || prev[stepId])
+    }));
+  };
+
+  const hasCustomGuionEdits = Object.keys(guionEdits).length > 0;
 
   useEffect(() => {
     if (subTarget && ['todas', 'guion', 'etapa1', 'etapa2', 'etapa3'].includes(subTarget)) {
@@ -214,120 +496,76 @@ export default function ResumenIntegralView({
                 <Mic className="w-3.5 h-3.5" />
                 GUION HILO CONDUCTOR — EXPOSICIÓN ORAL PASO A PASO
               </span>
-              <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-white/10 text-teal-200 border border-white/15">
-                Sincronizado con {cciCalculados.length} CCI ({ncPromedio.toFixed(2)}% NC prom.) •{' '}
-                {esOpinionLimpia ? 'Dictamen Favorable Sin Salvedades' : 'Dictamen Modificado'}
-              </span>
+              <div className="flex flex-wrap items-center gap-2 no-print">
+                <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-white/10 text-teal-200 border border-white/15">
+                  Sincronizado con {cciCalculados.length} CCI ({ncPromedio.toFixed(2)}% NC prom.) •{' '}
+                  {esOpinionLimpia ? 'Dictamen Favorable Sin Salvedades' : 'Dictamen Modificado'}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const nextVal = !editingAllGuion;
+                    setEditingAllGuion(nextVal);
+                    if (!nextVal) setEditingSteps({});
+                  }}
+                  className={`px-3 py-1 rounded-lg text-xs font-extrabold inline-flex items-center gap-1.5 border transition-colors cursor-pointer ${
+                    editingAllGuion
+                      ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 border-emerald-300'
+                      : 'bg-white/15 hover:bg-white/25 text-white border-white/25'
+                  }`}
+                >
+                  {editingAllGuion ? (
+                    <>
+                      <Check className="w-3.5 h-3.5" />
+                      Terminar Edición (Guardado)
+                    </>
+                  ) : (
+                    <>
+                      <Pencil className="w-3.5 h-3.5" />
+                      Editar Guion (Negrita · Cursiva · Subrayado)
+                    </>
+                  )}
+                </button>
+                {hasCustomGuionEdits && (
+                  <button
+                    type="button"
+                    onClick={handleResetAllGuion}
+                    className="px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-500/20 hover:bg-amber-500/35 text-amber-200 border border-amber-300/40 inline-flex items-center gap-1 cursor-pointer"
+                  >
+                    <RotateCcw className="w-3.5 h-3.5" />
+                    Restaurar Guion
+                  </button>
+                )}
+              </div>
             </div>
             <h3 className="text-xl font-extrabold text-white">
               Cómo se conecta todo el trabajo práctico: del Conocimiento del Ente al Informe del Auditor
             </h3>
             <p className="text-xs text-slate-200 leading-relaxed max-w-4xl">
               Esta hoja ordena la lógica de nuestra auditoría en <strong>7 eslabones secuenciales</strong> (siguiendo a{' '}
-              <strong>Carlos A. Slosse</strong> y las <strong>NIAs — RT N° 32 FACPCE</strong>). Cada bloque explica{' '}
-              <strong className="text-lime-300">qué hicimos</strong>,{' '}
-              <strong className="text-amber-300">por qué llevó al paso siguiente</strong> y{' '}
-              <strong className="text-teal-300">una frase clara para decir en clase</strong>, con acceso directo a la pantalla correspondiente.
+              <strong>Carlos A. Slosse</strong> y las <strong>NIAs — RT N° 32 FACPCE</strong>). Podés personalizar cada cuadro con{' '}
+              <strong className="text-lime-300">Negrita</strong>, <em className="text-amber-300">Cursiva</em> y{' '}
+              <u className="text-teal-300">Subrayado</u> usando el botón <strong className="text-white">«Editar B·I·U»</strong> (se guarda automáticamente en tu navegador).
             </p>
           </div>
 
           <div className="space-y-4">
-            {[
-              {
-                paso: 'ESLABÓN 1 • ETAPA 1A',
-                titulo: 'Conocimiento del Ente, Negocio y Marco Normativo',
-                navView: 'etapa1-ente',
-                navSub: null,
-                navLabel: 'Abrir 1A. Conocimiento del Ente',
-                queHicimos:
-                  'Relevamos la estructura societaria y regulatoria de Telecom Argentina S.A. al 31/12/2025 (EECC consolidados bajo NIIF en moneda homogénea NIC 29, con un Activo Total de $16.622.552M y Ventas de $8.328.814M), incluyendo el impacto de la adquisición de Telefónica Móviles Argentina S.A. (TMA) el 24/02/2025 bajo NIIF 3 y la regulación CNV / ENACOM.',
-                porQueConecta:
-                  'Porque nadie puede evaluar riesgos ni diseñar pruebas sin entender primero cómo genera valor el cliente: el 88,97% de su activo es No Corriente (PP&E, Espectro 5G y Llave de Negocio) y cotiza en CNV/SEC bajo normas NIIF, lo que exige auditar bajo NIAs (RT N° 32 FACPCE).',
-                fraseOral:
-                  '«Empezamos entendiendo el negocio de Telecom: es una empresa capital-intensiva con casi el 89% de su activo inmovilizado en redes, espectro y llaves tras adquirir TMA en 2025, que aplica NIIF y se audita bajo NIAs (RT N° 32) con plazo perentorio de 70 días corridos ante la CNV.»'
-              },
-              {
-                paso: 'ESLABÓN 2 • ETAPA 1B',
-                titulo: 'Evaluación del Control Interno (5 CCI — 129 Preguntas)',
-                navView: 'etapa1-cci',
-                navSub: 'sec-sintesis-exposicion',
-                navLabel: 'Abrir Cuadro Síntesis (Fortalezas y Debilidades)',
-                queHicimos:
-                  'Aplicamos 5 Cuestionarios de Control Interno (129 preguntas): CCI-01 Archivo Documental (38,46% NC / RC ALTO), CCI-02 Sistema Contable (72,00% NC / RC MEDIO), CCI-03 Presupuestos (77,78% NC / RC BAJO), CCI-04 Operativo (80,00% NC / RC BAJO) y CCI-05 Tecnológico/CGTI (47,62% NC / RC ALTO). Resumimos sus fortalezas y debilidades para exponer sin recitar las 129 preguntas.',
-                porQueConecta:
-                  'Determina en qué sistemas podemos apoyarnos y en cuáles no. Las fallas en CCI-01 (legajos de obras/ISO 15.489), CCI-05 (interfaces y parches TIC) y la falla puntual de CCI-02 Preg. 22–23 (bajas de red no comunicadas a SAP FI-AA) fijan un Enfoque Predominantemente Sustantivo en Bienes de Uso e Intangibles, y mixto en Créditos.',
-                fraseOral:
-                  '«Al medir los 5 sistemas vimos un contraste claro: Presupuestos (77,78%) y Operativo (80,00%) son sólidos, Contable es medio (72,00% pero con falla en bajas de activos fijos), mientras que Archivo (38,46%) y Tecnología (47,62%) dieron Riesgo de Control ALTO. Eso nos impide confiar en los controles para reducir pruebas y define un enfoque sustantivo.»'
-              },
-              {
-                paso: 'ESLABÓN 3 • ETAPA 1C',
-                titulo: 'Revisión Analítica Preliminar: Análisis Horizontal, Vertical y Ratios',
-                navView: 'etapa1-analisis-eecc',
-                navSub: null,
-                navLabel: 'Abrir 1C. Análisis H/V y Ratios',
-                queHicimos:
-                  'Comparando EECC 2025 vs 2024 detectamos alertas cuantitativas clave: PP&E representa el 40,84% del Activo (+38,16% por TMA y CAPEX), Intangibles el 16,07% (+18,32%), Créditos por Ventas creció +105,25% (llevando el DSO de 26,11 a 35,02 días con Liquidez Corriente de 0,48x) y el Resultado antes de IG pasó a pérdida ($(191.736)M).',
-                porQueConecta:
-                  'Valida con números dónde está el riesgo de error material y explica dos decisiones técnicas inmediatas del paso siguiente: elegir qué rubros auditar prioritariamente y qué base usar para la Materialidad.',
-                fraseOral:
-                  '«El análisis H/V y los ratios nos mostraron exactamente dónde mirar: Bienes de Uso concentra el 40,84% del activo, Créditos se duplicó (+105,25%) tensionando la liquidez (0,48x), y la pérdida contable antes de impuestos de $(191.736)M invalida usar el resultado para calcular la materialidad.»'
-              },
-              {
-                paso: 'ESLABÓN 4 • ETAPA 1D',
-                titulo: 'Planificación Detallada: Materialidad (NIA 320), Presupuesto y Programas',
-                navView: 'etapa1-plan-detallada',
-                navSub: null,
-                navLabel: 'Abrir 1D. Planificación Detallada',
-                queHicimos:
-                  'Fijamos la Significatividad Global (PM) sobre el Activo Total: 1% = $166.225M. Por el RC ALTO en Archivo y TIC bajamos el Error Tolerable (ET) al límite prudente del 50% de PM ($83.112M) y definimos el umbral PAE en el 5% de PM ($8.311M). Armamos los programas sustantivos y el presupuesto de 1.220 horas en 3 meses (420 hs PT-A, 120 hs PT-B, 50 hs PT-E).',
-                porQueConecta:
-                  'Traduce el diagnóstico estratégico en reglas matemáticas concretas para la Etapa 2: cuánto tamaño debe tener la muestra y a partir de qué monto ($8.311M) una diferencia debe proponerse como ajuste.',
-                fraseOral:
-                  '«Como hubo pérdida contable y Telecom es capital-intensiva, calculamos la Materialidad sobre el Activo Total: $166.225M. Como el control interno en Archivo y TIC dio riesgo alto, fuimos al piso prudente del 50% para Error Tolerable ($83.112M) y fijamos el piso PAE en $8.311M. Con esa vara salimos al campo.»'
-              },
-              {
-                paso: 'ESLABÓN 5 • ETAPA 2',
-                titulo: 'Ejecución de Papeles de Trabajo Sustantivos (PT-A, PT-E y PT-B)',
-                navView: 'etapa2-ejecucion',
-                navSub: 'pt-a',
-                navLabel: 'Abrir Etapa 2 (PT-A / PT-E / PT-B)',
-                queHicimos:
-                  'Ejecutamos los 3 programas priorizados: en PT-A (PP&E $6.789.118M) las pruebas globales de amortización ($1.533.091M) y valor residual cerraron a $0, pero la inspección física y de bajas vinculada a CCI-02 Preg. 22–23 halló centrales analógicas en desuso ($21.450M) y fibra vandalizada ($6.890M) sin dar de baja en SAP ⇒ AJ-01 por $28.340M. En PT-E (Intangibles $2.671.525M, Nota 10/25 $234.722M amort.) y PT-B (Créditos $800.128M netos, circularización 65 B2B y recálculo Previsión NIIF 9) no hubo desvíos ($0).',
-                porQueConecta:
-                  'Cierra el círculo causal con la Etapa 1: justamente en los rubros donde CCI-01 y CCI-02 habían alertado debilidades aparecieron los $28.340M sin bajar (AJ-01); donde CCI-02/03/04 dieron mayor resguardo y pruebas analíticas globales, los saldos cerraron conformes.',
-                fraseOral:
-                  '«En el campo ejecutamos PT-A, PT-E y PT-B. Aunque las pruebas globales matemáticas de amortizaciones cerraron a cero, al inspeccionar bajas físicas —guiados por la falla 22-23 de CCI-02— encontramos $28.340M en centrales analógicas apagadas y fibra vandalizada que seguían en el activo. Intangibles y Créditos validaron conformes.»'
-              },
-              {
-                paso: 'ESLABÓN 6 • ETAPA 2 (CIERRE)',
-                titulo: 'Planilla PAE de Ajustes Acumulados vs. Significatividad (NIA 450)',
-                navView: 'etapa2-ejecucion',
-                navSub: 'sec-pae',
-                navLabel: 'Abrir Planilla PAE Unificada',
-                queHicimos:
-                  'Evaluamos las diferencias acumuladas contra nuestros umbrales: AJ-01 ($28.340M en Bienes de Uso) supera el PAE ($8.311M) y se propone formalmente a la Gerencia; en el alcance ampliado web se agrega AJ-04 ($11.240M de reclasificación neutra en Flow NIIF 15) y la partida menor PAE-NC-01 (< $8.311M), que no requiere ajuste.',
-                porQueConecta:
-                  'Define técnicamente el sentido de la opinión del auditor. AJ-01 representa solo el 17,05% de PM ($166.225M) y el 34,10% de ET ($83.112M). Si la Dirección lo acepta, el saldo queda corregido ($6.760.778M); e incluso si no lo registrara, el desvío no supera la Materialidad Global ni es generalizado.',
-                fraseOral:
-                  '«Acumulamos AJ-01 ($28.340M) en la planilla PAE porque supera los $8.311M. Con la aceptación de la Gerencia se corrige el balance; y aun en el escenario hipotético de no ajuste, representa el 17,05% de nuestra materialidad global ($166.225M), sin generar distorsión significativa ni generalizada.»'
-              },
-              {
-                paso: 'ESLABÓN 7 • ETAPA 3',
-                titulo: 'Culminación: 4 Documentos Finales del Auditor',
-                navView: 'etapa3-informe',
-                navSub: 'informe',
-                navLabel: 'Abrir Etapa 3 (Conclusión e Informe)',
-                queHicimos:
-                  'Emitimos los 4 entregables de cierre al 20/02/2026: (1) Carta única de Recomendaciones de Control Interno (NIA 265) reportando las debilidades CCI-01..05; (2) Memorando Final de Auditoría documentando PAE y estimaciones (DCF UGE, PPA TMA, NIIF 9); (3) Carta de Representación / Manifestaciones Escritas firmada por la Dirección (NIA 580); e (4) Informe de Auditoría Independiente bajo NIAs (RT N° 32 FACPCE) con Opinión Favorable Sin Salvedades, 3 KAM (NIA 701) e Información Especial SIPA/CNV.',
-                porQueConecta:
-                  'Completa el circuito profesional: lo que no modifica la opinión igualmente vuelve a la empresa como valor agregado (Carta de Recomendaciones NIA 265), la Gerencia respalda sus afirmaciones por escrito (Carta de Representación NIA 580) y los usuarios externos reciben el Dictamen limpio bajo NIIF/NIAs.',
-                fraseOral:
-                  '«Cerramos el encargo con cuatro documentos bien diferenciados: una sola Carta de Recomendaciones (NIA 265) para corregir fallas de control interno, el Memorando de Conclusión, la Carta de Representación firmada por la Dirección (NIA 580), y el Informe del Auditor bajo NIAs (RT N° 32) con Opinión Favorable Sin Salvedades y 3 Cuestiones Clave.»'
-              }
-            ].map((step, idx) => (
+            {GUION_ESLABONES_BASE.map((step, idx) => {
+              const stepEdits = guionEdits[step.id] || {};
+              const isEditingThisStep = editingAllGuion || !!editingSteps[step.id];
+              const stepModified = Object.keys(stepEdits).length > 0;
+              const valQueHicimos = stepEdits.queHicimos ?? step.queHicimos;
+              const valPorQue = stepEdits.porQueConecta ?? step.porQueConecta;
+              const valFrase = stepEdits.fraseOral ?? step.fraseOral;
+
+              return (
               <div
-                key={idx}
-                className="bg-white rounded-2xl border border-slate-200 p-5 shadow-xs hover:border-indigo-300 transition-colors"
+                key={step.id}
+                className={`bg-white rounded-2xl border p-5 shadow-xs transition-colors ${
+                  isEditingThisStep
+                    ? 'border-indigo-400 ring-2 ring-indigo-100'
+                    : 'border-slate-200 hover:border-indigo-300'
+                }`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
                   <div className="flex items-center gap-2.5">
@@ -335,22 +573,52 @@ export default function ResumenIntegralView({
                       {idx + 1}
                     </span>
                     <div>
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700 block">
-                        {step.paso}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-700">
+                          {step.paso}
+                        </span>
+                        {stepModified && (
+                          <span className="px-1.5 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[9px] uppercase">
+                            Personalizado
+                          </span>
+                        )}
+                      </div>
                       <h4 className="text-sm sm:text-base font-extrabold text-slate-900">
                         {step.titulo}
                       </h4>
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => onNavigate && onNavigate(step.navView, step.navSub)}
-                    className="no-print px-3 py-1.5 rounded-lg bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 text-xs font-extrabold inline-flex items-center gap-1 cursor-pointer"
-                  >
-                    {step.navLabel}
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </button>
+                  <div className="flex flex-wrap items-center gap-2 no-print">
+                    <button
+                      type="button"
+                      onClick={() => toggleStepEdit(step.id)}
+                      className={`px-2.5 py-1.5 rounded-lg text-xs font-extrabold border inline-flex items-center gap-1 cursor-pointer transition-colors ${
+                        isEditingThisStep
+                          ? 'bg-emerald-600 text-white border-emerald-700 hover:bg-emerald-700'
+                          : 'bg-indigo-50 text-indigo-800 border-indigo-200 hover:bg-indigo-100'
+                      }`}
+                    >
+                      {isEditingThisStep ? (
+                        <>
+                          <Check className="w-3.5 h-3.5" />
+                          Listo
+                        </>
+                      ) : (
+                        <>
+                          <Pencil className="w-3.5 h-3.5" />
+                          Editar B·I·U
+                        </>
+                      )}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onNavigate && onNavigate(step.navView, step.navSub)}
+                      className="px-3 py-1.5 rounded-lg bg-teal-50 hover:bg-teal-100 text-teal-800 border border-teal-200 text-xs font-extrabold inline-flex items-center gap-1 cursor-pointer"
+                    >
+                      {step.navLabel}
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-3 text-xs leading-relaxed">
@@ -358,25 +626,68 @@ export default function ResumenIntegralView({
                     <strong className="text-slate-800 uppercase text-[10px] tracking-wider block mb-1">
                       1. ¿Qué hicimos concretamente?
                     </strong>
-                    <p className="text-slate-600">{step.queHicimos}</p>
+                    {isEditingThisStep ? (
+                      <GuionRichTextBox
+                        value={valQueHicimos}
+                        baseValue={step.queHicimos}
+                        onChange={(html) => handleUpdateGuionField(step.id, 'queHicimos', html)}
+                        onReset={() => handleResetGuionField(step.id, 'queHicimos')}
+                        boxClassName="text-slate-700"
+                        placeholder="Editar Qué hicimos concretamente"
+                      />
+                    ) : (
+                      <div
+                        className="text-slate-600 [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
+                        dangerouslySetInnerHTML={{ __html: sanitizeGuionHtml(valQueHicimos) }}
+                      />
+                    )}
                   </div>
                   <div className="p-3 rounded-xl bg-amber-50/60 border border-amber-200">
                     <strong className="text-amber-900 uppercase text-[10px] tracking-wider flex items-center gap-1 mb-1">
                       <Compass className="w-3.5 h-3.5 text-amber-700" />
                       2. ¿Por qué conecta con el paso siguiente?
                     </strong>
-                    <p className="text-amber-950/90">{step.porQueConecta}</p>
+                    {isEditingThisStep ? (
+                      <GuionRichTextBox
+                        value={valPorQue}
+                        baseValue={step.porQueConecta}
+                        onChange={(html) => handleUpdateGuionField(step.id, 'porQueConecta', html)}
+                        onReset={() => handleResetGuionField(step.id, 'porQueConecta')}
+                        boxClassName="text-amber-950"
+                        placeholder="Editar Por qué conecta con el paso siguiente"
+                      />
+                    ) : (
+                      <div
+                        className="text-amber-950/90 [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
+                        dangerouslySetInnerHTML={{ __html: sanitizeGuionHtml(valPorQue) }}
+                      />
+                    )}
                   </div>
                   <div className="p-3 rounded-xl bg-indigo-50/70 border border-indigo-200">
                     <strong className="text-indigo-900 uppercase text-[10px] tracking-wider flex items-center gap-1 mb-1">
                       <MessageSquareQuote className="w-3.5 h-3.5 text-indigo-700" />
                       3. Qué decir en voz alta (Guion oral)
                     </strong>
-                    <p className="text-indigo-950 italic">{step.fraseOral}</p>
+                    {isEditingThisStep ? (
+                      <GuionRichTextBox
+                        value={valFrase}
+                        baseValue={step.fraseOral}
+                        onChange={(html) => handleUpdateGuionField(step.id, 'fraseOral', html)}
+                        onReset={() => handleResetGuionField(step.id, 'fraseOral')}
+                        boxClassName="text-indigo-950 italic"
+                        placeholder="Editar Qué decir en voz alta"
+                      />
+                    ) : (
+                      <div
+                        className="text-indigo-950 italic [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
+                        dangerouslySetInnerHTML={{ __html: sanitizeGuionHtml(valFrase) }}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Mini Cuadro Síntesis Fortalezas y Debilidades dentro del Guion para no cambiar de pestaña si preguntan */}

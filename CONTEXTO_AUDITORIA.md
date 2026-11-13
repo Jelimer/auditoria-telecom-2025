@@ -137,8 +137,9 @@
 - **Persistencia en LocalStorage:**
   - `audiia_cci_v6`: respuestas editables de los 5 Cuestionarios de Control Interno alineadas al Word AE 4 (conectadas en vivo con Dashboard, Síntesis de Exposición 1B, Etapa 3 Carta CI y Resumen Integral).
   - `audiia_ajustes_v3`: estado de aceptación/rechazo de los 2 ajustes PAE vigentes (`AJ-01` y `AJ-04`) + partida menor `PAE-NC-01`, sincronizado con la barra roja de impacto en Etapa 3, Dashboard y Resumen Integral.
-  - `audiia_equipo_v2`, `audiia_pasos_narrativos_v1`, `audiia_conclusiones_v1` y `audiia_zoom_level`.
+  - `audiia_equipo_v2`, `audiia_pasos_narrativos_v1`, `audiia_conclusiones_v1`, `audiia_guion_oral_v1` y `audiia_zoom_level`.
+- **Menú Lateral (Sidebar):** flecha independiente por pestaña para encoger/desplegar subtemas sin forzar navegación hacia esa vista.
 - **Cuadro Síntesis para Exposición Oral (`1B. Control Interno` — `#sec-sintesis-exposicion`):** tabla ejecutiva de Fortalezas, Debilidades e Impacto de los 5 CCI con porcentajes NC/RC en vivo y botón **«Modo Exposición»** para ocultar/expandir las 129 preguntas durante la defensa.
-- **Guion Hilo Conductor para Clase (`Hoja Resumen` — pestaña `guion` / sidebar `4.0`):** narrativa didáctica en 7 eslabones (`1A → 1B → 1C → 1D → Etapa 2 → PAE → Etapa 3`) con «Qué hicimos», «Por qué conecta», guion oral y defensa de preguntas frecuentes de cátedra.
+- **Guion Hilo Conductor para Clase (`Hoja Resumen` — pestaña `guion` / sidebar `4.0`):** narrativa didáctica editable en 7 eslabones (`1A → 1B → 1C → 1D → Etapa 2 → PAE → Etapa 3`) con barra de formato (**Negrita**, *Cursiva*, <u>Subrayado</u>, Limpiar formato y Restaurar), persistencia en `audiia_guion_oral_v1`, «Qué hicimos», «Por qué conecta», guion oral y defensa de preguntas frecuentes de cátedra.
 - **Glosario de Marcas Inteligente por Rubro:** adapta ejemplos y oculta marcas no aplicables (`t` y `h` exclusivas de Intangibles).
 - **Ruta del Documento Word Activo del Usuario:** `C:\Users\jelim\Desktop\AUD 2026\AE 4\AE 4 - Planificación Detallada - copia (2) - Actualizado.docx`.

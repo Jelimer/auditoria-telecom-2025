@@ -403,12 +403,28 @@ export default function App() {
 
   // Handlers de menú principal y subtemas desplegables
   const handleSelectMainItem = (itemId) => {
+    const item = NAV_ITEMS.find((n) => n.id === itemId);
+    const hasSubItems = !!(item && item.subItems && item.subItems.length > 0);
     const isAlreadyActive = activeView === itemId;
+
+    if (isAlreadyActive && hasSubItems) {
+      setOpenMenus((prev) => ({
+        ...prev,
+        [itemId]: !prev[itemId]
+      }));
+      return;
+    }
+
+    navigateTo(itemId, null, { pushHistory: true, scroll: !isAlreadyActive });
+  };
+
+  const handleToggleMenu = (e, itemId) => {
+    e.stopPropagation();
+    e.preventDefault();
     setOpenMenus((prev) => ({
       ...prev,
-      [itemId]: isAlreadyActive ? !prev[itemId] : true
+      [itemId]: !prev[itemId]
     }));
-    navigateTo(itemId, null, { pushHistory: true, scroll: !isAlreadyActive });
   };
 
   const handleSelectSubItem = (parentId, subItem) => {
@@ -647,16 +663,19 @@ export default function App() {
 
               return (
                 <div key={item.id} className="space-y-1">
-                  <button
-                    onClick={() => handleSelectMainItem(item.id)}
-                    title={item.label}
-                    className={`w-full flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  <div
+                    className={`w-full flex items-center justify-between gap-1 rounded-xl text-xs font-bold transition-all ${
                       isActive
                         ? 'bg-teal-700 text-white shadow-xs'
                         : 'text-slate-700 hover:bg-teal-50 hover:text-teal-800'
                     }`}
                   >
-                    <div className="flex items-center gap-2.5 min-w-0">
+                    <button
+                      type="button"
+                      onClick={() => handleSelectMainItem(item.id)}
+                      title={item.label}
+                      className="flex items-center gap-2.5 min-w-0 flex-1 px-3 py-2.5 text-left cursor-pointer"
+                    >
                       <Icon
                         className={`w-4 h-4 shrink-0 ${
                           isActive ? 'text-lime-300' : 'text-teal-700'
@@ -674,16 +693,28 @@ export default function App() {
                           </span>
                         </div>
                       )}
-                    </div>
+                    </button>
 
                     {sidebarExpanded && hasSubItems && (
-                      <ChevronDown
-                        className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${
-                          isOpen ? 'rotate-180' : ''
-                        } ${isActive ? 'text-teal-100' : 'text-slate-400'}`}
-                      />
+                      <button
+                        type="button"
+                        onClick={(e) => handleToggleMenu(e, item.id)}
+                        title={isOpen ? 'Encoger pestaña' : 'Desplegar pestaña'}
+                        aria-label={isOpen ? `Encoger ${item.shortLabel}` : `Desplegar ${item.shortLabel}`}
+                        className={`p-2 mr-1 rounded-lg transition-colors cursor-pointer shrink-0 ${
+                          isActive
+                            ? 'text-teal-100 hover:bg-teal-600/80 hover:text-white'
+                            : 'text-slate-400 hover:bg-teal-100 hover:text-teal-900'
+                        }`}
+                      >
+                        <ChevronDown
+                          className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                            isOpen ? 'rotate-180' : ''
+                          }`}
+                        />
+                      </button>
                     )}
-                  </button>
+                  </div>
 
                   {/* Subtemas desplegables */}
                   {sidebarExpanded && hasSubItems && isOpen && (
