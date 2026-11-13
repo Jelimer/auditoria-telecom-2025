@@ -146,4 +146,17 @@
 - **Cuadro Síntesis para Exposición Oral (`1B. Control Interno` — `#sec-sintesis-exposicion`):** tabla ejecutiva de Fortalezas, Debilidades e Impacto de los 5 CCI con porcentajes NC/RC en vivo y botón **«Modo Exposición»** para ocultar/expandir las 129 preguntas durante la defensa.
 - **Guion Hilo Conductor para Clase (`Hoja Resumen` — pestaña `guion` / sidebar `4.0`):** narrativa didáctica editable en 7 eslabones (`1A → 1B → 1C → 1D → Etapa 2 → PAE → Etapa 3`) con barra de formato (**Negrita**, *Cursiva*, <u>Subrayado</u>, Limpiar formato y Restaurar), persistencia en `audiia_guion_oral_v1`, «Qué hicimos», «Por qué conecta», guion oral y defensa de preguntas frecuentes de cátedra.
 - **Glosario de Marcas Inteligente por Rubro:** adapta ejemplos y oculta marcas no aplicables (`t` y `h` exclusivas de Intangibles).
+- **Mapa de Archivos React Clave (`src/components/`):** `NormaTooltip.jsx` (tooltips NIAs/NIIF/RT), `RichTextBox.jsx` (editor enriquecido B/I/U), `Etapa1EnteView.jsx` (1A), `Etapa1ControlInternoView.jsx` (1B), `AnalisisEstadosContablesView.jsx` (1C H/V y Ratios + desglose Nota 9), `Etapa1PlanDetalladaView.jsx` (1D), `Etapa2EjecucionView.jsx` (PT-A..F + PAE), `Etapa3InformeView.jsx` (cierre cronológico + simulador rojo), `ResumenIntegralView.jsx` (Hoja Resumen + Guion 7 Eslabones), `DashboardView.jsx` y `EquipoTrabajoView.jsx`.
 - **Ruta del Documento Word Activo del Usuario:** `C:\Users\jelim\Desktop\AUD 2026\AE 4\AE 4 - Planificación Detallada - copia (2) - Actualizado.docx`.
+
+---
+
+## 9. Puntos Aclarados Recientemente para Defensa Oral (Estado al 13/11/2026)
+- **Compra de TMA (`NIIF 3`, Nota 29):** no se contabilizó solo como Llave de negocio; bajo *Purchase Price Allocation (PPA)* a **valor razonable**, ingresó distribuida en activos identificables (`PP&E +$1.332.961M`, `Créditos $421.919M`, `Intangibles +$274.183M`, etc.) y solo **`$12.840M`** quedó como Llave de negocio residual. Por ello `Créditos` saltó `+105,25%` (stock 100% al cierre) frente a `Ventas +53,02%` (~10 meses mar–dic de TMA en Resultados).
+- **Desglose Bienes de Uso (`Nota 9`) y términos técnicos:**
+  - `Red fija y transporte` (`$2.856.173M` — `41,64%` s/`$6.859.618M`): corresponde a **cables, fibra óptica troncal y red de transmisión** (no vehículos; `Rodados` es `$76.639M` — `1,12%`).
+  - `Inmuebles` (`$1.193.638M` — `17,40%`): edificios y predios técnicos; la referencia en `PT-A` a los `16 Data Centers` alude a infraestructura edilicia + nodos/equipos de cómputo centrales inspeccionados al 100%.
+  - `Espectro`: bandas de frecuencias radioeléctricas licitadas por ENACOM (`4G/5G`, Nota 10 Intangibles); `Nodos`: puntos físicos de interconexión/distribución de red óptica y móvil.
+  - **Previsión por obsolescencia/desvalorización PP&E (`$(28.283)M` en Nota 9):** cubre deterioro global estimado por la empresa, pero no reemplaza la **baja contable definitiva** (`NIC 16 párr. 67`) de activos específicos sin uso o siniestrados detectados en campo (`$21.450M` centrales cobre + `$6.890M` fibra = **`AJ-01 $28.340M`**), originados por la debilidad `CCI-02 Preg. 22–23`.
+- **Último estado de repositorio (`main`):** build `npm run build` validado (`vite build` exit `0`) y sincronizado hasta `commit 828695b` + esta actualización de contexto.
+- **Pendientes opcionales para próximo chat:** si el usuario decide incorporar la explicación de la compra de TMA / Valor Razonable al Word AE 4 (para copiar/pegar), o unificar menciones heredadas de `RT 37` en textos secundarios dentro de la web o el `.docx`.
