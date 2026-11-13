@@ -8,37 +8,44 @@
 ## 1. Datos Generales de la Cátedra y del Proyecto
 - **Universidad y Cátedra:** Universidad de la Cuenca del Plata (U.C.P.) — Trabajo Práctico Integral de Auditoría Externa.
 - **Autores / Equipo de Auditoría:** **Grebe — Pisonero De Biase**.
-- **Ente Auditado:** **Telecom Argentina S.A.**
-- **Estados Contables Auditados:** **Estados Contables Consolidados** correspondientes al ejercicio finalizado el **31 de diciembre de 2025** (comparativos con **2024** y **2023**), expresados en **millones de pesos constantes** (Nota 1.d). **IMPORTANTE:** Siempre se utilizan los **Estados Contables Consolidados**, nunca los individuales.
-- **Archivos Fuente Locales en el Proyecto (`docs/`):**
-  - `docs/Estados Financieros 2025 Telecom-Original.pdf` (PDF oficial completo de los Estados Financieros Consolidados al 31/12/2025 de Telecom Argentina S.A.).
-  - `docs/PLANIFICACION PRELIMINAR DE AUDITORIA TELECOM 2026.docx` (Documento Word original elaborado por los alumnos para la Etapa 1.1 Preliminar).
-  - `docs/AE 4 - Planificación Detallada - copia (2) - Actualizado.docx` (y `docs/AE 4 - Desarrollo v1.docx`): **Documento Maestro Activo oficial de la Actividad de Extensión 4 (AE 4)**. Contiene la Planificación Detallada, Cuestionarios CCI, Matriz de Riesgo, Matriz de Afirmaciones, Programas de Trabajo (foco principal en Bienes de Uso, Intangibles y Créditos) y Cédulas de Ejecución (PT-A). Se mantiene sincronizado y actualizado de forma continua junto con la plataforma web.
+- **Ente Auditado:** **Telecom Argentina S.A.** (`CUIT N° 30-63945373-8` — **Domicilio Legal oficial:** `Gral. Hornos 690, Ciudad Autónoma de Buenos Aires`). *Nota: no usar `Av. Alicia Moreau de Justo 50`.*
+- **Estados Contables Auditados:** **Estados Financieros Consolidados** correspondientes al ejercicio finalizado el **31 de diciembre de 2025** (comparativos con **2024** y **2023**), expresados en **millones de pesos constantes** (Nota 1.d). **IMPORTANTE:** Siempre se utilizan los **Estados Contables Consolidados**, nunca los individuales.
+- **Archivos Fuente Locales en el Proyecto (`docs/` y carpeta AE 4):**
+  - `docs/Estados Financieros 2025 Telecom-Original.pdf` y `Estados Financieros 2025 Telecom - Anotaciones OCR.pdf` (EECC Consolidados al 31/12/2025 e Informe real de los Auditores Independientes en pp. 174–179).
+  - `docs/PLANIFICACION PRELIMINAR DE AUDITORIA TELECOM 2026.docx` (Documento Word original de la Etapa 1.1 Preliminar).
+  - `C:\Users\jelim\Desktop\AUD 2026\AE 4\AE 4 - Planificación Detallada - copia (2) - Actualizado.docx` (**Documento Maestro Activo oficial de la AE 4**; incluye Etapa 1, Programas PT-A, PT-E, PT-B y Planilla PAE al cierre). **REGLA:** No editar el `.docx` directamente salvo indicación expresa del usuario; cuando solicite texto para Word, entregarlo listo para copiar/pegar.
 - **Repositorio GitHub y Despliegue Automático en Vercel:**
   - Repositorio remoto (`origin`): `https://github.com/Jelimer/auditoria-telecom-2025.git` (rama `main`).
-  - Cada vez que se realicen cambios en el código de la app, se debe verificar con `npm run build`, hacer `git add .`, `git commit` y `git push origin main` para que **Vercel** actualice automáticamente la versión web que el usuario lee desde su navegador o celular.
+  - Cada vez que se realicen cambios confirmados en el código de la app, verificar con `npm run build`, hacer `git add`, `git commit` y `git push origin main` para que **Vercel** despliegue automáticamente la última versión web.
 
 ---
 
 ## 2. Separación Estricta de Marcos Normativos (¡Regla Crítica!)
 1. **Marco Contable aplicado por Telecom Argentina S.A. (preparación de sus EECC):**
-   - Telecom cotiza en la **CNV (Argentina)** y en la **SEC / NYSE (EE.UU.)**, por lo que confecciona sus Estados Contables Consolidados **exclusivamente bajo Normas Internacionales de Información Financiera (`NIIF` / `NIC` emitidas por el IASB)**.
+   - Telecom cotiza en la **CNV (Argentina)** y en la **SEC / NYSE (EE.UU.)**, por lo que confecciona sus Estados Financieros Consolidados **exclusivamente bajo Normas de contabilidad NIIF emitidas por el IASB** (en Argentina por `RT N° 26` FACPCE).
    - **PROHIBIDO mencionar `RT 54 (NUA)` como norma contable de Telecom.**
    - Normas NIIF/NIC clave del caso:
      - **`NIC 29`:** Reexpresión en moneda homogénea (ajuste por inflación por IPC).
-     - **`NIIF 3`:** Combinaciones de negocios — Adquisición del 100% de **Telefónica Móviles Argentina S.A. (TMA)** el **24/02/2025** (alocación del precio de compra / PPA).
+     - **`NIIF 3`:** Combinaciones de negocios — Adquisición de **Telefónica Móviles Argentina S.A. (TMA)** el **24/02/2025** (`PPA` en Nota 29: `+$1.332.961M` en PP&E y `+$274.183M` en Activos Intangibles).
      - **`NIIF 9`:** Instrumentos financieros y modelo de **Pérdida Crediticia Esperada (ECL)** para la Previsión de Deudores Incobrables.
      - **`NIIF 15`:** Ingresos de actividades ordinarias procedentes de contratos con clientes (evaluación de Principal vs. Agente en servicios de terceros en Flow y corte B2B).
      - **`NIIF 16`:** Arrendamientos (Activos por derechos de uso en Nota 11: `$727.288M` y Pasivos por arrendamientos en Nota 18).
-     - **`NIC 16`:** Propiedad, Planta y Equipo (`PP&E` en Nota 9: `$6.789.118M`).
-     - **`NIC 36`:** Deterioro del valor de los activos (*Test de Impairment* de la Llave de Negocio en Nota 8: `$4.443.998M` y UGE Redes Personal: `$12.774.695M`).
+     - **`NIC 16`:** Propiedad, Planta y Equipo (`PP&E` en Nota 9: `$6.789.118M` netos).
+     - **`NIC 36`:** Deterioro del valor de los activos (*Test de Impairment* de la Llave de Negocio en Nota 8: `$4.443.998M` y UGE Redes Personal: `$12.774.695M` con headroom `+$334.966M`).
+     - **`NIC 37`:** Provisiones y Contingencias (Nota 20: `$563.085M` totales).
      - **`NIC 38`:** Activos Intangibles (Nota 10: `$2.671.525M` — licencias de espectro 4G/5G ENACOM, marcas y software).
 2. **Marco Doctrinario y Profesional de Auditoría (aplicado por los auditores externos):**
-   - **Doctrina Base de la Cátedra:** **Carlos A. Slosse** (*Auditoría: Un Nuevo Enfoque Empresarial*). Estructura la auditoría en **3 Etapas**:
-     1. **Etapa 1: Planificación** (dividida en **1.1 Planificación Preliminar / Estratégica** y **1.2 Planificación Detallada**).
-     2. **Etapa 2: Ejecución** (obtención de elementos de juicio válidos y suficientes mediante Cédulas Sumarias / Hojas Llave y Cédulas Analíticas con marcas de auditoría).
-     3. **Etapa 3: Conclusión e Informe** (evaluación de diferencias de auditoría frente a la Significatividad, revisión de hechos posteriores, Carta de Gerencia, Memorando Resumen y emisión del Informe del Auditor Independiente).
-   - **Normas de Auditoría:** **Resolución Técnica N° 37 de la FACPCE (modificada por la RT 53)** y **NIA 315 / NIA 320 / NIA 450 / NIA 520 / NIA 701 (KAM)**.
+   - **Doctrina Base de la Cátedra:** **Carlos A. Slosse** (*Auditoría: Un Nuevo Enfoque Empresarial*, 4ta Ed.). Estructura la auditoría en **3 Etapas**:
+     1. **Etapa 1: Planificación** (1A Conocimiento del Ente, 1B Control Interno `CCI-01..05`, 1C Revisión Analítica H/V y Ratios, 1D Planificación Detallada y Materialidad).
+     2. **Etapa 2: Ejecución** (obtención de elementos de juicio válidos y suficientes mediante Cédulas Sumarias / Analíticas `PT-A` a `PT-F` y Planilla PAE).
+     3. **Etapa 3: Conclusión e Informe** (secuencia cronológica de cierre: `1. Carta de Control Interno (NIA 265)` → `2. Memorando Resumen (NIA 450/560/570)` → `3. Carta de Representación (NIA 580)` → `4. Informe de Auditoría Independiente`).
+   - **Normas de Auditoría aplicables al Informe Final de Telecom Argentina S.A.:**
+     - Al tratarse de una entidad sujeta al régimen de **oferta pública de la CNV** bajo NIIF completas (`RT N° 26`), el **Informe de Auditoría Emitido por los Auditores Independientes** se rige obligatoriamente por las **Normas Internacionales de Auditoría (`NIAs`) adoptadas en Argentina mediante la Resolución Técnica N° 32 de la FACPCE** (aprobadas por el IAASB), articuladas en el TP con el enfoque metodológico de Carlos Slosse (y diferenciadas en clase de la `RT N° 37 / RT N° 53` aplicable a entes locales).
+     - **Elementos obligatorios del Informe real Telecom 2025 bajo `NIAs / RT N° 32`:** (I.1) Opinión sobre EECC consolidados bajo NIIF del IASB; (I.2) Fundamento citando `NIAs / RT N° 32` IAASB; (I.3) Sección autónoma **Independencia** (**Código del IESBA** para entidades de interés público + Código Local CABA); (I.4) **Cuestiones Clave de Auditoría (`KAM — NIA 701`)**; (I.5) **Otra Información (`NIA 720`: *Memoria Anual Integrada y Reseña Informativa*)**; (I.6) Responsabilidades del Directorio y del **Comité de Auditoría**; (I.7) Responsabilidades de los auditores incl. empresa en funcionamiento (`NIA 570`) y **Auditoría de Grupos (`NIA 600`)**; (II) Otros requerimientos legales (`Inventarios y Balances`, LGS 19.550, ERP SAP CNV, **deuda devengada SIPA al 31/12/2025: `$33.699.737.311`**, **art. 21° inc. b, Cap. III, Secc. VI, Tít. II Normas CNV** s/ relación honorarios 100% auditoría, y PLA/FT UIF Res. 420/11).
+3. **Distinción obligatoria entre las dos Cartas de Etapa 3 (Slosse Cap. 27 Sec. 6 y 8 + NIAs 265 y 580):**
+   - **NO son una sola carta:**
+     - **Carta de Recomendaciones de Control Interno (`NIA 265` — `LC-01`, `12/02/2026`):** la emite el **Auditor → Directorio / Comité de Auditoría / Gerencia** comunicando debilidades detectadas y sugerencias de mejora (p. ej. falla de circuito `CCI-02 Preg. 22-23` origen de `AJ-01`).
+     - **Carta de Representación de la Dirección / Carta de Gerencia (`NIA 580` — `LC-03`, `20/02/2026`):** la emite el **Cliente (CEO/CFO/Presidente) → Auditor** con fecha igual o inmediatamente anterior al dictamen; confirma por escrito integridad de registros/actas, estimaciones (`NIA 540`), contingencias (`NIA 501`), partes relacionadas (`NIA 550`), hechos posteriores (`NIA 560`) y evaluación de incorrecciones no ajustadas (`NIA 450.14`). Su falta obliga a la abstención de opinión (`NIA 580`).
 
 ---
 
@@ -48,111 +55,88 @@
   - Inversiones corrientes (Nota 4): `$323.064M` vs. `$44.179M` (`+631,26%`).
   - **Créditos por ventas corrientes (Nota 5):** **`$799.188M`** vs. `$389.375M` (**`+105,25%`**).
     - *Desglose real Nota 5:* Créditos comunes brutos `$1.067.130M` + Otros corrientes `$2.977M` = `$1.070.107M` brutos corrientes, menos **Previsión para Deudores Incobrables (`NIIF 9`) de `$(270.919)M`** = **`$799.188M`** netos corrientes (más `$940M` no corrientes = **`$800.128M` totales**).
-    - *Explicación técnica del salto del `+105,25%` vs. `+53,02%` en Ventas:* El 24/02/2025 Telecom adquirió **Telefónica Móviles Argentina S.A. (TMA)**. Al 31/12/2025 el Balance incorpora el **100% del stock de créditos de TMA (`$421.919M` a valor razonable bajo `NIIF 3`)**, mientras que el Estado de Resultados solo consolida **10 meses de ventas de TMA** (marzo a diciembre 2025), sumado al incremento de mora y al efecto `NIC 29`.
+    - *Explicación técnica del salto del `+105,25%` vs. `+53,02%` en Ventas:* El 24/02/2025 Telecom adquirió **Telefónica Móviles Argentina S.A. (TMA)**. Al 31/12/2025 el Balance incorpora el **100% del stock de créditos de TMA (`$421.919M` a valor razonable bajo `NIIF 3`)**, mientras que el Estado de Resultados consolida **10 meses de ventas de TMA** (marzo a diciembre 2025), sumado al efecto `NIC 29`.
   - Otros créditos corrientes (Nota 6): `$159.969M` vs. `$58.875M`.
   - Inventarios (Nota 7): `$79.530M` vs. `$79.513M`.
   - Activos disponibles para la venta (Nota 3.j): `$3.011M` vs. `$2.322M`.
 - **Activo No Corriente:** `$14.788.740M` (2025) vs. `$13.400.735M` (2024) (`+10,36%` | AV: `88,97%`).
   - Llaves de negocio (Nota 8): `$4.443.998M` vs. `$4.436.736M` (`26,73%` del Activo).
-  - **PP&E / Bienes de Uso (Nota 9):** **`$6.789.118M`** vs. `$5.696.731M` (`+19,18%` | `40,84%` del Activo).
+  - **PP&E / Bienes de Uso (Nota 9):** **`$6.789.118M`** netos de previsiones (`$6.859.618M` valor residual antes de previsiones) vs. `$5.696.731M` (`+19,18%` | `40,84%` del Activo).
   - Activos intangibles (Nota 10): `$2.671.525M` vs. `$2.494.659M` (`+7,09%` | `16,07%` del Activo).
   - Activos por derechos de uso (Nota 11): `$727.288M` vs. `$646.324M`.
   - Propiedades de inversión (Nota 12): `$63.866M` vs. `$0`.
 - **TOTAL DEL ACTIVO:** **`$16.622.552M`** (2025) vs. **`$14.393.744M`** (2024) (`+15,48%`).
 - **Pasivo Corriente:** `$3.838.300M` vs. `$2.576.266M` (`+48,99%` | AV: `23,09%`). Incluye Cuentas por pagar Nota 13 (`$1.108.820M`), Préstamos corrientes Nota 14 (`$1.616.544M`), Remuneraciones Nota 15 (`$435.044M`), Provisiones corrientes Nota 20 (`$133.783M`).
-- **Pasivo No Corriente:** `$5.800.944M` vs. `$4.536.551M` (`+27,87%` | AV: `34,90%`). Incluye Préstamos no corrientes Nota 14 (`$3.820.071M`; **Préstamos Totales = `$5.436.615M`**), Pasivo por Impuesto Diferido Nota 16 (`$1.179.974M`), Provisiones no corrientes Nota 20 (`$429.302M`).
+- **Pasivo No Corriente:** `$5.800.944M` vs. `$4.536.551M` (`+27,87%` | AV: `34,90%`). Incluye Préstamos no corrientes Nota 14 (`$3.820.071M`; **Préstamos Totales = `$5.436.615M`**), Pasivo por Impuesto Diferido Nota 16 (`$1.179.974M`), Provisiones no corrientes Nota 20 (`$429.302M`; **Provisiones totales Nota 20 = `$563.085M`**).
 - **TOTAL DEL PASIVO:** **`$9.639.244M`** (`57,99%` del Activo) vs. `$7.112.817M` (`49,42%`).
 - **TOTAL PATRIMONIO NETO (ECP):** **`$6.983.308M`** (`42,01%` del Activo) vs. `$7.280.927M` (`50,58%`).
 - **Estado de Resultados Consolidado (2025 vs. 2024 vs. 2023):**
   - **Ventas (Nota 24):** `$8.328.814M` (2025) vs. `$5.442.958M` (2024) (`+53,02%`) vs. `$5.898.611M` (2023).
-  - **EBITDA (Utilidad antes de D, A & D):** `$2.525.535M` (`30,32%` s/Ventas) vs. `$1.532.381M` (`28,15%`).
-  - **D, A & D de Activos Fijos e Intangibles (Nota 25):** `$(2.075.488)M` vs. `$(1.725.057)M`.
+  - **EBITDA (Utilidad antes de D, A & D):** `$2.525.535M` (`30,32%` s/Ventas) vs. `$1.532.381M` (`28,15%`). Covenants: Repago neto `1,84x` EBITDA (`2,15x` bruto) y Cobertura EBITDA / Intereses puros Nota 26 (`$386.126M`) = `6,54x` (`1,17x` s/EBIT).
+  - **D, A & D de Activos Fijos e Intangibles (Nota 25 pág. 80):** `$(2.075.488)M` vs. `$(1.725.057)M` (incluye PP&E `$1.533.091M`, Intangibles `$234.722M` y Derechos de Uso).
   - **Utilidad / (Pérdida) de la Explotación (EBIT):** `+$450.047M` (`+5,40%` s/Ventas) vs. `$(192.676)M` (`-3,54%`).
-  - **Costos Financieros (Nota 26):** `$(748.840)M` en 2025 vs. `+$1.914.786M` en 2024 (más Otros resultados financieros netos `+$110.799M` vs. `+$190.451M`).
+  - **Costos Financieros (Nota 26):** `$(748.840)M` en 2025 vs. `+$1.914.786M` en 2024.
   - **Resultado antes de Impuesto a las Ganancias:** `$(191.736)M` vs. `+$1.897.467M`.
   - **Impuesto a las Ganancias (Nota 16):** beneficio de `+$46.432M` vs. cargo de `$(538.237)M`.
   - **Utilidad / (Pérdida) Neta del Ejercicio:** **`$(145.304)M`** (`-1,74%` s/Ventas) vs. `+$1.359.230M` (`+24,97%`).
 
 ---
 
-## 4. Parámetros de Significatividad / Materialidad (Slosse / RT 37 / NIA 320 y 450)
-1. **Significatividad (Importancia Relativa) Global de Planeación (`PM`):** **`$166.225 millones`** (`1,00%` sobre el Activo Total de `$16.622.552M`). Se utiliza el Activo Total (rango bibliográfico `0,5% a 2%`) porque Telecom es una industria capital-intensiva (`88,97%` Activo No Corriente) y porque el Resultado antes de Impuestos de 2025 fue negativo (`-$191.736M`), descartando la base de resultados (`5% a 10%`).
-2. **Error Tolerable (`ET`) / Significatividad de Ejecución:** **`$83.112 millones`** (`50%` de la Significatividad Global). Se fija en el límite estricto del `50%` (rango bibliográfico `50% a 75%`) debido a que los **5 Cuestionarios de Control Interno** arrojaron **Nivel de Confianza BAJO (`15,38% a 23,33%`)** y **Riesgo de Control ALTO**, exigiendo mayor prudencia y muestras más amplias por rubro.
-3. **Monto Mínimo para Acumular Ajustes / Umbral de Incorrecciones Claramente Insignificantes (`PAE` — NIA 450):** **`$8.311 millones`** (`5%` de la Significatividad Global). Todo desvío mayor a `$8.311M` se vuelca como asiento de ajuste obligatorio en la **Planilla de Diferencias de Auditoría / Ajustes Propuestos (`PAE`)** (`AJ-01` por `$28.340M`, `AJ-02` por `$18.800M`, `AJ-03` por `$19.850M` y `AJ-04` por `$11.240M`). La diferencia de tasa efectiva en Préstamos por `$3.120M` (`0,018%` del Activo) queda como partida menor no ajustada (`PAE-NC-01`).
+## 4. Parámetros de Significatividad / Materialidad y Planilla PAE Unificada (`NIA 320` y `NIA 450`)
+1. **Materialidad / Significatividad Global de Planeación (`PM`):** **`$166.225 millones`** (`1,00%` sobre el Activo Total de `$16.622.552M`).
+2. **Error Tolerable (`ET`) / Significatividad de Ejecución:** **`$83.112 millones`** (`50%` de `PM`, adoptado con prudencia por Riesgo de Control ALTO en los componentes críticos `CCI-01 Archivo Documental 42,31%` y `CCI-05 Sistema Tecnológico 42,86%`, frente a `CCI-02 Sistema Contable 72,00% RC Medio`, `CCI-03 Presupuestos 77,78% RC Bajo` y `CCI-04 Operativo 76,67% RC Bajo`).
+3. **Umbral Mínimo para Acumular Ajustes (`PAE` — NIA 450):** **`$8.311 millones`** (`5%` de `PM`).
+4. **Planilla de Ajustes Propuestos (PAE — Únicas partidas vigentes, sin `AJ-02` ni `AJ-03`):**
+   - **`AJ-01` (`$28.340M` — `PT-A1 / PT-A4`, Bienes de Uso):** único ajuste patrimonial relevante dentro de los 3 rubros prioritarios de la cátedra (`$21.450M` centrales analógicas de cobre obsoletas en `PT-A4` + `$6.890M` fibra óptica/nodos vandalizados en `PT-A1`), acumulable bajo NIA 450; lleva el saldo de `$6.789.118M` a **`$6.760.778M`**. Representa el **`17,05%` de PM (`$166.225M`)** y el **`34,10%` de ET (`$83.112M`)**.
+   - **`AJ-04` (`$11.240M` — `PT-D3`, Ventas/Costos Flow — alcance ampliado web):** reclasificación por exposición NIIF 15 Agente vs. Principal en suscripciones de terceros en Flow (efecto neto `$0` en Patrimonio Neto y Resultado del Ejercicio). Sumado bruto con `AJ-01` da `$39.580M` (`23,81%` de PM).
+   - **`PAE-NC-01` (`$7.570M` — `PT-C3 / PT-O1`, por debajo del umbral PAE `$8.311M`):** partidas menores no computables (`$4.450M` vacaciones acumuladas TI 5G + `$3.120M` diferencia menor TIE Préstamos).
+   - **Impacto en la Opinión:** Con la registración de `AJ-01` (y `AJ-04`), la opinión es **Favorable sin Salvedades (Limpia)**. Aun si la Dirección no los registrara, el desvío residual (`$28.340M` patrimonial / `$39.580M` bruto) permanece por debajo de `ET` y `PM`, por lo que la opinión sigue siendo **Favorable sin Salvedades** (dejando constancia en **Carta de Representación — NIA 450.14** y comunicación en **Carta de Control Interno — `CCI-02` / `NIA 265`**).
 
 ---
 
 ## 5. Priorización de Rubros de Enfoque y Estructura de Programas (A a F)
 1. **Los 3 Rubros de Enfoque Principal de la Cátedra (Prioridad Absoluta):**
-   - **Bienes de Uso (PP&E — Nota 9):** `$6.789.118M` (`40,84%` del Activo). Programa A (PT-A).
-   - **Activos Intangibles (Nota 10):** `$2.671.525M` (`16,07%` del Activo). Licencias ENACOM 5G/4G, Marcas INPI y Software NIC 38. Programa E (PT-E).
-   - **Créditos por Ventas (Nota 5):** `$800.128M` (`+105,25%` interanual). Programa B (PT-B), íntimamente vinculado con **Ventas** (Programa D).
-2. **Separación Estricta entre Intangibles y Llaves de Negocio:**
-   - **Activos Intangibles (Nota 10):** Programa E / PT-E (`$2.671.525M`, con PT-E1 y PT-E2). ⭐ Prioritario.
-   - **Llaves de Negocio (Nota 8):** Programa F / PT-F (`$4.443.998M`, con PT-F1 para el Test de Deterioro NIC 36 en la UGE Redes Personal `$12.774.695M`).
-3. **Denominación Uniforme:**
-   - Se utiliza **«Ventas»** (o «Ventas (Nota 24)») en reemplazo de «Ingresos por Servicios (Ventas Netas)».
-4. **Navegación e Hipervínculos Cruzados:**
-   - Todas las referencias a Programas o Papeles de Trabajo (ej. `PROGRAMA B (PT-B)`, `PT-C4`, `PT-B2`, `AJ-01`) en tablas, textos analíticos y ratios son botones interactivos que navegan directamente a la cédula sumaria o analítica correspondiente en la Etapa 2 con resaltado visual.
+   - **Bienes de Uso (PP&E — Nota 9):** `$6.789.118M` (`40,84%` del Activo). Programa A (`PT-A`).
+   - **Activos Intangibles (Nota 10):** `$2.671.525M` (`16,07%` del Activo). Licencias ENACOM 5G/4G, Marcas INPI y Software NIC 38. Programa E (`PT-E`).
+   - **Créditos por Ventas (Nota 5):** `$800.128M` (`+105,25%` interanual). Programa B (`PT-B`).
+2. **Alcance Ampliado Web y Separación de Llaves de Negocio:**
+   - **Préstamos (`PT-C`, Nota 14):** `$5.436.615M`.
+   - **Ventas (`PT-D`, Nota 24):** `$8.328.814M` (incluye reclasificación `AJ-04` en `PT-D3`).
+   - **Llaves de Negocio (`PT-F`, Nota 8):** `$4.443.998M` (`PT-F1` Test de Deterioro NIC 36 en UGE Redes Personal `$12.774.695M`). *Nota:* en Etapa 1D y Web se usa la denominación uniforme **«Ventas»**.
+3. **Navegación e Hipervínculos Cruzados:**
+   - Referencias a Cédulas, CCIs, Ratios y Planilla PAE (`pt-a1`, `pt-a4`, `pt-e1`, `pt-e2`, `pt-b1..b3`, `pt-d3`, `pt-f1`, `sec-pae`, `cci-1..cci-5`) funcionan como botones interactivos entre Etapa 1, Etapa 2 y Etapa 3.
 
 ---
 
 ## 6. Duración del Encargo (3 Meses / 12 Semanas) y Presupuesto de Honorarios (Noviembre 2026)
-1. **Duración Normalizada del Encargo:**
-   - **3 Meses / 12 Semanas corridas (Diciembre 2025 a Febrero 2026)**.
-   - **Fundamento Legal:** La Comisión Nacional de Valores (CNV) y la Ley General de Sociedades 19.550 fijan un plazo perentorio de presentación de balances auditados de **70 días corridos post-cierre** (vence entre el 10 y 12 de marzo). Un cronograma de 5 meses generaría incumplimiento normativo. Fecha de emisión del informe: **20 de febrero de 2026**.
-   - **Mes 1 (Diciembre 2025):** Planificación, Trabajo Interino, relevamiento de controles (CCI), inventario físico al 31/12 y circularizaciones preliminares.
-   - **Mes 2 (Enero 2026):** Ejecución sustantiva a fondo en campo, recepción de circularizaciones, corte B2B, recálculo de previsión NIIF 9 con TAACs.
-   - **Mes 3 (Febrero 2026):** Cierre final, Test de Deterioro NIC 36 Llave UGE Personal, hechos posteriores, discusión PAE con Directorio y dictamen.
-2. **Presupuesto de Tiempo y Costos (Aranceles CPCECABA Noviembre 2026 — Módulo $15.980):**
-   - **1 Socio / Auditor Firmante:** 120 horas × 7 mód. ($111.860/h) = **$13.423.200** (16,64% del total).
-   - **2 Auditores Senior (Grebe — Pisonero De Biase):** 400 horas × 5 mód. ($79.900/h) = **$31.960.000** (39,61% del total).
-   - **2 Auditores Junior / Asistentes:** 700 horas × 2,5 mód. ($39.950/h) = **$27.965.000** (34,66% del total).
-   - **Subtotal Horas Labor (1.220 hs):** **$73.348.200**.
-   - **Gastos Directos de Auditoría (10% out-of-pocket):** **$7.334.820** (licencias TAACs, traslados a nodos y circularizaciones postales).
-   - **HONORARIO TOTAL PROPUESTO:** **`$80.683.020`** (aprox. **USD 55.452** al TC BNA $1.455).
-   - **Razonabilidad:** Representa apenas el **0,00096% de las Ventas Consolidadas** ($8.328.814M) y el **0,00048% del Activo Total** ($16.622.552M). Prudentemente austero en comparación con los USD 1,5M a 2,5M que factura una Big Four real para Telecom en NYSE.
+1. **Duración Normalizada del Encargo:** **3 Meses / 12 Semanas corridas (Diciembre 2025 a Febrero 2026)**, atendiendo el plazo legal CNV de 70 días corridos post-cierre. **Fechas de Cierre Etapa 3:** `12/02/2026` Carta CI (`LC-01`) → `18/02/2026` Memorando (`LC-02`) → `20/02/2026` Carta de Representación (`LC-03`) e Informe Final del Auditor Independiente.
+2. **Presupuesto de Tiempo y Costos (1.220 hs — Módulo CPCECABA `$15.980`):**
+   - **1 Socio:** 120 hs × 7 mód. (`$111.860/h`) = **`$13.423.200`**.
+   - **2 Auditores Senior (Grebe — Pisonero De Biase):** 400 hs × 5 mód. (`$79.900/h`) = **`$31.960.000`**.
+   - **2 Auditores Junior:** 700 hs × 2,5 mód. (`$39.950/h`) = **`$27.965.000`**.
+   - **Subtotal Labor:** `$73.348.200` + **10% Gastos Directos:** `$7.334.820` = **HONORARIO TOTAL: `$80.683.020`** (`0,00096%` de Ventas; informado al 100% como servicios de auditoría externa en cumplimiento del Art. 21° inc. b CNV).
+
 ---
 
 ## 7. Estado de Avance de los Papeles de Trabajo (Word y Plataforma Web)
-
-1. **Bienes de Uso (PP&E — Programa A / PT-A):**
-   - **Completado al 100% en Word y Web.**
-   - Cédula Sumaria (Tabla 28 en Word): Saldo s/ Libros `$6.789.118M`, Ajuste Haber `$28.340M`, Saldo Auditado `$6.760.778M`.
-   - Hallazgo Material: **Ajuste AJ-01 por `$28.340M`** (baja de centrales analógicas de cobre obsoletas `$21.450M` y nodos vandalizados `$6.890M` bajo NIC 16 y NIC 36).
-   - Pruebas Globales: Depreciación oficial del ejercicio `$1.533.091M` (Nota 9 y Nota 25 página 78).
-
-2. **Activos Intangibles (Programa E / PT-E):**
-   - **Completado al 100% en Word y Web.**
-   - Cédula Sumaria (Tabla 29 en Word): `$2.671.525M` (1.3.01 Espectro `$1.985.420M` y 1.3.02 Software `$686.105M`), Ajustes `$0`, Saldo Auditado `$2.671.525M`.
-   - Cédula Analítica PT-E1 (Tabla 30): 100% de licencias de espectro 4G/5G con resoluciones ENACOM y títulos marcarios INPI. Sin litigios ni desvíos.
-   - Cédula Analítica PT-E2:
-     - Parte 1 (Tabla 31): 6 criterios de activación de NIC 38.57 para proyectos de software capitalizados en SAP PS y Jira (`$285.355M` / 158.800 hs).
-     - Parte 2 (Tabla 32): Prueba de corte de gastos de mantenimiento de TI (`$42.500M` en subcuentas 5.1.04.12 y 5.1.04.18) imputados correctamente a resultados.
-     - Parte 3: Prueba Global de Amortizaciones (Nota 25 pág. 78: `$234.722M` de amortización oficial).
-     - Parte 4: Prueba Global de Valor Residual (`$2.671.525M` conciliado con Nota 10).
-   - **Resultado del Rubro:** Conforme y validado, sin ajustes propuestos.
-
-3. **Créditos por Ventas (Programa B / PT-B):**
-   - **Completado al 100% en Word y Web — Enfoque Conforme (Sin Ajustes Propuestos).**
-   - Saldo al 31/12/2025: **`$800.128M`** netos (`$1.070.107M` corrientes brutos + `$940M` no corrientes menos `$(270.919)M` de Previsión en Nota 5).
-   - Cédula Sumaria (Tabla 34 en Word): Saldo s/ Libros `$800.128M`, Ajuste Debe `$0`, Ajuste Haber `$0`, Saldo Auditado **`$800.128M`** (`§ ∑`).
-   - Cédula Analítica PT-B1 (Tabla 35): Confirmación escrita directa (positiva) a 65 grandes cuentas corporativas B2B de Personal Tech (`$385.420M`, 59 confirmadas directas por `$366.620M`) y aplicación de procedimientos alternativos estándar (NIA 505 / Slosse) de cobranzas posteriores en extractos bancarios de enero de 2026 para las no contestadas y el segmento masivo B2C (`$74.800M` verificados al 100%). Diferencia: `$0`.
-   - Cédula Analítica PT-B2 (Tabla 36): Prueba de corte de facturación B2B (contratos y actas del 15/12/2025 al 15/01/2026) y conciliación de interfaces de recaudación externa (Rapipago, Pago Fácil, Billeteras Virtuales al 31/12/2025 por `$36.890M`). Verificación del estricto devengamiento bajo NIIF 15 e impacto oportuno en extractos bancarios de enero 2026. Diferencia: `$0`.
-   - Cédula Analítica PT-B3 (Tabla 37): Evaluación y recálculo con TAACs de la matriz de antigüedad de deuda en SAP (`$1.071.047M` brutos) y modelo de pérdida crediticia esperada (ECL NIIF 9). Se verificó que el 100% de los deudores con morosidad superior a 180 días (`$85.684M`) están cubiertos al 100%, y que la previsión resultante de `$(270.919)M` coincide exactamente con la registrada por la Sociedad en la Nota 5. Diferencia: `$0`.
-   - **Resultado del Rubro:** Conforme y validado sin asientos de ajuste propuestos, en coherencia con el Riesgo de Control Medio (72%) en el Sistema Contable (Tabla 25).
-
-4. **Próximo Rubro a Desarrollar: Ventas (Programa D / PT-D) o Préstamos (Programa C / PT-C):**
-   - **Ventas (Programa D / PT-D):** `$8.328.814M` (Nota 24). Vinculado con PT-B2 (devengamiento de ingresos B2B `+$14.620M`) y prueba global de facturación de abonados (Parque × ARPU), más reclasificación AJ-04 de servicios de terceros en Flow (`$11.240M` NIIF 15 agente vs. principal).
-   - **Préstamos (Programa C / PT-C):** `$5.436.615M` totales (`$1.616.544M` corrientes + `$3.820.071M` no corrientes en Nota 14). Circularización a bancos y Caja de Valores, covenants de endeudamiento financiero y valuación al tipo de cambio de cierre.
+1. **Bienes de Uso (PP&E — Programa A / `PT-A`):**
+   - Completado al 100% en Word y Web (`$6.789.118M` s/libros → `AJ-01 $28.340M` → **`$6.760.778M`** auditado).
+   - Pruebas Globales `PT-A4`: Amortizaciones `$1.533.091M` (Nota 9 pág. 50) y Valor Residual `$6.859.618M` antes de previsiones (`$6.789.118M` neto), desvío matemático `$0`.
+2. **Activos Intangibles (Programa E / `PT-E`):**
+   - Completado al 100% en Word y Web (`$2.671.525M` s/libros, Ajustes `$0`, Saldo Auditado `$2.671.525M`).
+   - Prueba Global de Amortizaciones `PT-E2`: **`$234.722M`** (Nota 10 pág. 52 y Nota 25 pág. 80), desvío `$0`. Prueba Global de Valor Residual: `$2.671.525M`, desvío `$0`.
+3. **Créditos por Ventas (Programa B / `PT-B`):**
+   - Completado al 100% en Word y Web — **Enfoque Conforme (`$800.128M` netos, Ajustes `$0`)**.
+   - `PT-B1` (circularización 65 clientes B2B + cobranzas posteriores enero 2026), `PT-B2` (corte B2B y conciliación recaudadores externos al 31/12/2025 por `$36.890M`, dif. `$0`), `PT-B3` (reproceso TAACs 100% matriz `$1.071.047M` brutos y Previsión NIIF 9 `$(270.919)M` cubriendo 100% mora > 180 días, dif. `$0`).
+4. **Etapa 2 Planilla PAE + Etapa 3 Completa (`NIAs / RT N° 32`):**
+   - Completada e integrada en Web (y cierre PAE en Word), con simulador en vivo para `AJ-01` y `AJ-04` que explica en rojo qué cambia en el Informe y legajo cuando no se contabilizan.
 
 ---
 
 ## 8. Funcionalidades Interactivas de la Plataforma Web
 - **Persistencia en LocalStorage:**
-  - `audiia_pasos_narrativos_v1`: notas y personalizaciones de pasos ejecutados, defensas orales y fundamentaciones. Soporta saltos de línea (`whitespace-pre-line`) y formato enriquecido (negrita `**` y subrayado `<u>`).
-  - `audiia_conclusiones_v1`: conclusiones editadas del auditor por rubro.
-  - `audiia_zoom_level`: zoom configurado por el usuario con retención persistente.
-- **Glosario de Marcas Inteligente por Rubro:** Muestra en Cédula Sumaria y en el pie del legajo las marcas específicas del rubro activo, adaptando los ejemplos en paréntesis (ENACOM/INPI para Intangibles, proveedores de fibra para PP&E) y ocultando marcas no aplicables (`t` y `h` exclusivas de Intangibles).
-- **Ruta del Documento Word Activo del Usuario:**
-  - `C:\Users\jelim\Desktop\AUD 2026\AE 4\AE 4 - Planificación Detallada - copia (2) - Actualizado.docx`.
+  - `audiia_cci_v5`: respuestas editables de los 5 Cuestionarios de Control Interno (conectadas en vivo con Dashboard, Etapa 3 Carta CI y Resumen Integral).
+  - `audiia_ajustes_v3`: estado de aceptación/rechazo de los 2 ajustes PAE vigentes (`AJ-01` y `AJ-04`) + partida menor `PAE-NC-01`, sincronizado con la barra roja de impacto en Etapa 3, Dashboard y Resumen Integral.
+  - `audiia_equipo_v2`, `audiia_pasos_narrativos_v1`, `audiia_conclusiones_v1` y `audiia_zoom_level`.
+- **Glosario de Marcas Inteligente por Rubro:** adapta ejemplos y oculta marcas no aplicables (`t` y `h` exclusivas de Intangibles).
+- **Ruta del Documento Word Activo del Usuario:** `C:\Users\jelim\Desktop\AUD 2026\AE 4\AE 4 - Planificación Detallada - copia (2) - Actualizado.docx`.
