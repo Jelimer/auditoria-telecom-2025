@@ -21,3 +21,8 @@ docs/
 npm-debug.log*
 .DS_Store
 .vscode/
+
+# Temporary scratch files
+scratch/
+*.png
+*.ps1
