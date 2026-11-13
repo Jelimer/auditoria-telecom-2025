@@ -519,37 +519,163 @@ export function renderTextWithNormas(text) {
 export function renderFormattedRichText(text) {
   if (!text || typeof text !== 'string') return text;
 
-  // Reconoce negrita **texto** y subrayado <u>texto</u> o __texto__
-  const tokenRegex = /(\*\*[\s\S]*?\*\*|<u>[\s\S]*?<\/u>|__[\s\S]*?__)/g;
+  // Reconoce de forma prioritaria:
+  // 1. Negrita: **texto**, <b>texto</b>, <strong>texto</strong>
+  // 2. Subrayado: <u>texto</u>, <ins>texto</ins>, __texto__
+  // 3. Cursiva: *texto*, _texto_, <i>texto</i>, <em>texto</em>
+  const tokenRegex =
+    /(\*\*[\s\S]+?\*\*|<b>[\s\S]+?<\/b>|<strong>[\s\S]+?<\/strong>|<u>[\s\S]+?<\/u>|<ins>[\s\S]+?<\/ins>|__[\s\S]+?__|<i>[\s\S]+?<\/i>|<em>[\s\S]+?<\/em>|\*[^*\n\r]+?\*|_[^_\n\r]+?_)/g;
   const tokens = text.split(tokenRegex);
 
   return tokens.map((token, idx) => {
-    if (token.startsWith('**') && token.endsWith('**') && token.length >= 4) {
-      const inner = token.slice(2, -2);
+    if (!token) return null;
+
+    // Negrita
+    if (
+      (token.startsWith('**') && token.endsWith('**') && token.length >= 4) ||
+      (token.startsWith('<b>') && token.endsWith('</b>') && token.length >= 7) ||
+      (token.startsWith('<strong>') && token.endsWith('</strong>') && token.length >= 17)
+    ) {
+      let inner = token;
+      if (token.startsWith('**')) inner = token.slice(2, -2);
+      else if (token.startsWith('<b>')) inner = token.slice(3, -4);
+      else if (token.startsWith('<strong>')) inner = token.slice(8, -9);
+
       return (
-        <strong key={idx} className="font-black text-slate-900">
-          {renderTextWithNormas(inner)}
+        <strong key={idx} className="font-black text-current">
+          {renderFormattedRichText(inner)}
         </strong>
       );
     }
-    if (token.startsWith('<u>') && token.endsWith('</u>') && token.length >= 7) {
-      const inner = token.slice(3, -4);
+
+    // Subrayado
+    if (
+      (token.startsWith('<u>') && token.endsWith('</u>') && token.length >= 7) ||
+      (token.startsWith('<ins>') && token.endsWith('</ins>') && token.length >= 11) ||
+      (token.startsWith('__') && token.endsWith('__') && token.length >= 4)
+    ) {
+      let inner = token;
+      if (token.startsWith('<u>')) inner = token.slice(3, -4);
+      else if (token.startsWith('<ins>')) inner = token.slice(5, -6);
+      else if (token.startsWith('__')) inner = token.slice(2, -2);
+
       return (
-        <span key={idx} className="underline underline-offset-3 decoration-teal-600 decoration-2 font-semibold text-slate-900">
-          {renderTextWithNormas(inner)}
+        <span
+          key={idx}
+          className="underline underline-offset-3 decoration-teal-500 decoration-2 font-semibold text-current"
+        >
+          {renderFormattedRichText(inner)}
         </span>
       );
     }
-    if (token.startsWith('__') && token.endsWith('__') && token.length >= 4) {
-      const inner = token.slice(2, -2);
+
+    // Cursiva
+    if (
+      (token.startsWith('*') && token.endsWith('*') && token.length >= 2 && !token.startsWith('**')) ||
+      (token.startsWith('_') && token.endsWith('_') && token.length >= 2 && !token.startsWith('__')) ||
+      (token.startsWith('<i>') && token.endsWith('</i>') && token.length >= 7) ||
+      (token.startsWith('<em>') && token.endsWith('</em>') && token.length >= 9)
+    ) {
+      let inner = token;
+      if (token.startsWith('*') || token.startsWith('_')) inner = token.slice(1, -1);
+      else if (token.startsWith('<i>')) inner = token.slice(3, -4);
+      else if (token.startsWith('<em>')) inner = token.slice(4, -5);
+
       return (
-        <span key={idx} className="underline underline-offset-3 decoration-teal-600 decoration-2 font-semibold text-slate-900">
-          {renderTextWithNormas(inner)}
-        </span>
+        <em key={idx} className="italic font-medium text-current">
+          {renderFormattedRichText(inner)}
+        </em>
       );
     }
+
     return <React.Fragment key={idx}>{renderTextWithNormas(token)}</React.Fragment>;
   });
+}
+
+export function FormattingToolbar({ onFormat, isDark = false, compact = false }) {
+  const btnBase = isDark
+    ? 'px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 text-xs cursor-pointer flex items-center gap-1 transition-colors shadow-2xs'
+    : 'px-2 py-0.5 rounded bg-white hover:bg-teal-50 border border-slate-300 hover:border-teal-400 text-slate-800 text-xs cursor-pointer flex items-center gap-1 transition-colors shadow-2xs';
+
+  return (
+    <div
+      className={`flex flex-wrap items-center gap-1.5 p-1.5 rounded-lg mb-1.5 ${
+        isDark ? 'bg-slate-900 border border-slate-700' : 'bg-slate-100 border border-slate-200'
+      }`}
+    >
+      <span
+        className={`text-[10px] font-bold uppercase tracking-wider ${
+          isDark ? 'text-teal-400' : 'text-teal-800'
+        }`}
+      >
+        Formato:
+      </span>
+
+      {/* Negrita */}
+      <button
+        type="button"
+        onClick={() => onFormat('**', '**')}
+        title="Añadir negrita (**texto**)"
+        className={btnBase}
+      >
+        <span className="font-mono font-black text-sm leading-none">B</span>
+        <span className="text-[11px] font-bold">Negrita</span>
+      </button>
+
+      {/* Cursiva */}
+      <button
+        type="button"
+        onClick={() => onFormat('*', '*')}
+        title="Añadir cursiva (*texto*)"
+        className={btnBase}
+      >
+        <span className="italic font-serif font-black text-sm leading-none">C</span>
+        <span className="text-[11px] font-semibold italic">Cursiva</span>
+      </button>
+
+      {/* Subrayado */}
+      <button
+        type="button"
+        onClick={() => onFormat('<u>', '</u>')}
+        title="Añadir subrayado (<u>texto</u>)"
+        className={btnBase}
+      >
+        <span className="underline font-mono font-black text-sm leading-none">S</span>
+        <span className="text-[11px] font-semibold underline">Subrayado</span>
+      </button>
+
+      {/* Lista */}
+      <button
+        type="button"
+        onClick={() => onFormat('• ', '')}
+        title="Insertar viñeta de lista (• )"
+        className={btnBase}
+      >
+        <span className="text-teal-500 font-black">•</span>
+        <span className="text-[11px] font-medium">Lista</span>
+      </button>
+
+      {/* Salto de línea */}
+      <button
+        type="button"
+        onClick={() => onFormat('\n', '')}
+        title="Insertar salto de línea"
+        className={btnBase}
+      >
+        <span className="text-[11px] font-medium">↵ Salto</span>
+      </button>
+
+      {!compact && (
+        <span
+          className={`text-[10px] ml-auto hidden sm:inline ${
+            isDark ? 'text-slate-400' : 'text-slate-500'
+          } italic`}
+        >
+          **negrita** | *cursiva* | &lt;u&gt;subrayado&lt;/u&gt;
+        </span>
+      )}
+    </div>
+  );
 }
 
 export default function Etapa2EjecucionView({
