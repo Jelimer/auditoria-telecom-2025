@@ -26,7 +26,7 @@
    - **PROHIBIDO mencionar `RT 54 (NUA)` como norma contable de Telecom.**
    - Normas NIIF/NIC clave del caso:
      - **`NIC 29`:** Reexpresión en moneda homogénea (ajuste por inflación por IPC).
-     - **`NIIF 3`:** Combinaciones de negocios — Adquisición de **Telefónica Móviles Argentina S.A. (TMA)** el **24/02/2025** (`PPA` en Nota 29: `+$1.332.961M` en PP&E y `+$274.183M` en Activos Intangibles).
+     - **`NIIF 3`:** Combinaciones de negocios — Adquisición del `99,999625%` de **Telefónica Móviles Argentina S.A. (TMA)** el **24/02/2025** por `US$ 1.245M` (`$1.660.045M` ctes.: `$167.887M` deuda asumida + `$1.492.158M` en efectivo). `PPA` a valor razonable en Nota 29: activos netos identificados **`$1.479.318M`** (`+$1.332.961M` PP&E, `+$274.183M` Intangibles, `+$421.919M` Créditos por ventas, `+$161.061M` Derechos de uso, `+$71.209M` Propiedades de inversión, entre otros activos y pasivos asumidos) + **Llave de negocio residual TMA `+$12.840M`** (Nota 8 y 29).
      - **`NIIF 9`:** Instrumentos financieros y modelo de **Pérdida Crediticia Esperada (ECL)** para la Previsión de Deudores Incobrables.
      - **`NIIF 15`:** Ingresos de actividades ordinarias procedentes de contratos con clientes (evaluación de Principal vs. Agente en servicios de terceros en Flow y corte B2B).
      - **`NIIF 16`:** Arrendamientos (Activos por derechos de uso en Nota 11: `$727.288M` y Pasivos por arrendamientos en Nota 18).
@@ -61,7 +61,8 @@
   - Activos disponibles para la venta (Nota 3.j): `$3.011M` vs. `$2.322M`.
 - **Activo No Corriente:** `$14.788.740M` (2025) vs. `$13.400.735M` (2024) (`+10,36%` | AV: `88,97%`).
   - Llaves de negocio (Nota 8): `$4.443.998M` vs. `$4.436.736M` (`26,73%` del Activo).
-  - **PP&E / Bienes de Uso (Nota 9):** **`$6.789.118M`** netos de previsiones (`$6.859.618M` valor residual antes de previsiones) vs. `$5.696.731M` (`+19,18%` | `40,84%` del Activo).
+  - **PP&E / Bienes de Uso (Nota 9):** **`$6.789.118M`** netos de previsiones (`$6.859.618M` valor residual antes de previsiones, menos `$(42.217)M` prev. materiales y `$(28.283)M` prev. desvalorización PP&E) vs. `$5.696.731M` (`+19,18%` | `40,84%` del Activo).
+    - *Desglose Nota 9 (mayor a menor sobre `$6.859.618M`):* Red fija y transporte (`$2.856.173M` — `41,64%`; cables/fibra óptica troncal), Inmuebles (`$1.193.638M` — `17,40%`), Materiales (`$640.820M` — `9,34%`), Equipos de computación (`$432.689M` — `6,31%`), Acceso Red celular (`$425.219M` — `6,20%`), Obras en curso (`$337.494M` — `4,92%`), Equipos de conmutación (`$251.564M` — `3,67%`), Equipos de fuerza e inst. (`$221.402M` — `3,23%`), Infraestructura Soporte de Antenas (`$215.643M` — `3,14%`), Bienes en comodato (`$158.898M` — `2,32%`), Rodados (`$76.639M` — `1,12%`), Diversos (`$31.762M` — `0,46%`) y Maquinarias/herramientas (`$17.677M` — `0,26%`).
   - Activos intangibles (Nota 10): `$2.671.525M` vs. `$2.494.659M` (`+7,09%` | `16,07%` del Activo).
   - Activos por derechos de uso (Nota 11): `$727.288M` vs. `$646.324M`.
   - Propiedades de inversión (Nota 12): `$63.866M` vs. `$0`.
