@@ -173,8 +173,92 @@ const INFORME_SECCIONES_INFO = {
       'Establece la jurisdicción de emisión (CABA), la fecha exacta hasta la cual el auditor asume responsabilidad por hechos posteriores (NIA 560) y la identificación profesional matriculada del estudio firmante.',
     detallePregunta:
       'Regla de oro sobre la fecha (20/02/2026): el informe NUNCA puede fecharse antes que la Carta de Representación de la Dirección (Paso 3 — también 20/02/2026) ni antes de completar toda la evidencia de auditoría; tampoco después de la aprobación formal sin ampliar el período de hechos posteriores.'
+  },
+  paso1: {
+    subtituloHeader: 'Paso 1 de Conclusión • 12/02/2026',
+    titulo: 'Carta con Recomendaciones de Control Interno (NIA 265 / Slosse)',
+    obligatorio: 'OBLIGATORIA la comunicación por escrito de deficiencias significativas (NIA 265)',
+    queEs:
+      'Nota dirigida al Directorio / Comité de Auditoría informando las debilidades operativas o contables halladas (ej. bajas de Bienes de Uso no informadas en SAP) y recomendaciones prácticas para corregirlas.',
+    detallePregunta:
+      'Sí es obligatorio comunicar formalmente por escrito las deficiencias significativas al gobierno del ente bajo NIA 265. No va publicada junto al balance al público: queda entre el estudio auditor y el Directorio / Comité de Auditoría.'
+  },
+  paso2: {
+    subtituloHeader: 'Paso 2 de Conclusión • 18/02/2026',
+    titulo: 'Memorando Resumen de Auditoría (NIA 220 / NIA 450 / Slosse)',
+    obligatorio: 'OBLIGATORIO en los papeles de trabajo de cierre y calidad (NIA 220 / NIA 230 / NIA 450)',
+    queEs:
+      'Resumen interno del legajo de auditoría para el Socio antes de firmar: concentra alcance, cierre de pruebas de rubros, la Planilla PAE acumulada (NIA 450), empresa en marcha (NIA 570) y hechos posteriores (NIA 560) para proponer el tipo de opinión.',
+    detallePregunta:
+      'Es obligatorio en los papeles de trabajo como cierre técnico y revisión de calidad del encargo, pero el cliente y los inversores NO lo ven publicado junto a los EECC: es documentación interna del auditor.'
+  },
+  paso3: {
+    subtituloHeader: 'Paso 3 de Conclusión • 20/02/2026 (Pre-Firma)',
+    titulo: 'Carta de Representación de la Dirección (NIA 580 y NIA 450.14)',
+    obligatorio: '100% OBLIGATORIA bajo NIA 580',
+    queEs:
+      'Carta firmada por la máxima Dirección (CEO / CFO) dirigida al auditor con la misma fecha del dictamen, asumiendo responsabilidad por la preparación de los EECC bajo NIIF, la integridad de la información entregada, hechos posteriores y eventuales diferencias menores no ajustadas.',
+    detallePregunta:
+      'Sin esta carta firmada el auditor NO puede emitir opinión favorable limpia: si la Gerencia se niega a firmarla, la NIA 580.20 exige modificar la opinión o abstenerse de opinar.'
+  },
+  paso4: {
+    subtituloHeader: 'Paso 4 Final de Conclusión • 20/02/2026',
+    titulo: 'Informe de Auditoría Independiente (NIA 700 / NIA 701 / CNV)',
+    obligatorio: '100% OBLIGATORIO — Producto final del encargo (NIA 700 / NIA 701 / RT N° 32 / CNV)',
+    queEs:
+      'Es el dictamen público final firmado por los auditores independientes donde expresamos nuestra opinión sobre los EECC consolidados, las Cuestiones Clave de la Auditoría (KAM) y los requerimientos legales locales (SIPA, CNV, UIF).',
+    detallePregunta:
+      'Es el documento que se presenta junto al balance ante accionistas, CNV e inversores. Se titula «Auditores Independientes» para diferenciarse de informes internos o sindicatura y su fecha (20/02/2026) coincide con la Carta de Representación cerrando hechos posteriores (NIA 560).'
   }
 };
+
+/** Card flotante reutilizable con la explicación de cada documento o apartado del Informe. */
+function TarjetaPopoverInfo({ info, onClose, wrapperClassName }) {
+  if (!info) return null;
+  return (
+    <div
+      className={`no-print absolute ${wrapperClassName} z-50 w-80 sm:w-[430px] max-w-[calc(100vw-2rem)]`}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="bg-slate-950 text-slate-100 border-2 border-teal-400 rounded-xl shadow-2xl p-3.5 text-left space-y-2 normal-case font-normal tracking-normal leading-relaxed">
+        <div className="flex items-start justify-between gap-2 border-b border-slate-800 pb-2">
+          <div>
+            <p className="text-[11px] font-extrabold text-lime-300 uppercase tracking-wide">
+              {info.subtituloHeader || 'Guía de Defensa Oral • Dictamen NIAs'}
+            </p>
+            <p className="text-xs font-extrabold text-white mt-0.5">{info.titulo}</p>
+          </div>
+          {onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer shrink-0"
+              aria-label="Cerrar explicación"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+
+        <div className="text-[11px]">
+          <span className="inline-block px-2 py-0.5 rounded bg-teal-900/90 text-teal-200 border border-teal-600 font-extrabold text-[10px]">
+            {info.obligatorio}
+          </span>
+        </div>
+
+        <div className="text-[11px] text-slate-200">
+          <strong className="text-teal-300">¿Qué es?: </strong>
+          {info.queEs}
+        </div>
+
+        <div className="text-[11px] bg-indigo-950/90 border border-indigo-700/70 rounded-lg p-2.5 text-indigo-100">
+          <strong className="text-amber-300">Obligatoriedad / Detalle clave: </strong>
+          {info.detallePregunta}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function InformeTituloTooltip({
   sectionKey,
@@ -251,45 +335,11 @@ function InformeTituloTooltip({
       </div>
 
       {open && (
-        <div
-          className={`no-print absolute ${placementClass} ${alignClass} z-50 w-80 sm:w-[430px] max-w-[calc(100vw-2rem)]`}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <div className="bg-slate-950 text-slate-100 border-2 border-teal-400 rounded-xl shadow-2xl p-3.5 text-left space-y-2 normal-case font-normal tracking-normal leading-relaxed">
-            <div className="flex items-start justify-between gap-2 border-b border-slate-800 pb-2">
-              <div>
-                <p className="text-[11px] font-extrabold text-lime-300 uppercase tracking-wide">
-                  Guía de Defensa Oral • Dictamen NIAs
-                </p>
-                <p className="text-xs font-extrabold text-white mt-0.5">{info.titulo}</p>
-              </div>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                className="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer shrink-0"
-                aria-label="Cerrar explicación"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            </div>
-
-            <div className="text-[11px]">
-              <span className="inline-block px-2 py-0.5 rounded bg-teal-900/90 text-teal-200 border border-teal-600 font-extrabold text-[10px]">
-                {info.obligatorio}
-              </span>
-            </div>
-
-            <div className="text-[11px] text-slate-200">
-              <strong className="text-teal-300">¿De qué trata?: </strong>
-              {info.queEs}
-            </div>
-
-            <div className="text-[11px] bg-indigo-950/90 border border-indigo-700/70 rounded-lg p-2.5 text-indigo-100">
-              <strong className="text-amber-300">Detalle clave / Qué te pueden preguntar: </strong>
-              {info.detallePregunta}
-            </div>
-          </div>
-        </div>
+        <TarjetaPopoverInfo
+          info={info}
+          onClose={() => setOpen(false)}
+          wrapperClassName={`${placementClass} ${alignClass}`}
+        />
       )}
     </div>
   );
@@ -330,6 +380,7 @@ export default function Etapa3InformeView({
   const [docActivo, setDocActivo] = useState('carta-ci'); // 'carta-ci' | 'memorando' | 'carta-gerencia' | 'informe'
   // Por defecto la Etapa 3 evalúa exclusivamente los 3 rubros elegidos (PT-A, PT-E, PT-B)
   const [incluirAlcanceAmpliado, setIncluirAlcanceAmpliado] = useState(false);
+  const [hoveredDocTab, setHoveredDocTab] = useState(null);
 
   useEffect(() => {
     if (subTarget && ['carta-ci', 'memorando', 'carta-gerencia', 'informe'].includes(subTarget)) {
@@ -385,6 +436,7 @@ export default function Etapa3InformeView({
   const cronologiaDocumentos = [
     {
       id: 'carta-ci',
+      pasoKey: 'paso1',
       orden: 'Paso 1 • 12/02/2026',
       titulo: '1. Carta de Control Interno (NIA 265)',
       sub: 'Recomendaciones s/ los 5 CCI y hallazgos',
@@ -392,6 +444,7 @@ export default function Etapa3InformeView({
     },
     {
       id: 'memorando',
+      pasoKey: 'paso2',
       orden: 'Paso 2 • 18/02/2026',
       titulo: '2. Memorando Resumen de Auditoría',
       sub: 'Cierre Técnico, PAE (NIA 450) y NIA 560/570',
@@ -399,6 +452,7 @@ export default function Etapa3InformeView({
     },
     {
       id: 'carta-gerencia',
+      pasoKey: 'paso3',
       orden: 'Paso 3 • 20/02/2026 (Pre-Firma)',
       titulo: '3. Carta de Representación (NIA 580)',
       sub: 'Manifestaciones CEO/CFO y NIA 450.14',
@@ -406,6 +460,7 @@ export default function Etapa3InformeView({
     },
     {
       id: 'informe',
+      pasoKey: 'paso4',
       orden: 'Paso 4 Final • 20/02/2026',
       titulo: '4. Informe del Auditor Independiente',
       sub: 'NIAs (RT N° 32 FACPCE) • NIIF / CNV',
@@ -466,45 +521,80 @@ export default function Etapa3InformeView({
 
         {/* Selector de los 4 Documentos ordenados por Fecha de Realización */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 no-print">
-          {cronologiaDocumentos.map((tab) => {
+          {cronologiaDocumentos.map((tab, idx) => {
             const active = docActivo === tab.id;
+            const tabAlign =
+              idx === 0
+                ? 'left-0'
+                : idx === 1
+                ? 'right-0 lg:right-auto lg:left-1/2 lg:-translate-x-1/2'
+                : idx === 2
+                ? 'left-0 lg:left-1/2 lg:-translate-x-1/2'
+                : 'right-0';
+
             return (
-              <button
+              <div
                 key={tab.id}
-                onClick={() => setDocActivo(tab.id)}
-                className={`text-left p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
-                  active
-                    ? 'bg-indigo-950 text-white border-indigo-950 shadow-sm ring-2 ring-indigo-400'
-                    : 'bg-slate-50 text-slate-800 border-slate-200 hover:bg-white hover:border-indigo-400'
-                }`}
+                className="relative flex flex-col"
+                onMouseLeave={() => setHoveredDocTab((cur) => (cur === tab.id ? null : cur))}
               >
-                <div>
-                  <div className="flex items-center justify-between gap-1 mb-1.5">
-                    <span
-                      className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
-                        active ? 'bg-indigo-800 text-lime-300' : 'bg-slate-200 text-slate-700'
-                      }`}
+                <button
+                  type="button"
+                  onClick={() => setDocActivo(tab.id)}
+                  className={`w-full flex-1 text-left p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
+                    active
+                      ? 'bg-indigo-950 text-white border-indigo-950 shadow-sm ring-2 ring-indigo-400'
+                      : 'bg-slate-50 text-slate-800 border-slate-200 hover:bg-white hover:border-indigo-400'
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-1 mb-1.5">
+                      <span
+                        className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+                          active ? 'bg-indigo-800 text-lime-300' : 'bg-slate-200 text-slate-700'
+                        }`}
+                      >
+                        {tab.orden}
+                      </span>
+                      <span
+                        className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${
+                          active
+                            ? 'bg-indigo-600 text-white'
+                            : tab.id === 'informe' && !esLimpiaEstricta
+                            ? 'bg-amber-100 text-amber-900'
+                            : 'bg-indigo-100 text-indigo-800'
+                        }`}
+                      >
+                        {tab.badge}
+                      </span>
+                    </div>
+                    <div
+                      onMouseEnter={() => setHoveredDocTab(tab.id)}
+                      className="inline-flex items-center gap-1.5 mt-1 group/tabtitle"
                     >
-                      {tab.orden}
-                    </span>
-                    <span
-                      className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${
-                        active
-                          ? 'bg-indigo-600 text-white'
-                          : tab.id === 'informe' && !esLimpiaEstricta
-                          ? 'bg-amber-100 text-amber-900'
-                          : 'bg-indigo-100 text-indigo-800'
-                      }`}
-                    >
-                      {tab.badge}
-                    </span>
+                      <p className="text-xs font-extrabold border-b border-dotted border-indigo-300/80">
+                        {tab.titulo}
+                      </p>
+                      <HelpCircle
+                        className={`w-3.5 h-3.5 shrink-0 ${
+                          active ? 'text-lime-300' : 'text-indigo-600'
+                        }`}
+                      />
+                    </div>
                   </div>
-                  <p className="text-xs font-extrabold mt-1">{tab.titulo}</p>
-                </div>
-                <p className={`text-[11px] mt-1.5 ${active ? 'text-indigo-200' : 'text-slate-500'}`}>
-                  {tab.sub}
-                </p>
-              </button>
+                  <p className={`text-[11px] mt-1.5 ${active ? 'text-indigo-200' : 'text-slate-500'}`}>
+                    {tab.sub}
+                  </p>
+                </button>
+
+                {hoveredDocTab === tab.id && (
+                  <TarjetaPopoverInfo
+                    info={INFORME_SECCIONES_INFO[tab.pasoKey]}
+                    onClose={() => setHoveredDocTab(null)}
+                    wrapperClassName={`top-full pt-2 ${tabAlign}`}
+                  />
+                )}
+              </div>
             );
           })}
         </div>
@@ -659,9 +749,13 @@ export default function Etapa3InformeView({
                 Ref: Legajo Conclusión LC-01
               </span>
             </div>
-            <h3 className="text-xl font-extrabold text-slate-950 mt-2">
-              Carta con Recomendaciones sobre el Sistema de Control Interno
-            </h3>
+            <div className="mt-2">
+              <InformeTituloTooltip sectionKey="paso1" align="left" placement="bottom" badgeLabel="¿Qué es? / ¿Obligatorio?">
+                <h3 className="text-xl font-extrabold text-slate-950">
+                  Carta con Recomendaciones sobre el Sistema de Control Interno
+                </h3>
+              </InformeTituloTooltip>
+            </div>
             <p className="text-xs text-slate-600 mt-1">
               <strong>Destinatario:</strong> {documentosEtapa3.cartaControlInterno.destinatario} •{' '}
               <strong>Domicilio:</strong> {documentosEtapa3.cartaControlInterno.domicilio} •{' '}
@@ -756,9 +850,13 @@ export default function Etapa3InformeView({
                 Ref: Legajo Conclusión LC-02
               </span>
             </div>
-            <h3 className="text-xl font-extrabold text-slate-950 mt-2">
-              {documentosEtapa3.memorandoConclusion.titulo}
-            </h3>
+            <div className="mt-2">
+              <InformeTituloTooltip sectionKey="paso2" align="left" placement="bottom" badgeLabel="¿Qué es? / ¿Obligatorio?">
+                <h3 className="text-xl font-extrabold text-slate-950">
+                  {documentosEtapa3.memorandoConclusion.titulo}
+                </h3>
+              </InformeTituloTooltip>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-3 text-xs bg-slate-50 p-3.5 rounded-xl border border-slate-200">
               <p><strong>PARA:</strong> {documentosEtapa3.memorandoConclusion.para}</p>
               <p><strong>DE:</strong> {documentosEtapa3.memorandoConclusion.de}</p>
@@ -1001,9 +1099,13 @@ export default function Etapa3InformeView({
                 Ref: Legajo Conclusión LC-03
               </span>
             </div>
-            <h3 className="text-xl font-extrabold text-slate-950">
-              Carta de Representación de la Dirección de Telecom Argentina S.A.
-            </h3>
+            <div className="pt-1">
+              <InformeTituloTooltip sectionKey="paso3" align="left" placement="bottom" badgeLabel="¿Qué es? / ¿Obligatorio?">
+                <h3 className="text-xl font-extrabold text-slate-950">
+                  Carta de Representación de la Dirección de Telecom Argentina S.A.
+                </h3>
+              </InformeTituloTooltip>
+            </div>
             <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs space-y-1">
               <p className="font-bold text-slate-900">{documentosEtapa3.cartaRepresentacion.membreteCliente}</p>
               <p className="text-slate-700">
@@ -1090,7 +1192,7 @@ export default function Etapa3InformeView({
                 PASO 4 FINAL (CULMINACIÓN DE LA AUDITORÍA) • NORMAS INTERNACIONALES DE AUDITORÍA (NIAs — RT N° 32 FACPCE)
               </p>
               <div className="mt-1 flex justify-center">
-                <InformeTituloTooltip sectionKey="titulo" align="center" placement="bottom" badgeLabel="Título / Destinatario">
+                <InformeTituloTooltip sectionKey="paso4" align="center" placement="bottom" badgeLabel="¿Qué es? / ¿Obligatorio?">
                   <h3 className="text-xl sm:text-2xl font-extrabold text-slate-950">
                     INFORME DE AUDITORÍA EMITIDO POR LOS AUDITORES INDEPENDIENTES
                   </h3>

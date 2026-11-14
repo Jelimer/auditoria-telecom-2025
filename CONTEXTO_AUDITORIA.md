@@ -137,7 +137,7 @@
 ---
 
 ## 8. Funcionalidades Interactivas de la Plataforma Web
-- **Modo Offline PWA (`public/sw.js` — `audiia-offline-v6`):** Service Worker con precarga activa del App Shell (`/`, `/index.html` y bundles `/assets/*` en `install`) y fallback automático de navegación SPA sin conexión para recorrer todas las pestañas offline una vez visitada la web.
+- **Modo Offline PWA (`public/sw.js` — `audiia-offline-v7`):** Service Worker con precarga activa del App Shell (`/`, `/index.html` y bundles `/assets/*` en `install`) y fallback automático de navegación SPA sin conexión para recorrer todas las pestañas offline una vez visitada la web.
 - **Persistencia en LocalStorage (por navegador/dispositivo):**
   - `audiia_cci_v6`: respuestas editables de los 5 Cuestionarios de Control Interno alineadas al Word AE 4 (conectadas en vivo con Dashboard, Síntesis de Exposición 1B, Etapa 3 Carta CI y Resumen Integral).
   - `audiia_ajustes_v3`: estado de aceptación/rechazo de ajustes (`AJ-01`, `AJ-04`, `PAE-NC-01`), sincronizado con el simulador en Etapa 3, Dashboard y Resumen Integral.
