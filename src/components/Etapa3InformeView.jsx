@@ -209,6 +209,28 @@ const INFORME_SECCIONES_INFO = {
       'Es el dictamen público final firmado por los auditores independientes donde expresamos nuestra opinión sobre los EECC consolidados, las Cuestiones Clave de la Auditoría (KAM) y los requerimientos legales locales (SIPA, CNV, UIF).',
     detallePregunta:
       'Es el documento que se presenta junto al balance ante accionistas, CNV e inversores. Se titula «Auditores Independientes» para diferenciarse de informes internos o sindicatura y su fecha (20/02/2026) coincide con la Carta de Representación cerrando hechos posteriores (NIA 560).'
+  },
+  hechosPosteriores560: {
+    subtituloHeader: 'Revisión de Hechos Posteriores • Paso 2 Memorando (NIA 560)',
+    titulo: 'Hechos Posteriores al Cierre (01/01/2026 al 20/02/2026)',
+    obligatorio: 'OBLIGATORIO cubrir el período 01/01/2026–20/02/2026 antes de firmar (NIA 560)',
+    listaPuntos: [
+      {
+        etiqueta: 'Por qué corta el 20/02/2026:',
+        texto:
+          'Es la fecha de emisión del Informe del Auditor Independiente; hasta ese día tenemos obligación activa de revisar hechos posteriores. (La compra de TMA fue el 24/02/2025, o sea dentro del ejercicio 2025, no posterior).'
+      },
+      {
+        etiqueta: 'Qué dos tipos existen:',
+        texto:
+          'Tipo 1 (hechos posteriores que confirman situaciones que ya existían al 31/12 —como un cliente que ya venía moroso y quiebra en enero, o cobros posteriores que confirman la cobrabilidad al cierre— → ajustan los EECC) y Tipo 2 (hechos nuevos nacidos en 2026, como un siniestro o emisión nueva de deuda → no ajustan 2025, solo van en Nota si son materiales).'
+      },
+      {
+        etiqueta: 'Evidencia revisada:',
+        texto:
+          'Lectura de actas de Directorio y Comité de Auditoría de ene–feb 2026, cobros posteriores bancarios (PT-B1 / PT-B2), respuesta actualizada de abogados (Nota 20) y manifestación escrita de CEO/CFO en la Carta de Representación.'
+      }
+    ]
   }
 };
 
@@ -217,7 +239,7 @@ function TarjetaPopoverInfo({ info, onClose, wrapperClassName }) {
   if (!info) return null;
   return (
     <div
-      className={`no-print absolute ${wrapperClassName} z-50 w-80 sm:w-[430px] max-w-[calc(100vw-2rem)]`}
+      className={`no-print absolute ${wrapperClassName} z-50 w-80 sm:w-[460px] max-w-[calc(100vw-2rem)]`}
       onClick={(e) => e.stopPropagation()}
     >
       <div className="bg-slate-950 text-slate-100 border-2 border-teal-400 rounded-xl shadow-2xl p-3.5 text-left space-y-2 normal-case font-normal tracking-normal leading-relaxed">
@@ -246,15 +268,30 @@ function TarjetaPopoverInfo({ info, onClose, wrapperClassName }) {
           </span>
         </div>
 
-        <div className="text-[11px] text-slate-200">
-          <strong className="text-teal-300">¿Qué es?: </strong>
-          {info.queEs}
-        </div>
+        {info.queEs && (
+          <div className="text-[11px] text-slate-200">
+            <strong className="text-teal-300">¿Qué es?: </strong>
+            {info.queEs}
+          </div>
+        )}
 
-        <div className="text-[11px] bg-indigo-950/90 border border-indigo-700/70 rounded-lg p-2.5 text-indigo-100">
-          <strong className="text-amber-300">Obligatoriedad / Detalle clave: </strong>
-          {info.detallePregunta}
-        </div>
+        {Array.isArray(info.listaPuntos) && info.listaPuntos.length > 0 && (
+          <ul className="space-y-1.5 text-[11px] text-slate-200 list-disc pl-4">
+            {info.listaPuntos.map((pt, i) => (
+              <li key={i}>
+                <strong className="text-amber-300">{pt.etiqueta} </strong>
+                <span>{pt.texto}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {info.detallePregunta && (
+          <div className="text-[11px] bg-indigo-950/90 border border-indigo-700/70 rounded-lg p-2.5 text-indigo-100">
+            <strong className="text-amber-300">Obligatoriedad / Detalle clave: </strong>
+            {info.detallePregunta}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -863,8 +900,12 @@ export default function Etapa3InformeView({
               <p><strong>CLIENTE:</strong> {documentosEtapa3.memorandoConclusion.cliente}</p>
               <p><strong>FECHA REALIZACIÓN:</strong> {documentosEtapa3.memorandoConclusion.fecha}</p>
               <p className="sm:col-span-2">
-                <strong>PERÍODO HECHOS POSTERIORES (NIA 560):</strong>{' '}
-                {documentosEtapa3.memorandoConclusion.periodoHechosPosteriores}
+                <InformeTituloTooltip sectionKey="hechosPosteriores560" align="left" placement="bottom" badgeLabel="Cómo se revisa (NIA 560)">
+                  <span>
+                    <strong>PERÍODO HECHOS POSTERIORES (NIA 560):</strong>{' '}
+                    {documentosEtapa3.memorandoConclusion.periodoHechosPosteriores}
+                  </span>
+                </InformeTituloTooltip>
               </p>
             </div>
           </div>
@@ -879,7 +920,13 @@ export default function Etapa3InformeView({
               return (
                 <div key={idx} className="print-avoid-break p-4 rounded-xl bg-slate-50/70 border border-slate-200 space-y-2">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <h4 className="text-sm font-extrabold text-teal-900">{subtituloMostrado}</h4>
+                    {idx === 3 ? (
+                      <InformeTituloTooltip sectionKey="hechosPosteriores560" align="left" placement="bottom" badgeLabel="Detalle NIA 560">
+                        <h4 className="text-sm font-extrabold text-teal-900">{subtituloMostrado}</h4>
+                      </InformeTituloTooltip>
+                    ) : (
+                      <h4 className="text-sm font-extrabold text-teal-900">{subtituloMostrado}</h4>
+                    )}
                     {sec.normas && (
                       <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-teal-100 text-teal-800">
                         {sec.normas}

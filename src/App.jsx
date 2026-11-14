@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import {
   Home,
   Users,
@@ -14,7 +14,9 @@ import {
   ChevronDown,
   BookOpenCheck,
   Sparkles,
-  TrendingUp
+  TrendingUp,
+  Download,
+  Upload
 } from 'lucide-react';
 
 import {
@@ -242,6 +244,81 @@ export default function App() {
 
   const handleResetZoom = () => {
     setFontZoom(100);
+  };
+
+  // Respaldo y restauración manual en .json de todas las preferencias y ediciones guardadas en localStorage
+  const AUDIIA_BACKUP_KEYS = [
+    'audiia_brand_v1',
+    'audiia_font_zoom',
+    'audiia_cci_v6',
+    'audiia_ajustes_v3',
+    'audiia_equipo_v2',
+    'audiia_ente_custom_v1',
+    'audiia_plan_detallada_custom_v1',
+    'audiia_conclusiones_rubros_v1',
+    'audiia_pasos_narrativos_v1',
+    'audiia_custom_terminos_glosario_v1',
+    'audiia_guion_oral_v1'
+  ];
+  const backupInputRef = useRef(null);
+  const [backupNotice, setBackupNotice] = useState(null);
+
+  const showBackupNotice = (msg, ok = true) => {
+    setBackupNotice({ msg, ok });
+    setTimeout(() => setBackupNotice(null), 3500);
+  };
+
+  const handleExportBackup = () => {
+    try {
+      const keysData = {};
+      AUDIIA_BACKUP_KEYS.forEach((k) => {
+        const val = localStorage.getItem(k);
+        if (val !== null) keysData[k] = val;
+      });
+      const payload = {
+        app: 'AudiIA-Telecom2025',
+        exportedAt: new Date().toISOString(),
+        keys: keysData
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `AudiIA_Respaldo_Telecom2025_${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showBackupNotice(`Respaldo descargado (${Object.keys(keysData).length} secciones)`);
+    } catch {
+      showBackupNotice('No se pudo exportar el respaldo', false);
+    }
+  };
+
+  const handleImportBackup = async (e) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+      const sourceKeys = parsed?.keys && typeof parsed.keys === 'object' ? parsed.keys : parsed;
+      let count = 0;
+      AUDIIA_BACKUP_KEYS.forEach((k) => {
+        if (typeof sourceKeys?.[k] === 'string') {
+          localStorage.setItem(k, sourceKeys[k]);
+          count += 1;
+        }
+      });
+      if (count === 0) {
+        showBackupNotice('El archivo no contiene datos válidos de AudiIA', false);
+        return;
+      }
+      showBackupNotice(`Respaldo cargado (${count} secciones). Recargando...`);
+      setTimeout(() => window.location.reload(), 650);
+    } catch {
+      showBackupNotice('Archivo .json inválido o dañado', false);
+    }
   };
 
   // Estado interactivo de los 5 Cuestionarios de Control Interno
@@ -818,6 +895,47 @@ export default function App() {
                 >
                   A+
                 </button>
+              </div>
+
+              {/* Botones discretos de Respaldo .json (Exportar / Importar ediciones locales) */}
+              <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 shadow-2xs">
+                <button
+                  type="button"
+                  onClick={handleExportBackup}
+                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-bold text-slate-700 hover:bg-teal-100 hover:text-teal-900 cursor-pointer transition-colors"
+                  title="Descargar respaldo en archivo .json con todos tus ajustes y textos editados"
+                >
+                  <Download className="w-3.5 h-3.5 text-teal-700" />
+                  <span className="hidden lg:inline">Guardar .json</span>
+                </button>
+                <span className="text-slate-300">|</span>
+                <button
+                  type="button"
+                  onClick={() => backupInputRef.current?.click()}
+                  className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] font-bold text-slate-700 hover:bg-indigo-100 hover:text-indigo-900 cursor-pointer transition-colors"
+                  title="Cargar un respaldo .json guardado previamente para recuperar tus cambios"
+                >
+                  <Upload className="w-3.5 h-3.5 text-indigo-700" />
+                  <span className="hidden lg:inline">Cargar .json</span>
+                </button>
+                <input
+                  ref={backupInputRef}
+                  type="file"
+                  accept="application/json,.json"
+                  onChange={handleImportBackup}
+                  className="hidden"
+                />
+                {backupNotice && (
+                  <span
+                    className={`ml-1 px-2 py-0.5 rounded text-[10px] font-extrabold ${
+                      backupNotice.ok
+                        ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                        : 'bg-red-100 text-red-800 border border-red-200'
+                    }`}
+                  >
+                    {backupNotice.msg}
+                  </span>
+                )}
               </div>
 
               {/* Stepper Secuencial */}

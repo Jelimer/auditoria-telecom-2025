@@ -595,6 +595,44 @@ export default function ResumenIntegralView({
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
               {sintesisExposicionCCI.map((item) => {
                 const calc = cciCalculados.find((c) => c.id === item.id);
+                const relacionCedulas = {
+                  'cci-1': {
+                    rubros: 'Bienes de Uso (PT-A2 Altas/Obras y PT-A3 Títulos)',
+                    cedulas: [
+                      { label: 'PT-A2', sub: 'pt-a2' },
+                      { label: 'PT-A3', sub: 'pt-a3' }
+                    ]
+                  },
+                  'cci-2': {
+                    rubros: 'Bienes de Uso (PT-A1 / PT-A4 → AJ-01) y Créditos por Ventas (PT-B1 / B2 / B3)',
+                    cedulas: [
+                      { label: 'PT-A1/A4', sub: 'pt-a4' },
+                      { label: 'PT-B1..B3', sub: 'pt-b' }
+                    ]
+                  },
+                  'cci-3': {
+                    rubros: 'Bienes de Uso CAPEX (PT-A2 Obras 5G) y Software NIC 38 (PT-E2)',
+                    cedulas: [
+                      { label: 'PT-A2', sub: 'pt-a2' },
+                      { label: 'PT-E2', sub: 'pt-e2' }
+                    ]
+                  },
+                  'cci-4': {
+                    rubros: 'Transversal operativo: horas TI en Intangibles (PT-E2) y red técnica (PT-A1)',
+                    cedulas: [
+                      { label: 'PT-E2', sub: 'pt-e2' },
+                      { label: 'PT-A1', sub: 'pt-a1' }
+                    ]
+                  },
+                  'cci-5': {
+                    rubros: 'Activos Intangibles (PT-E1 / PT-E2) e interfaces/TAACs en Créditos (PT-B2 / PT-B3)',
+                    cedulas: [
+                      { label: 'PT-E1/E2', sub: 'pt-e' },
+                      { label: 'PT-B2/B3', sub: 'pt-b2' }
+                    ]
+                  }
+                }[item.id];
+
                 return (
                   <div key={item.id} className="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
                     <div className="flex items-center justify-between gap-2">
@@ -621,6 +659,27 @@ export default function ResumenIntegralView({
                     <p className="text-red-700">
                       <strong>Debilidad:</strong> {item.debilidades[0]}
                     </p>
+                    {relacionCedulas && (
+                      <div className="pt-1.5 border-t border-slate-200/80 space-y-1">
+                        <p className="text-indigo-900">
+                          <strong>Rubros y cédulas:</strong> {relacionCedulas.rubros}
+                        </p>
+                        {onNavigate && (
+                          <div className="no-print flex flex-wrap gap-1">
+                            {relacionCedulas.cedulas.map((ced) => (
+                              <button
+                                key={ced.label}
+                                type="button"
+                                onClick={() => onNavigate('etapa2-ejecucion', ced.sub)}
+                                className="px-2 py-0.5 rounded-md bg-indigo-50 hover:bg-indigo-100 text-indigo-800 border border-indigo-200 font-bold text-[10px] cursor-pointer transition-colors"
+                              >
+                                Ir a {ced.label} →
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 );
               })}
