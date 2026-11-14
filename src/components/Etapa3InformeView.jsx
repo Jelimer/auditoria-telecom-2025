@@ -710,7 +710,7 @@ export default function Etapa3InformeView({
                   1. {esFavorableSinSalvedades ? 'Opinión (Favorable sin Salvedades — NIA 700)' : 'Opinión con Salvedades (NIA 705)'}
                 </h5>
                 <p className="text-slate-800">
-                  Hemos auditado los estados financieros consolidados de <strong>TELECOM ARGENTINA S.A.</strong> y sus sociedades controladas (en adelante, indistintamente, la «Sociedad» o el «Grupo»), los cuales comprenden el estado de situación financiera consolidado al <strong>31 de diciembre de 2025</strong>, los estados consolidados de resultados integrales, de cambios en el patrimonio y de flujos de efectivo correspondientes al ejercicio finalizado en esa fecha, y las notas explicativas seleccionadas a los estados financieros consolidados que incluyen políticas contables materiales y otra información explicativa.
+                  Hemos auditado los estados financieros consolidados de <strong>TELECOM ARGENTINA S.A.</strong> y sus sociedades controladas (en adelante, indistintamente, la «Sociedad» o el «Grupo»), los cuales comprenden el estado de situación financiera consolidado al <strong>31 de diciembre de 2025</strong>, los estados consolidados de resultados, del resultado integral, de cambios en el patrimonio y de flujos de efectivo correspondientes al ejercicio finalizado en esa fecha, y las notas explicativas seleccionadas a los estados financieros consolidados que incluyen políticas contables materiales y otra información explicativa.
                 </p>
                 {esFavorableSinSalvedades ? (
                   <div className="mt-2.5 space-y-2">
@@ -906,10 +906,10 @@ export default function Etapa3InformeView({
                   Según surge de los registros contables de la Sociedad al <strong>31 de diciembre de 2025</strong>, la deuda devengada a favor del <strong>Sistema Integrado Previsional Argentino (SIPA)</strong> en concepto de aportes y contribuciones previsionales ascendía a <strong>$33.699.737.311</strong>, no siendo exigible a esa fecha.
                 </li>
                 <li>
-                  En cumplimiento del <strong>art. 21°, inc. b), Capítulo III, Sección VI, Título II de las Normas de la CNV (T.O. 2013 y modif.)</strong>, informamos respecto de la relación entre los honorarios por servicios de auditoría y los restantes servicios facturados a la entidad que el presupuesto profesional del presente encargo ($80.683.020 s/ tabla CPCECABA) corresponde en un <strong>100% exclusivamente a servicios de auditoría externa</strong>, sin prestación de servicios distintos que comprometan la independencia bajo el Código del IESBA.
+                  En cumplimiento del <strong>art. 21°, inc. b), Capítulo III, Sección VI, Título II de las Normas de la CNV (T.O. 2013 y modif.)</strong>, informamos que el total de honorarios facturados en concepto de servicios de auditoría externa correspondientes al ejercicio finalizado el 31 de diciembre de 2025 ($80.683.020 s/ presupuesto CPCECABA) representa: <strong>d.1) el 100%</strong> sobre el total de honorarios facturados a Telecom Argentina S.A. por todo concepto; <strong>d.2) el 100%</strong> sobre los honorarios por servicios de auditoría y relacionados facturados al grupo económico; y <strong>d.3) el 100%</strong> sobre el total de honorarios facturados por todo concepto a Telecom Argentina S.A., su sociedad controlante, controladas y vinculadas, sin prestación de servicios distintos que comprometan la independencia bajo el Código del IESBA.
                 </li>
                 <li>
-                  Hemos aplicado los procedimientos sobre prevención de lavado de activos y financiación del terrorismo previstos en las normas profesionales correspondientes emitidas por la FACPCE y resoluciones vigentes de la Unidad de Información Financiera (UIF / Res. 420/11).
+                  Hemos aplicado los procedimientos sobre prevención de lavado de activos y financiación del terrorismo previstos en las normas profesionales correspondientes emitidas por la FACPCE y resoluciones vigentes de la Unidad de Información Financiera (UIF / Res. 420/11), sin observaciones significativas que informar al cierre.
                 </li>
               </ol>
 
@@ -941,29 +941,136 @@ export default function Etapa3InformeView({
             </div>
           </div>
 
-          {/* Nota Pedagógica para Defensa Oral: Diferencias NIAs (RT 32) vs RT 37 / RT 53 */}
-          <div className="no-print bg-indigo-950 text-white rounded-2xl p-5 shadow-xs space-y-2.5">
-            <div className="flex items-center gap-2">
-              <Award className="w-5 h-5 text-lime-400 shrink-0" />
-              <h4 className="text-sm font-extrabold text-lime-300">
-                Guía de Defensa Oral: ¿Por qué el Informe Final se emite bajo NIAs (RT N° 32) y no bajo RT N° 37 común?
-              </h4>
+          {/* Nota Pedagógica Completa para Defensa Oral: NIAs RT 32, Diferencias Word vs. Web vs. EECC Real y Preguntas de Cátedra */}
+          <div className="no-print bg-indigo-950 text-white rounded-2xl p-5 sm:p-6 shadow-xs space-y-5">
+            <div className="space-y-2.5">
+              <div className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-lime-400 shrink-0" />
+                <h4 className="text-sm sm:text-base font-extrabold text-lime-300">
+                  Guía de Defensa Oral del Informe Final: Qué saber y el porqué de cada diferencia (Word AE 4 vs. Plataforma Web vs. EECC Real CNV)
+                </h4>
+              </div>
+              <p className="text-xs text-indigo-100 leading-relaxed">
+                Aunque en la cursada se estudia el proceso general de Slosse y la <strong>RT N° 37 (modif. RT N° 53)</strong> para entes locales, <strong>Telecom Argentina S.A.</strong> es una emisora bajo oferta pública de la <strong>CNV</strong> que aplica <strong>NIIF completas (RT N° 26)</strong>. Por ello, su dictamen se rige obligatoriamente por las <strong>Normas Internacionales de Auditoría (<NormaTooltip code="RT 32" />)</strong>, presentando 5 rasgos distintivos:
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2.5 text-xs text-indigo-100">
+                <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
+                  <strong className="text-white block mb-0.5">1. Opinión NIIF (IASB):</strong> Opina conforme a «Normas de contabilidad NIIF emitidas por el IASB» (<NormaTooltip code="NIA 700" />).
+                </div>
+                <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
+                  <strong className="text-white block mb-0.5">2. Fundamento IAASB:</strong> Cita expresamente las NIAs aprobadas por el IAASB y adoptadas en Argentina por <NormaTooltip code="RT 32" />.
+                </div>
+                <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
+                  <strong className="text-white block mb-0.5">3. Independencia EIP:</strong> Sección autónoma citando el <em>Código del IESBA</em> para entidades de interés público + Código Local CABA.
+                </div>
+                <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
+                  <strong className="text-white block mb-0.5">4. KAM + Otra Info:</strong> Cuadro obligatorio de Cuestiones Clave (<NormaTooltip code="NIA 701" />) y lectura de Memoria/Reseña (<NormaTooltip code="NIA 720" />).
+                </div>
+                <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
+                  <strong className="text-white block mb-0.5">5. Gobierno y Grupo:</strong> Rol del Comité de Auditoría (<NormaTooltip code="NIA 260" />), Auditoría de Grupo (<NormaTooltip code="NIA 600" />) y datos CNV/SIPA.
+                </div>
+              </div>
             </div>
-            <p className="text-xs text-indigo-100 leading-relaxed">
-              Aunque en la cursada se estudia el proceso general de Slosse y la <strong>RT N° 37 (modif. RT N° 53)</strong> para entes locales, <strong>Telecom Argentina S.A.</strong> es una entidad emisora bajo el régimen de oferta pública de la <strong>CNV</strong> que aplica obligatoriamente <strong>NIIF completas (RT N° 26)</strong>. Por ello, su Informe de Auditoría Independiente real debe ajustarse a las <strong>Normas Internacionales de Auditoría (NIAs) adoptadas mediante RT N° 32 FACPCE</strong>, introduciendo 5 diferencias clave:
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs text-indigo-100">
-              <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
-                <strong className="text-white">1. Fundamento RT N° 32 (IAASB):</strong> Cita expresamente las NIAs aprobadas por el IAASB adoptadas por FACPCE RT 32, y opina sobre «Normas de contabilidad NIIF emitidas por el IASB».
+
+            {/* Cuadro Comparativo: Informe del Word vs. Plataforma Web vs. EECC Real */}
+            <div className="space-y-2 pt-2 border-t border-indigo-800/80">
+              <h5 className="text-xs font-extrabold uppercase tracking-wider text-amber-300">
+                ¿En qué se diferencian el Informe redactado para tu Word, esta Plataforma Web y el PDF real de Telecom CNV?
+              </h5>
+              <div className="overflow-x-auto rounded-xl border border-indigo-800 bg-indigo-900/40">
+                <table className="w-full text-[11px] sm:text-xs text-left border-collapse">
+                  <thead>
+                    <tr className="bg-indigo-900 text-lime-300 border-b border-indigo-700">
+                      <th className="py-2 px-3 font-extrabold">Aspecto</th>
+                      <th className="py-2 px-3 font-extrabold">Informe para Word (AE 4)</th>
+                      <th className="py-2 px-3 font-extrabold">Informe en la Web (Tablero)</th>
+                      <th className="py-2 px-3 font-extrabold">Dictamen Real Telecom (PDF p. 174–179)</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-indigo-800/70 text-indigo-100">
+                    <tr>
+                      <td className="py-2 px-3 font-bold text-white">Cuestiones Clave (KAM — NIA 701)</td>
+                      <td className="py-2 px-3">3 KAM dedicadas 1-a-1 a tus <strong>3 rubros auditados del Word</strong> (PT-A Bienes de Uso + TMA, PT-E Intangibles + TMA, PT-B Créditos + TMA/NIIF 9), en tabla formal de 2 columnas.</td>
+                      <td className="py-2 px-3">Incluye el <strong>alcance ampliado</strong> (Llave de negocio <code>PT-F1</code> $4.443.998M e Ingresos Flow <code>PT-D3</code>) y agrupa PP&amp;E + Intangibles en una sola KAM.</td>
+                      <td className="py-2 px-3">2 KAM: 1) Recuperabilidad de Llave de negocio ($4.443.998M), y 2) Adquisición TMA: Red Fija y Transporte + Licencias y espectros.</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 px-3 font-bold text-white">Mención a AJ-01 / AJ-04 y códigos PT</td>
+                      <td className="py-2 px-3"><strong>No se mencionan en el texto público</strong> porque AJ-01 ($28.340M) es inferior a ET/PM y un dictamen formal no expone códigos internos (<code>PT-A</code>, <code>LC-01</code>).</td>
+                      <td className="py-2 px-3">Se citan pedagógicamente con botones navegables (<code>RefPill</code>) y monto de presupuesto ($80.683.020) para trazabilidad oral en clase.</td>
+                      <td className="py-2 px-3">Tampoco expone umbrales internos ni papeles de trabajo ni cifras de presupuesto de auditoría.</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 px-3 font-bold text-white">Honorarios CNV Art. 21° inc. b)</td>
+                      <td className="py-2 px-3">Informa <strong>100% en los 3 incisos (c.1, c.2, c.3)</strong>: encargo académico dedicado exclusivamente a auditoría externa.</td>
+                      <td className="py-2 px-3">Informa <strong>100% en d.1, d.2 y d.3</strong> (con referencia interna al presupuesto CPCECABA de $80.683.020).</td>
+                      <td className="py-2 px-3">Informa <strong>91% / 71% / 64%</strong> porque la firma real también facturó servicios fiscales y otros al Grupo.</td>
+                    </tr>
+                    <tr>
+                      <td className="py-2 px-3 font-bold text-white">Estados, Fecha y Cláusula UIF</td>
+                      <td className="py-2 px-3">Estados <strong>consolidados</strong> al 31/12/2025; fecha <strong>20/02/2026</strong> (cierre de 12 semanas AE 4) + inciso FACPCE Res. 420/11 (UIF).</td>
+                      <td className="py-2 px-3">Estados <strong>consolidados</strong>; fecha <strong>20/02/2026</strong> (coherente con LC-01 a LC-03) + inciso FACPCE Res. 420/11 (UIF).</td>
+                      <td className="py-2 px-3">Estados <strong>consolidados e individuales</strong>; fecha <strong>10/03/2026</strong>; finaliza en Art. 21 CNV sin apartado UIF explícito.</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
-                <strong className="text-white">2. Sección Autónoma «Independencia» (IESBA):</strong> Exige declarar independencia conforme al <em>Código del IESBA</em> para <strong>entidades de interés público</strong> además del Código Local (CABA).
-              </div>
-              <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
-                <strong className="text-white">3. Otra Información (<NormaTooltip code="NIA 720" />) y KAM (<NormaTooltip code="NIA 701" />):</strong> Incluye sección explícita sobre la <em>Memoria Anual Integrada y Reseña</em> tras las Cuestiones Clave de Auditoría.
-              </div>
-              <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
-                <strong className="text-white">4. Comité de Auditoría y Grupo (<NormaTooltip code="NIA 600" />) + CNV:</strong> Reconoce la supervisión del Comité de Auditoría, la responsabilidad de grupo (TMA/subsidiarias), SIPA ($33.699.737.311) y el ratio de honorarios Art. 21 inc. b CNV.
+            </div>
+
+            {/* 6 Preguntas Frecuentes del Tribunal sobre el Informe Final */}
+            <div className="space-y-2 pt-2 border-t border-indigo-800/80">
+              <h5 className="text-xs font-extrabold uppercase tracking-wider text-lime-300">
+                6 Preguntas Típicas del Tribunal sobre el Informe Final (y cómo responderlas sin dudas)
+              </h5>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs text-indigo-100 leading-relaxed">
+                <div className="p-3 rounded-xl bg-indigo-900/50 border border-indigo-700/80">
+                  <strong className="text-amber-300 block mb-1">
+                    1. ¿Por qué la Opinión es Limpia (Favorable sin Salvedades) si hallaron AJ-01 ($28.340M) y Riesgo de Control ALTO?
+                  </strong>
+                  <p>
+                    Primero, el Riesgo de Control ALTO en CCI-01 y CCI-05 (<NormaTooltip code="NIA 315" />) determina el <em>enfoque sustantivo</em> y ampliación de muestras, nunca una salvedad por sí solo (<NormaTooltip code="NIA 330" />). Segundo, si Telecom contabiliza <code>AJ-01</code>, Bienes de Uso queda corregido en $6.760.778M; y aun si no lo registrara, $28.340M equivale al <strong>17,05% de PM ($166.225M)</strong> y está por debajo del <strong>ET ($83.112M)</strong>, por lo que no distorsiona significativamente los EECC (<NormaTooltip code="NIA 450" /> / <NormaTooltip code="NIA 700" />).
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl bg-indigo-900/50 border border-indigo-700/80">
+                  <strong className="text-amber-300 block mb-1">
+                    2. ¿Por qué el Informe formal del Word no nombra a AJ-01 ($28.340M) ni la Llave de Negocio, mientras la Web sí?
+                  </strong>
+                  <p>
+                    Porque en el Dictamen formal destinado al mercado no se exponen ajustes inmateriales ni códigos internos de papeles de trabajo, y el Word enfocó únicamente los <strong>3 rubros auditados en AE 4 (PT-A, PT-E y PT-B)</strong>. La Web suma trazabilidad interactiva hacia todo el análisis completo (incluyendo <code>PT-F1</code> Llave de negocio y <code>PT-D3</code>) para defender la conexión integral en clase.
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl bg-indigo-900/50 border border-indigo-700/80">
+                  <strong className="text-amber-300 block mb-1">
+                    3. ¿Por qué el Dictamen dice sólo «estados financieros consolidados» y no incluye los individuales?
+                  </strong>
+                  <p>
+                    En la realidad bursátil (CNV bajo <NormaTooltip code="RT 32" />) se auditan ambos juegos en conjunto, pero todo el trabajo práctico (Análisis Horizontal/Vertical 1C, Materialidad PM = 1% de $16.622.552M y los programas PT-A, PT-E y PT-B) se ejecutó sobre las cifras del <strong>Balance Consolidado</strong>. Opinar sobre los consolidados mantiene absoluta coherencia entre lo planificado, lo auditado y lo dictaminado.
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl bg-indigo-900/50 border border-indigo-700/80">
+                  <strong className="text-amber-300 block mb-1">
+                    4. ¿Qué significan «Otra Información» (NIA 720), «Empresa en Marcha» (NIA 570) y «Auditoría de Grupo» (NIA 600)?
+                  </strong>
+                  <p>
+                    <strong>Otra Información (<NormaTooltip code="NIA 720" />):</strong> la Memoria Anual Integrada y Reseña Informativa; no se auditan, pero se leen para verificar que no contradigan los EECC. <strong>Empresa en Marcha (<NormaTooltip code="NIA 570" />):</strong> validada con EBITDA $2.525.535M y cumplimiento de covenants sin dudas significativas. <strong>Grupo (<NormaTooltip code="NIA 600" />):</strong> asumimos responsabilidad única por Telecom y sus subsidiarias (incluyendo TMA adquirida el 24/02/2025).
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl bg-indigo-900/50 border border-indigo-700/80">
+                  <strong className="text-amber-300 block mb-1">
+                    5. ¿De dónde sale la cifra de deuda SIPA ($33.699.737.311) y por qué aclara «no exigible al cierre»?
+                  </strong>
+                  <p>
+                    Es la cifra literal del cierre real de Telecom al 31/12/2025 (Sección II inc. c). Corresponde a aportes y contribuciones previsionales devengados sobre los sueldos de diciembre 2025 cuyo vencimiento legal de pago ante ARCA opera recién en enero de 2026: por Ley N° 17.250 (art. 10) debe discriminarse el monto devengado y aclararse que aún no había vencido (no era exigible).
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl bg-indigo-900/50 border border-indigo-700/80">
+                  <strong className="text-amber-300 block mb-1">
+                    6. ¿Por qué informaron 100% en Art. 21 CNV y agregaron la cláusula UIF (Res. FACPCE 420/11)?
+                  </strong>
+                  <p>
+                    El Art. 21° inc. b) CNV exige revelar qué porcentaje representan los honorarios de auditoría respecto del total facturado al ente y grupo: nuestro equipo únicamente prestó auditoría externa (100%), mientras que en el real fue 91%/71%/64% por otros servicios impositivos/consultoría. Además, mantenemos el inciso de Res. 420/11 FACPCE (PLA/FT) exigido habitualmente por la cátedra en la Sección II.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

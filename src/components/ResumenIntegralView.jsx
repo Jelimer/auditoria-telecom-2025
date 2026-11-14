@@ -627,10 +627,10 @@ export default function ResumenIntegralView({
             </div>
           </div>
 
-          {/* 5 Preguntas Frecuentes del Tribunal */}
+          {/* 6 Preguntas Frecuentes del Tribunal */}
           <div className="bg-slate-900 text-white rounded-2xl border border-slate-800 p-5 space-y-3">
             <h4 className="text-sm font-extrabold text-lime-300 uppercase tracking-wider">
-              5 Preguntas Clave de Cátedra — Cómo defender cada decisión técnica
+              6 Preguntas Clave de Cátedra — Cómo defender cada decisión técnica
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs leading-relaxed">
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
@@ -663,6 +663,22 @@ export default function ResumenIntegralView({
                 </strong>
                 <p className="text-slate-200">
                   Son dos cartas distintas dirigidas a la Dirección/Comité: (a) la <strong>Carta de Recomendaciones de Control Interno (NIA 265)</strong>, emitida por el auditor para señalar debilidades CCI; y (b) la <strong>Carta de Representación (NIA 580)</strong>, firmada por el cliente confirmando sus EECC. Además, por cotizar en CNV (régimen NIIF obligatorio), Telecom se audita bajo <strong>NIAs (RT N° 32 FACPCE)</strong>, no solo RT N° 37 local.
+                </p>
+              </div>
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                <strong className="text-amber-300 block mb-1">
+                  5. ¿Qué diferencias hay entre el Informe del Word (AE 4), la Web y el Dictamen Real de Telecom?
+                </strong>
+                <p className="text-slate-200">
+                  El Informe del Word enfoca sus 3 Cuestiones Clave (KAM) estrictamente en los <strong>3 rubros auditados (PT-A, PT-E y PT-B)</strong> y omite ajustes menores (AJ-01) o códigos internos; la Web agrega trazabilidad hacia el alcance ampliado (Llave <code>PT-F1</code> e Ingresos <code>PT-D3</code>); y en el Dictamen real de Telecom las KAM tratan Llave + TMA y los honorarios Art. 21 CNV figuran 91%/71%/64% (vs. 100% auditoría exclusiva en nuestro TP).
+                </p>
+              </div>
+              <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
+                <strong className="text-amber-300 block mb-1">
+                  6. ¿Por qué SIPA ($33.699.737.311) dice «no exigible» y qué rol tienen NIA 720 y NIA 600?
+                </strong>
+                <p className="text-slate-200">
+                  La deuda SIPA corresponde a aportes/contribuciones de diciembre 2025 devengados al cierre pero con vencimiento en enero 2026 (Ley 17.250). En el Dictamen real/académico también incluimos <strong>Otra Información (NIA 720)</strong> por la lectura de consistencia de la Memoria Anual y Reseña Informativa, y <strong>Auditoría de Grupo (NIA 600)</strong> por asumir responsabilidad única sobre las subsidiarias consolidadas incluida TMA.
                 </p>
               </div>
             </div>
