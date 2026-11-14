@@ -209,6 +209,15 @@ export const NORMAS_DICCIONARIO = {
     aplicacion:
       'En el simulador de cierre de la Etapa 3 ilustra el umbral crítico: solo correspondería pasar a Opinión con Salvedades si los desvíos sin registrar superaran la Materialidad Global ($166.225M).'
   },
+  'NIA 706': {
+    codigo: 'NIA 706',
+    titulo: 'Párrafos de Énfasis y Párrafos sobre Otras Cuestiones en el Informe de Auditoría',
+    emisor: 'IAASB / FACPCE',
+    queTrata:
+      'Permite destacar mediante un Párrafo de Énfasis un asunto ya adecuadamente presentado o revelado en los EECC (Notas) que resulte fundamental para comprenderlos. Prohíbe usarlo en reemplazo de una salvedad o para errores menores.',
+    aplicacion:
+      'Explica por qué si Telecom no contabiliza AJ-01 ($28.340M < PM $166.225M) NO se agrega Párrafo de Énfasis ni se modifica la opinión: no es un hecho adecuadamente revelado que deba enfatizarse sino un desvío inmaterial manejado en Carta de Representación (NIA 450.14) y Comité (NIA 260).'
+  },
   'NIA 720': {
     codigo: 'NIA 720',
     titulo: 'Responsabilidades del Auditor con Respecto a Otra Información',
@@ -780,7 +789,7 @@ export function renderTextWithNormas(text) {
 
   const decoded = decodeBasicEntities(text);
   const regex =
-    /\b(NIA\s*(?:220|240|250|260|265|300|315|320|330|450|500|501|505|520|540|560|570|580|600|620|700|701|705|720)|NIC\s*(?:16|29|36|38)|NIIF\s*(?:3|9|15|16)|RT\s*(?:32|37|53)|Circularización|cartas?\s+de\s+confirmación|procedimientos?\s+alternativos?|Prueba\s+de\s+Corte|corte\s+de\s+facturación|corte\s+de\s+operaciones|Matriz\s+de\s+Antigüedad(?:\s+de\s+Deuda)?|Aging|Previsión\s+NIIF\s*9|TAACs?|Personal\s+Tech)\b/gi;
+    /\b(NIA\s*(?:220|240|250|260|265|300|315|320|330|450|500|501|505|520|540|560|570|580|600|620|700|701|705|706|720)|NIC\s*(?:16|29|36|38)|NIIF\s*(?:3|9|15|16)|RT\s*(?:32|37|53)|Circularización|cartas?\s+de\s+confirmación|procedimientos?\s+alternativos?|Prueba\s+de\s+Corte|corte\s+de\s+facturación|corte\s+de\s+operaciones|Matriz\s+de\s+Antigüedad(?:\s+de\s+Deuda)?|Aging|Previsión\s+NIIF\s*9|TAACs?|Personal\s+Tech)\b/gi;
   const parts = decoded.split(regex);
   if (parts.length <= 1) return decoded;
 

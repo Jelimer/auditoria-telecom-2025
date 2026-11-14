@@ -16,7 +16,8 @@ import {
   Sparkles,
   TrendingUp,
   Download,
-  Upload
+  Upload,
+  Scale
 } from 'lucide-react';
 
 import {
@@ -37,6 +38,7 @@ import Etapa2EjecucionView from './components/Etapa2EjecucionView';
 import Etapa3InformeView from './components/Etapa3InformeView';
 import EquipoTrabajoView from './components/EquipoTrabajoView';
 import ResumenIntegralView from './components/ResumenIntegralView';
+import SimuladorOpinionView from './components/SimuladorOpinionView';
 
 const BRAND_OPTIONS = [
   { id: 'SendaAudita', prefix: 'Senda', suffix: 'Audita', initials: 'SA' },
@@ -158,14 +160,6 @@ const NAV_ITEMS = [
     ]
   },
   {
-    id: 'equipo',
-    shortLabel: 'Equipo de Trabajo',
-    label: 'Equipo de Trabajo y Seguimiento de Solicitudes',
-    etapaTag: 'Gestión Colaborativa',
-    icon: Users,
-    subItems: []
-  },
-  {
     id: 'resumen-integral',
     shortLabel: 'Hoja Resumen (3 Etapas)',
     label: 'Hoja Final: Resumen Integral Dinámico de las 3 Etapas',
@@ -178,6 +172,22 @@ const NAV_ITEMS = [
       { id: 'etapa2', label: '4.3. Síntesis Etapa 2 (Ejecución)', type: 'tab' },
       { id: 'etapa3', label: '4.4. Síntesis Etapa 3 (Conclusión)', type: 'tab' }
     ]
+  },
+  {
+    id: 'simulador-opinion',
+    shortLabel: 'Simulador Opinión (2.1)',
+    label: 'Simulador Interactivo de Materialidad, Ajustes y Cambio de Opinión (NIA 320 / 450 / 705 / 706)',
+    etapaTag: 'Defensa Oral (2.1)',
+    icon: Scale,
+    subItems: []
+  },
+  {
+    id: 'equipo',
+    shortLabel: 'Equipo de Trabajo',
+    label: 'Equipo de Trabajo y Seguimiento de Solicitudes',
+    etapaTag: 'Gestión Colaborativa',
+    icon: Users,
+    subItems: []
   }
 ];
 
@@ -1029,15 +1039,6 @@ export default function App() {
             />
           )}
 
-          {activeView === 'equipo' && (
-            <EquipoTrabajoView
-              equipoTasks={equipoTasks}
-              onCycleTaskStatus={handleCycleTaskStatus}
-              onAddTask={handleAddTask}
-              onResetTasks={handleResetTasks}
-            />
-          )}
-
           {activeView === 'resumen-integral' && (
             <ResumenIntegralView
               cciCalculados={cciCalculados}
@@ -1047,6 +1048,22 @@ export default function App() {
               onNavigate={handleNavigate}
               subTarget={subTarget}
               subTargetTick={subTargetTick}
+            />
+          )}
+
+          {activeView === 'simulador-opinion' && (
+            <SimuladorOpinionView
+              ajustesState={ajustesState}
+              onNavigate={handleNavigate}
+            />
+          )}
+
+          {activeView === 'equipo' && (
+            <EquipoTrabajoView
+              equipoTasks={equipoTasks}
+              onCycleTaskStatus={handleCycleTaskStatus}
+              onAddTask={handleAddTask}
+              onResetTasks={handleResetTasks}
             />
           )}
         </main>
