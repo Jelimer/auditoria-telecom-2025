@@ -667,10 +667,10 @@ export default function ResumenIntegralView({
               </div>
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
                 <strong className="text-amber-300 block mb-1">
-                  5. ¿Qué diferencias hay entre el Informe del Word (AE 4), la Web y el Dictamen Real de Telecom?
+                  5. ¿Qué diferencias hay entre el Informe del TP (Word y Web) y el Dictamen Real de Telecom (CNV)?
                 </strong>
                 <p className="text-slate-200">
-                  El Informe del Word enfoca sus 3 Cuestiones Clave (KAM) estrictamente en los <strong>3 rubros auditados (PT-A, PT-E y PT-B)</strong> y omite ajustes menores (AJ-01) o códigos internos; la Web agrega trazabilidad hacia el alcance ampliado (Llave <code>PT-F1</code> e Ingresos <code>PT-D3</code>); y en el Dictamen real de Telecom las KAM tratan Llave + TMA y los honorarios Art. 21 CNV figuran 91%/71%/64% (vs. 100% auditoría exclusiva en nuestro TP).
+                  Nuestro Informe (idéntico criterio en Word y Web) enfoca sus 3 Cuestiones Clave (KAM) exclusivamente en los <strong>3 rubros auditados (Bienes de Uso, Intangibles y Créditos + TMA)</strong> y omite menciones internas (AJ-01, códigos PT o presupuesto), tal como exige la técnica formal; en tanto el Dictamen real de Telecom trata Llave + TMA y expone honorarios Art. 21 CNV del 91%/71%/64% (vs. 100% auditoría exclusiva en nuestro TP).
                 </p>
               </div>
               <div className="p-3.5 rounded-xl bg-white/5 border border-white/10">
@@ -1199,7 +1199,7 @@ export default function ResumenIntegralView({
                   Informe de Auditoría Independiente
                 </h4>
                 <p className="text-slate-700 mt-1.5 leading-relaxed">
-                  Emitido bajo NIAs (RT N° 32 FACPCE): Opinión NIIF, Fundamento IAASB, Independencia IESBA, 3 Cuestiones Clave (KAM NIA 701: UGE $12.774.695M, PPA TMA/PP&E e Ingresos/NIIF 9), Otra Información (NIA 720), Comité de Auditoría, SIPA ($33.699.737.311) y Art. 21 CNV.
+                  Emitido bajo NIAs (RT N° 32 FACPCE): Opinión NIIF, Fundamento IAASB, Independencia IESBA, 3 Cuestiones Clave (KAM NIA 701: Bienes de Uso/TMA, Intangibles/TMA y Créditos/NIIF 9), Otra Información (NIA 720), Comité de Auditoría, SIPA ($33.699.737.311) y Art. 21 CNV.
                 </p>
               </div>
               <div className="mt-3 pt-2 border-t border-slate-300 flex items-center justify-between gap-2 font-extrabold text-xs">

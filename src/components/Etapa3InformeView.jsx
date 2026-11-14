@@ -773,68 +773,81 @@ export default function Etapa3InformeView({
                 <h5 className="font-extrabold text-slate-950 uppercase text-xs mb-1.5">
                   4. Cuestiones clave de la auditoría (Key Audit Matters — NIA 701)
                 </h5>
-                <p className="text-xs mb-2.5 text-slate-700">
-                  Las cuestiones clave de la auditoría son aquellas cuestiones que, según nuestro juicio profesional, han sido de la mayor significatividad en nuestra auditoría de los estados financieros consolidados del período actual. Estas cuestiones han sido tratadas en el contexto de nuestra auditoría en su conjunto y en la formación de nuestra opinión, sin expresar una opinión por separado sobre ellas:
+                <p className="text-xs mb-3 text-slate-700 leading-relaxed">
+                  Las cuestiones clave de la auditoría representan aquellos asuntos que, conforme a nuestro criterio profesional, revistieron la mayor significatividad dentro del examen de los estados financieros consolidados del ejercicio 2025. Estas áreas fueron abordadas en el marco global de la auditoría y sirvieron de base para formar nuestra opinión sobre el conjunto de los estados financieros, sin que emitamos un pronunciamiento independiente sobre cada partida en particular.
                 </p>
-                <div className="space-y-3 text-xs">
-                  {/* KAM A */}
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <p className="font-extrabold text-teal-900">
-                        a) Recuperabilidad del valor llave de negocios — UGE Redes Personal ($4.443.998M s/ Nota 8; Valor Recuperable DCF $12.774.695M)
-                      </p>
-                      <div className="flex flex-wrap gap-1.5 no-print">
-                        <RefPill label="PT-F1 (DCF UGE)" view="etapa2-ejecucion" sub="pt-f1" tone="teal" />
-                      </div>
-                    </div>
-                    <p className="text-slate-700">
-                      <strong>Descripción del riesgo:</strong> Al 31/12/2025 el valor llave de negocios consolidado asciende a $4.443.998M (26,73% del Activo Total), exigiendo prueba anual de deterioro por NIC 36 mediante flujos de fondos descontados (valor en uso) altamente sensibles a tasas de descuento (WACC), crecimiento a perpetuidad e inflación/tipo de cambio.
-                    </p>
-                    <p className="text-slate-700">
-                      <strong>Cómo se trató en la auditoría:</strong> Con la participación de nuestros especialistas en valuación (NIA 620), evaluamos la integridad matemática del modelo DCF de la UGE Redes Personal ($12.774.695M frente a valor en libros asignado de $12.439.729M; cobertura positiva o <em>headroom</em> de $334.966M), desafiamos la tasa WACC real post-impuestos (11,85%), la perpetuidad (1,5%) y los supuestos de CAPEX 5G, verificando además la revelación de sensibilidad (+100 bps WACC) en Nota 8 y Nota 3.u.1.
-                    </p>
-                  </div>
-
-                  {/* KAM B */}
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <p className="font-extrabold text-teal-900">
-                        b) Combinación de Negocios TMA (NIIF 3 Nota 29), Bienes de Uso ($6.789.118M Nota 9) y Activos Intangibles ($2.671.525M Nota 10)
-                      </p>
-                      <div className="flex flex-wrap gap-1.5 no-print">
-                        <RefPill label="PT-A1 (Obras)" view="etapa2-ejecucion" sub="pt-a1" tone="teal" />
-                        <RefPill label="PT-A4 (Globales)" view="etapa2-ejecucion" sub="pt-a4" tone="teal" />
-                        <RefPill label="PT-E1 (ENACOM)" view="etapa2-ejecucion" sub="pt-e1" tone="teal" />
-                        <RefPill label="PT-E2 (Globales)" view="etapa2-ejecucion" sub="pt-e2" tone="teal" />
-                        <RefPill label="AJ-01 (#sec-pae)" view="etapa2-ejecucion" sub="sec-pae" tone="amber" />
-                      </div>
-                    </div>
-                    <p className="text-slate-700">
-                      <strong>Descripción del riesgo:</strong> El Grupo incorporó al 24/02/2025 activos netos de Telefónica Móviles Argentina S.A. (TMA) bajo NIIF 3 ($1.332.961M en PP&E y $274.183M en Intangibles — Nota 29) y gestiona una infraestructura de capital intensivo ($9.460.643M entre PP&E e Intangibles) con Riesgo de Control Alto en archivo de obras y tecnología (CCI-01 38,46% / CCI-05 47,62%).
-                    </p>
-                    <p className="text-slate-700">
-                      <strong>Cómo se trató en la auditoría:</strong> Auditamos el <em>Purchase Price Allocation</em> (PPA) de TMA, inspeccionamos físicamente 16 Data Centers y 85 radiobases 5G (PT-A1), verificamos titularidad dominial en RPI/RNPA (PT-A3) y licencias ENACOM/INPI (PT-E1), y ejecutamos Pruebas Globales de Amortización (PP&E $1.533.091M; Intangibles $234.722M) y Valor Residual con desvío aritmético $0. Complementariamente, pruebas de detalle técnicas detectaron bajas omitidas en SAP FI-AA consolidadas en <strong>AJ-01 por $28.340M</strong> ($21.450M centrales analógicas obsoletas en PT-A4 + $6.890M fibra vandalizada en PT-A1).
-                    </p>
-                  </div>
-
-                  {/* KAM C */}
-                  <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-                    <div className="flex flex-wrap items-center justify-between gap-2">
-                      <p className="font-extrabold text-teal-900">
-                        c) Ingresos Convergentes NIIF 15 ($8.328.814M Nota 24) y Recuperabilidad de Créditos por Ventas / Previsión NIIF 9 ($800.128M netos Nota 5)
-                      </p>
-                      <div className="flex flex-wrap gap-1.5 no-print">
-                        <RefPill label="PT-B1/B3 (Créditos)" view="etapa2-ejecucion" sub="pt-b3" tone="teal" />
-                        <RefPill label="PT-D3 (Flow AJ-04)" view="etapa2-ejecucion" sub="pt-d3" tone="amber" />
-                      </div>
-                    </div>
-                    <p className="text-slate-700">
-                      <strong>Descripción del riesgo:</strong> Alto volumen de facturación convergente con interfaces heredadas post-fusión, juicios de Agente vs. Principal en contenidos Flow (NIIF 15) y crecimiento interanual de créditos (+105,25%, DSO 35,02 días) sujeto al modelo de pérdida crediticia esperada (NIIF 9).
-                    </p>
-                    <p className="text-slate-700">
-                      <strong>Cómo se trató en la auditoría:</strong> Evaluamos CGTI en SAP BRIM/ECC, ejecutamos prueba analítica Parque × ARPU y corte B2B Personal Tech, circularizamos 65 clientes corporativos (PT-B1) y reprocesamos el 100% del padrón de antigüedad via TAACs ($1.071.047M brutos) verificando que la Previsión $(270.919)M cubre íntegramente la mora &gt; 180 días (PT-B3 conforme $0). Se propuso la reclasificación neutra <strong>AJ-04 por $11.240M</strong> en acuerdos de terceros Flow (PT-D3).
-                    </p>
-                  </div>
+                <div className="overflow-x-auto rounded-xl border border-slate-300">
+                  <table className="w-full text-xs text-left border-collapse">
+                    <thead>
+                      <tr className="bg-teal-900 text-white">
+                        <th className="py-2.5 px-3.5 font-extrabold w-1/2 border-r border-teal-800">
+                          Cuestiones clave de la auditoría
+                        </th>
+                        <th className="py-2.5 px-3.5 font-extrabold w-1/2">
+                          Respuesta de auditoría
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-200 bg-white text-slate-700 align-top">
+                      <tr>
+                        <td className="p-3.5 border-r border-slate-200 space-y-2 leading-relaxed">
+                          <p className="font-extrabold text-slate-950">
+                            1. Medición, existencia física y bajas por obsolescencia de Bienes de Uso — Incorporación de TMA (Notas 9 y 29)
+                          </p>
+                          <p>
+                            Al cierre del ejercicio 2025, Propiedad, Planta y Equipo totaliza $6.789.118 millones contables (40,84% del Activo Consolidado), comprendiendo $1.332.961 millones incorporados a su valor razonable bajo NIIF 3 tras la adquisición de Telefónica Móviles Argentina S.A. (TMA) concretada el 24 de febrero de 2025, además de inversiones en red de fibra óptica (FTTH) y despliegue 5G por $1.351.105 millones. La relevancia del área obedece al peso patrimonial del rubro, la extensión geográfica de la infraestructura técnica, los criterios de asignación del precio de compra (PPA) y las estimaciones sobre bajas por siniestros y obsolescencia de antiguas centrales de cobre en proceso de apagado.
+                          </p>
+                        </td>
+                        <td className="p-3.5 space-y-1.5 leading-relaxed">
+                          <p className="font-semibold text-slate-900">Aplicamos, entre otros procedimientos sustantivos y de control:</p>
+                          <ul className="list-disc pl-4 space-y-1">
+                            <li>relevamiento y evaluación de los circuitos de activación de obras en curso, baja de activos y conciliación dentro del módulo de activo fijo del ERP SAP;</li>
+                            <li>verificación física presencial sobre Data Centers, radiobases y nodos estratégicos, cruzando los registros contables contra reportes operativos de siniestros y vandalismo;</li>
+                            <li>inspección documental de obras en curso activadas y solicitud de informes oficiales de dominio ante registros inmobiliarios y automotores;</li>
+                            <li>revisión del criterio técnico aplicado en la valuación a valor razonable de la combinación de negocios de TMA bajo NIIF 3; y</li>
+                            <li>recálculo global independiente de la depreciación anual ($1.533.091 millones) y del valor residual reexpresado (NIC 29), junto al análisis de informes técnicos de desuso y deterioro bajo NIC 16 y NIC 36.</li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="p-3.5 border-r border-slate-200 space-y-2 leading-relaxed">
+                          <p className="font-extrabold text-slate-950">
+                            2. Titularidad legal, capitalización de software y amortización de Activos Intangibles — Incorporación de TMA (Notas 10, 25 y 29)
+                          </p>
+                          <p>
+                            Los Activos Intangibles alcanzan $2.671.525 millones al 31 de diciembre de 2025 (16,07% del Activo Consolidado), integrados por licencias de espectro radioeléctrico 4G/5G adjudicadas por ENACOM ($1.985.420 millones), marcas comerciales ($400.750 millones), activos incorporados por la adquisición de TMA ($274.183 millones bajo NIIF 3) y desarrollos internos de software activados según NIC 38. El asunto resultó prioritario por su magnitud financiera, la verificación jurídica de las concesiones habilitantes y el juicio exigido para separar gastos corrientes de TI respecto de desarrollos capitalizables.
+                          </p>
+                        </td>
+                        <td className="p-3.5 space-y-1.5 leading-relaxed">
+                          <p className="font-semibold text-slate-900">Ejecutamos, entre otras tareas:</p>
+                          <ul className="list-disc pl-4 space-y-1">
+                            <li>cotejo de resoluciones vigentes emitidas por ENACOM (incluido el lote 5G en banda 3.400–3.500 MHz) y compulsa pública de títulos marcarios en el INPI complementada con confirmaciones de asesores legales;</li>
+                            <li>examen de los seis requisitos acumulativos del párrafo 57 de la NIC 38 sobre una muestra de proyectos internos de software en SAP PS y Jira ($285.355 millones y 158.800 horas);</li>
+                            <li>pruebas de corte e integridad sobre gastos de mantenimiento y soporte informático ($42.500 millones) para corroborar su correcta imputación a resultados; y</li>
+                            <li>recálculo global del cargo anual por amortizaciones ($234.722 millones) y conciliación de la evolución del valor residual al cierre.</li>
+                          </ul>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="p-3.5 border-r border-slate-200 space-y-2 leading-relaxed">
+                          <p className="font-extrabold text-slate-950">
+                            3. Integridad de Créditos por Ventas y estimación de la Previsión para incobrables bajo NIIF 9 (Notas 5 y 29)
+                          </p>
+                          <p>
+                            Al 31 de diciembre de 2025, el rubro Créditos por Ventas se expone en $800.128 millones netos ($1.071.047 millones de cartera bruta deducidos por una previsión por deterioro de $(270.919) millones), exhibiendo una suba interanual del 105,25% originada principalmente por la consolidación de la cartera de TMA ($421.919 millones valuados según NIIF 3). La determinación de pérdidas crediticias esperadas conforme a la NIIF 9 exige juzgar parámetros de morosidad histórica y supuestos macroeconómicos prospectivos sobre millones de cuentas de clientes.
+                          </p>
+                        </td>
+                        <td className="p-3.5 space-y-1.5 leading-relaxed">
+                          <p className="font-semibold text-slate-900">Nuestras pruebas abarcaron, entre otros procedimientos:</p>
+                          <ul className="list-disc pl-4 space-y-1">
+                            <li>circularización externa bajo modalidad positiva directa a 65 clientes corporativos B2B relevantes y verificación alternativa mediante cobranzas posteriores de enero de 2026;</li>
+                            <li>prueba de corte de facturación B2B al cierre de ejercicio y conciliación de recaudadores externos y billeteras virtuales al 31 de diciembre de 2025 ($36.890 millones) contra acreditaciones bancarias del primer día hábil posterior; y</li>
+                            <li>reproceso integral del 100% de la matriz de antigüedad de saldos mediante técnicas de auditoría asistidas por computadora (TAACs), validando la razonabilidad del modelo NIIF 9 y la cobertura íntegra de créditos con mora superior a 180 días.</li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
 
@@ -906,38 +919,40 @@ export default function Etapa3InformeView({
                   Según surge de los registros contables de la Sociedad al <strong>31 de diciembre de 2025</strong>, la deuda devengada a favor del <strong>Sistema Integrado Previsional Argentino (SIPA)</strong> en concepto de aportes y contribuciones previsionales ascendía a <strong>$33.699.737.311</strong>, no siendo exigible a esa fecha.
                 </li>
                 <li>
-                  En cumplimiento del <strong>art. 21°, inc. b), Capítulo III, Sección VI, Título II de las Normas de la CNV (T.O. 2013 y modif.)</strong>, informamos que el total de honorarios facturados en concepto de servicios de auditoría externa correspondientes al ejercicio finalizado el 31 de diciembre de 2025 ($80.683.020 s/ presupuesto CPCECABA) representa: <strong>d.1) el 100%</strong> sobre el total de honorarios facturados a Telecom Argentina S.A. por todo concepto; <strong>d.2) el 100%</strong> sobre los honorarios por servicios de auditoría y relacionados facturados al grupo económico; y <strong>d.3) el 100%</strong> sobre el total de honorarios facturados por todo concepto a Telecom Argentina S.A., su sociedad controlante, controladas y vinculadas, sin prestación de servicios distintos que comprometan la independencia bajo el Código del IESBA.
+                  En cumplimiento del <strong>art. 21°, inc. b), Capítulo III, Sección VI, Título II de las Normas de la CNV (T.O. 2013 y modif.)</strong>, informamos que el total de honorarios facturados en concepto de servicios de auditoría externa correspondientes al ejercicio finalizado el 31 de diciembre de 2025 representa: <strong>d.1) el 100%</strong> sobre el total de honorarios facturados a Telecom Argentina S.A. por todo concepto en dicho ejercicio; <strong>d.2) el 100%</strong> sobre el total de honorarios por servicios de auditoría y relacionados facturados a Telecom Argentina S.A., su sociedad controlante, controladas y vinculadas; y <strong>d.3) el 100%</strong> sobre el total de honorarios facturados por todo concepto al referido grupo económico en dicho ejercicio.
                 </li>
                 <li>
-                  Hemos aplicado los procedimientos sobre prevención de lavado de activos y financiación del terrorismo previstos en las normas profesionales correspondientes emitidas por la FACPCE y resoluciones vigentes de la Unidad de Información Financiera (UIF / Res. 420/11), sin observaciones significativas que informar al cierre.
+                  Hemos aplicado los procedimientos sobre prevención de lavado de activos y financiación del terrorismo previstos en las normas profesionales vigentes emitidas por la FACPCE (Resolución N° 420/11 y normativa UIF concordante), sin observaciones significativas que informar al cierre.
                 </li>
               </ol>
 
-              {/* Pie de Firma + Trazabilidad */}
+              {/* Pie de Firma Limpio (sin códigos internos dentro del dictamen formal) */}
               <div className="pt-6 border-t border-slate-300 flex flex-col sm:flex-row sm:items-end justify-between gap-4 text-xs">
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   <p className="font-bold text-slate-900">
-                    Ciudad Autónoma de Buenos Aires, 20 de febrero de 2026
+                    Ciudad Autónoma de Buenos Aires, 20 de febrero de 2026.
                   </p>
-                  <p className="text-slate-500">
-                    Papeles de Trabajo respaldatorios: PT-A, PT-E, PT-B, PT-C, PT-D, PT-F y Legajo Conclusión LC-01 a LC-03
-                  </p>
-                  <div className="flex flex-wrap gap-1.5 no-print pt-1">
-                    <RefPill label="PT-A (PP&E)" view="etapa2-ejecucion" sub="pt-a" tone="teal" />
-                    <RefPill label="PT-E (Intang.)" view="etapa2-ejecucion" sub="pt-e" tone="teal" />
-                    <RefPill label="PT-B (Créditos)" view="etapa2-ejecucion" sub="pt-b" tone="teal" />
-                    <RefPill label="PT-C (Deuda)" view="etapa2-ejecucion" sub="pt-c" tone="slate" />
-                    <RefPill label="PT-D (Ventas)" view="etapa2-ejecucion" sub="pt-d" tone="slate" />
-                    <RefPill label="PT-F (Llave)" view="etapa2-ejecucion" sub="pt-f" tone="slate" />
-                    <RefPill label="Planilla PAE" view="etapa2-ejecucion" sub="sec-pae" tone="amber" />
-                  </div>
                 </div>
                 <div className="text-right border-t-2 border-slate-800 pt-2 px-4 shrink-0">
                   <p className="font-extrabold text-slate-950 uppercase">GREBE — PISONERO DE BIASE</p>
-                  <p className="text-slate-600 font-semibold">Contadores Públicos (U.C.P. / Cátedra de Auditoría)</p>
+                  <p className="text-slate-600 font-semibold">Contadores Públicos (U.C.P.)</p>
                   <p className="text-[11px] text-teal-700 font-bold">Auditores Externos Independientes</p>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Barra No-Imprimible de Navegación Rápida a Papeles de Trabajo (fuera del dictamen formal) */}
+          <div className="no-print bg-slate-100 rounded-xl border border-slate-200 px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+            <span className="font-bold text-slate-700">
+              Trazabilidad rápida en el tablero (no integra el texto formal del dictamen):
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              <RefPill label="PT-A (Bienes de Uso)" view="etapa2-ejecucion" sub="pt-a" tone="teal" />
+              <RefPill label="PT-E (Intangibles)" view="etapa2-ejecucion" sub="pt-e" tone="teal" />
+              <RefPill label="PT-B (Créditos)" view="etapa2-ejecucion" sub="pt-b" tone="teal" />
+              <RefPill label="Planilla PAE" view="etapa2-ejecucion" sub="sec-pae" tone="amber" />
+              <RefPill label="Carta CI (LC-01)" view="etapa3-informe" sub="carta-ci" tone="slate" />
             </div>
           </div>
 
@@ -947,11 +962,11 @@ export default function Etapa3InformeView({
               <div className="flex items-center gap-2">
                 <Award className="w-5 h-5 text-lime-400 shrink-0" />
                 <h4 className="text-sm sm:text-base font-extrabold text-lime-300">
-                  Guía de Defensa Oral del Informe Final: Qué saber y el porqué de cada diferencia (Word AE 4 vs. Plataforma Web vs. EECC Real CNV)
+                  Guía de Defensa Oral del Informe Final: Alineación Word/Web vs. Dictamen Real de Telecom (CNV)
                 </h4>
               </div>
               <p className="text-xs text-indigo-100 leading-relaxed">
-                Aunque en la cursada se estudia el proceso general de Slosse y la <strong>RT N° 37 (modif. RT N° 53)</strong> para entes locales, <strong>Telecom Argentina S.A.</strong> es una emisora bajo oferta pública de la <strong>CNV</strong> que aplica <strong>NIIF completas (RT N° 26)</strong>. Por ello, su dictamen se rige obligatoriamente por las <strong>Normas Internacionales de Auditoría (<NormaTooltip code="RT 32" />)</strong>, presentando 5 rasgos distintivos:
+                Aunque en la cursada se estudia el proceso general de Slosse y la <strong>RT N° 37 (modif. RT N° 53)</strong> para entes locales, <strong>Telecom Argentina S.A.</strong> es una emisora bajo oferta pública de la <strong>CNV</strong> que aplica <strong>NIIF completas (RT N° 26)</strong>. Por ello, tanto este Informe web como el de tu Word se rigen obligatoriamente por las <strong>Normas Internacionales de Auditoría (<NormaTooltip code="RT 32" />)</strong>, presentando 5 rasgos distintivos:
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-2.5 text-xs text-indigo-100">
                 <div className="p-2.5 rounded-lg bg-indigo-900/60 border border-indigo-700">
@@ -972,45 +987,45 @@ export default function Etapa3InformeView({
               </div>
             </div>
 
-            {/* Cuadro Comparativo: Informe del Word vs. Plataforma Web vs. EECC Real */}
+            {/* Cuadro Comparativo: Informe del TP (Word & Web Unificados) vs. Dictamen Real Telecom */}
             <div className="space-y-2 pt-2 border-t border-indigo-800/80">
               <h5 className="text-xs font-extrabold uppercase tracking-wider text-amber-300">
-                ¿En qué se diferencian el Informe redactado para tu Word, esta Plataforma Web y el PDF real de Telecom CNV?
+                ¿Por qué el Informe del Trabajo Práctico (Word y Web unificados) difiere en 4 puntos del PDF real de Telecom CNV?
               </h5>
               <div className="overflow-x-auto rounded-xl border border-indigo-800 bg-indigo-900/40">
                 <table className="w-full text-[11px] sm:text-xs text-left border-collapse">
                   <thead>
                     <tr className="bg-indigo-900 text-lime-300 border-b border-indigo-700">
                       <th className="py-2 px-3 font-extrabold">Aspecto</th>
-                      <th className="py-2 px-3 font-extrabold">Informe para Word (AE 4)</th>
-                      <th className="py-2 px-3 font-extrabold">Informe en la Web (Tablero)</th>
+                      <th className="py-2 px-3 font-extrabold">Informe del TP (Word AE 4 y Web)</th>
                       <th className="py-2 px-3 font-extrabold">Dictamen Real Telecom (PDF p. 174–179)</th>
+                      <th className="py-2 px-3 font-extrabold">Por qué la cátedra valida nuestro criterio</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-indigo-800/70 text-indigo-100">
                     <tr>
                       <td className="py-2 px-3 font-bold text-white">Cuestiones Clave (KAM — NIA 701)</td>
-                      <td className="py-2 px-3">3 KAM dedicadas 1-a-1 a tus <strong>3 rubros auditados del Word</strong> (PT-A Bienes de Uso + TMA, PT-E Intangibles + TMA, PT-B Créditos + TMA/NIIF 9), en tabla formal de 2 columnas.</td>
-                      <td className="py-2 px-3">Incluye el <strong>alcance ampliado</strong> (Llave de negocio <code>PT-F1</code> $4.443.998M e Ingresos Flow <code>PT-D3</code>) y agrupa PP&amp;E + Intangibles en una sola KAM.</td>
-                      <td className="py-2 px-3">2 KAM: 1) Recuperabilidad de Llave de negocio ($4.443.998M), y 2) Adquisición TMA: Red Fija y Transporte + Licencias y espectros.</td>
+                      <td className="py-2 px-3">3 KAM dedicadas a los <strong>3 rubros auditados (Bienes de Uso + TMA, Intangibles + TMA, Créditos + TMA/NIIF 9)</strong>, en tabla de 2 columnas.</td>
+                      <td className="py-2 px-3">2 KAM: 1) Recuperabilidad de Llave de negocio ($4.443.998M), y 2) Adquisición TMA (Red Fija y Transporte + Licencias y espectros).</td>
+                      <td className="py-2 px-3">Un auditor sólo informa como KAM lo que efectivamente auditó en profundidad dentro de sus programas prioritarios (el Word AE 4 y este dictamen enfocan los 3 rubros ejecutados, sin incluir Llave de negocio).</td>
                     </tr>
                     <tr>
-                      <td className="py-2 px-3 font-bold text-white">Mención a AJ-01 / AJ-04 y códigos PT</td>
-                      <td className="py-2 px-3"><strong>No se mencionan en el texto público</strong> porque AJ-01 ($28.340M) es inferior a ET/PM y un dictamen formal no expone códigos internos (<code>PT-A</code>, <code>LC-01</code>).</td>
-                      <td className="py-2 px-3">Se citan pedagógicamente con botones navegables (<code>RefPill</code>) y monto de presupuesto ($80.683.020) para trazabilidad oral en clase.</td>
-                      <td className="py-2 px-3">Tampoco expone umbrales internos ni papeles de trabajo ni cifras de presupuesto de auditoría.</td>
+                      <td className="py-2 px-3 font-bold text-white">Datos internos (AJ-01, PT, presupuesto)</td>
+                      <td className="py-2 px-3"><strong>Omitidos en el dictamen público</strong> tanto en Word como en Web (sin citar AJ-01, códigos PT/LC ni monto $80.683.020).</td>
+                      <td className="py-2 px-3">Tampoco menciona diferencias inmateriales ni papeles internos ni cifras de honorarios en pesos.</td>
+                      <td className="py-2 px-3">Los desvíos debajo de ET/PM y fallas de CCI van a la <em>Carta NIA 265</em> y <em>Carta NIA 580</em>, nunca al Informe al mercado.</td>
                     </tr>
                     <tr>
                       <td className="py-2 px-3 font-bold text-white">Honorarios CNV Art. 21° inc. b)</td>
-                      <td className="py-2 px-3">Informa <strong>100% en los 3 incisos (c.1, c.2, c.3)</strong>: encargo académico dedicado exclusivamente a auditoría externa.</td>
-                      <td className="py-2 px-3">Informa <strong>100% en d.1, d.2 y d.3</strong> (con referencia interna al presupuesto CPCECABA de $80.683.020).</td>
-                      <td className="py-2 px-3">Informa <strong>91% / 71% / 64%</strong> porque la firma real también facturó servicios fiscales y otros al Grupo.</td>
+                      <td className="py-2 px-3"><strong>100%</strong> en los tres incisos (exclusividad de auditoría externa).</td>
+                      <td className="py-2 px-3"><strong>91% / 71% / 64%</strong> porque la firma real también facturó servicios fiscales y asesoría al Grupo.</td>
+                      <td className="py-2 px-3">Nuestro estudio fue contratado exclusivamente para la auditoría contable del ejercicio 2025, sin otros servicios facturados.</td>
                     </tr>
                     <tr>
                       <td className="py-2 px-3 font-bold text-white">Estados, Fecha y Cláusula UIF</td>
-                      <td className="py-2 px-3">Estados <strong>consolidados</strong> al 31/12/2025; fecha <strong>20/02/2026</strong> (cierre de 12 semanas AE 4) + inciso FACPCE Res. 420/11 (UIF).</td>
-                      <td className="py-2 px-3">Estados <strong>consolidados</strong>; fecha <strong>20/02/2026</strong> (coherente con LC-01 a LC-03) + inciso FACPCE Res. 420/11 (UIF).</td>
-                      <td className="py-2 px-3">Estados <strong>consolidados e individuales</strong>; fecha <strong>10/03/2026</strong>; finaliza en Art. 21 CNV sin apartado UIF explícito.</td>
+                      <td className="py-2 px-3">Estados <strong>consolidados</strong> al 31/12/2025; fecha <strong>20/02/2026</strong> + inciso Res. FACPCE 420/11 (UIF).</td>
+                      <td className="py-2 px-3">Estados <strong>consolidados e individuales</strong>; fecha <strong>10/03/2026</strong>; finaliza en Art. 21 CNV sin inciso UIF expreso.</td>
+                      <td className="py-2 px-3">Mantiene coherencia exacta con todo el TP (trabajado s/ Balance Consolidado, cierre de 12 semanas y pauta académica UIF Res. 420/11).</td>
                     </tr>
                   </tbody>
                 </table>
@@ -1033,26 +1048,26 @@ export default function Etapa3InformeView({
                 </div>
                 <div className="p-3 rounded-xl bg-indigo-900/50 border border-indigo-700/80">
                   <strong className="text-amber-300 block mb-1">
-                    2. ¿Por qué el Informe formal del Word no nombra a AJ-01 ($28.340M) ni la Llave de Negocio, mientras la Web sí?
+                    2. ¿Por qué en el Informe del Auditor NO se mencionan el ajuste AJ-01 ($28.340M), los códigos PT ni el monto de honorarios?
                   </strong>
                   <p>
-                    Porque en el Dictamen formal destinado al mercado no se exponen ajustes inmateriales ni códigos internos de papeles de trabajo, y el Word enfocó únicamente los <strong>3 rubros auditados en AE 4 (PT-A, PT-E y PT-B)</strong>. La Web suma trazabilidad interactiva hacia todo el análisis completo (incluyendo <code>PT-F1</code> Llave de negocio y <code>PT-D3</code>) para defender la conexión integral en clase.
+                    Porque en un Informe de Auditoría público bajo <NormaTooltip code="NIA 700" /> jamás se revelan umbrales internos (PM/ET/PAE), nomenclatura interna de legajos ni ajustes no materiales debajo de ET. La constancia escrita de partidas no ajustadas corresponde a la <strong>Carta de Representación (<NormaTooltip code="NIA 580" /> / NIA 450.14)</strong> y las fallas de circuito (CCI-02) van a la <strong>Carta de Recomendaciones (<NormaTooltip code="NIA 265" />)</strong>.
                   </p>
                 </div>
                 <div className="p-3 rounded-xl bg-indigo-900/50 border border-indigo-700/80">
                   <strong className="text-amber-300 block mb-1">
-                    3. ¿Por qué el Dictamen dice sólo «estados financieros consolidados» y no incluye los individuales?
+                    3. ¿Por qué las Cuestiones Clave (KAM) cubren Bienes de Uso, Intangibles y Créditos (y no Llave de Negocio como el PDF real)?
                   </strong>
                   <p>
-                    En la realidad bursátil (CNV bajo <NormaTooltip code="RT 32" />) se auditan ambos juegos en conjunto, pero todo el trabajo práctico (Análisis Horizontal/Vertical 1C, Materialidad PM = 1% de $16.622.552M y los programas PT-A, PT-E y PT-B) se ejecutó sobre las cifras del <strong>Balance Consolidado</strong>. Opinar sobre los consolidados mantiene absoluta coherencia entre lo planificado, lo auditado y lo dictaminado.
+                    Según <NormaTooltip code="NIA 701" />, las KAM surgen exclusivamente de las áreas de mayor significatividad y juicio efectivamente auditadas durante el encargo. En nuestro trabajo práctico ejecutamos programas completos sobre <strong>Bienes de Uso, Activos Intangibles y Créditos por Ventas</strong> (integrando la compra de TMA bajo <NormaTooltip code="NIIF 3" /> en los tres), manteniendo coherencia total entre los papeles de trabajo y el dictamen.
                   </p>
                 </div>
                 <div className="p-3 rounded-xl bg-indigo-900/50 border border-indigo-700/80">
                   <strong className="text-amber-300 block mb-1">
-                    4. ¿Qué significan «Otra Información» (NIA 720), «Empresa en Marcha» (NIA 570) y «Auditoría de Grupo» (NIA 600)?
+                    4. ¿Por qué opinan sólo sobre «consolidados» y qué implican NIA 720, NIA 570 y NIA 600?
                   </strong>
                   <p>
-                    <strong>Otra Información (<NormaTooltip code="NIA 720" />):</strong> la Memoria Anual Integrada y Reseña Informativa; no se auditan, pero se leen para verificar que no contradigan los EECC. <strong>Empresa en Marcha (<NormaTooltip code="NIA 570" />):</strong> validada con EBITDA $2.525.535M y cumplimiento de covenants sin dudas significativas. <strong>Grupo (<NormaTooltip code="NIA 600" />):</strong> asumimos responsabilidad única por Telecom y sus subsidiarias (incluyendo TMA adquirida el 24/02/2025).
+                    Todo el análisis horizontal/vertical y la Materialidad (1% s/ $16.622.552M) se calcularon sobre el <strong>Balance Consolidado</strong>. Además: <strong>Otra Información (<NormaTooltip code="NIA 720" />)</strong> valida consistencia con la Memoria Anual Integrada; <strong>Empresa en Marcha (<NormaTooltip code="NIA 570" />)</strong> se respalda con EBITDA $2.525.535M; y <strong>Grupo (<NormaTooltip code="NIA 600" />)</strong> asume responsabilidad única sobre todas las subsidiarias incluida TMA.
                   </p>
                 </div>
                 <div className="p-3 rounded-xl bg-indigo-900/50 border border-indigo-700/80">
@@ -1060,7 +1075,7 @@ export default function Etapa3InformeView({
                     5. ¿De dónde sale la cifra de deuda SIPA ($33.699.737.311) y por qué aclara «no exigible al cierre»?
                   </strong>
                   <p>
-                    Es la cifra literal del cierre real de Telecom al 31/12/2025 (Sección II inc. c). Corresponde a aportes y contribuciones previsionales devengados sobre los sueldos de diciembre 2025 cuyo vencimiento legal de pago ante ARCA opera recién en enero de 2026: por Ley N° 17.250 (art. 10) debe discriminarse el monto devengado y aclararse que aún no había vencido (no era exigible).
+                    Es la cifra literal del cierre real de Telecom al 31/12/2025 (Sección II — apartado SIPA). Corresponde a aportes y contribuciones previsionales devengados sobre los sueldos de diciembre 2025 cuyo vencimiento legal de pago ante ARCA opera recién en enero de 2026: por Ley N° 17.250 (art. 10) debe discriminarse el monto devengado y aclararse que aún no había vencido (no era exigible).
                   </p>
                 </div>
                 <div className="p-3 rounded-xl bg-indigo-900/50 border border-indigo-700/80">
@@ -1068,7 +1083,7 @@ export default function Etapa3InformeView({
                     6. ¿Por qué informaron 100% en Art. 21 CNV y agregaron la cláusula UIF (Res. FACPCE 420/11)?
                   </strong>
                   <p>
-                    El Art. 21° inc. b) CNV exige revelar qué porcentaje representan los honorarios de auditoría respecto del total facturado al ente y grupo: nuestro equipo únicamente prestó auditoría externa (100%), mientras que en el real fue 91%/71%/64% por otros servicios impositivos/consultoría. Además, mantenemos el inciso de Res. 420/11 FACPCE (PLA/FT) exigido habitualmente por la cátedra en la Sección II.
+                    El Art. 21° inc. b) CNV exige revelar qué porcentaje representan los honorarios de auditoría respecto del total facturado al ente y grupo: nuestro equipo únicamente prestó auditoría externa (100% en los 3 incisos), mientras que en el real fue 91%/71%/64% por otros servicios impositivos/consultoría. Además, mantenemos el inciso de Res. 420/11 FACPCE (PLA/FT) exigido habitualmente por la cátedra en la Sección II.
                   </p>
                 </div>
               </div>
