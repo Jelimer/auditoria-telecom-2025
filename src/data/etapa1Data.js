@@ -819,14 +819,14 @@ export const materialidadData = {
   activoTotal: 16622552,
   criterioBase: "Se adopta el Activo Total Consolidado ($16.622.552M) como base de referencia (benchmark según Slosse / NIA 320) porque Telecom es una industria capital-intensiva (88,97% Activo No Corriente) y su resultado 2025 dio pérdida (-$191.736M antes de IG).",
   materialidadGlobal: {
-    sigla: "Significatividad Global (NIA 320 / RT 37)",
+    sigla: "Significatividad Global (NIA 320 / RT N° 32)",
     nombre: "Significatividad (Importancia Relativa) para los EECC en su Conjunto",
     importe: 166225,
     formula: "1,00% s/ Activo ($16.622.552M)",
-    explicacion: "Techo máximo de incorrecciones acumuladas para el Balance en su conjunto (Carlos Slosse / RT 37 / NIA 320). Superar este umbral sin ajuste modifica la opinión del auditor.",
+    explicacion: "Techo máximo de incorrecciones acumuladas para el Balance en su conjunto (Carlos Slosse / NIA 320 / RT N° 32). Superar este umbral sin ajuste por parte de la Gerencia modifica la opinión del auditor.",
     fundamentoTeorico: {
       titulo: "Significatividad Global de Planeación — ¿De dónde sale el 1% y cómo incide en el Informe?",
-      normativa: "Carlos A. Slosse (Cap. Planificación y Significatividad) • RT 37 (modif. RT 53) • NIA 320 (Párr. 10 y Guía A4-A8)",
+      normativa: "Carlos A. Slosse (Cap. Planificación y Significatividad) • NIAs (RT N° 32 FACPCE) • NIA 320 (Párr. 10) • NIA 450 & NIA 705",
       puntos: [
         {
           subtitulo: "1. ¿Por qué no usamos el Resultado del Ejercicio y sí el Activo Total?",
@@ -837,8 +837,8 @@ export const materialidadData = {
           texto: "En empresas capital-intensivas (donde el 88,97% del Activo son redes FTTH/5G, Data Centers, Espectro y Llaves de Negocio), las tablas bibliográficas de referencia fijan un rango de entre el 0,5% y el 2% del Activo Total. Adoptamos el punto medio técnico del 1,00% ($16.622.552M × 1% = $166.225M). Como validación cruzada, si tomáramos el tope del 2% sobre las Ventas ($8.328.814M), arrojaría $166.576M, confirmando la consistencia absoluta del umbral."
         },
         {
-          subtitulo: "3. ¿Cómo incide en el Tipo de Informe del Auditor (RT 37) si la Dirección NO corrige los errores?",
-          texto: "• Si los errores no corregidos son menores al umbral mínimo ($8.311M): Opinión Favorable SIN Salvedades (Limpia).\n• Si los errores no corregidos superan el umbral y son significativos (ej. nuestro ajuste patrimonial AJ-01 por $28.340M y la reclasificación AJ-04 por $11.240M, que suman $39.580M) pero quedan acotados por debajo de la Materialidad Global ($166.225M): no distorsionan los EECC en su conjunto; en cambio, si desvíos materiales no ajustados superaran dicho umbral de forma acotada a rubros puntuales: Opinión Favorable CON Salvedades («Excepto por...»).\n• Si la suma de errores no corregidos supera ampliamente la Significatividad Global ($166.225M) y su efecto es GENERALIZADO en todo el balance: Opinión Adversa (Desfavorable)."
+          subtitulo: "3. ¿Cómo incide en la Opinión del Auditor (NIA 705 / NIA 450) si la Gerencia NO corrige?",
+          texto: "• Desvíos no corregidos por debajo del Umbral Mínimo / PAE ($8.311M): Se consideran «claramente insignificantes» (NIA 450.5); ni siquiera se exige acumularlos en la Planilla de Ajustes y la Opinión es Favorable SIN Salvedades (Limpia).\n• Desvíos no corregidos ≥ PAE ($8.311M) pero inferiores a la Materialidad Global ($166.225M): No modifican la Opinión, que continúa siendo Favorable SIN Salvedades porque los EECC en su conjunto no están distorsionados de manera significativa. En nuestros 3 rubros auditados, el único desvío es AJ-01 en Bienes de Uso por $28.340M (17,05% de PM y 34,10% de ET): si la Gerencia lo registra, el desvío baja a $0; si decide no ajustarlo, el dictamen no cambia, pero se anexa como incorrección no corregida en la Carta de Representación (NIA 450.14) y se comunica al Comité de Auditoría (NIA 260).\n• Desvíos no corregidos ≥ Materialidad Global ($166.225M) con efecto ACOTADO (NO generalizado): Los EECC pasan a estar distorsionados en forma significativa en rubros concretos sin contaminar todo el balance → Opinión Favorable CON Salvedades («Excepto por...», NIA 705.7).\n• Desvíos no corregidos ≥ Materialidad Global ($166.225M) con efecto GENERALIZADO (varios rubros clave o elementos fundamentales del balance) → Opinión Adversa / Desfavorable (NIA 705.8). (En ambos casos ≥ PM, si la Gerencia acepta y registra el ajuste antes de cerrar los EECC, el desvío vuelve a $0 y corresponde Opinión Favorable SIN Salvedades)."
         }
       ]
     }
@@ -851,7 +851,7 @@ export const materialidadData = {
     explicacion: "Tope máximo de desvío tolerable dentro de un rubro individual. Se fija en el límite prudente del 50% debido a que los componentes clave de infraestructura y tecnología (Bienes de Uso e Intangibles) arrojaron Riesgo de Control ALTO.",
     fundamentoTeorico: {
       titulo: "Error Tolerable (ET) / Significatividad de Ejecución — ¿Por qué se aplica el 50%?",
-      normativa: "Carlos A. Slosse (Riesgo y Muestreo) • NIA 320 (Párr. 9 y 11: Performance Materiality) • RT 37",
+      normativa: "Carlos A. Slosse (Riesgo y Muestreo) • NIA 320 (Párr. 9 y 11: Performance Materiality) • NIAs (RT N° 32 FACPCE)",
       puntos: [
         {
           subtitulo: "1. ¿Por qué no usamos directamente los $166.225M en cada rubro?",
@@ -860,6 +860,10 @@ export const materialidadData = {
         {
           subtitulo: "2. ¿De dónde sale el porcentaje del 50% (vs. 75%)?",
           texto: "En la bibliografía de auditoría (Slosse / NIA 320), el Error Tolerable se fija entre el 50% y el 75% de la Significatividad Global según la calidad del Control Interno:\n• Si el Control Interno es FUERTE (Riesgo de Control Bajo): se usa el 75%.\n• Si el Control Interno es DÉBIL (Riesgo de Control Alto): se usa el 50%.\nComo en Telecom S.A. los dos activos más representativos del balance (Bienes de Uso y Activos Intangibles) arrojaron Nivel de Confianza BAJO (38,46% y 47,62%) y Riesgo de Control ALTO en sus componentes de Archivo y Tecnología, la doctrina nos obliga a adoptar el corte más prudente y exigente del 50% ($83.112M), llevando a tomar muestras más amplias y pruebas de detalle exhaustivas en la Etapa 2."
+        },
+        {
+          subtitulo: "3. ¿Superar el Error Tolerable ($83.112M) en un rubro cambia por sí solo la Opinión?",
+          texto: "No automáticamente. El Error Tolerable ($83.112M) es una regla operativa de ejecución y alcance de pruebas (para diseñar muestras y contener el riesgo de agregación), no el techo que califica el dictamen. Si en un rubro hallamos un desvío > ET ($83.112M) pero aún < Materialidad Global ($166.225M): 1) nos obliga a ampliar procedimientos o extender la muestra en ese rubro (NIA 320.A12 / NIA 450); 2) proponemos el ajuste a la Gerencia. Si la Gerencia lo contabiliza, el desvío baja a $0. Si no lo corrige, pero el total acumulado no ajustado permanece por debajo de $166.225M, la Opinión no se modifica (salvo que un factor cualitativo torne material la exposición de esa cuenta). Recién cambia a Con Salvedades o Adversa cuando el total sin ajustar iguala o supera la Materialidad Global ($166.225M)."
         }
       ]
     }
@@ -871,20 +875,20 @@ export const materialidadData = {
     formula: "5,00% de la Significatividad ($166.225M)",
     explicacion: "Filtro de desvíos claramente insignificantes (NIA 450). Todo hallazgo mayor a $8.311M se vuelca obligatoriamente en la Planilla de Diferencias de Auditoría / Ajustes Propuestos.",
     fundamentoTeorico: {
-      titulo: "Umbral Mínimo de Ajustes ($8.311M) y Planilla de Diferencias de Auditoría — ¿Por qué no se exige ajustar los $3.120M?",
-      normativa: "Carlos A. Slosse (Planilla de Diferencias de Auditoría / PAE) • NIA 450 (Párr. 5 y A2-A3: Claramente Insignificante) • RT 37",
+      titulo: "Umbral Mínimo de Ajustes ($8.311M / PAE) — ¿Cuándo se acumula y por qué no cambia la Opinión?",
+      normativa: "Carlos A. Slosse (Planilla de Diferencias de Auditoría / PAE) • NIA 450 (Párr. 5 y A2-A3: Claramente Insignificante) • NIAs / RT N° 32",
       puntos: [
         {
           subtitulo: "1. ¿Qué es este 5% ($8.311 millones) según la NIA 450 y Slosse?",
-          texto: "La bibliografía establece entre un 3% y un 5% de la Significatividad Global como umbral de partidas «claramente insignificantes o triviales». Todo desvío que supere los $8.311M (como nuestro ajuste material AJ-01 en Bienes de Uso por $28.340M y la reclasificación AJ-04 en Ventas por $11.240M) debe proponerse formalmente como asiento de ajuste."
+          texto: "La doctrina y la NIA 450 establecen entre un 3% y un 5% de la Significatividad Global como umbral de partidas «claramente insignificantes o triviales» ($166.225M × 5% = $8.311M). Cualquier desvío individual por debajo de ese piso, tomado aisladamente y sin implicancia cualitativa, no justifica reabrir el cierre contable por economía de auditoría. Por el contrario, todo hallazgo o grupo homogéneo ≥ $8.311M debe volcarse obligatoriamente en la Planilla de Ajustes Propuestos (PAE) para proponer su corrección a la Gerencia —como sucede con AJ-01 en Bienes de Uso por $28.340M—."
         },
         {
-          subtitulo: "2. ¿Por qué el desvío de $3.120M en Préstamos (PT-C3) no obliga a modificar el Balance ni da Salvedad?",
-          texto: "Aunque en la vida diaria $3.120 millones parezca mucho dinero, dentro de los Estados Contables Consolidados de Telecom S.A. representa apenas el 0,018% del Activo Total ($16.622.552M) y el 0,057% del rubro Préstamos ($5.436.615M). Proporcionalmente, equivale a $180 pesos en un patrimonio de $1.000.000. Ningún inversor o banco cambiaría su decisión por un 0,018%."
+          subtitulo: "2. ¿Cómo aplicó este criterio en nuestros 3 rubros auditados (PT-A1 vs. PT-A4)?",
+          texto: "En Bienes de Uso detectamos dos desvíos sobre un saldo de $6.789.118M (Nota 9): la falta de baja por fibra y nodos vandalizados (PT-A1: $6.890M, apenas 0,041% del Activo Total e inferior al PAE de $8.311M) y la falta de previsión por obsolescencia de centrales analógicas de cobre (PT-A4: $21.450M, superior al PAE). Siguiendo el criterio de acumulación por naturaleza de la NIA 450, como ambas partidas derivan de la misma debilidad en bajas dentro de SAP FI-AA (CCI-02 Preg. 22-23), las agrupamos en un único asiento propuesto AJ-01 por $28.340M. En Activos Intangibles (PT-E) y Créditos por Ventas (PT-B) los desvíos hallados fueron $0."
         },
         {
-          subtitulo: "3. ¿Se ignora por completo o se informa a la empresa?",
-          texto: "No se oculta: se deja expuesto en nuestros papeles de trabajo (partida PAE-NC-01) y se incluye en la Carta de Recomendaciones a la Gerencia para que depuren la planilla de Tasa Efectiva (TIE) en el próximo período. Pero por principio de economicidad (Slosse), si el Directorio decide no reabrir el cierre consolidado de 4 estados contables e Impuesto Diferido por ese 0,018%, el auditor emite igualmente Opinión Favorable Limpia porque el balance ya es razonable en todos sus aspectos significativos."
+          subtitulo: "3. ¿Superar el PAE cambia la Opinión del Informe? ¿Y qué significa «no justifica reabrir el cierre»?",
+          texto: "NO cambia la Opinión: superar el PAE ($8.311M) solo obliga a registrar el hallazgo en la Planilla PAE y pedir el ajuste; la Opinión únicamente se modifica cuando los desvíos no corregidos igualan o superan la Materialidad Global ($166.225M, NIA 705). Cuando decimos que un error aislado menor al PAE «no justifica reabrir el cierre», nos referimos a que al cierre del ejercicio Telecom ya clausuró sus módulos de SAP, recalculó el Impuesto Diferido, reexpresó por inflación (NIC 29) y preparó los 4 Estados Contables Consolidados para Directorio, Comisión Fiscalizadora, CNV y SEC: reabrir todo el proceso contable por menos del 0,05% del Activo tiene mayor costo operativo que beneficio informativo, aunque igualmente se comunica a la Gerencia para corregir en el ejercicio siguiente."
         }
       ]
     }

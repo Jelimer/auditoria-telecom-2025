@@ -14,6 +14,7 @@ import {
   EyeOff
 } from 'lucide-react';
 import { sintesisExposicionCCI } from '../data/etapa1Data';
+import { EditableRichBlock } from './RichTextBox';
 
 const CCI_PT_TARGETS = {
   'cci-1': { targetPT: 'pt-a', label: 'PT-A: Bienes de Uso (420 hs)' },
@@ -128,6 +129,53 @@ export default function Etapa1ControlInternoView({
   const [filtroRespuesta, setFiltroRespuesta] = useState('TODOS'); // 'TODOS' | 'NO' | 'SI'
   const [busqueda, setBusqueda] = useState('');
   const [mostrarDetalleEncuestas, setMostrarDetalleEncuestas] = useState(true);
+  const [cierreTexts, setCierreTexts] = useState(() => {
+    try {
+      const saved = localStorage.getItem('audiia_cierre_preliminar_custom_v1');
+      return saved ? JSON.parse(saved) : {};
+    } catch {
+      return {};
+    }
+  });
+
+  const handleSaveCierreText = (key, val) => {
+    const updated = { ...cierreTexts, [key]: val };
+    setCierreTexts(updated);
+    try {
+      localStorage.setItem('audiia_cierre_preliminar_custom_v1', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleResetCierreText = (key) => {
+    const updated = { ...cierreTexts };
+    delete updated[key];
+    setCierreTexts(updated);
+    try {
+      localStorage.setItem('audiia_cierre_preliminar_custom_v1', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleResetAllCierreTexts = () => {
+    setCierreTexts({});
+    try {
+      localStorage.removeItem('audiia_cierre_preliminar_custom_v1');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const calcById = Object.fromEntries(cciCalculados.map((c) => [c.id, c]));
+  const totalPreguntasCCI = cciCalculados.reduce((acc, c) => acc + (c.total || 0), 0);
+  const fmtPct = (v) => (v !== undefined ? v.toFixed(2).replace('.', ',') : '0,00');
+  const defaultCierre1 =
+    'En esta primera subetapa de la planificación (que abarca los puntos <strong>1A Conocimiento del Ente</strong>, <strong>1B Relevamiento del Control Interno</strong> y <strong>1C Revisión Analítica Preliminar H/V y Ratios</strong>) empezamos relevando el negocio de Telecom S.A. de lo general a lo particular y poniendo a prueba cómo funcionan sus <strong>5 sistemas de control interno</strong>: Archivo Documental (CCI-01), Sistema Contable (CCI-02), Presupuestos (CCI-03), Operativo (CCI-04) y Tecnológico/CGTI (CCI-05).';
+  const defaultCierre2 = `Aplicamos los <strong>5 Cuestionarios de Control Interno (CCI — ${totalPreguntasCCI} preguntas)</strong> verificando qué controles se cumplen («SÍ») y cuáles fallan («NO»). Con esas respuestas calculamos matemáticamente la <strong>Matriz de Confianza y Riesgo</strong> de cada componente. Al detectar fallas críticas en legajos de obras físicas, radiobases 5G y tecnología (CCI-01 con NC ${fmtPct(calcById['cci-1']?.nc)}% / RC ${calcById['cci-1']?.rcLabel || 'ALTO'} y CCI-05 con NC ${fmtPct(calcById['cci-5']?.nc)}% / RC ${calcById['cci-5']?.rcLabel || 'ALTO'}), el <strong>Riesgo de Control (RC) resultó ALTO</strong> en los rubros estructurales de infraestructura y tecnología (<strong>Bienes de Uso</strong> y <strong>Activos Intangibles</strong>), mientras que el <strong>Sistema Contable (CCI-02)</strong> arrojó Riesgo de Control <strong>${calcById['cci-2']?.rcLabel || 'MEDIO'} (NC ${fmtPct(calcById['cci-2']?.nc)}%)</strong> y los sistemas presupuestario (CCI-03) y operativo (CCI-04) arrojaron Riesgo de Control <strong>${calcById['cci-3']?.rcLabel || 'BAJO'} / ${calcById['cci-4']?.rcLabel || 'BAJO'} (NC ${fmtPct(calcById['cci-3']?.nc)}% y ${fmtPct(calcById['cci-4']?.nc)}%)</strong>.`;
+  const defaultCierre3 =
+    'Porque el objetivo de la <strong>Planificación Preliminar (Estratégica)</strong> en Slosse es definir la <strong>Estrategia o Enfoque Global de Auditoría</strong>. Como tanto el <em>Riesgo Inherente global</em> de Telecom S.A. como el <em>Riesgo de Control</em> en los componentes críticos de infraestructura y tecnología son <strong>ALTOS</strong>, concluimos que <strong>no podemos confiar en los controles internos de Telecom</strong> para reducir nuestras pruebas en esos ciclos. Eso nos obliga a definir un <strong>Enfoque Predominantemente Sustantivo</strong> (ir directamente a validar saldos y transacciones con pruebas intensivas sobre <strong>Bienes de Uso PT-A, Activos Intangibles PT-E y Créditos por Ventas PT-B</strong>), lo que da paso a la <strong>Planificación Detallada (1D)</strong>.';
 
   useEffect(() => {
     if (!subTarget) return;
@@ -896,9 +944,20 @@ export default function Etapa1ControlInternoView({
               Guía de Lectura y Exposición Oral — Cierre de la Subetapa 1.1: Planificación Preliminar (Estratégica)
             </span>
           </div>
-          <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-teal-200 border border-white/15">
-            Doctrina: Carlos A. Slosse &amp; NIAs / RT 37 (modif. RT 53)
-          </span>
+          <div className="flex flex-wrap items-center gap-2">
+            {Object.keys(cierreTexts).length > 0 && (
+              <button
+                type="button"
+                onClick={handleResetAllCierreTexts}
+                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-200 border border-amber-400/40 hover:bg-amber-500/30 transition-colors cursor-pointer no-print"
+              >
+                <RotateCcw className="w-3 h-3" /> Restablecer tarjetas
+              </button>
+            )}
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-teal-200 border border-white/15">
+              Doctrina: Carlos A. Slosse &amp; NIAs (IAASB / RT N° 32)
+            </span>
+          </div>
         </div>
 
         <h3 className="text-base sm:text-lg font-extrabold text-white">
@@ -910,27 +969,48 @@ export default function Etapa1ControlInternoView({
             <strong className="text-lime-300 block uppercase text-[11px] tracking-wider">
               1. ¿Qué se empieza haciendo en la Planificación Preliminar?
             </strong>
-            <p className="text-slate-200">
-              En esta primera subetapa de la planificación (que abarca los puntos <strong>1A Conocimiento del Ente</strong>, <strong>1B Relevamiento del Control Interno</strong> y <strong>1C Revisión Analítica Preliminar H/V y Ratios</strong>) empezamos relevando el negocio de Telecom S.A. de lo general a lo particular y poniendo a prueba cómo funcionan sus <strong>5 sistemas de control interno</strong>: Archivo Documental, Sistema Contable, Presupuestos, Operativo y Tecnológico/CGTI.
-            </p>
+            <EditableRichBlock
+              value={cierreTexts['cierre-1']}
+              defaultValue={defaultCierre1}
+              onSave={(val) => handleSaveCierreText('cierre-1', val)}
+              onReset={() => handleResetCierreText('cierre-1')}
+              label="1. ¿Qué se empieza haciendo?"
+              isDark
+              minHeightClass="min-h-[100px]"
+              textClassName="text-xs text-slate-200 leading-relaxed"
+            />
           </div>
 
           <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
             <strong className="text-amber-300 block uppercase text-[11px] tracking-wider">
               2. ¿Qué se hace concretamente acá?
             </strong>
-            <p className="text-slate-200">
-              Aplicamos los <strong>5 Cuestionarios de Control Interno (CCI)</strong> verificando qué controles se cumplen («SÍ») y cuáles fallan («NO»). Con esas respuestas calculamos matemáticamente la <strong>Matriz de Confianza y Riesgo</strong> de cada componente. Al detectar fallas críticas en legajos de obras físicas, radiobases 5G y tecnología (CCI-01 con NC 38,46% y CCI-05 con NC 47,62%), el <strong>Riesgo de Control (RC) resultó ALTO</strong> en los rubros estructurales de infraestructura y tecnología (Bienes de Uso e Intangibles), mientras que el <strong>Sistema Contable (CCI-02) arrojó Riesgo de Control MEDIO (NC 72,00%)</strong> y los sistemas presupuestario (CCI-03) y operativo (CCI-04) arrojaron <strong>Riesgo de Control BAJO (NC 77,78% y 80,00%)</strong>.
-            </p>
+            <EditableRichBlock
+              value={cierreTexts['cierre-2']}
+              defaultValue={defaultCierre2}
+              onSave={(val) => handleSaveCierreText('cierre-2', val)}
+              onReset={() => handleResetCierreText('cierre-2')}
+              label="2. ¿Qué se hace concretamente acá?"
+              isDark
+              minHeightClass="min-h-[100px]"
+              textClassName="text-xs text-slate-200 leading-relaxed"
+            />
           </div>
 
           <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1.5">
             <strong className="text-teal-300 block uppercase text-[11px] tracking-wider">
               3. ¿Por qué y para qué sirve este resultado?
             </strong>
-            <p className="text-slate-200">
-              Porque el objetivo de la <strong>Planificación Preliminar (Estratégica)</strong> en Slosse es definir la <strong>Estrategia o Enfoque Global de Auditoría</strong>. Como tanto el <em>Riesgo Inherente</em> como el <em>Riesgo de Control</em> son <strong>ALTOS</strong>, concluimos que <strong>no podemos confiar en los controles internos de Telecom</strong> para reducir nuestras pruebas. Eso nos obliga a definir un <strong>Enfoque Predominantemente Sustantivo</strong> (ir directamente a validar los saldos y transacciones con pruebas intensivas), lo que da paso a la <strong>Planificación Detallada (1D)</strong>.
-            </p>
+            <EditableRichBlock
+              value={cierreTexts['cierre-3']}
+              defaultValue={defaultCierre3}
+              onSave={(val) => handleSaveCierreText('cierre-3', val)}
+              onReset={() => handleResetCierreText('cierre-3')}
+              label="3. ¿Por qué y para qué sirve este resultado?"
+              isDark
+              minHeightClass="min-h-[100px]"
+              textClassName="text-xs text-slate-200 leading-relaxed"
+            />
           </div>
         </div>
       </div>

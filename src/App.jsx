@@ -254,6 +254,7 @@ export default function App() {
     'audiia_ajustes_v3',
     'audiia_equipo_v2',
     'audiia_ente_custom_v1',
+    'audiia_cierre_preliminar_custom_v1',
     'audiia_plan_detallada_custom_v1',
     'audiia_conclusiones_rubros_v1',
     'audiia_pasos_narrativos_v1',
