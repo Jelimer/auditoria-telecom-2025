@@ -34,8 +34,63 @@
   background: #94a3b8;
 }
 
+@page {
+  size: A4 portrait;
+  margin: 14mm 15mm;
+}
+
 @media print {
   .no-print {
     display: none !important;
+  }
+  html {
+    font-size: 12.5px !important;
+    zoom: 1 !important;
+  }
+  body {
+    zoom: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .app-main-print {
+    zoom: 1 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .print-sheet {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .text-\[8px\] { font-size: 8px !important; }
+  .text-\[9px\] { font-size: 8.5px !important; }
+  .text-\[10px\] { font-size: 9.5px !important; }
+  .text-\[11px\] { font-size: 10.5px !important; }
+  table {
+    width: 100% !important;
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+  th, td {
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+  tr, .print-avoid-break {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  h1, h2, h3, h4, h5 {
+    break-after: avoid;
+    page-break-after: avoid;
   }
 }

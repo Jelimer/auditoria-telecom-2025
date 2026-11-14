@@ -221,11 +221,8 @@ export default function App() {
   useEffect(() => {
     try {
       localStorage.setItem('audiia_font_zoom', fontZoom.toString());
-      if (fontZoom === 100) {
-        document.documentElement.style.zoom = '';
-      } else {
-        document.documentElement.style.zoom = `${fontZoom}%`;
-      }
+      // Evitar duplicar zoom en <html> y <main> (el zoom visual se aplica únicamente sobre <main>)
+      document.documentElement.style.zoom = '';
     } catch {
       // ignore
     }
@@ -848,7 +845,7 @@ export default function App() {
         {/* Área de Trabajo Dinámica */}
         <main
           style={fontZoom !== 100 ? { zoom: `${fontZoom}%` } : undefined}
-          className="p-4 sm:p-6 lg:p-8 max-w-[1680px] w-full mx-auto flex-1 transition-all"
+          className="app-main-print p-4 sm:p-6 lg:p-8 max-w-[1680px] w-full mx-auto flex-1 transition-all"
         >
           {activeView === 'dashboard' && (
             <DashboardView
