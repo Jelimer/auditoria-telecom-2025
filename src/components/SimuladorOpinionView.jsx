@@ -46,28 +46,36 @@ const ITEMS_SIMULACION_BASE = [
   },
   {
     id: 'sim-pte-hip',
-    codigo: 'PT-E (Hipótesis)',
-    rubro: 'Activos Intangibles (Nota 10)',
-    titulo: 'Activación hipotética de gastos de investigación sin cumplir NIC 38.57',
-    monto: 95000,
+    codigo: 'PT-B3 (Saldo real Nota 5)',
+    rubro: 'Créditos por Ventas (Nota 5)',
+    titulo: 'Hipótesis: qué pasaría si NO se hubiera previsionado la mora > 180 días ($85.684M reales)',
+    monto: 85684,
     esRealTP: false,
     notaRegla:
-      'Escenario simulado (> ET $83.112M pero < PM $166.225M): obliga a ampliar muestreo/pruebas en el rubro, pero si es el único desvío no altera la opinión.',
+      'En el TP real este saldo está 100% previsionado y conforme ($0 desvío). Simulado sin ajustar ($85.684M), supera el ET ($83.112M) pero queda debajo de PM ($166.225M): exige ampliar pruebas, sin cambiar la opinión.',
     activo: false,
     aceptado: false
   },
   {
     id: 'sim-ptb-hip',
-    codigo: 'PT-B / Otros (Hipótesis)',
-    rubro: 'Créditos por Ventas / Varios',
-    titulo: 'Insuficiencia hipotética masiva de Previsión NIIF 9 o activos sin respaldo',
-    monto: 175000,
+    codigo: 'PT-E2 (Saldo real Nota 10)',
+    rubro: 'Activos Intangibles (Nota 10)',
+    titulo: 'Hipótesis: qué pasaría si el software activado SAP PS ($285.355M reales) incumpliera NIC 38.57',
+    monto: 285355,
     esRealTP: false,
     notaRegla:
-      'Escenario simulado (≥ PM $166.225M): si la Gerencia no ajusta, la distorsión se vuelve material y modifica la Opinión (NIA 705).',
+      'En el TP real los 18 proyectos cumplen NIC 38.57 ($0 desvío). Simulado como desvío no ajustado ($285.355M = 171,67% de PM), supera la Materialidad Global ($166.225M) y modifica la Opinión (NIA 705).',
     activo: false,
     aceptado: false
   }
+];
+
+const EXTRAS_REALES_TELECOM = [
+  { monto: 36890, label: 'PT-B2 Recaudadores en tránsito 31/12 ($36.890M)' },
+  { monto: 42500, label: 'PT-E2 Gastos mantenimiento/soporte TI ($42.500M)' },
+  { monto: 123018, label: 'PT-B3 Ajuste Macro Prospectivo NIIF 9 ($123.018M)' },
+  { monto: 337494, label: 'PT-A2 Obras en curso Nota 9 ($337.494M)' },
+  { monto: 1985420, label: 'PT-E1 Licencias Espectro 4G/5G ENACOM ($1.985.420M)' }
 ];
 
 const ESCENARIOS_RAPIDOS = [
@@ -79,6 +87,7 @@ const ESCENARIOS_RAPIDOS = [
     aplicar: () => ({
       items: ITEMS_SIMULACION_BASE.map((i) => ({ ...i })),
       extraManual: 0,
+      extraLabel: '',
       esGeneralizado: false,
       esLimitacionAlcance: false,
       factorCualitativoGrave: false,
@@ -97,6 +106,7 @@ const ESCENARIOS_RAPIDOS = [
         aceptado: false
       })),
       extraManual: 0,
+      extraLabel: '',
       esGeneralizado: false,
       esLimitacionAlcance: false,
       factorCualitativoGrave: false,
@@ -105,7 +115,7 @@ const ESCENARIOS_RAPIDOS = [
   },
   {
     id: 'menor-pae',
-    etiqueta: 'Solo < PAE ($6.890M aislado)',
+    etiqueta: 'Solo < PAE (PT-A1 $6.890M aislado)',
     resumen: 'Trivial (NIA 450.5)',
     badgeClass: 'bg-slate-100 text-slate-800 border-slate-300',
     aplicar: () => ({
@@ -115,6 +125,7 @@ const ESCENARIOS_RAPIDOS = [
         aceptado: false
       })),
       extraManual: 0,
+      extraLabel: '',
       esGeneralizado: false,
       esLimitacionAlcance: false,
       factorCualitativoGrave: false,
@@ -123,7 +134,7 @@ const ESCENARIOS_RAPIDOS = [
   },
   {
     id: 'supera-et',
-    etiqueta: 'Supera ET ($95.000M < PM)',
+    etiqueta: 'Supera ET: Mora >180d PT-B3 ($85.684M)',
     resumen: '> ET y < PM',
     badgeClass: 'bg-amber-100 text-amber-900 border-amber-300',
     aplicar: () => ({
@@ -133,6 +144,7 @@ const ESCENARIOS_RAPIDOS = [
         aceptado: false
       })),
       extraManual: 0,
+      extraLabel: '',
       esGeneralizado: false,
       esLimitacionAlcance: false,
       factorCualitativoGrave: false,
@@ -141,7 +153,7 @@ const ESCENARIOS_RAPIDOS = [
   },
   {
     id: 'salvedad',
-    etiqueta: '≥ PM Acotado (No Generalizado)',
+    etiqueta: '≥ PM Acotado: Software PT-E2 ($285.355M)',
     resumen: 'Con Salvedades',
     badgeClass: 'bg-orange-100 text-orange-900 border-orange-300',
     aplicar: () => ({
@@ -151,6 +163,7 @@ const ESCENARIOS_RAPIDOS = [
         aceptado: false
       })),
       extraManual: 0,
+      extraLabel: '',
       esGeneralizado: false,
       esLimitacionAlcance: false,
       factorCualitativoGrave: false,
@@ -159,7 +172,7 @@ const ESCENARIOS_RAPIDOS = [
   },
   {
     id: 'adversa',
-    etiqueta: '≥ PM Generalizado (Múltiples Rubros)',
+    etiqueta: '≥ PM Generalizado: 3 Rubros Reales ($399.379M)',
     resumen: 'Opinión Adversa',
     badgeClass: 'bg-rose-100 text-rose-900 border-rose-300',
     aplicar: () => ({
@@ -169,6 +182,7 @@ const ESCENARIOS_RAPIDOS = [
         aceptado: false
       })),
       extraManual: 0,
+      extraLabel: '',
       esGeneralizado: true,
       esLimitacionAlcance: false,
       factorCualitativoGrave: false,
@@ -177,16 +191,17 @@ const ESCENARIOS_RAPIDOS = [
   },
   {
     id: 'limitacion',
-    etiqueta: 'Limitación al Alcance ≥ PM',
+    etiqueta: 'Limitación Alcance: Espectro PT-E1 ($1.985.420M)',
     resumen: 'Salvedad / Abstención',
     badgeClass: 'bg-purple-100 text-purple-900 border-purple-300',
     aplicar: () => ({
       items: ITEMS_SIMULACION_BASE.map((i) => ({
         ...i,
-        activo: i.id === 'sim-ptb-hip',
+        activo: false,
         aceptado: false
       })),
-      extraManual: 0,
+      extraManual: 1985420,
+      extraLabel: 'PT-E1 Concesiones y Licencias de Espectro 4G/5G (Nota 10)',
       esGeneralizado: true,
       esLimitacionAlcance: true,
       factorCualitativoGrave: false,
@@ -198,6 +213,7 @@ const ESCENARIOS_RAPIDOS = [
 export default function SimuladorOpinionView({ ajustesState = [], onNavigate }) {
   const [items, setItems] = useState(() => ITEMS_SIMULACION_BASE.map((i) => ({ ...i })));
   const [extraManual, setExtraManual] = useState(0);
+  const [extraLabel, setExtraLabel] = useState('');
   const [esGeneralizado, setEsGeneralizado] = useState(false);
   const [esLimitacionAlcance, setEsLimitacionAlcance] = useState(false);
   const [factorCualitativoGrave, setFactorCualitativoGrave] = useState(false);
@@ -209,6 +225,7 @@ export default function SimuladorOpinionView({ ajustesState = [], onNavigate }) 
     const res = fn();
     setItems(res.items);
     setExtraManual(res.extraManual);
+    setExtraLabel(res.extraLabel || '');
     setEsGeneralizado(res.esGeneralizado);
     setEsLimitacionAlcance(res.esLimitacionAlcance);
     setFactorCualitativoGrave(res.factorCualitativoGrave);
@@ -278,7 +295,7 @@ export default function SimuladorOpinionView({ ajustesState = [], onNavigate }) 
 
   const rubrosAfectadosSinAjustar = [
     ...new Set(itemsNoAjustados.map((i) => i.rubro)),
-    ...(extraManual > 0 ? ['Ajuste / Desvío Adicional Simulado'] : [])
+    ...(extraManual > 0 ? [extraLabel || 'Partida adicional simulada s/ EECC 2025'] : [])
   ];
 
   return (
@@ -295,10 +312,10 @@ export default function SimuladorOpinionView({ ajustesState = [], onNavigate }) 
               Simulador de Materialidad, Aceptación de Ajustes y Cambio de Opinión
             </h2>
             <p className="text-xs text-slate-600 mt-1 max-w-4xl leading-relaxed">
-              Tildá desvíos, simulá montos hipotéticos o alterná si la Gerencia de Telecom acepta/rechaza el ajuste para ver en vivo qué pasa con el{' '}
+              Simulá escenarios usando las <strong>cifras reales auditadas de Telecom S.A.</strong> (<em>PT-A, PT-E y PT-B</em>) y alterná si la Gerencia acepta o rechaza ajustar para ver en vivo qué pasa con el{' '}
               <strong>PAE ($8.311M)</strong>, el <strong>Error Tolerable ($83.112M)</strong>, la{' '}
               <strong>Materialidad Global ($166.225M)</strong>, la <strong>Opinión del Auditor</strong> y por qué{' '}
-              <strong>no corresponde Párrafo de Énfasis</strong> si queda por debajo de PM. <em>(Laboratorio independiente: no modifica tus respuestas reales de Etapa 2/3).</em>
+              <strong>no corresponde Párrafo de Énfasis</strong> si queda por debajo de PM. <em>(Laboratorio independiente: no modifica las cifras reales ni tus respuestas de Etapa 1, 2 y 3).</em>
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -485,11 +502,11 @@ export default function SimuladorOpinionView({ ajustesState = [], onNavigate }) 
                           <span className="text-xs font-extrabold text-slate-900">{item.rubro}</span>
                           {item.esRealTP ? (
                             <span className="px-1.5 py-0.5 rounded bg-teal-100 text-teal-800 text-[10px] font-bold">
-                              Dato real TP
+                              Desvío real TP
                             </span>
                           ) : (
                             <span className="px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800 text-[10px] font-bold">
-                              Simulación oral
+                              Saldo real • Hipótesis oral
                             </span>
                           )}
                         </div>
@@ -521,22 +538,25 @@ export default function SimuladorOpinionView({ ajustesState = [], onNavigate }) 
               ))}
             </div>
 
-            {/* Slider / monto manual adicional para cualquier pregunta improvisada */}
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+            {/* Slider / monto manual adicional + botones rápidos con saldos reales de Telecom */}
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <label className="text-xs font-extrabold text-slate-800 flex items-center gap-1.5">
                   <Calculator className="w-3.5 h-3.5 text-teal-700" />
-                  Desvío adicional hipotético sin ajustar ($M):
+                  Simular sobre otro saldo real de Telecom o monto manual ($M):
                 </label>
                 <div className="flex items-center gap-2">
                   <input
                     type="number"
                     min={0}
-                    max={500000}
+                    max={3000000}
                     step={5000}
                     value={extraManual}
-                    onChange={(e) => setExtraManual(Math.max(0, Number(e.target.value) || 0))}
-                    className="w-28 px-2.5 py-1 rounded-lg border border-slate-300 bg-white font-mono text-xs font-bold text-slate-900 text-right"
+                    onChange={(e) => {
+                      setExtraManual(Math.max(0, Number(e.target.value) || 0));
+                      setExtraLabel('');
+                    }}
+                    className="w-32 px-2.5 py-1 rounded-lg border border-slate-300 bg-white font-mono text-xs font-bold text-slate-900 text-right"
                   />
                   <span className="text-xs font-bold text-slate-500">$M</span>
                 </div>
@@ -544,10 +564,13 @@ export default function SimuladorOpinionView({ ajustesState = [], onNavigate }) 
               <input
                 type="range"
                 min={0}
-                max={250000}
+                max={350000}
                 step={5000}
-                value={Math.min(250000, extraManual)}
-                onChange={(e) => setExtraManual(Number(e.target.value))}
+                value={Math.min(350000, extraManual)}
+                onChange={(e) => {
+                  setExtraManual(Number(e.target.value));
+                  setExtraLabel('');
+                }}
                 className="w-full accent-teal-700 cursor-pointer"
               />
               <div className="flex justify-between text-[10px] font-mono text-slate-500">
@@ -555,7 +578,38 @@ export default function SimuladorOpinionView({ ajustesState = [], onNavigate }) 
                 <span>PAE $8.311M</span>
                 <span>ET $83.112M</span>
                 <span>PM $166.225M</span>
-                <span>$250.000M</span>
+                <span>$350.000M+</span>
+              </div>
+              <div className="pt-1 flex flex-wrap gap-1.5">
+                {EXTRAS_REALES_TELECOM.map((ex) => (
+                  <button
+                    key={ex.label}
+                    type="button"
+                    onClick={() => {
+                      setExtraManual(ex.monto);
+                      setExtraLabel(ex.label);
+                    }}
+                    className={`px-2 py-1 rounded-lg border text-[10px] font-bold transition-colors cursor-pointer ${
+                      extraManual === ex.monto
+                        ? 'bg-teal-700 text-white border-teal-800'
+                        : 'bg-white text-slate-700 border-slate-300 hover:border-teal-500'
+                    }`}
+                  >
+                    {ex.label}
+                  </button>
+                ))}
+                {extraManual > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setExtraManual(0);
+                      setExtraLabel('');
+                    }}
+                    className="px-2 py-1 rounded-lg border border-rose-200 bg-rose-50 text-rose-700 text-[10px] font-bold hover:bg-rose-100 cursor-pointer"
+                  >
+                    Limpiar ($0)
+                  </button>
+                )}
               </div>
             </div>
 
@@ -811,21 +865,21 @@ export default function SimuladorOpinionView({ ajustesState = [], onNavigate }) 
                 <td className="py-2.5 px-3">Va a Planilla PAE, Anexo Carta de Representación (NIA 450.14) y Comité (NIA 260).</td>
               </tr>
               <tr className="hover:bg-slate-50">
-                <td className="py-2.5 px-3 font-bold">Supera ET pero &lt; PM ($83.112M – $166.224M)</td>
+                <td className="py-2.5 px-3 font-bold">Supera ET pero &lt; PM ($83.112M – $166.224M) — ej. Mora &gt;180d PT-B3 $85.684M</td>
                 <td className="py-2.5 px-3 text-emerald-700 font-semibold">Favorable sin Salvedades</td>
                 <td className="py-2.5 px-3 text-amber-800 font-semibold">Sigue Limpia (salvo factor cualitativo grave)</td>
                 <td className="py-2.5 px-3 font-bold text-rose-700">NO</td>
                 <td className="py-2.5 px-3">Exige ampliar muestreo/pruebas en ese rubro y documentar riesgo de agregación.</td>
               </tr>
               <tr className="hover:bg-slate-50">
-                <td className="py-2.5 px-3 font-bold">Igual o Mayor a PM (≥ $166.225M) — ACOTADO</td>
+                <td className="py-2.5 px-3 font-bold">Igual o Mayor a PM (≥ $166.225M) — ACOTADO (ej. Software PT-E2 $285.355M)</td>
                 <td className="py-2.5 px-3 text-emerald-700 font-semibold">Vuelve a Limpia ($0)</td>
                 <td className="py-2.5 px-3 text-amber-700 font-extrabold">Favorable CON Salvedades («Excepto por...»)</td>
                 <td className="py-2.5 px-3 font-bold text-rose-700">NO (va Fundamento Salvedades)</td>
                 <td className="py-2.5 px-3">NIA 705.7: Sección Opinión + Sección Fundamento cuantificando desvío.</td>
               </tr>
               <tr className="hover:bg-slate-50">
-                <td className="py-2.5 px-3 font-bold">Igual o Mayor a PM (≥ $166.225M) — GENERALIZADO</td>
+                <td className="py-2.5 px-3 font-bold">Igual o Mayor a PM (≥ $166.225M) — GENERALIZADO (ej. 3 rubros $399.379M)</td>
                 <td className="py-2.5 px-3 text-emerald-700 font-semibold">Vuelve a Limpia ($0)</td>
                 <td className="py-2.5 px-3 text-rose-700 font-extrabold">Opinión Adversa (o Abstención s/Alcance)</td>
                 <td className="py-2.5 px-3 font-bold text-rose-700">NO (va Fundamento Adversa)</td>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'audiia-offline-v10';
+const CACHE_NAME = 'audiia-offline-v11';
 
 // Precachea el shell SPA ('/' e '/index.html') y los assets compilados actuales (/assets/*.js, *.css)
 // para garantizar navegación y recarga completa sin internet tras la primera visita online.
