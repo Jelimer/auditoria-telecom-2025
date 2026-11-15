@@ -15,8 +15,8 @@ import {
   X,
   RotateCcw
 } from 'lucide-react';
-import { papelesTrabajo, marcasAuditoria, getMarcasPorRubro } from '../data/etapas2y3Data';
-import { materialidadData, rubrosSignificativos } from '../data/etapa1Data';
+import { papelesTrabajo, getMarcasPorRubro } from '../data/etapas2y3Data';
+import { rubrosSignificativos } from '../data/etapa1Data';
 import {
   NORMAS_DICCIONARIO,
   TERMINOS_AUDITORIA_DICCIONARIO,
@@ -380,7 +380,7 @@ export default function Etapa2EjecucionView({
   }, [subTarget, subTargetTick]);
 
   const activePT = papelesTrabajo.find((pt) => pt.id === selectedPTId) || papelesTrabajo[0];
-  const isPTA = activePT.id === 'pt-a' || activePT.id === 'pt-e' || activePT.id === 'pt-b';
+  const isPTA = activePT.id === 'pt-a' || activePT.id === 'pt-b' || activePT.id === 'pt-e';
   const activeRubro =
     rubrosSignificativos.find(
       (r) => r.codigoPrograma.toLowerCase().replace('programa ', 'pt-') === activePT.id.toLowerCase()
@@ -2340,7 +2340,7 @@ export default function Etapa2EjecucionView({
               <span className="text-[10px] font-bold uppercase text-slate-400 block">
                 {!mostrarTodosAjustes && activePT.id === 'pt-a'
                   ? 'Ajuste Propuesto (AJ-01)'
-                  : !mostrarTodosAjustes && (activePT.id === 'pt-e' || activePT.id === 'pt-b')
+                  : !mostrarTodosAjustes && (activePT.id === 'pt-b' || activePT.id === 'pt-e')
                   ? `${activePT.codigo} Validado`
                   : 'Propuestos (> PAE)'}
               </span>
@@ -2395,7 +2395,7 @@ export default function Etapa2EjecucionView({
               </p>
             </div>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-teal-200 border border-white/15">
-              3 Rubros Seleccionados: PT-A, PT-E y PT-B
+              3 Rubros Seleccionados: 1° PT-A, 2° PT-B y 3° PT-E
             </span>
           </div>
 
@@ -2442,28 +2442,6 @@ export default function Etapa2EjecucionView({
 
                 <tr className="hover:bg-slate-50">
                   <td className="py-2.5 px-3 font-mono font-extrabold text-teal-800">
-                    PT-E (E1/E2)
-                    <span className="block text-[10px] text-emerald-700">Sin desvíos</span>
-                  </td>
-                  <td className="py-2.5 px-3 font-bold text-slate-900">
-                    Activos Intangibles
-                    <span className="block text-[10px] font-normal text-slate-500">Nota 10 (Exist., Prop. y Val.)</span>
-                  </td>
-                  <td className="py-2.5 px-3 text-slate-700 leading-snug">
-                    Validación de espectro ENACOM, marcas INPI, software NIC 38.57, amortizaciones ($234.722M en Nota 10/25) y valor residual sin diferencias.
-                  </td>
-                  <td className="py-2.5 px-3 text-right font-mono text-slate-700">$2.671.525</td>
-                  <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-700">$0</td>
-                  <td className="py-2.5 px-3 text-right font-mono font-extrabold text-slate-900 bg-teal-50/40">$2.671.525</td>
-                  <td className="py-2.5 px-3">
-                    <span className="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">
-                      Conforme (sin ajustes)
-                    </span>
-                  </td>
-                </tr>
-
-                <tr className="hover:bg-slate-50">
-                  <td className="py-2.5 px-3 font-mono font-extrabold text-teal-800">
                     PT-B (B1–B3)
                     <span className="block text-[10px] text-emerald-700">Sin desvíos</span>
                   </td>
@@ -2484,9 +2462,31 @@ export default function Etapa2EjecucionView({
                   </td>
                 </tr>
 
+                <tr className="hover:bg-slate-50">
+                  <td className="py-2.5 px-3 font-mono font-extrabold text-teal-800">
+                    PT-E (E1/E2)
+                    <span className="block text-[10px] text-emerald-700">Sin desvíos</span>
+                  </td>
+                  <td className="py-2.5 px-3 font-bold text-slate-900">
+                    Activos Intangibles
+                    <span className="block text-[10px] font-normal text-slate-500">Nota 10 (Exist., Prop. y Val.)</span>
+                  </td>
+                  <td className="py-2.5 px-3 text-slate-700 leading-snug">
+                    Validación de espectro ENACOM, marcas INPI, software NIC 38.57, amortizaciones ($234.722M en Nota 10/25) y valor residual sin diferencias.
+                  </td>
+                  <td className="py-2.5 px-3 text-right font-mono text-slate-700">$2.671.525</td>
+                  <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-700">$0</td>
+                  <td className="py-2.5 px-3 text-right font-mono font-extrabold text-slate-900 bg-teal-50/40">$2.671.525</td>
+                  <td className="py-2.5 px-3">
+                    <span className="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">
+                      Conforme (sin ajustes)
+                    </span>
+                  </td>
+                </tr>
+
                 <tr className="bg-slate-100 font-extrabold text-slate-900 border-t-2 border-slate-300">
                   <td className="py-2.5 px-3 font-mono">TOTAL CÁTEDRA</td>
-                  <td className="py-2.5 px-3">Rubros Seleccionados (PT-A, PT-E, PT-B)</td>
+                  <td className="py-2.5 px-3">Rubros Seleccionados (1° PT-A, 2° PT-B, 3° PT-E)</td>
                   <td className="py-2.5 px-3 font-semibold text-slate-700">
                     Efecto neto acumulado sobre Activo y Resultado del Ejercicio 2025 (17,05% de PM $166.225M)
                   </td>
@@ -2719,11 +2719,11 @@ export default function Etapa2EjecucionView({
             </span>
           </div>
           <p className="leading-relaxed">
-            Evaluados en forma conjunta los tres programas sustantivos de la cátedra (<strong>PT-A, PT-E y PT-B</strong>), la única diferencia patrimonial identificada asciende a <strong>$28.340 M</strong> en Bienes de Uso (<strong>AJ-01</strong>, acumulación de $21.450M de PT-A4 y $6.890M de PT-A1), superando el umbral <strong>PAE ($8.311 M)</strong> y proponiéndose formalmente a la Gerencia al cierre del 31/12/2025.
+            Evaluados en forma conjunta los tres programas sustantivos de la cátedra (<strong>1° PT-A, 2° PT-B y 3° PT-E</strong>), la única diferencia patrimonial identificada asciende a <strong>$28.340 M</strong> en Bienes de Uso (<strong>AJ-01</strong>, acumulación de $21.450M de PT-A4 y $6.890M de PT-A1), superando el umbral <strong>PAE ($8.311 M)</strong> y proponiéndose formalmente a la Gerencia al cierre del 31/12/2025.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
             <div className="p-2.5 rounded-lg bg-white/75 border border-black/5">
-              <strong>Con aceptación del ajuste por la Gerencia:</strong> Los saldos quedan debidamente corregidos (Bienes de Uso: $6.789.118M → $6.760.778M; Activos Intangibles: $2.671.525M y Créditos por Ventas: $800.128M conformes sin desvíos), permitiendo emitir una <strong>opinión favorable sin salvedades</strong>.
+              <strong>Con aceptación del ajuste por la Gerencia:</strong> Los saldos quedan debidamente corregidos (Bienes de Uso: $6.789.118M → $6.760.778M; Créditos por Ventas: $800.128M y Activos Intangibles: $2.671.525M conformes sin desvíos), permitiendo emitir una <strong>opinión favorable sin salvedades</strong>.
             </div>
             <div className="p-2.5 rounded-lg bg-white/75 border border-black/5">
               <strong>En caso de no registración:</strong> El desvío residual de AJ-01 ($28.340M) permanece por debajo del <strong>Error Tolerable ($83.112 M)</strong> y equivale al <strong>17,05%</strong> de la <strong>Materialidad Global ($166.225 M)</strong>, sin generar distorsión significativa ni generalizada (RT 37 / NIA 700), sin perjuicio de su comunicación en la <strong>Carta de Recomendaciones de Control Interno (CCI-02)</strong>.
@@ -2756,7 +2756,7 @@ export default function Etapa2EjecucionView({
               1. ¿Qué se empieza haciendo en la Etapa de Ejecución?
             </strong>
             <p className="text-slate-200">
-              En la <strong>Etapa 2 (Ejecución)</strong> llevamos a la práctica los <strong>Programas de Trabajo (A a E)</strong> que habíamos diseñado en la Etapa 1. Lo primero que hacemos al abrir el legajo de cada rubro es confeccionar su <strong>Cédula Sumaria (o Hoja Llave: PT-A, PT-B, PT-C, PT-D y PT-E)</strong>: allí volcamos el saldo oficial que muestra el Balance de Telecom al 31/12/2025 junto con su 2024 comparativo y lo desglosamos en las líneas que componen su Nota a los Estados Contables, para saber exactamente qué importe vamos a auditar.
+              En la <strong>Etapa 2 (Ejecución)</strong> llevamos a la práctica los <strong>Programas de Trabajo (A a F)</strong> que habíamos diseñado en la Etapa 1. Lo primero que hacemos al abrir el legajo de cada rubro es confeccionar su <strong>Cédula Sumaria (o Hoja Llave: PT-A, PT-B, PT-C, PT-D, PT-E y PT-F)</strong>: allí volcamos el saldo oficial que muestra el Balance de Telecom al 31/12/2025 junto con su 2024 comparativo y lo desglosamos en las líneas que componen su Nota a los Estados Contables, para saber exactamente qué importe vamos a auditar.
             </p>
           </div>
 

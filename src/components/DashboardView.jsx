@@ -51,10 +51,10 @@ export default function DashboardView({
   ];
 
   const donutRubros = [
-    { label: 'Con Ajuste > PAE', value: 3, color: '#3b82f6' },
-    { label: 'Conforme / Limpio', value: 2, color: '#22c55e' },
-    { label: 'En revisión NIIF 15', value: 1, color: '#eab308' },
-    { label: 'Revelación NIC 36', value: 1, color: '#a855f7' }
+    { label: 'Ajuste Patrimonial (PT-A)', value: 1, color: '#3b82f6' },
+    { label: 'Conformes Cátedra (PT-B / E)', value: 2, color: '#22c55e' },
+    { label: 'Reclasif. NIIF 15 (PT-D)', value: 1, color: '#eab308' },
+    { label: 'Ampliado Conforme (PT-C / F)', value: 2, color: '#a855f7' }
   ];
 
   // Cálculo de ajustes aceptados vs pendientes
@@ -266,7 +266,7 @@ export default function DashboardView({
                   <div className="w-full h-3.5 bg-slate-200 rounded-full overflow-hidden flex">
                     <div className="bg-red-500 h-full" style={{ width: '40%' }} title="Riesgo Inherente y Control Alto (5 CCI)" />
                     <div className="bg-amber-500 h-full" style={{ width: '28%' }} title="Materialidad PM/ET/PAE" />
-                    <div className="bg-yellow-400 h-full" style={{ width: '32%' }} title="Programas A, B, C, D y E" />
+                    <div className="bg-yellow-400 h-full" style={{ width: '32%' }} title="Programas A, B, C, D, E y F" />
                   </div>
                 </div>
 
@@ -321,7 +321,7 @@ export default function DashboardView({
                 <div className="space-y-4 px-2">
                   <div>
                     <div className="flex justify-between text-xs mb-1">
-                      <span className="font-semibold text-purple-700">Eficiencia de Pruebas Sustantivas (Programas A-E)</span>
+                      <span className="font-semibold text-purple-700">Eficiencia de Pruebas Sustantivas (Programas A-F)</span>
                       <span className="font-bold text-slate-800">84%</span>
                     </div>
                     <div className="w-full h-4 bg-slate-300 rounded-full overflow-hidden">
@@ -332,7 +332,7 @@ export default function DashboardView({
                   <div>
                     <div className="flex justify-between text-xs mb-1">
                       <span className="font-semibold text-indigo-950">Ejecución Presupuesto Horas (Oct 2025 - Feb 2026)</span>
-                      <span className="font-bold text-slate-800">89% (428 / 480 hs)</span>
+                      <span className="font-bold text-slate-800">89% (1.090 / 1.220 hs)</span>
                     </div>
                     <div className="w-full h-4 bg-slate-300 rounded-full overflow-hidden">
                       <div className="h-full bg-indigo-950 rounded-full transition-all duration-500" style={{ width: '89%' }} />
@@ -500,7 +500,7 @@ export default function DashboardView({
               onClick={() => onNavigate('etapa1-detallada')}
               className="px-3 py-1.5 rounded-lg bg-lime-50 text-lime-700 border border-lime-200 text-xs font-bold hover:bg-lime-100 transition-colors cursor-pointer"
             >
-              Ver Matriz de Afirmaciones y Programas A-E →
+              Ver Matriz de Afirmaciones y Programas A-F →
             </button>
           </div>
 
@@ -519,8 +519,8 @@ export default function DashboardView({
                 </thead>
                 <tbody className="divide-y divide-slate-200 text-xs">
                   {rubrosSignificativos.map((rubro, idx) => {
-                    const fechas = ['12/01/26', '18/01/26', '22/01/26', '25/01/26', '02/02/26'];
-                    const prog = [100, 100, 100, 95, 100];
+                    const fechas = ['12/01/26', '18/01/26', '22/01/26', '25/01/26', '02/02/26', '04/02/26'];
+                    const prog = [100, 100, 100, 95, 100, 100];
                     return (
                       <tr
                         key={rubro.id}
@@ -563,10 +563,10 @@ export default function DashboardView({
                 centerLabel="Total Encargo"
               />
               <DonutStatusChart
-                title="Resultado Papeles de Trabajo (PT A-E)"
+                title="Resultado Papeles de Trabajo (PT A-F)"
                 data={donutRubros}
-                centerValue="5 Rubros"
-                centerLabel="25 Afirmaciones"
+                centerValue="6 Rubros"
+                centerLabel="30 Afirmaciones"
               />
             </div>
           </div>

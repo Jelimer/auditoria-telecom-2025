@@ -151,6 +151,12 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
 
     if (subTarget === 'sec-1c-rubros') {
       setModoVista('por-rubro');
+      setTimeout(() => {
+        const el = document.getElementById('sec-1c-rubros');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 140);
     }
   }, [subTargetTick]);
 
@@ -180,7 +186,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                 placement="bottom"
               />
               <span className="px-2.5 py-1 rounded-md text-xs font-extrabold bg-teal-600 text-white">
-                ETAPA 1.4 Y 1.5 — PLANIFICACIÓN DETALLADA (MATERIALIDAD, AFIRMACIONES Y PROGRAMAS A-E)
+                ETAPA 1.4 Y 1.5 — PLANIFICACIÓN DETALLADA (MATERIALIDAD, AFIRMACIONES Y PROGRAMAS A-F)
               </span>
             </div>
             <h2 className="text-xl font-extrabold text-slate-900 mt-2">
@@ -497,7 +503,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
-              Ver por Rubro (Programas A-E)
+              Ver por Rubro (Programas A-F)
             </button>
             <button
               onClick={() => setModoVista('transversal-afirmacion')}
@@ -507,7 +513,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
-              Comparar Afirmación en los 5 Rubros
+              Comparar Afirmación en los 6 Rubros
             </button>
           </div>
         </div>
@@ -843,11 +849,11 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
           </div>
         </div>
       ) : (
-        /* MODO 2: VISTA TRANSVERSAL POR AFIRMACIÓN EN LOS 5 RUBROS */
+        /* MODO 2: VISTA TRANSVERSAL POR AFIRMACIÓN EN LOS 6 RUBROS */
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
           <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
             <h3 className="text-base font-extrabold text-slate-900">
-              Matriz Transversal de Afirmaciones en los 5 Rubros Significativos ({filtroAfirmacion})
+              Matriz Transversal de Afirmaciones en los 6 Rubros Significativos ({filtroAfirmacion})
             </h3>
             {filtroAfirmacion !== 'TODAS' && (
               <button
@@ -1176,7 +1182,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
               II. Síntesis de Riesgos y Enfoque Determinado
             </h4>
             <p className="text-slate-700 leading-relaxed">
-              Habiendo relevado los 5 componentes de Control Interno (Archivo Documental NC 38,46% - RC ALTO; Sistema Tecnológico NC 47,62% - RC ALTO; Sistema Contable NC 72,00% - RC MEDIO; Presupuestos NC 77,78% - RC BAJO y Operativo NC 80,00% - RC BAJO), el Riesgo de Control resulta <strong>ALTO</strong> en los rubros críticos de infraestructura y tecnología. En consecuencia, se define un <strong>Enfoque Predominantemente Sustantivo</strong> con pruebas de detalle exhaustivas focalizadas en Bienes de Uso (PT-A), Activos Intangibles (PT-E) y Créditos por Ventas (PT-B), aplicando procedimientos analíticos sustantivos sobre los restantes.
+              Habiendo relevado los 5 componentes de Control Interno (Archivo Documental NC 38,46% - RC ALTO; Sistema Tecnológico NC 47,62% - RC ALTO; Sistema Contable NC 72,00% - RC MEDIO; Presupuestos NC 77,78% - RC BAJO y Operativo NC 80,00% - RC BAJO), el Riesgo de Control resulta <strong>ALTO</strong> en los rubros críticos de infraestructura y tecnología. En consecuencia, se define un <strong>Enfoque Predominantemente Sustantivo</strong> con pruebas de detalle exhaustivas focalizadas en 1° Bienes de Uso (PT-A), 2° Créditos por Ventas (PT-B) y 3° Activos Intangibles (PT-E), aplicando procedimientos analíticos sustantivos sobre los restantes.
             </p>
           </div>
 
@@ -1226,7 +1232,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
               1. ¿Qué se empieza haciendo en la Planificación Detallada?
             </strong>
             <p className="text-slate-200">
-              Una vez que en la <em>Planificación Preliminar (1A, 1B y 1C)</em> definimos que el Riesgo de Control de Telecom es ALTO y que aplicaremos un enfoque sustantivo, en la <strong>Planificación Detallada (1D)</strong> bajamos de la visión global a las <strong>cuentas individuales del Balance</strong>. Empezamos fijando los umbrales numéricos de <strong>Materialidad ($166.225M de PM, $83.112M de ET y $8.311M de PAE)</strong> y seleccionando los <strong>rubros más significativos y riesgosos</strong>: <em>PP&amp;E (Nota 9), Créditos por Ventas (Nota 5), Préstamos (Nota 14), Ventas (Nota 24), Activos Intangibles (Nota 10) y Llaves de Negocio (Nota 8)</em>, priorizando el enfoque de la cátedra en <strong>Bienes de Uso, Activos Intangibles y Créditos por Ventas</strong>.
+              Una vez que en la <em>Planificación Preliminar (1A, 1B y 1C)</em> definimos que el Riesgo de Control de Telecom es ALTO y que aplicaremos un enfoque sustantivo, en la <strong>Planificación Detallada (1D)</strong> bajamos de la visión global a las <strong>cuentas individuales del Balance</strong>. Empezamos fijando los umbrales numéricos de <strong>Materialidad ($166.225M de PM, $83.112M de ET y $8.311M de PAE)</strong> y seleccionando los <strong>rubros más significativos y riesgosos</strong>: <em>PP&amp;E (Nota 9), Créditos por Ventas (Nota 5), Préstamos (Nota 14), Ventas (Nota 24), Activos Intangibles (Nota 10) y Llaves de Negocio (Nota 8)</em>, priorizando el enfoque de la cátedra en <strong>1° Bienes de Uso (PT-A), 2° Créditos por Ventas (PT-B) y 3° Activos Intangibles (PT-E)</strong>.
             </p>
           </div>
 

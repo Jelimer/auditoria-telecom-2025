@@ -939,7 +939,7 @@ export default function Etapa3InformeView({
                 </>
               ) : (
                 <>
-                  Evaluando exclusivamente nuestros <strong>3 rubros auditados (PT-A, PT-E y PT-B)</strong>, existe <strong>1 único ajuste &ge; PAE (${UMBRAL_PAE.toLocaleString('es-AR')}M)</strong>: <strong>AJ-01</strong> ($28.340M en Bienes de Uso), mientras Intangibles y Créditos cerraron en $0.
+                  Evaluando exclusivamente nuestros <strong>3 rubros auditados (1° PT-A, 2° PT-B y 3° PT-E)</strong>, existe <strong>1 único ajuste &ge; PAE (${UMBRAL_PAE.toLocaleString('es-AR')}M)</strong>: <strong>AJ-01</strong> ($28.340M en Bienes de Uso), mientras Créditos por Ventas y Activos Intangibles cerraron en $0.
                 </>
               )}
             </p>
@@ -1038,7 +1038,7 @@ export default function Etapa3InformeView({
                 </>
               ) : (
                 <>
-                  <strong>Estado actual (3 rubros auditados conformes):</strong> Con <strong>AJ-01 ($28.340M)</strong> registrado en Bienes de Uso y $0 de desvío en Intangibles y Créditos ($0 sin ajustar), el dictamen es <strong>Favorable sin Salvedades (Limpia)</strong>. Destildá AJ-01 arriba si querés simular qué cambia bajo NIA 450.
+                  <strong>Estado actual (3 rubros auditados conformes):</strong> Con <strong>AJ-01 ($28.340M)</strong> registrado en Bienes de Uso y $0 de desvío en Créditos por Ventas y Activos Intangibles ($0 sin ajustar), el dictamen es <strong>Favorable sin Salvedades (Limpia)</strong>. Destildá AJ-01 arriba si querés simular qué cambia bajo NIA 450.
                 </>
               )}
             </span>

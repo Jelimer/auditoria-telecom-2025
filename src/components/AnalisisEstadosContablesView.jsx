@@ -1123,7 +1123,7 @@ const ratiosFinancieros = [
     queRepresenta:
       'Mide qué proporción de los recursos totales está invertida a largo plazo. Demuestra la altísima rigidez estructural de una Tech-Co de infraestructura: el 88,97% del Activo es No Corriente, dominado por PP&E (40,84% = $6.789.118M), Llaves de negocio (26,73% = $4.443.998M) y Activos intangibles (16,07% = $2.671.525M).',
     impactoAuditoria:
-      'Justifica plenamente que 2 de los 5 Programas de Trabajo críticos (Programa A para PP&E y Programa E para Llaves e Intangibles) se destinen a auditar el Activo No Corriente.'
+      'Justifica plenamente que 2 de los 3 Programas de Trabajo prioritarios de la cátedra (Programa A para PP&E y Programa E para Activos Intangibles, además de Programa F para Llaves de Negocio en alcance ampliado) se destinen a auditar el Activo No Corriente.'
   },
   {
     id: 'rat-17',
@@ -1544,7 +1544,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
             { id: 'er', label: '2. Estado de Resultados 2025-2024-2023 (H/V)', icon: TrendingUp },
             { id: 'graficas', label: '3. Gráficas de Variación y Estructura', icon: BarChart3 },
             { id: 'ratios', label: '4. Ratios Financieros y Matriz (27)', icon: Calculator },
-            { id: 'vinculacion', label: '5. Conclusión y Pruebas a Aplicar (A-E)', icon: FileSearch }
+            { id: 'vinculacion', label: '5. Conclusión y Pruebas a Aplicar (A-F)', icon: FileSearch }
           ].map((tab) => {
             const Icon = tab.icon;
             const active = vistaActiva === tab.id;
@@ -2606,7 +2606,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
       )}
 
       {/* =====================================================================
-          SECCIÓN 5: COMENTARIO FINAL Y VINCULACIÓN CON LAS PRUEBAS (PROGRAMAS A-E)
+          SECCIÓN 5: COMENTARIO FINAL Y VINCULACIÓN CON LAS PRUEBAS (PROGRAMAS A-F)
          ===================================================================== */}
       {vistaActiva === 'vinculacion' && (
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs space-y-6">
@@ -2703,7 +2703,7 @@ export default function AnalisisEstadosContablesView({ onNavigate, subTarget, su
 
       {/* =====================================================================
           CONCLUSIÓN TÉCNICA FINAL PERMANENTE: PROCEDIMIENTOS SUSTANTIVOS A APLICAR,
-          SOBRE QUÉ RUBROS Y POR QUÉ (BASE PARA EL PROGRAMA DE TRABAJO A-E)
+          SOBRE QUÉ RUBROS Y POR QUÉ (BASE PARA EL PROGRAMA DE TRABAJO A-F)
          ===================================================================== */}
       <div id="sec-conclusion-final" className="bg-slate-900 text-white rounded-2xl border border-slate-800 p-6 shadow-md space-y-5 scroll-mt-20">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-800">

@@ -312,7 +312,7 @@ export default function SimuladorOpinionView({ ajustesState = [], onNavigate }) 
               Simulador de Materialidad, Aceptación de Ajustes y Cambio de Opinión
             </h2>
             <p className="text-xs text-slate-600 mt-1 max-w-4xl leading-relaxed">
-              Simulá escenarios usando las <strong>cifras reales auditadas de Telecom S.A.</strong> (<em>PT-A, PT-E y PT-B</em>) y alterná si la Gerencia acepta o rechaza ajustar para ver en vivo qué pasa con el{' '}
+              Simulá escenarios usando las <strong>cifras reales auditadas de Telecom S.A.</strong> (<em>1° PT-A, 2° PT-B y 3° PT-E</em>) y alterná si la Gerencia acepta o rechaza ajustar para ver en vivo qué pasa con el{' '}
               <strong>PAE ($8.311M)</strong>, el <strong>Error Tolerable ($83.112M)</strong>, la{' '}
               <strong>Materialidad Global ($166.225M)</strong>, la <strong>Opinión del Auditor</strong> y por qué{' '}
               <strong>no corresponde Párrafo de Énfasis</strong> si queda por debajo de PM. <em>(Laboratorio independiente: no modifica las cifras reales ni tus respuestas de Etapa 1, 2 y 3).</em>

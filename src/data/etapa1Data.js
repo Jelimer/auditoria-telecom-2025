@@ -5,7 +5,7 @@
 export const proyectoMeta = {
   cliente: "Telecom Argentina S.A.",
   cuit: "30-63945373-8",
-  proyecto: "Auditoría Externa de Estados Contables Consolidados y Separados",
+  proyecto: "Auditoría Externa de Estados Contables Consolidados",
   ejercicio: "01/01/2025 al 31/12/2025",
   moneda: "Millones de Pesos ($ constantes al 31/12/2025 - NIC 29)",
   tipoCambioCierre: "BNA Vendedor $/US$ 1.455,00 al 31/12/2025",
@@ -32,9 +32,9 @@ export const marcoTeoricoSlosse = {
         "1.2. Relevamiento y Evaluación del Control Interno (5 Cuestionarios CCI - 129 preguntas)",
         "1.3. Matriz de Niveles de Confianza (NC) y Riesgo de Control (RC) + Matriz de Ponderación Preliminar",
         "1.4. Determinación de la Materialidad Global ($166.225M), Error Tolerable ($83.112M) y PAE ($8.311M)",
-        "1.5. Selección de 5 Rubros Críticos, Matriz de Afirmaciones (E, I, P, M, X) y Programas de Trabajo A-E"
+        "1.5. Selección de Rubros Críticos (PT-A, PT-B y PT-E + Alcance Ampliado A-F), Matriz de Afirmaciones (E, I, P, M, X) y Programas de Trabajo A-F"
       ],
-      entregables: ["Memorando de Planificación Preliminar", "5 Cuestionarios CCI y Matrices NC/RC", "Matriz de Afirmaciones y Riesgos", "Programas de Trabajo A-E y Cronograma"]
+      entregables: ["Memorando de Planificación Preliminar", "5 Cuestionarios CCI y Matrices NC/RC", "Matriz de Afirmaciones y Riesgos", "Programas de Trabajo A-F y Cronograma"]
     },
     {
       id: "etapa-2",
@@ -47,9 +47,9 @@ export const marcoTeoricoSlosse = {
         "2.1. Visita Interina (Oct-Nov 2025): Pruebas CGTI, interfaces heredadas, inspección física de nodos y títulos RPI/INPI/ENACOM",
         "2.2. Pre-Cierre (Dic 2025): Circularización bancaria/Caja de Valores (100%) y clientes corporativos B2B Personal Tech",
         "2.3. Visita Final (Ene-Feb 2026): Corte de facturación, cobros posteriores, recálculo moneda extranjera ($1.455) y Test Impairment Llave",
-        "2.4. Documentación en Cédulas Sumarias y Analíticas (PT-A a PT-E) y Planilla de Ajustes Propuestos (PAE)"
+        "2.4. Documentación en Cédulas Sumarias y Analíticas (PT-A, PT-B y PT-E + Alcance Ampliado A-F) y Planilla de Ajustes Propuestos (PAE)"
       ],
-      entregables: ["Cédulas Sumarias por Rubro", "Papeles de Trabajo Analíticos (PT-A a PT-E)", "Resumen de Hallazgos (H-01 a H-05)", "Planilla de Ajustes y Reclasificaciones (PAE)"]
+      entregables: ["Cédulas Sumarias por Rubro", "Papeles de Trabajo Analíticos (PT-A a PT-F)", "Resumen de Hallazgos (H-01 a H-05)", "Planilla de Ajustes y Reclasificaciones (PAE)"]
     },
     {
       id: "etapa-3",
@@ -884,7 +884,7 @@ export const materialidadData = {
         },
         {
           subtitulo: "2. ¿Cómo aplicó este criterio en nuestros 3 rubros auditados (PT-A1 vs. PT-A4)?",
-          texto: "En Bienes de Uso detectamos dos desvíos sobre un saldo de $6.789.118M (Nota 9): la falta de baja por fibra y nodos vandalizados (PT-A1: $6.890M, apenas 0,041% del Activo Total e inferior al PAE de $8.311M) y la falta de previsión por obsolescencia de centrales analógicas de cobre (PT-A4: $21.450M, superior al PAE). Siguiendo el criterio de acumulación por naturaleza de la NIA 450, como ambas partidas derivan de la misma debilidad en bajas dentro de SAP FI-AA (CCI-02 Preg. 22-23), las agrupamos en un único asiento propuesto AJ-01 por $28.340M. En Activos Intangibles (PT-E) y Créditos por Ventas (PT-B) los desvíos hallados fueron $0."
+          texto: "En Bienes de Uso detectamos dos desvíos sobre un saldo de $6.789.118M (Nota 9): la falta de baja por fibra y nodos vandalizados (PT-A1: $6.890M, apenas 0,041% del Activo Total e inferior al PAE de $8.311M) y la falta de previsión por obsolescencia de centrales analógicas de cobre (PT-A4: $21.450M, superior al PAE). Siguiendo el criterio de acumulación por naturaleza de la NIA 450, como ambas partidas derivan de la misma debilidad en bajas dentro de SAP FI-AA (CCI-02 Preg. 22-23), las agrupamos en un único asiento propuesto AJ-01 por $28.340M. En Créditos por Ventas (PT-B) y Activos Intangibles (PT-E) los desvíos hallados fueron $0."
         },
         {
           subtitulo: "3. ¿Superar el PAE cambia la Opinión del Informe? ¿Y qué significa «no justifica reabrir el cierre»?",
@@ -1149,10 +1149,10 @@ export const rubrosSignificativos = [
       {
         afirmacion: "Propiedad",
         objetivo: "Asegurar que las deudas corresponden a compromisos legales asumidos por la entidad y sus subsidiarias consolidadas (Derechos y Obligaciones).",
-        riesgo: "Inclusión en los estados financieros separados de deudas contraídas por subsidiarias sin aval corporativo, o asunción en el consolidado de obligaciones pertenecientes a terceros o negocios conjuntos no consolidados.",
+        riesgo: "Inclusión indebida en los estados financieros consolidados de deudas contraídas por entidades no controladas o negocios conjuntos fuera del perímetro de consolidación (NIIF 10), o asunción de obligaciones de terceros sin respaldo contractual.",
         controlClave: "Verificación y visado por la Gerencia de Asuntos Legales de los contratos de préstamo, prospectos de ONs y garantías societarias.",
         naturalezaProc: "Revisión de contratos marco de crédito y prospectos de emisión.",
-        instrumento: "Examinar los contratos de préstamo e instrumentos de deuda vigentes o suscritos en el año, validando las cláusulas de responsabilidad, garantías cruzadas (cross-default) y la titularidad del sujeto obligado pasivo en los estados consolidados (NIIF 10) y separados.",
+        instrumento: "Examinar los contratos de préstamo e instrumentos de deuda vigentes o suscritos en el año, validando las cláusulas de responsabilidad, garantías cruzadas (cross-default) y la titularidad del sujeto obligado pasivo dentro del perímetro de los estados consolidados (NIIF 10).",
         oportunidad: "Interina y actualización al cierre.",
         alcance: "100% de los contratos y nuevas emisiones de deuda financiera del año."
       },
@@ -1179,7 +1179,7 @@ export const rubrosSignificativos = [
     ],
     programaTrabajo: [
       { Bloque: "Confirmación Directa (Existencia y Propiedad)", Pasos: ["Circularizar al 100% de los bancos prestamistas, organismos multilaterales (IFC, BID, Finnvera), fiduciarios y a la Caja de Valores S.A. (agente de registro y pago de las ONs)."] },
-      { Bloque: "Revisión de Pasivos No Registrados (Integridad)", Pasos: ["Revisar el 100% de las actas de Directorio y Asamblea de Accionistas del ejercicio para identificar la aprobación de nuevos endeudamientos y verificar la titularidad en los EECC consolidados y separados.", "Examinar los egresos de fondos en extractos bancarios de enero y febrero de 2026 para detectar pagos o cancelaciones de pasivos e intereses devengados no registrados al 31/12/2025."] },
+      { Bloque: "Revisión de Pasivos No Registrados (Integridad)", Pasos: ["Revisar el 100% de las actas de Directorio y Asamblea de Accionistas del ejercicio para identificar la aprobación de nuevos endeudamientos y verificar su titularidad dentro del perímetro consolidado (NIIF 10).", "Examinar los egresos de fondos en extractos bancarios de enero y febrero de 2026 para detectar pagos o cancelaciones de pasivos e intereses devengados no registrados al 31/12/2025."] },
       { Bloque: "Valuación Moneda Extranjera y Costo Amortizado TIE (Medición)", Pasos: ["Recalcular los pasivos en moneda extranjera aplicando el tipo de cambio oficial vendedor de cierre (BNA $/US$ 1.455,00 al 31/12/2025).", "Verificar la correcta aplicación de la tasa de interés efectiva (incluyendo el devengamiento de gastos de emisión de ONs bajo NIIF 9) e instrumentos financieros derivados (IFD)."] },
       { Bloque: "Verificación de Covenants y Revelación (Exposición)", Pasos: ["Recalcular los ratios de resguardos financieros (covenants) exigidos en los contratos de préstamo y prospectos de ONs (evaluando eventuales cláusulas de aceleración bajo NIC 1).", "Comprobar al 100% la división entre pasivo corriente y no corriente y las revelaciones de riesgo de liquidez y mercado en la Nota 14 (NIIF 7)."] }
     ]
