@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Printer,
   CheckCircle2,
@@ -37,6 +37,8 @@ import { RichTextBox, sanitizeRichHtml } from './RichTextBox';
 import { NormaTooltip } from './NormaTooltip';
 
 const GUION_STORAGE_KEY = 'audiia_guion_oral_v1';
+const GUION_BOX3_PCT_KEY = 'audiia_guion_box3_pct_v1';
+const GUION_BOX3_DEFAULT_PCT = 66.67; // 2/3 por defecto (igual a col-span-2 sobre 3 columnas)
 
 // Orden estricto de los 3 rubros prioritarios realmente auditados: PT-A -> PT-B -> PT-E
 const RUBROS_AUDITADOS_ORDEN = ['rubro-1', 'rubro-2', 'rubro-5'];
@@ -263,6 +265,82 @@ export default function ResumenIntegralView({
   });
   const [editingAllGuion, setEditingAllGuion] = useState(false);
   const [editingSteps, setEditingSteps] = useState({});
+  const [guionBox3Pct, setGuionBox3Pct] = useState(() => {
+    try {
+      const saved = parseFloat(localStorage.getItem(GUION_BOX3_PCT_KEY));
+      if (!Number.isNaN(saved) && saved >= 20 && saved <= 80) return saved;
+    } catch {
+      // ignore storage errors
+    }
+    return GUION_BOX3_DEFAULT_PCT;
+  });
+  const [isResizingGuionBox3, setIsResizingGuionBox3] = useState(false);
+  const dragCleanupRef = useRef(null);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(GUION_BOX3_PCT_KEY, String(guionBox3Pct));
+    } catch {
+      // ignore storage errors
+    }
+  }, [guionBox3Pct]);
+
+  useEffect(() => {
+    return () => {
+      if (dragCleanupRef.current) dragCleanupRef.current();
+    };
+  }, []);
+
+  const handleResetGuionBox3Width = () => {
+    setGuionBox3Pct(GUION_BOX3_DEFAULT_PCT);
+  };
+
+  const handleStartResizeGuionBox3 = (e) => {
+    const rowEl = e.currentTarget.parentElement;
+    if (!rowEl) return;
+    e.preventDefault();
+    if (dragCleanupRef.current) dragCleanupRef.current();
+
+    const rowRect = rowEl.getBoundingClientRect();
+    if (rowRect.width <= 0) return;
+
+    setIsResizingGuionBox3(true);
+    const prevUserSelect = document.body.style.userSelect;
+    const prevCursor = document.body.style.cursor;
+    document.body.style.userSelect = 'none';
+    document.body.style.cursor = 'col-resize';
+
+    const updateWidthFromClientX = (clientX) => {
+      const pct = ((rowRect.right - clientX) / rowRect.width) * 100;
+      const clamped = Math.min(78, Math.max(20, pct));
+      setGuionBox3Pct(Number(clamped.toFixed(2)));
+    };
+
+    updateWidthFromClientX(e.clientX);
+
+    const onPointerMove = (moveEvent) => {
+      updateWidthFromClientX(moveEvent.clientX);
+    };
+
+    const cleanup = () => {
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerup', onPointerUp);
+      window.removeEventListener('pointercancel', onPointerUp);
+      document.body.style.userSelect = prevUserSelect;
+      document.body.style.cursor = prevCursor;
+      setIsResizingGuionBox3(false);
+      dragCleanupRef.current = null;
+    };
+
+    const onPointerUp = () => {
+      cleanup();
+    };
+
+    dragCleanupRef.current = cleanup;
+    window.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointerup', onPointerUp);
+    window.addEventListener('pointercancel', onPointerUp);
+  };
 
   useEffect(() => {
     try {
@@ -657,49 +735,107 @@ export default function ResumenIntegralView({
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-3 text-xs leading-relaxed">
-                  <div className="lg:col-span-1 p-3 rounded-xl bg-slate-50 border border-slate-200">
-                    <strong className="text-slate-800 uppercase text-[10px] tracking-wider block mb-1">
-                      1. ¿Qué hicimos concretamente?
-                    </strong>
-                    {isEditingThisStep ? (
-                      <RichTextBox
-                        value={valQueHicimos}
-                        baseValue={step.queHicimos}
-                        onChange={(html) => handleUpdateGuionField(step.id, 'queHicimos', html)}
-                        onReset={() => handleResetGuionField(step.id, 'queHicimos')}
-                        boxClassName="text-slate-700"
-                        placeholder="Editar Qué hicimos concretamente"
-                      />
-                    ) : (
+                <div className="mt-3 text-xs leading-relaxed">
+                  <div
+                    className="flex flex-col lg:flex-row lg:items-stretch gap-3 lg:gap-0 relative"
+                    style={{
+                      '--b1-w': `calc(${(100 - guionBox3Pct).toFixed(2)}% - 6px)`,
+                      '--b3-w': `calc(${guionBox3Pct.toFixed(2)}% - 6px)`
+                    }}
+                  >
+                    <div className="w-full lg:w-[var(--b1-w)] min-w-0 p-3 rounded-xl bg-slate-50 border border-slate-200">
+                      <strong className="text-slate-800 uppercase text-[10px] tracking-wider block mb-1">
+                        1. ¿Qué hicimos concretamente?
+                      </strong>
+                      {isEditingThisStep ? (
+                        <RichTextBox
+                          value={valQueHicimos}
+                          baseValue={step.queHicimos}
+                          onChange={(html) => handleUpdateGuionField(step.id, 'queHicimos', html)}
+                          onReset={() => handleResetGuionField(step.id, 'queHicimos')}
+                          boxClassName="text-slate-700"
+                          placeholder="Editar Qué hicimos concretamente"
+                        />
+                      ) : (
+                        <div
+                          className="text-slate-600 [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
+                          dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(valQueHicimos) }}
+                        />
+                      )}
+                    </div>
+
+                    {/* Divisor vertical estilo celda de Excel en el borde izquierdo del Recuadro 3 */}
+                    <div
+                      role="separator"
+                      aria-orientation="vertical"
+                      aria-label="Ajustar ancho del recuadro Qué decir en voz alta"
+                      onPointerDown={handleStartResizeGuionBox3}
+                      onDoubleClick={handleResetGuionBox3Width}
+                      title="Mantené apretado y arrastrá para angostar o ensanchar el recuadro 3 (doble clic para restablecer 2/3)"
+                      className={`no-print hidden lg:flex w-3 shrink-0 cursor-col-resize items-center justify-center relative select-none touch-none group/resizer ${
+                        isResizingGuionBox3 ? 'z-20' : ''
+                      }`}
+                    >
                       <div
-                        className="text-slate-600 [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
-                        dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(valQueHicimos) }}
+                        className={`w-1 rounded-full transition-all ${
+                          isResizingGuionBox3
+                            ? 'h-full bg-indigo-600 shadow-xs'
+                            : 'h-12 bg-indigo-200 group-hover/resizer:h-full group-hover/resizer:bg-indigo-500'
+                        }`}
                       />
-                    )}
+                      {isResizingGuionBox3 && (
+                        <span className="pointer-events-none absolute -top-6 left-1/2 -translate-x-1/2 px-1.5 py-0.5 rounded bg-indigo-900 text-white font-mono text-[10px] font-bold shadow-sm whitespace-nowrap">
+                          {Math.round(guionBox3Pct)}%
+                        </span>
+                      )}
+                    </div>
+
+                    <div
+                      className={`w-full lg:w-[var(--b3-w)] min-w-0 p-3.5 rounded-xl bg-indigo-50/70 border transition-colors ${
+                        isResizingGuionBox3
+                          ? 'border-indigo-500 ring-2 ring-indigo-200'
+                          : 'border-indigo-200 border-l-2 border-l-indigo-300'
+                      }`}
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-1.5 mb-1">
+                        <strong className="text-indigo-900 uppercase text-[10px] tracking-wider flex items-center gap-1">
+                          <MessageSquareQuote className="w-3.5 h-3.5 text-indigo-700 shrink-0" />
+                          3. Qué decir en voz alta (Guion oral)
+                        </strong>
+                        {Math.abs(guionBox3Pct - GUION_BOX3_DEFAULT_PCT) >= 0.5 ? (
+                          <button
+                            type="button"
+                            onClick={handleResetGuionBox3Width}
+                            className="no-print hidden lg:inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-indigo-100 hover:bg-indigo-200 text-indigo-800 text-[10px] font-bold cursor-pointer transition-colors"
+                            title="Volver al ancho original (2/3)"
+                          >
+                            {Math.round(guionBox3Pct)}% · Restablecer
+                          </button>
+                        ) : (
+                          <span className="no-print hidden lg:inline text-[10px] font-semibold text-indigo-500 select-none">
+                            ↔ Arrastrá borde izq.
+                          </span>
+                        )}
+                      </div>
+                      {isEditingThisStep ? (
+                        <RichTextBox
+                          value={valFrase}
+                          baseValue={step.fraseOral}
+                          onChange={(html) => handleUpdateGuionField(step.id, 'fraseOral', html)}
+                          onReset={() => handleResetGuionField(step.id, 'fraseOral')}
+                          boxClassName="text-indigo-950 italic"
+                          placeholder="Editar Qué decir en voz alta"
+                        />
+                      ) : (
+                        <div
+                          className="text-indigo-950 italic break-words [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
+                          dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(valFrase) }}
+                        />
+                      )}
+                    </div>
                   </div>
-                  <div className="lg:col-span-2 p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-200">
-                    <strong className="text-indigo-900 uppercase text-[10px] tracking-wider flex items-center gap-1 mb-1">
-                      <MessageSquareQuote className="w-3.5 h-3.5 text-indigo-700" />
-                      3. Qué decir en voz alta (Guion oral)
-                    </strong>
-                    {isEditingThisStep ? (
-                      <RichTextBox
-                        value={valFrase}
-                        baseValue={step.fraseOral}
-                        onChange={(html) => handleUpdateGuionField(step.id, 'fraseOral', html)}
-                        onReset={() => handleResetGuionField(step.id, 'fraseOral')}
-                        boxClassName="text-indigo-950 italic"
-                        placeholder="Editar Qué decir en voz alta"
-                      />
-                    ) : (
-                      <div
-                        className="text-indigo-950 italic [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
-                        dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(valFrase) }}
-                      />
-                    )}
-                  </div>
-                  <div className="lg:col-span-3 p-3 rounded-xl bg-amber-50/60 border border-amber-200">
+
+                  <div className="mt-3 p-3 rounded-xl bg-amber-50/60 border border-amber-200">
                     <strong className="text-amber-900 uppercase text-[10px] tracking-wider flex items-center gap-1 mb-1">
                       <Compass className="w-3.5 h-3.5 text-amber-700" />
                       2. ¿Por qué conecta con el paso siguiente?
