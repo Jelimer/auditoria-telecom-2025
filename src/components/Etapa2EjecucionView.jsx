@@ -121,6 +121,9 @@ export function FormattingToolbar({ onFormat, isDark = false, compact = false })
   );
 }
 
+// Procedimientos donde el bloque de respaldo exhibe la debilidad de Control Interno que originó la prueba
+const DEBILIDAD_ORIGIN_PTS = new Set(['PT-A2', 'PT-A4']);
+
 export default function Etapa2EjecucionView({
   ajustesState,
   onToggleAjusteAceptado,
@@ -701,6 +704,7 @@ export default function Etapa2EjecucionView({
               const hasIssue = proc.marca.includes('⊗');
               const elementId = proc.ref.toLowerCase().replace(/[^a-z0-9_-]/g, '');
               const isExpanded = expandAllCedulas || !!expandedCedulas[proc.ref];
+              const isDebilidadOrigin = DEBILIDAD_ORIGIN_PTS.has(proc.ref);
 
               return (
                 <div
@@ -1114,7 +1118,7 @@ export default function Etapa2EjecucionView({
                                       <div>
                                         <div className="flex items-center justify-between gap-1 mb-0.5">
                                           <strong className={`text-teal-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
-                                            📂 Fuentes de Información y Sistemas:
+                                            {isDebilidadOrigin ? 'DEBILIDAD QUE LO ORIGINÓ' : '📂 Fuentes de Información y Sistemas:'}
                                             {isCustom && (
                                               <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-400 text-slate-900 ml-1">
                                                 ✏️ Editado
@@ -1125,7 +1129,11 @@ export default function Etapa2EjecucionView({
                                             <button
                                               type="button"
                                               onClick={() => handleStartEdit(fuentesKey, currentFuentes)}
-                                              title="Editar las fuentes de información de este paso"
+                                              title={
+                                                isDebilidadOrigin
+                                                  ? 'Editar la debilidad que originó este procedimiento'
+                                                  : 'Editar las fuentes de información de este paso'
+                                              }
                                               className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-teal-300 border border-teal-500/50 cursor-pointer shadow-2xs"
                                             >
                                               <Pencil className="w-2.5 h-2.5" /> Editar
@@ -1172,7 +1180,7 @@ export default function Etapa2EjecucionView({
                                             </div>
                                           </div>
                                         ) : (
-                                          <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
+                                          <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
                                             {renderFormattedRichText(currentFuentes)}
                                           </p>
                                         )}
@@ -1528,7 +1536,7 @@ export default function Etapa2EjecucionView({
                                 <div>
                                   <div className="flex items-center justify-between gap-1 mb-0.5">
                                     <strong className={`text-teal-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
-                                      📂 Fuentes de Información y Sistemas:
+                                      {isDebilidadOrigin ? 'DEBILIDAD QUE LO ORIGINÓ' : '📂 Fuentes de Información y Sistemas:'}
                                       {isCustom && (
                                         <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-400 text-slate-900 ml-1">
                                           ✏️ Editado
@@ -1539,7 +1547,11 @@ export default function Etapa2EjecucionView({
                                       <button
                                         type="button"
                                         onClick={() => handleStartEdit(procFuentesKey, currentProcFuentes)}
-                                        title="Editar las fuentes de información de este procedimiento"
+                                        title={
+                                          isDebilidadOrigin
+                                            ? 'Editar la debilidad que originó este procedimiento'
+                                            : 'Editar las fuentes de información de este procedimiento'
+                                        }
                                         className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-teal-300 border border-teal-500/50 cursor-pointer shadow-2xs"
                                       >
                                         <Pencil className="w-2.5 h-2.5" /> Editar
@@ -1586,7 +1598,7 @@ export default function Etapa2EjecucionView({
                                       </div>
                                     </div>
                                   ) : (
-                                    <p className={`text-slate-300 mt-0.5 leading-relaxed ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
+                                    <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
                                       {renderFormattedRichText(currentProcFuentes)}
                                     </p>
                                   )}
