@@ -46,7 +46,7 @@ const INFORME_SECCIONES_INFO = {
     queEs:
       'Es el corazón del dictamen: identifica qué EECC consolidados se auditaron, la fecha de cierre (31/12/2025), el marco de referencia (NIIF IASB + NIC 29 en moneda homogénea + CNV) y la conclusión profesional sobre si «presentan razonablemente» la situación financiera.',
     detallePregunta:
-      'Tres preguntas clásicas de cátedra: 1) Por qué va primero desde 2016: para que el lector vea de entrada la conclusión antes de leer párrafos técnicos. 2) Por qué dice «presentan razonablemente» y no «son exactos»: porque la auditoría trabaja sobre muestreos y estimaciones bajo materialidad (seguridad razonable). 3) Cuándo cambia a «con salvedades» (NIA 705): si hay desvíos no ajustados ≥ Materialidad Global ($166.225M).'
+      'Tres preguntas clásicas de cátedra: 1) Por qué va primero desde 2016: para que el lector vea de entrada la conclusión antes de leer párrafos técnicos. 2) Por qué dice «presentan razonablemente» y no «son exactos»: porque la auditoría trabaja sobre muestreos y estimaciones bajo materialidad (seguridad razonable). 3) Cuándo cambia (NIA 705): si hay desvíos no ajustados ≥ Materialidad Global ($166.225M) — Con Salvedades si el efecto es acotado (NIA 705.7) o Adversa si es generalizado (NIA 705.8).'
   },
   sec2: {
     titulo: '2. Fundamento de la opinión',
@@ -552,7 +552,7 @@ export default function Etapa3InformeView({
             : `${ajustesComputables.map((a) => `${a.codigoAjuste} $${a.montoMillones.toLocaleString('es-AR')}M`).join(' + ')}; total $${totalAjustado.toLocaleString('es-AR')}M`
         }), los saldos de los rubros auditados quedan razonablemente expuestos conforme a NIIF. Recomendamos emitir una OPINIÓN FAVORABLE SIN SALVEDADES el día 20/02/2026 bajo NIAs (RT N° 32 FACPCE), previa obtención de la Carta de Representación (NIA 580).`
       : esFavorableSinSalvedades
-      ? `Aun ante la falta de registración por la Dirección de partidas propuestas por un total bruto de $${totalNoAjustado.toLocaleString('es-AR')} millones (impacto patrimonial neto $${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M), dicho desvío residual permanece por debajo del Error Tolerable ($${ERROR_TOLERABLE.toLocaleString('es-AR')}M) y representa el ${((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de la Materialidad Global ($${MATERIALIDAD_GLOBAL.toLocaleString('es-AR')}M), sin generar distorsión significativa generalizada sobre los estados financieros consolidados tomados en su conjunto (NIA 450 / NIA 700 / RT N° 32). Corresponde emitir una OPINIÓN FAVORABLE SIN SALVEDADES dejando constancia expresa en la Carta de Representación (NIA 450.14) y comunicando las deficiencias al Directorio/Comité de Auditoría.`
+      ? `Aun ante la falta de registración por la Dirección de partidas propuestas por un total bruto de $${totalNoAjustado.toLocaleString('es-AR')} millones (impacto patrimonial neto $${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M), dicho desvío residual permanece por debajo del Error Tolerable ($${ERROR_TOLERABLE.toLocaleString('es-AR')}M) y representa el ${((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de la Materialidad Global ($${MATERIALIDAD_GLOBAL.toLocaleString('es-AR')}M), sin generar distorsión significativa ni generalizada sobre los estados financieros consolidados tomados en su conjunto (NIA 450 / NIA 700 / RT N° 32). Corresponde emitir una OPINIÓN FAVORABLE SIN SALVEDADES dejando constancia expresa en la Carta de Representación (NIA 450.14) y comunicando las deficiencias al Directorio/Comité de Auditoría.`
       : `Atento a que los ajustes no registrados suman $${totalNoAjustado.toLocaleString('es-AR')} millones y SUPERAN la Materialidad Global ($${MATERIALIDAD_GLOBAL.toLocaleString('es-AR')}M), se recomienda emitir una OPINIÓN CON SALVEDADES (NIA 705) por incorrección material en medición y exposición bajo NIIF.`;
 
     const secs = m.secciones
@@ -629,7 +629,7 @@ export default function Etapa3InformeView({
     const opinionTitulo = esFavorableSinSalvedades ? '1. Opinión' : '1. Opinión con salvedades';
     const opinionConclusion = esFavorableSinSalvedades
       ? 'En nuestra opinión, los estados financieros consolidados adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación financiera consolidada del Grupo al 31 de diciembre de 2025, así como su desempeño financiero consolidado y los flujos de efectivo consolidados correspondientes al ejercicio finalizado en esa fecha, de conformidad con las Normas de contabilidad NIIF emitidas por el Consejo de Normas Internacionales de Contabilidad (IASB), en moneda homogénea de cierre (NIC 29) y las normas pertinentes de la Comisión Nacional de Valores (CNV).'
-      : `En nuestra opinión, excepto por los efectos de las cuestiones descritas en la sección «Fundamento de la opinión con salvedades» (ajustes propuestos no registrados por un total de $${totalNoAjustado.toLocaleString('es-AR')} millones que superan la Materialidad Global de $166.225M), los estados financieros consolidados adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación financiera consolidada de Telecom Argentina S.A. al 31 de diciembre de 2025, de conformidad con las Normas de contabilidad NIIF emitidas por el IASB.`;
+      : `En nuestra opinión, excepto por los efectos de las cuestiones descritas en la sección «Fundamento de la opinión con salvedades» (ajustes propuestos no registrados por un total de $${totalNoAjustado.toLocaleString('es-AR')} millones que superan la Materialidad Global de $166.225M), los estados financieros consolidados adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación financiera consolidada de Telecom Argentina S.A. al 31 de diciembre de 2025, de conformidad con las Normas de contabilidad NIIF emitidas por el Consejo de Normas Internacionales de Contabilidad (IASB), en moneda homogénea de cierre (NIC 29) y las normas pertinentes de la Comisión Nacional de Valores (CNV).`;
 
     const fundamentoTitulo = esFavorableSinSalvedades
       ? '2. Fundamento de la opinión'
@@ -1016,7 +1016,7 @@ export default function Etapa3InformeView({
             </p>
             <ul className="list-disc pl-5 space-y-1 text-red-100 leading-relaxed">
               <li>
-                <strong className="text-white">Tipo de Opinión (NO cambia — sigue Favorable sin Salvedades):</strong> El desvío sin ajustar ({((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de PM; impacto patrimonial neto ${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M) queda muy por debajo del <strong>Error Tolerable ($83.112M)</strong> y de la <strong>Materialidad Global ($166.225M)</strong>. Según la <NormaTooltip code="NIA 450" /> y <NormaTooltip code="NIA 700" />, no distorsiona significativamente los EECC consolidados en su conjunto (solo pasaría a <em>Opinión con Salvedades — <NormaTooltip code="NIA 705" /></em> si superara los $166.225M).
+                <strong className="text-white">Tipo de Opinión (NO cambia — sigue Favorable sin Salvedades):</strong> El desvío sin ajustar ({((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de PM; impacto patrimonial neto ${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M) queda muy por debajo del <strong>Error Tolerable ($83.112M)</strong> y de la <strong>Materialidad Global ($166.225M)</strong>. Según la <NormaTooltip code="NIA 450" /> y <NormaTooltip code="NIA 700" />, no distorsiona significativamente los EECC consolidados en su conjunto (solo pasaría a <em>Opinión con Salvedades</em> si el efecto fuera acotado — <NormaTooltip code="NIA 705" />.7, o <em>Adversa</em> si fuera generalizado — <NormaTooltip code="NIA 705" />.8, al igualar o superar los $166.225M).
               </li>
               <li>
                 <strong className="text-white">Lo que SÍ cambia en el Informe y Legajo de Cierre:</strong>{' '}
@@ -1270,15 +1270,15 @@ export default function Etapa3InformeView({
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full text-xs border-collapse">
+                <table className="w-full text-xs border-collapse text-center">
                   <thead>
                     <tr className="bg-slate-100 text-slate-700 border-b border-slate-200">
-                      <th className="py-2 px-2.5 text-left font-extrabold">Código / PT</th>
-                      <th className="py-2 px-2.5 text-left font-extrabold">Rubro y Naturaleza</th>
-                      <th className="py-2 px-2.5 text-right font-extrabold">Importe ($M)</th>
-                      <th className="py-2 px-2.5 text-right font-extrabold">Efecto PN/Res ($M)</th>
-                      <th className="py-2 px-2.5 text-right font-extrabold">% s/ PM</th>
-                      <th className="py-2 px-2.5 text-center font-extrabold">Estado Gerencia</th>
+                      <th className="py-2 px-2.5 text-center align-middle font-extrabold">Código / PT</th>
+                      <th className="py-2 px-2.5 text-center align-middle font-extrabold">Rubro y Naturaleza</th>
+                      <th className="py-2 px-2.5 text-center align-middle font-extrabold">Importe ($M)</th>
+                      <th className="py-2 px-2.5 text-center align-middle font-extrabold">Efecto PN/Res ($M)</th>
+                      <th className="py-2 px-2.5 text-center align-middle font-extrabold">% s/ PM</th>
+                      <th className="py-2 px-2.5 text-center align-middle font-extrabold">Estado Gerencia</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
@@ -1287,24 +1287,28 @@ export default function Etapa3InformeView({
                       .map((aj) => {
                         const pctPM = ((aj.montoMillones / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',');
                         const resImpact = aj.impactoPatrimonial?.resultadoEjercicio || 0;
+                        const resImpactStr =
+                          resImpact === 0
+                            ? '$0 (Neutro)'
+                            : resImpact < 0
+                            ? `-$${Math.abs(resImpact).toLocaleString('es-AR')}M`
+                            : `$${resImpact.toLocaleString('es-AR')}M`;
                         return (
                           <tr key={aj.id} className={aj.superaPAE ? 'bg-white' : 'bg-slate-50/70 text-slate-500'}>
-                            <td className="py-2 px-2.5 font-mono font-bold text-slate-900">
+                            <td className="py-2 px-2.5 text-center align-middle font-mono font-bold text-slate-900">
                               {aj.codigoAjuste}
                               <span className="block text-[10px] font-normal text-slate-500">{aj.refPT}</span>
                             </td>
-                            <td className="py-2 px-2.5">
+                            <td className="py-2 px-2.5 text-center align-middle">
                               <span className="font-bold text-slate-800">{aj.rubro}</span>
                               <span className="block text-[11px] text-slate-500">{aj.tipo}</span>
                             </td>
-                            <td className="py-2 px-2.5 text-right font-mono font-bold">
+                            <td className="py-2 px-2.5 text-center align-middle font-mono font-bold">
                               ${aj.montoMillones.toLocaleString('es-AR')}M
                             </td>
-                            <td className="py-2 px-2.5 text-right font-mono">
-                              {resImpact === 0 ? '$0 (Neutro)' : `$${resImpact.toLocaleString('es-AR')}M`}
-                            </td>
-                            <td className="py-2 px-2.5 text-right font-mono">{pctPM}%</td>
-                            <td className="py-2 px-2.5 text-center">
+                            <td className="py-2 px-2.5 text-center align-middle font-mono">{resImpactStr}</td>
+                            <td className="py-2 px-2.5 text-center align-middle font-mono">{pctPM}%</td>
+                            <td className="py-2 px-2.5 text-center align-middle">
                               {!aj.superaPAE ? (
                                 <span className="px-2 py-0.5 rounded bg-slate-200 text-slate-700 text-[10px] font-bold">
                                   &lt; PAE ($8.311M)
@@ -1325,36 +1329,36 @@ export default function Etapa3InformeView({
                     {!incluirAlcanceAmpliado && (
                       <>
                         <tr className="bg-emerald-50/30">
-                          <td className="py-2 px-2.5 font-mono font-bold text-slate-900">
+                          <td className="py-2 px-2.5 text-center align-middle font-mono font-bold text-slate-900">
                             Sin ajuste
                             <span className="block text-[10px] font-normal text-slate-500">PT-B1 / PT-B2 / PT-B3</span>
                           </td>
-                          <td className="py-2 px-2.5">
+                          <td className="py-2 px-2.5 text-center align-middle">
                             <span className="font-bold text-slate-800">Créditos por Ventas y Previsión NIIF 9 (Nota 5)</span>
                             <span className="block text-[11px] text-slate-500">Circularización Positiva Directa, Corte y TAACs</span>
                           </td>
-                          <td className="py-2 px-2.5 text-right font-mono font-bold text-emerald-800">$0M</td>
-                          <td className="py-2 px-2.5 text-right font-mono text-emerald-800">$0</td>
-                          <td className="py-2 px-2.5 text-right font-mono">0,00%</td>
-                          <td className="py-2 px-2.5 text-center">
+                          <td className="py-2 px-2.5 text-center align-middle font-mono font-bold text-emerald-800">$0M</td>
+                          <td className="py-2 px-2.5 text-center align-middle font-mono text-emerald-800">$0</td>
+                          <td className="py-2 px-2.5 text-center align-middle font-mono">0,00%</td>
+                          <td className="py-2 px-2.5 text-center align-middle">
                             <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-extrabold">
                               Conforme ✓
                             </span>
                           </td>
                         </tr>
                         <tr className="bg-emerald-50/30">
-                          <td className="py-2 px-2.5 font-mono font-bold text-slate-900">
+                          <td className="py-2 px-2.5 text-center align-middle font-mono font-bold text-slate-900">
                             Sin ajuste
                             <span className="block text-[10px] font-normal text-slate-500">PT-E1 / PT-E2</span>
                           </td>
-                          <td className="py-2 px-2.5">
+                          <td className="py-2 px-2.5 text-center align-middle">
                             <span className="font-bold text-slate-800">Activos Intangibles (Nota 10 y 25)</span>
                             <span className="block text-[11px] text-slate-500">Pruebas Globales, ENACOM, INPI y NIC 38</span>
                           </td>
-                          <td className="py-2 px-2.5 text-right font-mono font-bold text-emerald-800">$0M</td>
-                          <td className="py-2 px-2.5 text-right font-mono text-emerald-800">$0</td>
-                          <td className="py-2 px-2.5 text-right font-mono">0,00%</td>
-                          <td className="py-2 px-2.5 text-center">
+                          <td className="py-2 px-2.5 text-center align-middle font-mono font-bold text-emerald-800">$0M</td>
+                          <td className="py-2 px-2.5 text-center align-middle font-mono text-emerald-800">$0</td>
+                          <td className="py-2 px-2.5 text-center align-middle font-mono">0,00%</td>
+                          <td className="py-2 px-2.5 text-center align-middle">
                             <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-extrabold">
                               Conforme ✓
                             </span>
@@ -1365,20 +1369,22 @@ export default function Etapa3InformeView({
                   </tbody>
                   <tfoot>
                     <tr className="bg-slate-50 border-t-2 border-slate-200 font-extrabold text-slate-900">
-                      <td className="py-2 px-2.5" colSpan={2}>
+                      <td className="py-2 px-2.5 text-center align-middle" colSpan={2}>
                         Total Incorrecciones No Registradas Computables (&ge; PAE)
                       </td>
-                      <td className="py-2 px-2.5 text-right font-mono">
+                      <td className="py-2 px-2.5 text-center align-middle font-mono">
                         ${totalNoAjustado.toLocaleString('es-AR')}M
                       </td>
-                      <td className="py-2 px-2.5 text-right font-mono">
-                        ${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M
+                      <td className="py-2 px-2.5 text-center align-middle font-mono">
+                        {impactoPatrimonialNoAjustado > 0
+                          ? `-$${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M`
+                          : '$0M'}
                       </td>
-                      <td className="py-2 px-2.5 text-right font-mono">
+                      <td className="py-2 px-2.5 text-center align-middle font-mono">
                         {((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}%
                       </td>
-                      <td className="py-2 px-2.5 text-center text-[11px]">
-                        {totalNoAjustado < ERROR_TOLERABLE ? '< ET ($83.112M)' : totalNoAjustado < MATERIALIDAD_GLOBAL ? '< PM ($166.225M)' : '> PM'}
+                      <td className="py-2 px-2.5 text-center align-middle text-[11px]">
+                        {totalNoAjustado < ERROR_TOLERABLE ? '< ET ($83.112M)' : totalNoAjustado < MATERIALIDAD_GLOBAL ? '< PM ($166.225M)' : '≥ PM ($166.225M)'}
                       </td>
                     </tr>
                   </tfoot>
@@ -1414,7 +1420,7 @@ export default function Etapa3InformeView({
                         : `${ajustesComputables.map((a) => `${a.codigoAjuste} $${a.montoMillones.toLocaleString('es-AR')}M`).join(' + ')}; total $${totalAjustado.toLocaleString('es-AR')}M`
                     }), los saldos de los rubros auditados quedan razonablemente expuestos conforme a NIIF. Recomendamos emitir una OPINIÓN FAVORABLE SIN SALVEDADES el día 20/02/2026 bajo NIAs (RT N° 32 FACPCE), previa obtención de la Carta de Representación (NIA 580).`
                   : esFavorableSinSalvedades
-                  ? `Aun ante la falta de registración por la Dirección de partidas propuestas por un total bruto de $${totalNoAjustado.toLocaleString('es-AR')} millones (impacto patrimonial neto $${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M), dicho desvío residual permanece por debajo del Error Tolerable ($${ERROR_TOLERABLE.toLocaleString('es-AR')}M) y representa el ${((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de la Materialidad Global ($${MATERIALIDAD_GLOBAL.toLocaleString('es-AR')}M), sin generar distorsión significativa generalizada sobre los estados financieros consolidados tomados en su conjunto (NIA 450 / NIA 700 / RT N° 32). Corresponde emitir una OPINIÓN FAVORABLE SIN SALVEDADES dejando constancia expresa en la Carta de Representación (NIA 450.14) y comunicando las deficiencias al Directorio/Comité de Auditoría.`
+                  ? `Aun ante la falta de registración por la Dirección de partidas propuestas por un total bruto de $${totalNoAjustado.toLocaleString('es-AR')} millones (impacto patrimonial neto $${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M), dicho desvío residual permanece por debajo del Error Tolerable ($${ERROR_TOLERABLE.toLocaleString('es-AR')}M) y representa el ${((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de la Materialidad Global ($${MATERIALIDAD_GLOBAL.toLocaleString('es-AR')}M), sin generar distorsión significativa ni generalizada sobre los estados financieros consolidados tomados en su conjunto (NIA 450 / NIA 700 / RT N° 32). Corresponde emitir una OPINIÓN FAVORABLE SIN SALVEDADES dejando constancia expresa en la Carta de Representación (NIA 450.14) y comunicando las deficiencias al Directorio/Comité de Auditoría.`
                   : `Atento a que los ajustes no registrados suman $${totalNoAjustado.toLocaleString('es-AR')} millones y SUPERAN la Materialidad Global ($${MATERIALIDAD_GLOBAL.toLocaleString('es-AR')}M), se recomienda emitir una OPINIÓN CON SALVEDADES (NIA 705) por incorrección material en medición y exposición bajo NIIF.`}
               </p>
             </div>
@@ -1644,14 +1650,14 @@ export default function Etapa3InformeView({
                           Simulación Didáctica — Impacto NIA 450 por Incorrecciones NO Registradas ({ajustesPendientes.map((a) => a.codigoAjuste).join(' + ')}) (no integra el texto formal del dictamen):
                         </p>
                         <p className="leading-relaxed text-justify">
-                          Los desvíos propuestos no registrados suman <strong>${totalNoAjustado.toLocaleString('es-AR')} millones</strong> brutos (impacto patrimonial neto <strong>${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M</strong>, equivalente al {((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de la PM de $166.225M). <strong>Por qué no modifica la opinión:</strong> al ubicarse por debajo del Error Tolerable ($83.112M) y de la Materialidad Global ($166.225M), no produce distorsión significativa generalizada en los estados financieros consolidados, por lo que la opinión se mantiene <strong>Favorable sin Salvedades</strong> (requiriendo únicamente constancia anexa en la Carta de Representación — NIA 450.14 y comunicación al Comité de Auditoría).
+                          Los desvíos propuestos no registrados suman <strong>${totalNoAjustado.toLocaleString('es-AR')} millones</strong> brutos (impacto patrimonial neto <strong>${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M</strong>, equivalente al {((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de la PM de $166.225M). <strong>Por qué no modifica la opinión:</strong> al ubicarse por debajo del Error Tolerable ($83.112M) y de la Materialidad Global ($166.225M), no produce distorsión significativa ni generalizada en los estados financieros consolidados, por lo que la opinión se mantiene <strong>Favorable sin Salvedades</strong> (requiriendo únicamente constancia anexa en la Carta de Representación — NIA 450.14 y comunicación al Comité de Auditoría).
                         </p>
                       </div>
                     )}
                   </div>
                 ) : (
                   <p className="mt-2.5 font-medium text-rose-950 text-justify">
-                    En nuestra opinión, <strong>excepto por los efectos de las cuestiones descritas en la sección «Fundamento de la opinión con salvedades»</strong> (ajustes propuestos no registrados por un total de ${totalNoAjustado.toLocaleString('es-AR')} millones que superan la Materialidad Global de $166.225M), los estados financieros consolidados adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación financiera consolidada de <strong>Telecom Argentina S.A.</strong> al 31 de diciembre de 2025, de conformidad con las Normas de contabilidad NIIF emitidas por el IASB.
+                    En nuestra opinión, <strong>excepto por los efectos de las cuestiones descritas en la sección «Fundamento de la opinión con salvedades»</strong> (ajustes propuestos no registrados por un total de ${totalNoAjustado.toLocaleString('es-AR')} millones que superan la Materialidad Global de $166.225M), los estados financieros consolidados adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación financiera consolidada de <strong>Telecom Argentina S.A.</strong> al 31 de diciembre de 2025, de conformidad con las Normas de contabilidad NIIF emitidas por el Consejo de Normas Internacionales de Contabilidad (IASB), en moneda homogénea de cierre (NIC 29) y las normas pertinentes de la Comisión Nacional de Valores (CNV).
                   </p>
                 )}
               </div>
