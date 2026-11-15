@@ -182,11 +182,29 @@ export default function Etapa1ControlInternoView({
     if (subTarget.startsWith('cci-')) {
       setSelectedId(subTarget);
       setMostrarDetalleEncuestas(true);
-    } else if (subTarget === 'sec-ponderacion' || subTarget === 'sec-sintesis-exposicion') {
+    } else if (
+      subTarget === 'sec-ponderacion' ||
+      subTarget === 'sec-sintesis-exposicion' ||
+      subTarget.startsWith('sintesis-cci-')
+    ) {
+      const isSintesisFila = subTarget.startsWith('sintesis-cci-');
+      if (isSintesisFila) {
+        setSelectedId(subTarget.replace('sintesis-', ''));
+      }
       setTimeout(() => {
-        const el = document.getElementById(subTarget);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 60);
+        const el =
+          document.getElementById(subTarget) ||
+          document.getElementById('sec-sintesis-exposicion');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: isSintesisFila ? 'center' : 'start' });
+          if (isSintesisFila) {
+            el.classList.add('bg-amber-100/80', 'ring-2', 'ring-amber-400');
+            setTimeout(() => {
+              el.classList.remove('bg-amber-100/80', 'ring-2', 'ring-amber-400');
+            }, 2600);
+          }
+        }
+      }, 80);
     }
   }, [subTarget, subTargetTick]);
 
@@ -350,7 +368,11 @@ export default function Etapa1ControlInternoView({
                     ? 'bg-amber-100 text-amber-800 border-amber-200'
                     : 'bg-emerald-100 text-emerald-700 border-emerald-200';
                 return (
-                  <tr key={item.id} className="hover:bg-teal-50/40 align-top">
+                  <tr
+                    key={item.id}
+                    id={`sintesis-${item.id}`}
+                    className="hover:bg-teal-50/40 align-top transition-colors duration-500"
+                  >
                     <td className="py-3 px-3">
                       <span className="inline-block px-2 py-0.5 rounded bg-teal-900 text-white font-mono text-[10px] font-extrabold">
                         {item.codigo}

@@ -817,7 +817,44 @@ export function renderTextWithNormas(text) {
   });
 }
 
-export function renderFormattedRichText(text) {
+const renderLeafWithOptionalCCI = (text, options) => {
+  if (!options?.onCciClick || typeof text !== 'string') {
+    return renderTextWithNormas(text);
+  }
+
+  const cciRegex = /(Debilidad(?:\s+de)?\s+CCI-0[1-5]|CCI-0[1-5])/gi;
+  const parts = text.split(cciRegex);
+  if (parts.length <= 1) {
+    return renderTextWithNormas(text);
+  }
+
+  return parts.map((part, idx) => {
+    if (!part) return null;
+    const match = part.match(/CCI-0([1-5])/i);
+    if (match && /^(?:Debilidad(?:\s+de)?\s+)?CCI-0[1-5]$/i.test(part.trim())) {
+      const cciNum = match[1];
+      const cciId = `cci-${cciNum}`;
+      return (
+        <button
+          key={`cci-link-${idx}`}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            options.onCciClick(cciId);
+          }}
+          title={`Ir a 1.2.0 Síntesis: Fortalezas y Debilidades (CCI-0${cciNum})`}
+          className="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded bg-teal-500/20 hover:bg-teal-400/35 text-lime-300 hover:text-white border border-teal-400/50 underline decoration-lime-300/75 underline-offset-2 font-extrabold cursor-pointer transition-colors align-baseline"
+        >
+          <span>{part}</span>
+          <span className="text-[9px] no-underline opacity-85">↗</span>
+        </button>
+      );
+    }
+    return <React.Fragment key={`txt-${idx}`}>{renderTextWithNormas(part)}</React.Fragment>;
+  });
+};
+
+export function renderFormattedRichText(text, options) {
   if (!text || typeof text !== 'string') return text;
 
   const tokenRegex =
@@ -839,7 +876,7 @@ export function renderFormattedRichText(text) {
 
       return (
         <strong key={idx} className="font-black text-current">
-          {renderFormattedRichText(inner)}
+          {renderFormattedRichText(inner, options)}
         </strong>
       );
     }
@@ -859,7 +896,7 @@ export function renderFormattedRichText(text) {
           key={idx}
           className="underline underline-offset-3 decoration-teal-500 decoration-2 font-semibold text-current"
         >
-          {renderFormattedRichText(inner)}
+          {renderFormattedRichText(inner, options)}
         </span>
       );
     }
@@ -877,7 +914,7 @@ export function renderFormattedRichText(text) {
 
       return (
         <em key={idx} className="italic font-medium text-current">
-          {renderFormattedRichText(inner)}
+          {renderFormattedRichText(inner, options)}
         </em>
       );
     }
@@ -889,12 +926,12 @@ export function renderFormattedRichText(text) {
           key={idx}
           className="px-1 py-0.5 rounded bg-teal-500/15 border border-teal-500/30 font-mono text-[11px] font-bold text-current"
         >
-          {renderFormattedRichText(inner)}
+          {renderFormattedRichText(inner, options)}
         </code>
       );
     }
 
-    return <React.Fragment key={idx}>{renderTextWithNormas(token)}</React.Fragment>;
+    return <React.Fragment key={idx}>{renderLeafWithOptionalCCI(token, options)}</React.Fragment>;
   });
 }
 

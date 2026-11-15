@@ -183,6 +183,12 @@ export const equipoTrabajoInicial = [
   }
 ];
 
+const PTA1_DEBILIDAD =
+  "**1. Debilidad de CCI-01 (Archivo de la Documentación Sustentable — Preg. 4, 8 y 22 | RC ALTO):**\n• **Debilidad:** Falta de arqueos sorpresivos y cotejos físicos periódicos sobre los legajos de obras e infraestructura de red, legajos técnicos sin digitalización estandarizada en el interior y ausencia de habilitaciones actualizadas en el 18% de radiobases.\n• **Cómo impactó en PT-A1:** Obligó a aplicar un enfoque sustantivo con inspección física ocular in situ sobre los 16 Data Centers propios y una muestra de 85 nodos ópticos y radiobases 5G.\n\n**2. Debilidad de CCI-02 (Evaluación del Sistema Contable — Preg. 22 | RC MEDIO):**\n• **Debilidad:** Exposición recurrente de nodos y fibra óptica a robos y vandalismo en la vía pública sin comunicación oportuna desde Seguridad Patrimonial hacia Contabilidad (SAP FI-AA) para dar de baja los bienes destruidos.\n• **Cómo impactó en PT-A1:** Motivó el cruce directo de SAP FI-AA contra denuncias policiales y reportes de Seguridad Patrimonial, detectando $6.890M en fibra y nodos vandalizados sin baja contable (acumulados con PT-A4 dentro de AJ-01 por $28.340M según NIA 450).";
+
+const PTA3_DEBILIDAD =
+  "**Debilidad de CCI-01 (Archivo de la Documentación Sustentable — Preg. 4, 6 y 18 | RC ALTO):**\n• **Debilidad:** Falta de archivo digital centralizado de contratos de comodato, alquiler de predios para antenas/radiobases, escrituras dominiales y legajos físicos de infraestructura y rodados en regionales del interior, sin control uniforme de vigencia y guarda.\n• **Cómo impactó en PT-A3:** Al no poder depender de legajos físicos dispersos (incluyendo inmuebles e incorporaciones de TMA), exigimos confirmación registral externa directa mediante informes de dominio e inhibición ante el Registro de la Propiedad Inmueble (RPI) para edificios y Data Centers, e informes ante la DNRPA para la flota vehicular técnica, validando propiedad exclusiva y ausencia de gravámenes no revelados en Notas.";
+
 const PTA4_DEBILIDAD =
   "**Debilidad de CCI-02 (Evaluación del Sistema Contable, Preg. 22 y 23):**\nFalta de comunicación oportuna desde Ingeniería de Red / Seguridad Patrimonial hacia Contabilidad (SAP FI-AA) para dar de baja bienes obsoletos o siniestrados.";
 
@@ -220,27 +226,27 @@ export const papelesTrabajo = [
           {
             paso: "Seleccionar del auxiliar contable de Activo Fijo (SAP FI-AA) una muestra de nodos de red, sitios 5G y servidores en los Data Centers principales de AMBA e interior.",
             comoSeEjecuta: "El auditor extrae del módulo contable SAP FI-AA (Subdiario de Activos Fijos) el maestro de bienes con sus códigos de inventario y geolocalización. Se seleccionan los 16 Data Centers principales (Pacheco, Barracas, Córdoba, Rosario, etc.) y una muestra de 85 radiobases 5G desplegadas en el año. El equipo auditor inspecciona in situ verificando que la chapa o código de inventario coincida con el registro contable.",
-            fuentes: "Módulo SAP FI-AA (Subdiario de Activos Fijos), inventario técnico georreferenciado y actas de visita de auditoría.",
+            fuentes: PTA1_DEBILIDAD,
             valores: "Muestra sobre un total de Bienes de Uso de $6.789.118 millones (Nota 9).",
             resultado: "Se extrajo la población completa desde el auxiliar contable de SAP FI-AA y se estratificó seleccionando el 100% de los 16 Data Centers principales y 85 radiobases 5G desplegadas en el año (✓)."
           },
           {
             paso: "Verificar in situ la existencia física y el estado de operatividad de los activos seleccionados.",
             comoSeEjecuta: "Durante la visita al Data Center o torre de telecomunicaciones, se comprueba que el equipo esté energizado, conectado a la red de fibra y operando tráfico real. Se documenta la inspección con fotografías, planillas de campo y firma conjunta con el jefe de nodo de Telecom.",
-            fuentes: "Planilla de relevamiento físico de campo y actas de visita técnica.",
+            fuentes: PTA1_DEBILIDAD,
             valores: "Validación de bienes operativos vs. bienes en desuso sobre la muestra de 16 Data Centers y 85 sitios 5G.",
             resultado: "Verificación técnica satisfactoria en terreno; el equipo auditor constató in situ la existencia física, conexión a fibra óptica y operatividad de todos los sitios inspeccionados (✓)."
           },
           {
             paso: "Cruzar el auxiliar contable de activos vigentes contra los informes operativos de siniestros, robo de cableado y vandalismo de fibra para comprobar que los bienes destruidos hayan sido dados de baja.",
             comoSeEjecuta: "Se solicita a la Gerencia de Seguridad Patrimonial el registro de incidentes de robo de cobre, vandalismo de tendidos de fibra óptica y siniestros del ejercicio. Se cruzan los tramos afectados contra las bajas registradas en SAP FI-AA para verificar que ningún activo destruido siga figurando en el balance. Al detectarse redes destruidas sin dar de baja, se originó el ajuste propuesto AJ-01 por $6.890 millones.",
-            fuentes: "Libro de siniestros de Seguridad Patrimonial, denuncias policiales y asientos de baja contable en SAP FI.",
+            fuentes: PTA1_DEBILIDAD,
             valores: "Ajuste propuesto AJ-01 (Baja de activos siniestrados): $6.890 millones (supera el PAE de $8.311M en conjunto con obsolescencia).",
             resultado: "Al cruzar los registros contables contra las denuncias policiales y reportes de Seguridad Patrimonial, se hallaron tendidos de fibra óptica y nodos vandalizados/robados en el 4° trimestre por $6.890 millones que continuaban activados sin haberse dado de baja en el balance (⊗ — Requiere Ajuste AJ-01)."
           }
         ],
         procedimientoDetalle: "1) Población y Terreno: Se extrae del Subdiario de Activos Fijos (SAP FI-AA) el maestro de bienes con geolocalización. Se inspeccionan in situ 16 Data Centers (Pacheco, Barracas, etc.) y 85 sitios 5G verificando que el hardware esté instalado, conectado a la red y con su chapa de inventario coincidente. 2) Cruce con siniestros: Se solicita a la Gerencia de Seguridad Patrimonial el libro de siniestros y denuncias policiales de robo de cables de cobre y vandalismo de fibra del 4° trimestre. Al cruzarlo contra el subdiario contable, se detectaron redes destruidas por $6.890 millones que continuaban figurando activadas como bienes operativos.",
-        fuentes: "Módulo contable SAP FI-AA (Subdiario de Activos Fijos), inventario técnico georreferenciado, actas de visita de campo, libro de siniestros de Seguridad Patrimonial y denuncias policiales.",
+        fuentes: PTA1_DEBILIDAD,
         valores: "Total rubro Bienes de Uso: $6.789.118 millones (Nota 9). Muestra estratificada: 16 Data Centers + 85 radiobases 5G. Ajuste propuesto AJ-01: $6.890 millones (baja de activos siniestrados).",
         defensaOral: "Profesor, en PT-A1 partimos del subdiario contable de SAP FI-AA hacia el terreno para validar Existencia física. Luego, para validar Medición, cruzamos los activos vigentes contra las denuncias policiales y reportes de siniestros de Seguridad Patrimonial, detectando $6.890 millones de fibra y nodos destruidos sin dar de baja. Aunque $6.890M por sí solo está por debajo del umbral mínimo del PAE ($8.311M), aplicamos la regla de acumulación de la NIA 450 y Slosse, que exige que el auditor sume todas las incorrecciones del mismo rubro: al acumularse con los $21.450M de obsolescencia de PT-A4, totalizan $28.340 millones, superando ampliamente el PAE y obligando a Telecom a registrar el ajuste contable AJ-01. La naturaleza contable es idéntica según la NIC 16: en ambos casos se trata de activos que dejaron de generar beneficios económicos futuros y deben ser desincorporados del balance afectando los resultados del ejercicio.",
         afirmacionesDetalle: "Valida Existencia (inspección in situ de bienes operativos) y Medición (corrección de saldos por bienes destruidos mediante baja contable según NIC 16)."
@@ -285,20 +291,20 @@ export const papelesTrabajo = [
           {
             paso: "Solicitar al Registro de la Propiedad Inmueble (RPI) los informes de dominio e inhibición para los inmuebles de la Sociedad.",
             comoSeEjecuta: "Inmuebles propios: Para edificios técnicos, Data Centers y predios de radiobases, se solicitan informes de dominio e inhibición ante el RPI (Registro de la Propiedad Inmueble) para comprobar la inscripción registral a nombre de Telecom Argentina S.A. y la inexistencia de gravámenes o hipotecas no reveladas.",
-            fuentes: "Informes de dominio del Registro de la Propiedad Inmueble (RPI), títulos dominiales y contratos de locación de predios técnicos.",
+            fuentes: PTA3_DEBILIDAD,
             valores: "Inmuebles propios por $1.193.638 millones netos (Valor de Origen $1.606.670M) más $3.011 millones reclasificados a activos disponibles para la venta según Nota 9.",
             resultado: "Confirmación registral directa con el RPI (©); títulos dominiales de Data Centers y edificios corporativos inscriptos a nombre de Telecom Argentina S.A. libre de gravámenes o hipotecas no reveladas en Notas (✓)."
           },
           {
             paso: "Solicitar a la Dirección Nacional del Registro Automotor (DNRPA) los informes de dominio de la flota vehicular técnica.",
             comoSeEjecuta: "Flota Vehicular: Para camionetas y utilitarios técnicos de cuadrilla de guardia, se solicitan informes de dominio ante la DNRPA (Dirección Nacional del Registro de la Propiedad Automotor) constatando la titularidad jurídica y libre de prendas.",
-            fuentes: "Títulos, cédulas y constancias registrales de la DNRPA (Dirección Nacional del Registro de la Propiedad Automotor).",
+            fuentes: PTA3_DEBILIDAD,
             valores: "Rodados (flota vehicular técnica): $76.639 millones netos (Valor de Origen $237.972 millones) según Nota 9.",
             resultado: "Se constató la titularidad registral y libre prenda de las camionetas y utilitarios técnicos de cuadrilla ante la DNRPA (✓)."
           }
         ],
         procedimientoDetalle: "1) Inmuebles propios: Para los predios de Data Centers y edificios corporativos de AMBA e interior, se solicitan informes de dominio e inhibición ante el Registro de la Propiedad Inmueble (RPI) para comprobar la inscripción registral a nombre de Telecom Argentina S.A. y la inexistencia de gravámenes o hipotecas ocultas. 2) Flota vehicular: Para camionetas y utilitarios técnicos de cuadrilla, se solicitan informes ante la Dirección Nacional del Registro de la Propiedad Automotor (DNRPA) constatando titularidad y libre prenda.",
-        fuentes: "Informes de dominio del Registro de la Propiedad Inmueble (RPI), títulos y cédulas de la DNRPA (Rodados) y contratos de locación de predios técnicos.",
+        fuentes: PTA3_DEBILIDAD,
         valores: "Inmuebles propios por $1.193.638 millones netos (VO $1.606.670M, más $3.011M reclasificados a venta) y Rodados por $76.639 millones netos (VO $237.972M) según Nota 9.",
         defensaOral: "En PT-A3 validamos la afirmación de Propiedad mediante confirmación externa directa: solicitamos informes de dominio al Registro de la Propiedad Inmueble (RPI) para predios y edificios corporativos, e informes a la DNRPA para los vehículos técnicos, comprobando que todos los bienes pertenezcan legalmente a Telecom y estén libres de gravámenes no revelados en Notas.",
         afirmacionesDetalle: "Valida Propiedad (titularidad jurídica exclusiva de Telecom) y Exposición (ausencia de gravámenes o prendas no reveladas en Nota 9)."

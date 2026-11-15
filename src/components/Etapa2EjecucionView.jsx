@@ -122,7 +122,7 @@ export function FormattingToolbar({ onFormat, isDark = false, compact = false })
 }
 
 // Procedimientos donde el bloque de respaldo exhibe la debilidad de Control Interno que originó la prueba
-const DEBILIDAD_ORIGIN_PTS = new Set(['PT-A2', 'PT-A4']);
+const DEBILIDAD_ORIGIN_PTS = new Set(['PT-A1', 'PT-A2', 'PT-A3', 'PT-A4']);
 
 export default function Etapa2EjecucionView({
   ajustesState,
@@ -139,6 +139,10 @@ export default function Etapa2EjecucionView({
   const [expandedSteps, setExpandedSteps] = useState({});
   const [mostrarTodosAjustes, setMostrarTodosAjustes] = useState(false);
   const [expandResumenGeneral, setExpandResumenGeneral] = useState(false);
+
+  const handleNavigateToSintesisCCI = (cciId) => {
+    if (onNavigate) onNavigate('etapa1-cci', `sintesis-${cciId}`);
+  };
 
   // Estados para textos editables de conclusiones y notas personales del usuario (con persistencia en localStorage)
   const [conclusionesCustom, setConclusionesCustom] = useState(() => {
@@ -1181,7 +1185,10 @@ export default function Etapa2EjecucionView({
                                           </div>
                                         ) : (
                                           <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
-                                            {renderFormattedRichText(currentFuentes)}
+                                            {renderFormattedRichText(
+                                              currentFuentes,
+                                              isDebilidadOrigin ? { onCciClick: handleNavigateToSintesisCCI } : undefined
+                                            )}
                                           </p>
                                         )}
                                       </div>
@@ -1599,7 +1606,10 @@ export default function Etapa2EjecucionView({
                                     </div>
                                   ) : (
                                     <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
-                                      {renderFormattedRichText(currentProcFuentes)}
+                                      {renderFormattedRichText(
+                                        currentProcFuentes,
+                                        isDebilidadOrigin ? { onCciClick: handleNavigateToSintesisCCI } : undefined
+                                      )}
                                     </p>
                                   )}
                                 </div>
