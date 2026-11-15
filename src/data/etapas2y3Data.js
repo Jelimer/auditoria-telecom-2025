@@ -195,6 +195,21 @@ const PTA4_DEBILIDAD =
 const PTA2_DEBILIDAD =
   "**1. Debilidad de CCI-01 (Archivo de la Documentación Sustentable — NC 38,46% | Riesgo de Control ALTO):**\n• **Debilidad:** Legajos técnicos y certificados de avance de obra (FTTH / 5G) del interior sin digitalización estandarizada, demoras en la guarda y falta de auditorías bajo Norma ISO 15.489.\n• **Cómo impactó en PT-A2:** Como no podíamos confiar en el archivo descentralizado de obras, fijamos un ET prudente (50% de PM) y exigimos el circuito documental completo en 6 pasos para las compras de CAPEX > $8.311M (Orden de Compra SAP MM, factura, despacho aduanero, remito MIGO y Acta PAC firmada).\n\n**2. Debilidad de CCI-03 (Sistema de Presupuestos — NC 77,78% | Riesgo de Control BAJO):**\n• **Debilidad puntual:** Aunque el circuito presupuestario general es bueno, detectamos emisión ocasional de órdenes de trabajo de emergencia operativa sin partida presupuestaria previa (y falta de actualización por inflación NIC 29 en los reportes internos de desvíos de CAPEX 5G).\n• **Cómo impactó en PT-A2:** Permitió confiar en el presupuesto general, pero focalizó nuestra atención en validar la autorización de las compras CAPEX y ejecutar el corte de Obras en Curso (SAP PS vs. NOC) al 31/12/2025.";
 
+const PTB1_DEBILIDAD =
+  "**1. Debilidad de CCI-02 (Evaluación del Sistema Contable — Preg. 5, 9 y 16 | RC MEDIO):**\n• **Debilidad:** Desfasajes temporales de 24 a 48 hs. en la conciliación de cobranzas externas (Rapipago, Pago Fácil y billeteras), demoras en la re-imputación de débitos automáticos rechazados e inconsistencias puntuales en facturación B2B (Personal Tech), sobre una cartera duplicada (+105,25%) tras incorporar los saldos de TMA ($421.919M bajo NIIF 3).\n• **Cómo impactó en PT-B1:** Exigió obtener evidencia externa directa (NIA 505) mediante circularización positiva directa a 65 clientes corporativos B2B ($385.420M; 59 respuestas conformes por $357.820M) y validar el saldo restante ($27.600M de 6 cuentas sin respuesta + lote B2C de $48.200M = $75.800M) mediante cobros posteriores en extractos bancarios de enero 2026.\n\n**2. Debilidad de CCI-01 (Archivo de la Documentación Sustentable — Preg. 14 | RC ALTO):**\n• **Debilidad:** Revisión periódica incompleta sobre legajos y licitaciones B2B de Personal Tech en regionales, reforzando la necesidad de confirmación directa con el tercero deudor en lugar de depender solo del legajo interno.";
+
+const PTB2_DEBILIDAD =
+  "**1. Debilidad de CCI-02 (Evaluación del Sistema Contable — Preg. 5 y 16 | RC MEDIO):**\n• **Debilidad:** Demoras de facturación al cierre en contratos corporativos B2B (Personal Tech — Preg. 16) y desfasajes de 24 a 48 hs. en la acreditación y conciliación de agentes recaudadores externos (Rapipago, Pago Fácil y billeteras virtuales — Preg. 5).\n• **Cómo impactó en PT-B2:** Obligó a auditar la ventana de corte B2B completa del 15/12/2025 al 15/01/2026 ($54.650M bajo NIIF 15) y el 100% de las recaudaciones en tránsito al 31/12/2025 ($36.890M), verificando su acreditación bancaria íntegra el 02/01/2026 ($91.540M totales sin desvíos).\n\n**2. Debilidad de CCI-05 (Sistema Tecnológico TIC / CGTI — Preg. 19 | RC ALTO):**\n• **Debilidad:** Interfaces comerciales heredadas (ex Cablevisión / TMA) hacia SAP que aún requieren conciliaciones manuales de cuadre al cierre, confirmando los ajustes aplicados al 31/12/2025.";
+
+const PTB3_DEBILIDAD =
+  "**1. Debilidad de CCI-02 (Evaluación del Sistema Contable — Preg. 9 y 16 | RC MEDIO):**\n• **Debilidad:** Demoras en la re-imputación de débitos automáticos rechazados e inconsistencias puntuales en saldos B2B, potenciadas por el riesgo de morosidad de la cartera unificada tras la adquisición de TMA ($421.919M a valor razonable bajo NIIF 3, incl. saldos > 180 días migrados).\n\n**2. Debilidad de CCI-05 (Sistema Tecnológico TIC / CGTI — Preg. 13 y 19 | RC ALTO):**\n• **Debilidad:** Ausencia de pruebas periódicas de estrés sobre interfaces de facturación masiva e interfaces heredadas (Cablevisión / TMA) hacia SAP FI-AR sin estandarización automática plena.\n• **Cómo impactó en PT-B3:** Impidió confiar pasivamente en el reporte automático de morosidad; obligó a extraer y reprocesar con TAACs el 100% del padrón de deudores ($1.071.047M brutos), validar la cobertura del 100% de la mora > 180 días ($85.684M) y recalcular la Previsión NIIF 9 en $(270.919)M (desvío $0).";
+
+const PTE1_DEBILIDAD =
+  "**1. Debilidad de CCI-05 (Sistema Tecnológico TIC / CGTI — Preg. 7 | RC ALTO):**\n• **Debilidad:** Trabas administrativas en la homologación e ingreso de equipamiento de red 5G importado que presionan el cumplimiento de los cronogramas obligatorios de despliegue comprometidos ante el ENACOM (incluyendo licencias migradas de TMA por $274.183M bajo NIIF 3).\n• **Cómo impactó en PT-E1:** Exigió inspeccionar directamente las resoluciones de adjudicación de ENACOM (Res. 1285/2023 Banda 3.400-3.500 MHz y 4G) contra el Boletín Oficial ($1.985.420M), verificar pólizas de caución vigentes y controlar que no existan sanciones ni causales de caducidad.\n\n**2. Debilidad de CCI-01 (Archivo de la Documentación Sustentable — Preg. 6 y 26 | RC ALTO):**\n• **Debilidad:** Falta de control centralizado uniforme sobre vigencias de títulos y ausencia de auditorías periódicas bajo Norma ISO 15.489.\n• **Cómo impactó en PT-E1:** Motivó efectuar una compulsa registral pública directa ante el INPI por el 100% de las marcas insignia (Personal, Flow, Telecom, Personal Pay: $400.750M) y cruzarla con confirmaciones escritas de abogados externos (NIA 501).";
+
+const PTE2_DEBILIDAD =
+  "**1. Debilidad de CCI-05 (Sistema Tecnológico TIC / CGTI — Preg. 6 y 19 | RC ALTO):**\n• **Debilidad:** Carencia de un proceso centralizado estandarizado para la evaluación técnica y jurídica al desarrollar o adquirir software y licencias de terceros (NIC 38 — Preg. 6), sumada a interfaces heredadas sin integración plena hacia SAP (Preg. 19).\n\n**2. Debilidad de CCI-03 (Presupuestos — Preg. 11 y 15) / CCI-04 (Operativo — Preg. 12 y 19):**\n• **Debilidad:** Órdenes de trabajo ocasionales sin partida presupuestaria previa ni vínculo plurianual automático, junto con alta carga horaria en especialistas TI y demoras al reasignar centros de costo.\n• **Cómo impactó en PT-E2:** Exigió auditar en SAP PS y Jira el cumplimiento cumulativo de los 6 criterios de la NIC 38.57 sobre los 18 proyectos capitalizados ($285.355M; 158.800 hs), probar el corte de gastos de mantenimiento IT ($42.500M) y ejecutar las Pruebas Globales de Amortización ($234.722M) y Valor Residual ($2.671.525M), todas conformes ($0).";
+
 export const papelesTrabajo = [
   {
     id: "pt-a",
@@ -437,7 +452,7 @@ export const papelesTrabajo = [
           {
             paso: "Circularización externa directa (positiva) bajo NIA 505 a una muestra estratificada de 65 grandes cuentas corporativas B2B de Personal Tech.",
             comoSeEjecuta: "Se seleccionan del subdiario de clientes en SAP las 65 principales cuentas corporativas. Se preparan solicitudes de confirmación escrita directa (positiva) con firma facultada de la Dirección Financiera de Telecom, remitiéndose con instrucciones expresas de responder directamente al equipo de auditoría.",
-            fuentes: "Subdiario de clientes en SAP, contratos marco de telecomunicaciones y cartas de confirmación directa recibidas.",
+            fuentes: PTB1_DEBILIDAD,
             valores: "Muestra estratificada de 65 cuentas corporativas B2B ($385.420M) + 1.500 cuentas masivas B2C ($48.200M) = $433.620 millones (40,5% del total bruto).",
             resultado: "Se recibieron 59 respuestas conformes directas ($357.820 millones confirmados sin discrepancias por los clientes corporativos) (© §).",
             tabla: {
@@ -460,13 +475,13 @@ export const papelesTrabajo = [
           {
             paso: "Aplicación de procedimientos alternativos de auditoría sobre las cuentas no contestadas y segmento masivo B2C mediante verificación de cobros posteriores en enero 2026.",
             comoSeEjecuta: "Para las 6 cuentas corporativas que no respondieron en término ($19.800M de Techint y cuentas menores por $7.800M) y para una muestra representativa del segmento masivo B2C ($48.200M), el equipo de auditoría aplicó el procedimiento alternativo conforme a la NIA 505 y Carlos A. Slosse: se cotejaron los recibos correlativos de cobranza en SAP contra los extractos bancarios oficiales de enero 2026 de Banco Nación, Galicia, Macro y Santander, verificando la acreditación íntegra de los fondos.",
-            fuentes: "Extractos bancarios de enero 2026 de BNA, Galicia, Macro y Santander, avisos de transferencia y recibos de cobranza en SAP.",
+            fuentes: PTB1_DEBILIDAD,
             valores: "Cobranzas posteriores verificadas por un total de $75.800 millones en enero 2026.",
             resultado: "Se verificó la cancelación efectiva y cobro posterior del 100% de los saldos auditados en extractos bancarios de enero 2026, sin registrarse saldos incobrables o ficticios (✓ b §)."
           }
         ],
         procedimientoDetalle: "1) Circularización B2B: Se remitieron solicitudes directas a 65 grandes cuentas corporativas de Personal Tech, recibiendo 59 respuestas conformes sin discrepancias ($357.820M). 2) Cobros posteriores: Para las 6 cuentas sin respuesta ($27.600M) y el lote muestral B2C masivo ($48.200M), se verificó el 100% del cobro ($75.800M) en extractos bancarios de enero 2026 sin diferencias ($0).",
-        fuentes: "Subdiario de clientes en SAP, cartas de confirmación positiva directa, extractos bancarios de enero 2026 y Nota 5 de los Estados Financieros.",
+        fuentes: PTB1_DEBILIDAD,
         valores: "Muestra auditada total de $433.620 millones (40,5%) sobre $1.071.047M de créditos brutos totales ($357.820M confirmados directamente y $75.800M validados por cobros posteriores en enero 2026).",
         defensaOral: "Profesor, en PT-B1 auditamos la Existencia y Propiedad de los saldos por cobrar comerciales. Aplicamos una confirmación escrita directa (positiva) a 65 grandes clientes corporativos B2B de Personal Tech, obteniendo 59 respuestas conformes directas. Para las 6 cuentas que no respondieron en término y para el segmento de consumo masivo B2C, aplicamos el procedimiento alternativo estándar según Carlos A. Slosse y la NIA 505: cotejamos la efectiva cobranza posterior en los extractos bancarios oficiales de enero 2026 en Banco Nación, Galicia, Macro y Santander. El 100% de la muestra fue verificado sin diferencias ($0). No se proponen ajustes.",
         afirmacionesDetalle: "Valida Existencia (deudores reales y exigibles) y Propiedad (titularidad jurídica exclusiva de Telecom sin cesiones no contabilizadas)."
@@ -482,7 +497,7 @@ export const papelesTrabajo = [
           {
             paso: "Prueba sustantiva de corte de facturación de servicios corporativos B2B (Personal Tech) bajo NIIF 15 para validar el devengamiento en el período correspondiente.",
             comoSeEjecuta: "Se comparan las actas de conformidad de los servicios corporativos de conectividad Cloud, SD-WAN y ciberseguridad emitidas entre el 15/12/2025 y el 15/01/2026 contra las facturas registradas en SAP. Se comprueba que los trabajos concluidos hasta el 31/12/2025 queden contabilizados en el ejercicio 2025 y que los servicios prestados en enero de 2026 se registren recién en el año siguiente, sin adelantar ni omitir ingresos.",
-            fuentes: "Actas de conformidad de servicios B2B, órdenes de trabajo, contratos corporativos y facturas registradas en SAP.",
+            fuentes: PTB2_DEBILIDAD,
             valores: "Muestra de contratos corporativos por un monto de $54.650 millones entre el 15/12/2025 y el 15/01/2026.",
             resultado: "Se verificó que los servicios corporativos terminados al 31/12/2025 quedaron imputados en el ejercicio 2025 y los entregados en enero de 2026 en el ejercicio siguiente, constatando un corte contable correcto bajo NIIF 15 (✓ §).",
             tabla: {
@@ -502,13 +517,13 @@ export const papelesTrabajo = [
           {
             paso: "Auditoría de conciliaciones con agentes de cobranza externa al 31/12/2025 (Rapipago, Pago Fácil y Billeteras Virtuales).",
             comoSeEjecuta: "Se revisan los reportes de cierre de recaudación masiva de agentes externos (Rapipago, Pago Fácil) y billeteras virtuales (Mercado Pago, Modo) al 31/12/2025 por $36.890 millones en tránsito. Se cotejan contra las acreditaciones reales en los extractos bancarios del primer día hábil de enero 2026 y contra la cancelación de la deuda en las cuentas de clientes en SAP.",
-            fuentes: "Reportes de cierre diario de recaudadores y billeteras, extractos bancarios de enero 2026 y registros de cobranza en SAP.",
+            fuentes: PTB2_DEBILIDAD,
             valores: "Cobranzas masivas en tránsito al cierre por $36.890 millones.",
             resultado: "Se constató que las partidas en tránsito estaban correctamente conciliadas y descargadas de las cuentas de clientes al 31/12/2025, acreditándose íntegramente en los extractos bancarios del 02/01/2026 sin diferencias ni cobros omitidos (✓ b §)."
           }
         ],
         procedimientoDetalle: "1) Corte B2B NIIF 15: Se compararon las actas de conformidad y contratos entre el 15/12/2025 y el 15/01/2026 ($54.650M) con SAP, constatando su registración en el período correcto. 2) Recaudadores externos: Se revisaron los cierres de fin de año de Rapipago, Pago Fácil y billeteras ($36.890M), verificando su acreditación bancaria el 02/01/2026 y la baja en cuenta de clientes sin diferencias ($0).",
-        fuentes: "Actas de conformidad B2B, contratos marco, facturas en SAP, reportes de agentes recaudadores y extractos bancarios de enero 2026.",
+        fuentes: PTB2_DEBILIDAD,
         valores: "Total procedimiento de corte y recaudadores de $91.540 millones verificado conforme.",
         defensaOral: "Profesor, en PT-B2 auditamos el corte de operaciones al 31/12/2025 en dos frentes: primero, comparamos las actas de conformidad de servicios B2B entregados entre el 15/12/2025 y el 15/01/2026 contra SAP para confirmar que cada ingreso quedó en el ejercicio en que realmente se prestó el servicio (NIIF 15); segundo, controlamos las cobranzas de fin de año de Rapipago, Pago Fácil y billeteras virtuales en tránsito al 31/12, verificando que los clientes quedaron cancelados al cierre y que el dinero entró completo al banco el 2 de enero de 2026. Diferencia: $0.",
         afirmacionesDetalle: "Valida Integridad (registro íntegro de operaciones devengadas) y Medición (corte estricto de ingresos y créditos bajo NIIF 15)."
@@ -524,14 +539,14 @@ export const papelesTrabajo = [
           {
             paso: "Extracción y recálculo del 100% de la base unificada de antigüedad de saldos de deudores al 31/12/2025 mediante TAACs.",
             comoSeEjecuta: "Mediante herramientas de auditoría asistidas por computadora (TAACs), se extrae la totalidad de los saldos a cobrar registrados en SAP (grandes clientes y cartera masiva, incluyendo la cartera migrada de TMA) y se recalcula la antigüedad exacta de cada factura según su vencimiento, ordenándolas en 5 tramos de atraso: a vencer, 1 a 30 días, 31 a 90 días, 91 a 180 días y más de 180 días de mora.",
-            fuentes: "Padrón unificado de deudores y facturas pendientes de cobro en SAP al 31/12/2025.",
+            fuentes: PTB3_DEBILIDAD,
             valores: "Padrón unificado de más de 41,6 millones de líneas móviles, 6,1M internet y 3,9M TV, con saldos brutos por $1.071.047 millones ($1.070.107M corrientes y $940M no corrientes).",
             resultado: "El recálculo con TAACs confirmó la suma matemática exacta y la correcta clasificación de la cartera por tramos de atraso, sin facturas omitidas ni duplicadas (∑ §)."
           },
           {
             paso: "Verificación de la cobertura al 100% de los deudores con mora mayor a 180 días y recálculo de la previsión esperada (NIIF 9).",
             comoSeEjecuta: "Siguiendo la NIIF 9 (modelo de pérdida crediticia esperada), primero validamos que el 100% de los clientes con atraso mayor a 180 días ($85.684 millones) esté previsionado en su totalidad. Luego, sobre los tramos restantes aplicamos los porcentajes históricos de incobrabilidad de Telecom y el ajuste macroeconómico prospectivo por inflación y riesgo crediticio futuro ($123.018 millones) que exige la NIIF 9.",
-            fuentes: "Estadísticas históricas de incobrabilidad de Telecom, proyecciones macroeconómicas y Nota 5 de los Estados Financieros.",
+            fuentes: PTB3_DEBILIDAD,
             valores: "Cartera bruta de $1.071.047 millones y previsión registrada en libros de $(270.919) millones.",
             resultado: "El recálculo independiente arrojó una previsión de $(270.919) millones, coincidiendo de forma exacta con el saldo contable registrado por la Sociedad en la Nota 5. Diferencia de auditoría: $0. Conforme (✓ ∑ §).",
             tabla: {
@@ -549,7 +564,7 @@ export const papelesTrabajo = [
           }
         ],
         procedimientoDetalle: "1) Reproceso con TAACs: Se analizó el 100% de los deudores en SAP ordenándolos por días de atraso. 2) Mora > 180 días: Se comprobó que toda la deuda vencida hace más de 180 días ($85.684M) está previsionada al 100%. 3) Recálculo NIIF 9: Se aplicaron las tasas históricas por tramo más el ajuste macroeconómico prospectivo por inflación y riesgo crediticio futuro ($123.018M), obteniendo una previsión de $(270.919)M idéntica a los libros.",
-        fuentes: "Padrón completo de saldos a cobrar en SAP, parámetros de incobrabilidad NIIF 9 y Nota 5 de los Estados Contables.",
+        fuentes: PTB3_DEBILIDAD,
         valores: "Padrón de $1.071.047M brutos. Previsión contable $(270.919)M vs Previsión auditada $(270.919)M. Diferencia: $0.",
         defensaOral: "Profesor, en PT-B3 auditamos la afirmación de Medición de la Previsión para Deudores Incobrables bajo NIIF 9 mediante software de auditoría asistido por computador (TAACs) sobre la totalidad de los deudores. Comprobamos dos aspectos centrales: primero, que la totalidad de los clientes con morosidad superior a 180 días ($85.684 millones) se encuentran previsionados al 100%; segundo, recalculamos de forma independiente la matriz de pérdida crediticia esperada integrando factores macroeconómicos de la economía argentina. El recálculo arrojó exactamente $(270.919) millones, igual al saldo contable expuesto en la Nota 5. La previsión es razonable y suficiente. No se requiere ajuste.",
         afirmacionesDetalle: "Valida Medición (valuación de deudores incobrables conforme a la Pérdida Crediticia Esperada de NIIF 9)."
@@ -719,7 +734,7 @@ export const papelesTrabajo = [
           {
             paso: "Inspeccionar las resoluciones de adjudicación de espectro radioeléctrico de ENACOM (Lotes 5G y 4G), verificando vigencia jurídica, titularidad y cumplimiento de garantías.",
             comoSeEjecuta: "El auditor solicita a la Dirección de Asuntos Legales y Regulatorios copia certificada de las resoluciones de adjudicación de frecuencias. Se cotejan con la publicación oficial en el Boletín Oficial de la República Argentina (Resolución ENACOM 1285/2023 por el Lote 5G de 100 MHz en la banda 3.400-3.500 MHz y Resoluciones previas de 4G). Se verifica: 1) Titularidad formal a nombre de Telecom Argentina S.A. (CUIT 30-63945373-8). 2) Vigencia de la concesión (plazo contractual de 20 años hasta 2043). 3) Pólizas de seguro de caución y cumplimiento de metas de despliegue de radiobases comprometidas ante el Estado Nacional. 4) Pago al día del gravamen y tasa de control regulatorio.",
-            fuentes: "Expedientes y Resoluciones ENACOM, Boletín Oficial de la República Argentina, Pólizas de Caución vigentes y Dictamen de Asesores Legales Regulatorios.",
+            fuentes: PTE1_DEBILIDAD,
             valores: "Saldo de Concesiones y Licencias de Espectro en Nota 10: $1.985.420 millones.",
             resultado: "Resoluciones de adjudicación 4G y 5G verificadas al 100% a nombre de Telecom Argentina S.A., plenamente vigentes por 20 años y con pólizas de caución y cronogramas de despliegue al día sin sanciones ni intimaciones regulatorias (✓ © §).",
             tabla: {
@@ -738,12 +753,13 @@ export const papelesTrabajo = [
           {
             paso: "Compulsa registral pública ante el INPI y confirmación de litigios marcarios con asesores legales.",
             comoSeEjecuta: "Se realiza una búsqueda registral directa en la base de datos pública del Instituto Nacional de la Propiedad Industrial (INPI) sobre las marcas insignias (Personal, Flow, Telecom, Personal Pay). Se verifica el estado 'Concedida', clase marcaria (Clase 38 telecomunicaciones, Clase 9 hardware/software, Clase 36 servicios financieros), titularidad formal de Telecom y fecha de vencimiento decenal. Se cruza con la respuesta a la carta de circularización de abogados externos (NIA 501 / Slosse) para constatar la inexistencia de litigios por oposición de marcas o medidas cautelares.",
-            fuentes: "Portal público de marcas del INPI, títulos de registro marcario y carta de confirmación de asesores legales externos.",
+            fuentes: PTE1_DEBILIDAD,
             valores: "Marcas comerciales y derechos intangibles valorizados en $400.750 millones dentro de la Nota 10.",
             resultado: "Búsqueda registral en el INPI satisfactoria (©); titularidad de marcas clave a nombre de Telecom Argentina S.A., con renovación periódica vigente y confirmación de asesores legales sin litigios ni gravámenes sobre la cartera de marcas (✓ §)."
           }
         ],
         procedimientoDetalle: "1) Licencias de espectro: Se solicitan copias certificadas de las resoluciones de ENACOM (ej. adjudicación Lote 5G en Banda 3.400-3.500 MHz) cotejadas contra el Boletín Oficial, verificando vigencia (20 años), titularidad legal a nombre de Telecom y cumplimiento de garantías de despliegue. 2) Marcas comerciales: Búsqueda registral pública ante el INPI confirmando titularidad vigente de marcas clave (Personal, Flow, Telecom, Personal Pay) sin litigios ni prendas.",
+        fuentes: PTE1_DEBILIDAD,
         defensaOral: "Profesor, en PT-E1 auditamos la Existencia real y la Propiedad jurídica del espectro radioeléctrico y de las marcas comerciales. Para el espectro, inspeccionamos las resoluciones de ENACOM (como la Res. 1285/2023 de 5G) y las publicaciones en el Boletín Oficial, verificando que la concesión esté otorgada formalmente a Telecom por 20 años y que las pólizas de caución y compromisos de despliegue estén al día. Para las marcas (Personal, Flow, Personal Pay), realizamos la compulsa registral directa en el INPI confirmando su titularidad y vigencia, y cruzamos con las confirmaciones de los abogados externos para descartar oposiciones o litigios. No se detectaron desvíos ni gravámenes.",
         afirmacionesDetalle: "Valida Existencia (concesiones y marcas legalmente activas) y Propiedad (titularidad registral exclusiva de Telecom en ENACOM e INPI sin gravámenes)."
       },
@@ -758,7 +774,7 @@ export const papelesTrabajo = [
           {
             paso: "Prueba Sustantiva de Cumplimiento de los 6 Criterios de Activación de la NIC 38 (Párrafo 57 - Fase de Desarrollo) en SAP PS.",
             comoSeEjecuta: "Para los proyectos de software desarrollados internamente por Telecom y capitalizados en el ejercicio, el auditor audita en el módulo SAP PS (Project System) y en Jira que se cumplan estrictamente y de forma cumulativa los 6 requisitos de la NIC 38.57: 1) Factibilidad técnica demostrada con actas de prueba de concepto. 2) Intención de la Dirección de completar el software (aprobación formal del Comité de Tecnología). 3) Capacidad de utilización interna o puesta a disposición de clientes. 4) Demostración fehaciente de beneficios económicos futuros (ahorro de costos operativos, mayor fidelización o incremento de ARPU). 5) Disponibilidad de recursos técnicos y financieros para concluirlo. 6) Confiabilidad en la medición de costos: se auditan las imputaciones de horas de programadores (timesheets) y facturas de desarrolladores externos.",
-            fuentes: "Módulo SAP PS, sistema Jira de gestión de proyectos ágiles, timesheets de horas técnicas, presupuestos aprobados y reportes de rentabilidad proyectada.",
+            fuentes: PTE2_DEBILIDAD,
             valores: "Desarrollos de software activados en el ejercicio 2025 por $285.355 millones (18 proyectos de Flow, App Mi Personal, Algoritmos IA y Migración Cloud).",
             resultado: "Los proyectos de software activados cumplen rigurosamente los 6 criterios de la NIC 38.57: la asignación de horas de desarrollo en SAP PS y compras de licencias directas se encuentran respaldadas documentalmente, sin observarse activación indebida de costos de investigación preliminar (✓ t h).",
             tabla: {
@@ -776,7 +792,7 @@ export const papelesTrabajo = [
           {
             paso: "Prueba de Integridad y Corte de Gastos Tecnológicos (Investigación vs. Desarrollo).",
             comoSeEjecuta: "Se audita una muestra de las cuentas de resultados operativos: 'Gastos de Mantenimiento de Software y Soporte Informático' y 'Servicios Profesionales de TI'. Se verifica que Telecom no haya mandado a pérdidas desembolsos que cumplían con las condiciones de capitalización de la NIC 38 (subvaluando el activo), ni haya activado gastos de mantenimiento correctivo rutinario, parches o soporte que deben imputarse a resultados (sobrevaluando el activo).",
-            fuentes: "Libro Mayor de Gastos Operativos de IT, órdenes de compra de servicios de software y contratos de mantenimiento anual de proveedores tecnológicos.",
+            fuentes: PTE2_DEBILIDAD,
             valores: "Muestra de $42.500 millones en gastos operativos de mantenimiento y soporte de software.",
             tabla: {
               cabeceras: ["Cuenta Contable de Resultados (SAP)", "Saldo Mayor ($M)", "Muestra Auditada ($M)", "Conclusión del Examen de Corte", "Marcas"],
@@ -791,7 +807,7 @@ export const papelesTrabajo = [
           {
             paso: "Prueba Global de Amortizaciones de Activos Intangibles (Recálculo Matemático Independiente).",
             comoSeEjecuta: "Procedimiento analítico sustantivo para verificar el cargo del ejercicio devengado por amortización de intangibles según la Nota 10 (págs. 51-53) y Nota 25 (pág. 80): 1) Se parte de la amortización del ejercicio anterior reexpresada en moneda de cierre ($152.940M en 2024). 2) Se suma la variación neta de altas de software/sistemas, contenidos y costos de contratos 2025 (+$40.776M). 3) Se suma la variación neta de intangibles con incorporación de TMA (+$46.402M en Licencias 5G/3G/4G, Marcas y Cartera). 4) Se deduce la disminución por activos extinguidos / 100% amortizados en Licencias de Núcleo y Diversos (-$5.396M). 5) Se compara el resultado teórico ($234.722M) contra la columna 'Del ejercicio' de la Nota 10 pág. 52 y Nota 25.",
-            fuentes: "Estados Financieros Consolidados 2025 — Nota 10 (Activos Intangibles, págs. 51-53) y Nota 25 (pág. 80), Subdiario SAP FI-AA y políticas de vida útil (Nota 3.k).",
+            fuentes: PTE2_DEBILIDAD,
             valores: "Amortización Teórica Calculada: $234.722 millones vs. Amortización Registrada en Nota 10 y Nota 25: $234.722 millones. Diferencia de Auditoría: $0 (< ET $83.112M).",
             resultado: "La Prueba Global de Amortizaciones de Intangibles arrojó coincidencia exacta ($234.722M teóricos vs $234.722M contables en Nota 10 pág. 52 y Nota 25 pág. 80, desvío $0 < ET $83.112M), validando la razonabilidad de las alícuotas lineales aplicadas (Licencia PCS/SRCE $621.096M sin cargo por vida útil indefinida) (✓ ∑).",
             tabla: {
@@ -808,7 +824,7 @@ export const papelesTrabajo = [
           {
             paso: "Prueba Global de Valor Residual de Activos Intangibles (Evolución Patrimonial Neta al Cierre).",
             comoSeEjecuta: "Se verifica la consistencia patrimonial de la Nota 10 (págs. 51-53) mediante la conciliación integral de movimientos netos del ejercicio: Valor Residual al Inicio ($2.494.659M: $2.591.842M netos menos $(97.183)M de previsión) + Incorporación de intangibles por adquisición TMA (+$274.183M, Nota 29) + Altas CAPEX del ejercicio (+$134.472M) - Bajas netas ($0M: -$34.549M VO y +$34.549M amort. acum.) - Amortización del Ejercicio, Previsión y Efecto Neto Conversión (-$231.789M = -$234.722M amortización Nota 10/25 + $3.304M conversión monetaria neta - $371M aumento de previsión) = Valor Residual al Cierre Calculado ($2.671.525M = $2.769.079M neto menos $(97.554)M de previsión).",
-            fuentes: "Cuadro de Evolución de Activos Intangibles de la Nota 10 (págs. 51-53), Nota 25, Asientos TMA (Nota 29) y Mayor General SAP.",
+            fuentes: PTE2_DEBILIDAD,
             valores: "Valor Residual Teórico: $2.671.525 millones vs. Balance General / Nota 10 al 31/12/2025: $2.671.525 millones. Diferencia: $0.",
             resultado: "La Prueba Global de Valor Residual cerró con exactitud matemática plena ($2.671.525M calculados vs $2.671.525M en Nota 10, desvío $0), acreditando que el saldo neto de Activos Intangibles expuesto en el Activo No Corriente es íntegro y exacto (✓ ∑).",
             tabla: {
@@ -825,6 +841,7 @@ export const papelesTrabajo = [
           }
         ],
         procedimientoDetalle: "1) Proyectos de software en SAP PS: Se audita que los costos activados correspondan exclusivamente a la Fase de Desarrollo (arquitectura, programación y pruebas UAT) y no a investigación o mantenimiento rutinario (NIC 38.57). 2) Prueba de Integridad y Corte: Se auditan cuentas de gastos de IT para verificar que no se hayan mandado a pérdidas desarrollos que debían capitalizarse. 3) Recálculo de Amortizaciones: Recálculo independiente aplicando alícuotas lineales (licencias 15-20 años, software 3-5 años) sobre valores reexpresados (NIC 29), comparando con el cargo del ejercicio sin desvíos significativos.",
+        fuentes: PTE2_DEBILIDAD,
         defensaOral: "Profesor, en PT-E2 auditamos los desarrollos de software bajo NIC 38: verificamos en SAP PS que solo se activen costos de la etapa de desarrollo de proyectos con beneficio económico futuro comprobable, descartando gastos de mantenimiento. Asimismo, ejecutamos un recálculo matemático global de las amortizaciones según sus vidas útiles, resultando satisfactorio.",
         afirmacionesDetalle: "Valida Existencia e Integridad (activación rigurosa bajo NIC 38 sin omisiones ni sobrevaluaciones) y Medición (amortizaciones lineales según vida útil remanente)."
       }

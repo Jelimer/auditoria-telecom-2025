@@ -122,7 +122,23 @@ export function FormattingToolbar({ onFormat, isDark = false, compact = false })
 }
 
 // Procedimientos donde el bloque de respaldo exhibe la debilidad de Control Interno que originó la prueba
-const DEBILIDAD_ORIGIN_PTS = new Set(['PT-A1', 'PT-A2', 'PT-A3', 'PT-A4']);
+const DEBILIDAD_ORIGIN_PTS = new Set([
+  'PT-A1',
+  'PT-A2',
+  'PT-A3',
+  'PT-A4',
+  'PT-B1',
+  'PT-B2',
+  'PT-B3',
+  'PT-E1',
+  'PT-E2',
+]);
+
+// Mapa del bloque superior del Programa de Auditoría en PT-B y PT-E hacia la cédula correspondiente
+const TOP_PROGRAMA_PT_REF = {
+  'pt-b': ['PT-B1', 'PT-B2', 'PT-B3'],
+  'pt-e': ['PT-E1', 'PT-E2', 'PT-E2'],
+};
 
 export default function Etapa2EjecucionView({
   ajustesState,
@@ -447,6 +463,12 @@ export default function Etapa2EjecucionView({
                     const fuentes = isObj
                       ? paso.fuentes
                       : 'Módulos SAP ERP (FI/CO/AA), legajos de comprobantes e informes operativos de gerencia.';
+                    const topPtRef = TOP_PROGRAMA_PT_REF[activePT.id]?.[i];
+                    const topDebilidad = topPtRef
+                      ? activePT.procedimientosEjecutados?.find((p) => p.ref === topPtRef)?.fuentes
+                      : null;
+                    const fuentesMostrar = topDebilidad || fuentes;
+                    const isTopDebilidad = !!topDebilidad;
                     const valores = isObj
                       ? paso.valores
                       : `Saldo contable auditado en el rubro ${activePT.rubro}.`;
@@ -481,12 +503,16 @@ export default function Etapa2EjecucionView({
                               </strong>
                               <p className="text-slate-300 mt-0.5">{comoSeHace}</p>
                             </div>
-                            {fuentes && (
+                            {fuentesMostrar && (
                               <div>
-                                <strong className="text-teal-300 text-[10px] uppercase tracking-wide">
-                                  📂 Fuentes de Información y Sistemas:
+                                <strong className="text-teal-300 text-[10px] uppercase tracking-wide block">
+                                  {isTopDebilidad ? 'DEBILIDAD QUE LO ORIGINÓ' : '📂 Fuentes de Información y Sistemas:'}
                                 </strong>
-                                <p className="text-slate-300 mt-0.5">{fuentes}</p>
+                                <p className="text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line">
+                                  {isTopDebilidad
+                                    ? renderFormattedRichText(fuentesMostrar, { onCciClick: handleNavigateToSintesisCCI })
+                                    : fuentesMostrar}
+                                </p>
                               </div>
                             )}
                             {valores && (
