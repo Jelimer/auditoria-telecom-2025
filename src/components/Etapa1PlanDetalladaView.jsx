@@ -28,16 +28,16 @@ const MAT_BANNER_DEFAULTS = {
   'mat-banner-titulo':
     '¿Qué es la Materialidad (Significatividad) y qué se pretende en este punto 1.4?',
   'mat-banner-intro':
-    'En una compañía de la escala de <b>Telecom Argentina S.A.</b> (con un Activo Total de <b>$16.622.552 millones</b>, es decir, más de 16,6 billones de pesos), el auditor externo <b>no busca exactitud matemática al centavo</b>, sino <b>razonabilidad</b>. La <b>Materialidad o Significatividad</b> (según Carlos Slosse y la RT 37) es el <i>«termómetro o umbral numérico»</i> a partir del cual un error u omisión contable es tan grande que podría cambiar la decisión económica de un usuario que lee el Balance (un accionista en la bolsa, un banco acreedor o la CNV).',
+    'En una compañía de la escala de <b>Telecom Argentina S.A.</b> (con un Activo Total de <b>$16.622.552 millones</b>, es decir, más de 16,6 billones de pesos), el auditor externo <b>no busca exactitud matemática al centavo</b>, sino <b>razonabilidad</b>. La <b>Materialidad o Significatividad</b> (según Carlos Slosse y las NIAs / RT N° 32 FACPCE — NIA 320) es el <i>«termómetro o umbral numérico»</i> a partir del cual un error u omisión contable es tan grande que podría cambiar la decisión económica de un usuario que lee el Balance (un accionista en la bolsa, un banco acreedor o la CNV).',
   'mat-card-1-titulo': '1. Materialidad Global (PM = $166.225M — 1% del Activo):',
   'mat-card-1-desc':
-    'Es el techo máximo para el Balance en su conjunto. Si al terminar la auditoría la suma de errores que la empresa se niega a corregir supera los <b>$166.225M</b>, los Estados Contables están distorsionados de forma generalizada.',
+    'Es el techo máximo para el Balance en su conjunto. Si al cierre la suma de errores no corregidos iguala o supera <b>$166.225M</b>, los EECC presentan una distorsión <b>material (significativa)</b> y cambia la opinión: <b>Con Salvedades</b> si el efecto es acotado (NIA 705.7), o <b>Adversa</b> únicamente si es generalizado (NIA 705.8).',
   'mat-card-2-titulo': '2. Error Tolerable (ET = $83.112M — 50% de la PM):',
   'mat-card-2-desc':
-    'Es el límite máximo de error que toleramos dentro de <b>cada rubro individual</b> (por ejemplo, dentro de Bienes de Uso o dentro de Créditos por Ventas). Se fija a la mitad de la PM por prudencia, para evitar que varios errores medianos en distintas cuentas sumen más que la PM global, y nos sirve para definir el <b>tamaño de las muestras</b> a revisar.',
+    'Es el tope <b>operativo</b> dentro de <b>cada rubro individual</b> (por ej., Bienes de Uso o Créditos por Ventas). Se fija en el límite prudente del 50% por el RC Alto (Archivo y TIC) para definir el <b>tamaño de las muestras</b> y contener el riesgo de agregación. Superarlo en un rubro (&lt; PM) obliga a ampliar pruebas y proponer ajuste, sin cambiar por sí solo la opinión.',
   'mat-card-3-titulo': '3. Umbral Mínimo de Ajustes (PAE = $8.311M — 5% de la PM):',
   'mat-card-3-desc':
-    'Es el filtro de lo «claramente insignificante». Todo desvío que encontremos en la Etapa 2 que sea <b>mayor a $8.311M</b> (como el ajuste patrimonial <code>AJ-01</code> por $28.340M y la reclasificación <code>AJ-04</code> por $11.240M) debe llevarse obligatoriamente a la Planilla de Ajustes Propuestos para exigir su corrección; si es menor a $8.311M (como los $7.570M acumulados en <code>PAE-NC-01</code>), se deja constancia pero no afecta la opinión.'
+    'Es el filtro de lo «claramente insignificante» (NIA 450). Todo desvío o grupo homogéneo <b>≥ $8.311M</b> (como <code>AJ-01</code> por $28.340M, que agrupa <code>PT-A4</code> $21.450M + <code>PT-A1</code> $6.890M en Bienes de Uso) se carga en la Planilla PAE para pedir ajuste. Si queda sin ajustar pero &lt; PM (17,05% de PM), va a Carta de Representación (NIA 450.14) y Comité de Auditoría (NIA 260), sin cambiar la opinión limpia.'
 };
 
 export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTargetTick }) {
@@ -205,7 +205,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
           </button>
         </div>
 
-        {/* Tarjetas de Significatividad / Materialidad (Slosse / RT 37 / NIA 320 y 450) con Lamparita Flotante */}
+        {/* Tarjetas de Significatividad / Materialidad (Slosse / RT N° 32 / NIA 320 y 450) con Lamparita Flotante */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-5">
           <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
             <div>
@@ -312,7 +312,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
               className="mt-3 inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-[11px] font-extrabold transition-colors cursor-pointer"
             >
               <Lightbulb className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-              ¿Por qué el 5% y el caso de $3.120M?
+              ¿Por qué el 5% y el caso PT-A1 ($6.890M)?
             </button>
           </div>
         </div>
