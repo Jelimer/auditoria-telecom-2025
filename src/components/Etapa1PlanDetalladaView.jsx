@@ -100,10 +100,38 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
 
   const totalCustomCount = Object.keys(customTexts).length;
 
+  const [highlightedAfirmacion, setHighlightedAfirmacion] = useState(null);
+
+  useEffect(() => {
+    if (!highlightedAfirmacion) return;
+    const timer = setTimeout(() => setHighlightedAfirmacion(null), 3800);
+    return () => clearTimeout(timer);
+  }, [highlightedAfirmacion]);
+
   useEffect(() => {
     // Solo reaccionar ante una navegación intencional (disparada por subTargetTick)
     // para evitar que el ScrollSpy de App.jsx dispare scrollIntoView involuntarios durante el scroll manual
     if (!subTargetTick || !subTarget) return;
+
+    if (subTarget === 'sec-1c-afirmaciones' || subTarget.startsWith('sec-1c-afirmaciones:')) {
+      const afParam = subTarget.includes(':') ? decodeURIComponent(subTarget.split(':')[1] || '') : '';
+      if (afParam) {
+        const matched = marcoTeoricoSlosse.afirmacionesDefinicion.find(
+          (a) => a.nombre.toLowerCase() === afParam.toLowerCase()
+        );
+        if (matched) {
+          setFiltroAfirmacion(matched.nombre);
+          setHighlightedAfirmacion(matched.nombre);
+        }
+      }
+      setTimeout(() => {
+        const el = document.getElementById('sec-1c-afirmaciones');
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 140);
+      return;
+    }
 
     if (subTarget.startsWith('afirmacion:')) {
       const parts = subTarget.split(':');
@@ -487,6 +515,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {marcoTeoricoSlosse.afirmacionesDefinicion.map((af) => {
             const isSelected = filtroAfirmacion === af.nombre;
+            const isHighlighted = highlightedAfirmacion === af.nombre;
             return (
               <div
                 key={af.codigo}
@@ -494,7 +523,9 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
                   setFiltroAfirmacion(filtroAfirmacion === af.nombre ? 'TODAS' : af.nombre)
                 }
                 className={`p-3 rounded-xl border transition-all cursor-pointer ${
-                  isSelected
+                  isHighlighted
+                    ? 'border-amber-500 bg-amber-50/90 ring-4 ring-amber-300 shadow-md scale-[1.02]'
+                    : isSelected
                     ? 'border-teal-600 bg-teal-50/70 ring-2 ring-teal-500'
                     : 'border-slate-200 bg-slate-50/60 hover:bg-white hover:border-teal-300'
                 }`}

@@ -136,6 +136,7 @@ const DEBILIDAD_ORIGIN_PTS = new Set([
 
 // Mapa del bloque superior del Programa de Auditoría en PT-B y PT-E hacia la cédula correspondiente
 const TOP_PROGRAMA_PT_REF = {
+  'pt-a': ['PT-A1', 'PT-A2', 'PT-A3', 'PT-A4'],
   'pt-b': ['PT-B1', 'PT-B2', 'PT-B3'],
   'pt-e': ['PT-E1', 'PT-E2', 'PT-E2'],
 };
@@ -158,6 +159,10 @@ export default function Etapa2EjecucionView({
 
   const handleNavigateToSintesisCCI = (cciId) => {
     if (onNavigate) onNavigate('etapa1-cci', `sintesis-${cciId}`);
+  };
+
+  const handleNavigateToAfirmaciones = (afNombre) => {
+    if (onNavigate) onNavigate('etapa1-detallada', `sec-1c-afirmaciones:${afNombre}`);
   };
 
   // Estados para textos editables de conclusiones y notas personales del usuario (con persistencia en localStorage)
@@ -526,7 +531,9 @@ export default function Etapa2EjecucionView({
                                 </strong>
                                 <p className="text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line">
                                   {isTopAfirmaciones
-                                    ? renderFormattedRichText(valoresMostrar)
+                                    ? renderFormattedRichText(valoresMostrar, {
+                                        onAfirmacionClick: handleNavigateToAfirmaciones,
+                                      })
                                     : valoresMostrar}
                                 </p>
                               </div>
@@ -1305,7 +1312,12 @@ export default function Etapa2EjecucionView({
                                           </div>
                                         ) : (
                                           <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
-                                            {renderFormattedRichText(currentValores)}
+                                            {renderFormattedRichText(
+                                              currentValores,
+                                              isDebilidadOrigin
+                                                ? { onAfirmacionClick: handleNavigateToAfirmaciones }
+                                                : undefined
+                                            )}
                                           </p>
                                         )}
                                       </div>
@@ -1730,7 +1742,12 @@ export default function Etapa2EjecucionView({
                                     </div>
                                   ) : (
                                     <p className={`text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line ${isPTA ? 'text-xs sm:text-[13px]' : 'text-[11px]'}`}>
-                                      {renderFormattedRichText(currentProcValores)}
+                                      {renderFormattedRichText(
+                                        currentProcValores,
+                                        isDebilidadOrigin
+                                          ? { onAfirmacionClick: handleNavigateToAfirmaciones }
+                                          : undefined
+                                      )}
                                     </p>
                                   )}
                                 </div>

@@ -817,30 +817,65 @@ export function renderTextWithNormas(text) {
   });
 }
 
-const renderLeafWithOptionalCCI = (text, options) => {
-  if (!options?.onCciClick || typeof text !== 'string') {
-    return renderTextWithNormas(text);
-  }
+const AFIRMACIONES_REGEX = /\b(Existencia|Integridad|Propiedad|Medición|Exposición)\b/g;
+const AFIRMACIONES_EXACT = /^(Existencia|Integridad|Propiedad|Medición|Exposición)$/;
+const CCI_REGEX = /(Debilidad(?:\s+de)?\s+CCI-0[1-5]|CCI-0[1-5])/gi;
 
-  const cciRegex = /(Debilidad(?:\s+de)?\s+CCI-0[1-5]|CCI-0[1-5])/gi;
-  const parts = text.split(cciRegex);
-  if (parts.length <= 1) {
-    return renderTextWithNormas(text);
-  }
+const renderTokenizedText = (text, regex, isMatch, renderButton, renderFallback) => {
+  if (typeof text !== 'string') return renderFallback(text);
+  const parts = text.split(regex);
+  if (parts.length <= 1) return renderFallback(text);
 
   return parts.map((part, idx) => {
     if (!part) return null;
-    const match = part.match(/CCI-0([1-5])/i);
-    if (match && /^(?:Debilidad(?:\s+de)?\s+)?CCI-0[1-5]$/i.test(part.trim())) {
-      const cciNum = match[1];
-      const cciId = `cci-${cciNum}`;
+    if (isMatch(part)) return renderButton(part, idx);
+    return <React.Fragment key={`tok-${idx}`}>{renderFallback(part)}</React.Fragment>;
+  });
+};
+
+const renderLeafWithAfirmaciones = (text, options) => {
+  if (!options?.onAfirmacionClick) return renderTextWithNormas(text);
+  return renderTokenizedText(
+    text,
+    AFIRMACIONES_REGEX,
+    (part) => AFIRMACIONES_EXACT.test(part),
+    (part, idx) => (
+      <button
+        key={`af-link-${idx}`}
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          options.onAfirmacionClick(part);
+        }}
+        title={`Ir a 1.4.B. Afirmaciones (${part})`}
+        className="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded bg-amber-400/20 hover:bg-amber-400/35 text-amber-200 hover:text-white border border-amber-400/50 underline decoration-amber-300/75 underline-offset-2 font-extrabold cursor-pointer transition-colors align-baseline"
+      >
+        <span>{part}</span>
+        <span className="text-[9px] no-underline opacity-85">↗</span>
+      </button>
+    ),
+    renderTextWithNormas
+  );
+};
+
+const renderLeafWithOptionalCCI = (text, options) => {
+  if (!options?.onCciClick) {
+    return renderLeafWithAfirmaciones(text, options);
+  }
+
+  return renderTokenizedText(
+    text,
+    CCI_REGEX,
+    (part) => /^(?:Debilidad(?:\s+de)?\s+)?CCI-0[1-5]$/i.test(part.trim()),
+    (part, idx) => {
+      const cciNum = part.match(/CCI-0([1-5])/i)?.[1];
       return (
         <button
           key={`cci-link-${idx}`}
           type="button"
           onClick={(e) => {
             e.stopPropagation();
-            options.onCciClick(cciId);
+            options.onCciClick(`cci-${cciNum}`);
           }}
           title={`Ir a 1.2.0 Síntesis: Fortalezas y Debilidades (CCI-0${cciNum})`}
           className="inline-flex items-center gap-0.5 px-1.5 py-0.2 rounded bg-teal-500/20 hover:bg-teal-400/35 text-lime-300 hover:text-white border border-teal-400/50 underline decoration-lime-300/75 underline-offset-2 font-extrabold cursor-pointer transition-colors align-baseline"
@@ -849,9 +884,9 @@ const renderLeafWithOptionalCCI = (text, options) => {
           <span className="text-[9px] no-underline opacity-85">↗</span>
         </button>
       );
-    }
-    return <React.Fragment key={`txt-${idx}`}>{renderTextWithNormas(part)}</React.Fragment>;
-  });
+    },
+    (part) => renderLeafWithAfirmaciones(part, options)
+  );
 };
 
 export function renderFormattedRichText(text, options) {

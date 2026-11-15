@@ -469,7 +469,12 @@ export default function App() {
     if (scroll) {
       if (optionalSubId) {
         setTimeout(() => {
-          const el = document.getElementById(optionalSubId);
+          const fallbackId = optionalSubId.startsWith('afirmacion:')
+            ? 'sec-1c-rubros'
+            : optionalSubId.includes(':')
+              ? optionalSubId.split(':')[0]
+              : optionalSubId;
+          const el = document.getElementById(optionalSubId) || document.getElementById(fallbackId);
           if (el) {
             el.scrollIntoView({ behavior: 'smooth', block: 'start' });
           } else {
@@ -534,7 +539,7 @@ export default function App() {
         initialView = hashView === 'etapa1-plan-detallada' ? 'etapa1-detallada' : hashView;
       }
       if (hashSub) {
-        initialSub = hashSub;
+        initialSub = decodeURIComponent(hashSub);
       }
     }
 
@@ -565,7 +570,7 @@ export default function App() {
         if (popHash) {
           const [hView, hSub] = popHash.split('/');
           const norm = hView === 'etapa1-plan-detallada' ? 'etapa1-detallada' : hView;
-          navigateTo(norm, hSub || null, { pushHistory: false, scroll: true });
+          navigateTo(norm, hSub ? decodeURIComponent(hSub) : null, { pushHistory: false, scroll: true });
         }
       }
     };
@@ -805,7 +810,10 @@ export default function App() {
                   {sidebarExpanded && hasSubItems && isOpen && (
                     <div className="ml-4 pl-3 border-l-2 border-teal-200 space-y-0.5 py-1">
                       {item.subItems.map((sub) => {
-                        const isSubActive = isActive && subTarget === sub.id;
+                        const isSubActive =
+                          isActive &&
+                          (subTarget === sub.id ||
+                            (typeof subTarget === 'string' && subTarget.startsWith(`${sub.id}:`)));
                         return (
                           <button
                             key={sub.id}
