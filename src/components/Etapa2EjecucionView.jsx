@@ -141,6 +141,46 @@ const TOP_PROGRAMA_PT_REF = {
   'pt-e': ['PT-E1', 'PT-E2', 'PT-E2'],
 };
 
+const findLocalAfirmacionesOverrides = (ptList, customMap) => {
+  const matches = [];
+  for (const pt of ptList || []) {
+    for (const proc of pt.procedimientosEjecutados || []) {
+      if (!DEBILIDAD_ORIGIN_PTS.has(proc.ref)) continue;
+      const pasos = proc.pasosConResultado || [];
+      pasos.forEach((item, pIdx) => {
+        if (!item?.valores) return;
+        const key = `${proc.ref}-valores-${pIdx}`;
+        if (customMap[key] !== undefined && customMap[key] !== item.valores) {
+          matches.push({
+            ptId: pt.id,
+            ptCodigo: pt.codigo,
+            ref: proc.ref,
+            pIdx,
+            key,
+            stepId: `${proc.ref.toLowerCase().replace(/[^a-z0-9_-]/g, '')}-paso-${pIdx + 1}`,
+            label: `${proc.ref} · Paso ${pIdx + 1}`,
+            isEmpty: !String(customMap[key]).trim(),
+          });
+        }
+      });
+      const procKey = `${proc.ref}-proc-valores`;
+      if (proc.valores && customMap[procKey] !== undefined && customMap[procKey] !== proc.valores) {
+        matches.push({
+          ptId: pt.id,
+          ptCodigo: pt.codigo,
+          ref: proc.ref,
+          pIdx: null,
+          key: procKey,
+          stepId: proc.ref.toLowerCase().replace(/[^a-z0-9_-]/g, ''),
+          label: `${proc.ref} · Resumen`,
+          isEmpty: !String(customMap[procKey]).trim(),
+        });
+      }
+    }
+  }
+  return matches;
+};
+
 export default function Etapa2EjecucionView({
   ajustesState,
   onToggleAjusteAceptado,
@@ -274,6 +314,33 @@ export default function Etapa2EjecucionView({
       console.error(e);
     }
     setEditingField(null);
+  };
+
+  const afirmacionesOverrides = findLocalAfirmacionesOverrides(papelesTrabajo, pasosNarrativosCustom);
+
+  const handleSyncAfirmacionesOverrides = (overridesToClear) => {
+    if (!overridesToClear || overridesToClear.length === 0) return;
+    const listado = overridesToClear
+      .map((o) => `• ${o.label}${o.isEmpty ? ' (vacío)' : ''}`)
+      .join('\n');
+    const ok = window.confirm(
+      `Se actualizará ÚNICAMENTE el bloque "AFIRMACIONES" en estos pasos:\n${listado}\n\nTus ediciones en "¿Cómo se ejecuta?", "DEBILIDAD QUE LO ORIGINÓ", resultados y demás campos se mantendrán intactas. ¿Confirmás?`
+    );
+    if (!ok) return;
+
+    const updated = { ...pasosNarrativosCustom };
+    for (const item of overridesToClear) {
+      delete updated[item.key];
+    }
+    setPasosNarrativosCustom(updated);
+    try {
+      localStorage.setItem('audiia_pasos_narrativos_v1', JSON.stringify(updated));
+    } catch (e) {
+      console.error(e);
+    }
+    setEditingField((prev) =>
+      overridesToClear.some((o) => o.key === prev) ? null : prev
+    );
   };
 
   useEffect(() => {
@@ -698,6 +765,60 @@ export default function Etapa2EjecucionView({
             </button>
           </div>
 
+          {afirmacionesOverrides.length > 0 && (
+            <div className="mb-4 p-3.5 rounded-xl bg-amber-50 border border-amber-300 shadow-2xs space-y-2.5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div className="flex items-start gap-2 text-xs text-amber-950">
+                  <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-extrabold">
+                      Ediciones locales previas en el bloque &ldquo;AFIRMACIONES&rdquo; ({afirmacionesOverrides.length}):
+                    </p>
+                    <p className="text-[11px] text-amber-900 mt-0.5 leading-snug">
+                      Estos pasos conservan una versión guardada manualmente en tu navegador y por eso no muestran aún las Afirmaciones completas cargadas en el sistema:
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleSyncAfirmacionesOverrides(afirmacionesOverrides)}
+                  className="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white text-xs font-extrabold cursor-pointer shadow-xs transition-colors"
+                  title="Reemplaza únicamente los bloques AFIRMACIONES listados aquí sin borrar tus notas en las secciones superiores"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  Actualizar solo AFIRMACIONES pendientes
+                </button>
+              </div>
+              <div className="flex flex-wrap items-center gap-1.5">
+                {afirmacionesOverrides.map((item) => (
+                  <button
+                    key={item.key}
+                    type="button"
+                    onClick={() => {
+                      if (item.ptId !== activePT.id) setSelectedPTId(item.ptId);
+                      if (item.pIdx !== null) {
+                        setExpandedSteps((prev) => ({
+                          ...prev,
+                          [`${item.ref}-p${item.pIdx}`]: true,
+                        }));
+                      }
+                      setTimeout(() => {
+                        const el =
+                          document.getElementById(item.stepId) ||
+                          document.getElementById(item.ref.toLowerCase().replace(/[^a-z0-9_-]/g, ''));
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }, 90);
+                    }}
+                    className="px-2 py-0.5 rounded-md bg-white hover:bg-amber-100 text-amber-950 border border-amber-300 text-[11px] font-bold cursor-pointer transition-colors"
+                    title="Ir a este paso"
+                  >
+                    📍 {item.label}{item.isEmpty ? ' (vacío)' : ''}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Enlaces de acceso directo a las Cédulas Analíticas de Bienes de Uso */}
           {isPTA && (
             <div className="flex flex-wrap items-center gap-2 mb-4 p-3 rounded-xl bg-teal-50/70 border border-teal-200 shadow-2xs">
@@ -965,7 +1086,8 @@ export default function Etapa2EjecucionView({
                           return (
                             <div
                               key={pIdx}
-                              className="p-3 rounded-xl bg-white border border-slate-200 shadow-xs space-y-2.5"
+                              id={`${proc.ref.toLowerCase().replace(/[^a-z0-9_-]/g, '')}-paso-${pIdx + 1}`}
+                              className="p-3 rounded-xl bg-white border border-slate-200 shadow-xs space-y-2.5 scroll-mt-24"
                             >
                               {/* 1. Cabecera del Paso */}
                               {(() => {
