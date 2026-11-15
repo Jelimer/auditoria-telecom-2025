@@ -658,7 +658,7 @@ export default function ResumenIntegralView({
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 mt-3 text-xs leading-relaxed">
-                  <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                  <div className="lg:col-span-1 p-3 rounded-xl bg-slate-50 border border-slate-200">
                     <strong className="text-slate-800 uppercase text-[10px] tracking-wider block mb-1">
                       1. ¿Qué hicimos concretamente?
                     </strong>
@@ -678,28 +678,7 @@ export default function ResumenIntegralView({
                       />
                     )}
                   </div>
-                  <div className="p-3 rounded-xl bg-amber-50/60 border border-amber-200">
-                    <strong className="text-amber-900 uppercase text-[10px] tracking-wider flex items-center gap-1 mb-1">
-                      <Compass className="w-3.5 h-3.5 text-amber-700" />
-                      2. ¿Por qué conecta con el paso siguiente?
-                    </strong>
-                    {isEditingThisStep ? (
-                      <RichTextBox
-                        value={valPorQue}
-                        baseValue={step.porQueConecta}
-                        onChange={(html) => handleUpdateGuionField(step.id, 'porQueConecta', html)}
-                        onReset={() => handleResetGuionField(step.id, 'porQueConecta')}
-                        boxClassName="text-amber-950"
-                        placeholder="Editar Por qué conecta con el paso siguiente"
-                      />
-                    ) : (
-                      <div
-                        className="text-amber-950/90 [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
-                        dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(valPorQue) }}
-                      />
-                    )}
-                  </div>
-                  <div className="p-3 rounded-xl bg-indigo-50/70 border border-indigo-200">
+                  <div className="lg:col-span-2 p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-200">
                     <strong className="text-indigo-900 uppercase text-[10px] tracking-wider flex items-center gap-1 mb-1">
                       <MessageSquareQuote className="w-3.5 h-3.5 text-indigo-700" />
                       3. Qué decir en voz alta (Guion oral)
@@ -717,6 +696,27 @@ export default function ResumenIntegralView({
                       <div
                         className="text-indigo-950 italic [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
                         dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(valFrase) }}
+                      />
+                    )}
+                  </div>
+                  <div className="lg:col-span-3 p-3 rounded-xl bg-amber-50/60 border border-amber-200">
+                    <strong className="text-amber-900 uppercase text-[10px] tracking-wider flex items-center gap-1 mb-1">
+                      <Compass className="w-3.5 h-3.5 text-amber-700" />
+                      2. ¿Por qué conecta con el paso siguiente?
+                    </strong>
+                    {isEditingThisStep ? (
+                      <RichTextBox
+                        value={valPorQue}
+                        baseValue={step.porQueConecta}
+                        onChange={(html) => handleUpdateGuionField(step.id, 'porQueConecta', html)}
+                        onReset={() => handleResetGuionField(step.id, 'porQueConecta')}
+                        boxClassName="text-amber-950"
+                        placeholder="Editar Por qué conecta con el paso siguiente"
+                      />
+                    ) : (
+                      <div
+                        className="text-amber-950/90 [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
+                        dangerouslySetInnerHTML={{ __html: sanitizeRichHtml(valPorQue) }}
                       />
                     )}
                   </div>
@@ -1113,11 +1113,17 @@ export default function ResumenIntegralView({
               </div>
             </div>
             <div className="overflow-x-auto rounded-xl border border-slate-200">
-              <table className="w-full text-left border-collapse text-xs">
+              <table className="w-full min-w-[820px] md:table-fixed text-left border-collapse text-xs">
+                <colgroup>
+                  <col className="w-[15%]" />
+                  <col className="w-[12%]" />
+                  <col className="w-[30%]" />
+                  <col className="w-[43%]" />
+                </colgroup>
                 <thead>
                   <tr className="bg-slate-100 text-slate-700 font-bold uppercase border-b border-slate-200">
                     <th className="py-2.5 px-3">Programa / Rubro</th>
-                    <th className="py-2.5 px-3 text-right">Saldo Libros ($M)</th>
+                    <th className="py-2.5 px-3 text-right whitespace-nowrap">Saldo Libros ($M)</th>
                     <th className="py-2.5 px-3">
                       Riesgo Crítico por{' '}
                       <button
@@ -1149,7 +1155,7 @@ export default function ResumenIntegralView({
                             </td>
                           </tr>
                         )}
-                        <tr className={esPrioritarioAuditado ? 'hover:bg-teal-50/40' : 'hover:bg-slate-50 bg-slate-50/40'}>
+                        <tr className={`align-top ${esPrioritarioAuditado ? 'hover:bg-teal-50/40' : 'hover:bg-slate-50 bg-slate-50/40'}`}>
                           <td className="py-3 px-3 font-bold text-slate-900">
                             <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
                               <button
@@ -1172,14 +1178,14 @@ export default function ResumenIntegralView({
                             </div>
                             {r.nombre}
                           </td>
-                          <td className="py-3 px-3 text-right font-mono font-bold text-slate-800">
+                          <td className="py-3 px-3 text-right font-mono font-bold text-slate-800 whitespace-nowrap">
                             ${r.saldoContable.toLocaleString('es-AR')} M
                           </td>
                           <td className="py-3 px-3 text-slate-600 leading-relaxed">
                             {r.importancia}
                           </td>
-                          <td className="py-3 px-3 text-slate-700">
-                            <ul className="list-disc pl-4 space-y-0.5">
+                          <td className="py-3 px-3 text-slate-700 leading-relaxed">
+                            <ul className="list-disc pl-4 space-y-1">
                               {r.programaTrabajo.map((b, i) => (
                                 <li key={i}>
                                   <strong>{b.Bloque}:</strong> {typeof b.Pasos[0] === 'object' ? b.Pasos[0].texto : b.Pasos[0]}
@@ -1235,14 +1241,22 @@ export default function ResumenIntegralView({
 
           {/* Tabla Consolidada de Papeles de Trabajo (3 Auditados primero: PT-A -> PT-B -> PT-E) */}
           <div className="overflow-x-auto rounded-xl border border-slate-200">
-            <table className="w-full text-left border-collapse text-xs">
+            <table className="w-full min-w-[820px] md:table-fixed text-left border-collapse text-xs">
+              <colgroup>
+                <col className="w-[10%]" />
+                <col className="w-[19%]" />
+                <col className="w-[11%]" />
+                <col className="w-[10%]" />
+                <col className="w-[11%]" />
+                <col className="w-[39%]" />
+              </colgroup>
               <thead>
                 <tr className="bg-slate-100 text-slate-700 font-bold uppercase border-b border-slate-200">
                   <th className="py-2.5 px-3">Ref. PT</th>
                   <th className="py-2.5 px-3">Rubro Auditado</th>
-                  <th className="py-2.5 px-3 text-right">Saldo Libros SAP ($M)</th>
-                  <th className="py-2.5 px-3 text-right">Ajuste Propuesto ($M)</th>
-                  <th className="py-2.5 px-3 text-right">Saldo Auditado ($M)</th>
+                  <th className="py-2.5 px-3 text-right whitespace-nowrap">Saldo Libros ($M)</th>
+                  <th className="py-2.5 px-3 text-right whitespace-nowrap">Ajuste ($M)</th>
+                  <th className="py-2.5 px-3 text-right whitespace-nowrap">Saldo Auditado</th>
                   <th className="py-2.5 px-3">Conclusión Técnica del Papel de Trabajo</th>
                 </tr>
               </thead>
@@ -1302,11 +1316,11 @@ export default function ResumenIntegralView({
                           </span>
                         </td>
                         <td className="py-3 px-3 font-bold text-slate-900">{pt.rubro}</td>
-                        <td className="py-3 px-3 text-right font-mono text-slate-700">
+                        <td className="py-3 px-3 text-right font-mono text-slate-700 whitespace-nowrap">
                           ${pt.saldoSegunLibros.toLocaleString('es-AR')}
                         </td>
                         <td
-                          className={`py-3 px-3 text-right font-mono font-bold ${
+                          className={`py-3 px-3 text-right font-mono font-bold whitespace-nowrap ${
                             ajusteDinamico < 0
                               ? 'text-red-600'
                               : ajusteDinamico > 0
@@ -1322,7 +1336,7 @@ export default function ResumenIntegralView({
                             ? '0'
                             : `${ajusteDinamico > 0 ? '+' : '-'}$${Math.abs(ajusteDinamico).toLocaleString('es-AR')}`}
                         </td>
-                        <td className="py-3 px-3 text-right font-mono font-extrabold text-slate-900 bg-teal-50/30">
+                        <td className="py-3 px-3 text-right font-mono font-extrabold text-slate-900 bg-teal-50/30 whitespace-nowrap">
                           ${saldoAuditadoDinamico.toLocaleString('es-AR')}
                           {pt.id === 'pt-a' && !aj1Aceptado ? '*' : ''}
                         </td>
@@ -1340,13 +1354,13 @@ export default function ResumenIntegralView({
                   <td className="py-2.5 px-3 text-xs">
                     PT-A + PT-B + PT-E (61,73% del Activo Total Consolidado $16.622.552M)
                   </td>
-                  <td className="py-2.5 px-3 text-right font-mono">
+                  <td className="py-2.5 px-3 text-right font-mono whitespace-nowrap">
                     ${subtotalAuditadosLibros.toLocaleString('es-AR')}
                   </td>
-                  <td className="py-2.5 px-3 text-right font-mono text-amber-300">
+                  <td className="py-2.5 px-3 text-right font-mono text-amber-300 whitespace-nowrap">
                     {aj1Aceptado ? '-$28.340' : '$0* (No reg.)'}
                   </td>
-                  <td className="py-2.5 px-3 text-right font-mono font-extrabold text-lime-300">
+                  <td className="py-2.5 px-3 text-right font-mono font-extrabold text-lime-300 whitespace-nowrap">
                     ${subtotalAuditadosFinal.toLocaleString('es-AR')}
                     {!aj1Aceptado ? '*' : ''}
                   </td>
