@@ -121,7 +121,7 @@ export function FormattingToolbar({ onFormat, isDark = false, compact = false })
   );
 }
 
-// Procedimientos donde el bloque de respaldo exhibe la debilidad de Control Interno que originó la prueba
+// Procedimientos prioritarios donde los bloques de respaldo exhiben la debilidad de Control Interno y las afirmaciones validadas
 const DEBILIDAD_ORIGIN_PTS = new Set([
   'PT-A1',
   'PT-A2',
@@ -464,14 +464,18 @@ export default function Etapa2EjecucionView({
                       ? paso.fuentes
                       : 'Módulos SAP ERP (FI/CO/AA), legajos de comprobantes e informes operativos de gerencia.';
                     const topPtRef = TOP_PROGRAMA_PT_REF[activePT.id]?.[i];
-                    const topDebilidad = topPtRef
-                      ? activePT.procedimientosEjecutados?.find((p) => p.ref === topPtRef)?.fuentes
+                    const topProc = topPtRef
+                      ? activePT.procedimientosEjecutados?.find((p) => p.ref === topPtRef)
                       : null;
+                    const topDebilidad = topProc?.fuentes;
+                    const topAfirmaciones = topProc?.valores;
                     const fuentesMostrar = topDebilidad || fuentes;
                     const isTopDebilidad = !!topDebilidad;
                     const valores = isObj
                       ? paso.valores
                       : `Saldo contable auditado en el rubro ${activePT.rubro}.`;
+                    const valoresMostrar = topAfirmaciones || valores;
+                    const isTopAfirmaciones = !!topAfirmaciones;
                     const isExpanded = expandAllProcedimientos || !!expandedProcedimientos[`${activePT.id}-${i}-${j}`];
 
                     return (
@@ -515,12 +519,16 @@ export default function Etapa2EjecucionView({
                                 </p>
                               </div>
                             )}
-                            {valores && (
+                            {valoresMostrar && (
                               <div>
-                                <strong className="text-amber-300 text-[10px] uppercase tracking-wide">
-                                  🔢 Valores y Bases de Cálculo:
+                                <strong className="text-amber-300 text-[10px] uppercase tracking-wide block">
+                                  {isTopAfirmaciones ? 'AFIRMACIONES' : '🔢 Valores y Bases de Cálculo:'}
                                 </strong>
-                                <p className="text-slate-300 mt-0.5">{valores}</p>
+                                <p className="text-slate-300 mt-0.5 leading-relaxed whitespace-pre-line">
+                                  {isTopAfirmaciones
+                                    ? renderFormattedRichText(valoresMostrar)
+                                    : valoresMostrar}
+                                </p>
                               </div>
                             )}
                           </div>
@@ -1234,7 +1242,7 @@ export default function Etapa2EjecucionView({
                                       <div>
                                         <div className="flex items-center justify-between gap-1 mb-0.5">
                                           <strong className={`text-amber-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
-                                            🔢 Valores y Bases de Cálculo:
+                                            {isDebilidadOrigin ? 'AFIRMACIONES' : '🔢 Valores y Bases de Cálculo:'}
                                             {isCustom && (
                                               <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-400 text-slate-900 ml-1">
                                                 ✏️ Editado
@@ -1245,7 +1253,11 @@ export default function Etapa2EjecucionView({
                                             <button
                                               type="button"
                                               onClick={() => handleStartEdit(valoresKey, currentValores)}
-                                              title="Editar los valores y bases de cálculo de este paso"
+                                              title={
+                                                isDebilidadOrigin
+                                                  ? 'Editar las afirmaciones afectadas y cómo se confirmaron en este paso'
+                                                  : 'Editar los valores y bases de cálculo de este paso'
+                                              }
                                               className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/50 cursor-pointer shadow-2xs"
                                             >
                                               <Pencil className="w-2.5 h-2.5" /> Editar
@@ -1655,7 +1667,7 @@ export default function Etapa2EjecucionView({
                                 <div>
                                   <div className="flex items-center justify-between gap-1 mb-0.5">
                                     <strong className={`text-amber-300 flex items-center gap-1 ${isPTA ? 'text-xs' : 'text-[10px]'} uppercase tracking-wide`}>
-                                      🔢 Valores y Bases de Cálculo:
+                                      {isDebilidadOrigin ? 'AFIRMACIONES' : '🔢 Valores y Bases de Cálculo:'}
                                       {isCustom && (
                                         <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-amber-400 text-slate-900 ml-1">
                                           ✏️ Editado
@@ -1666,7 +1678,11 @@ export default function Etapa2EjecucionView({
                                       <button
                                         type="button"
                                         onClick={() => handleStartEdit(procValoresKey, currentProcValores)}
-                                        title="Editar los valores y bases de cálculo de este procedimiento"
+                                        title={
+                                          isDebilidadOrigin
+                                            ? 'Editar las afirmaciones afectadas y cómo se confirmaron en este procedimiento'
+                                            : 'Editar los valores y bases de cálculo de este procedimiento'
+                                        }
                                         className="inline-flex items-center gap-1 text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/50 cursor-pointer shadow-2xs"
                                       >
                                         <Pencil className="w-2.5 h-2.5" /> Editar
