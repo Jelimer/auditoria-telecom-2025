@@ -1056,7 +1056,9 @@ export const documentosEtapa3 = {
     domicilio: "Gral. Hornos 690 — Ciudad Autónoma de Buenos Aires",
     fecha: "12 de febrero de 2026",
     norma: "NIA 265 (Comunicación de Deficiencias de Control Interno) • Doctrina Carlos A. Slosse",
-    introduccion: "Como resultado de nuestra evaluación del sistema de control interno efectuada sobre los 5 Cuestionarios de Control Interno (CCI) en la Etapa de Planificación y corroborada durante las pruebas sustantivas de la Etapa de Ejecución sobre los Estados Financieros al 31/12/2025, comunicamos formalmente al Directorio y al Comité de Auditoría (NIA 265) las debilidades de diseño u operación detectadas y nuestras recomendaciones de mejora:",
+    saludo: "De nuestra mayor consideración:",
+    introduccion: "Como resultado de nuestra evaluación del sistema de control interno efectuada en el marco de la auditoría de los Estados Financieros Consolidados de Telecom Argentina S.A. al 31 de diciembre de 2025, comunicamos formalmente al Directorio y al Comité de Auditoría las observaciones sobre diseño u operación detectadas y nuestras recomendaciones de mejora:",
+    cierre: "Agradecemos la colaboración brindada por los equipos técnicos y administrativos durante el relevamiento y quedamos a vuestra entera disposición para ampliar el alcance de estas recomendaciones ante el Comité de Auditoría. Sin otro particular, saludamos a Uds. muy atentamente.",
     recomendaciones: [
       {
         cciId: "cci-1",
@@ -1064,8 +1066,8 @@ export const documentosEtapa3 = {
         componenteBase: "1. Archivo de la Documentación Sustentable",
         fallbackNC: "38,46% — RC: ALTO",
         preguntasCriticas: "CCI-01 • Preguntas con desvío documental e ISO 15.489 (16 NO / 26 preg.)",
-        observacion: "Ausencia de auditorías internas anuales específicas bajo Norma ISO 15.489, demoras y falta de estandarización en la digitalización de certificados de avance de obra de red FTTH/5G en sucursales del interior y falta de difusión escrita del manual de resguardo documental al personal técnico de campo.",
-        recomendacion: "Implementar un protocolo obligatorio de carga digital en SAP Document Management dentro de las 48 hs. de firmado cada certificado de avance de obra en todas las regionales e incorporar revisiones anuales ISO 15.489 en el plan anual de Auditoría Interna reportado al Comité de Auditoría.",
+        observacion: "Ausencia de auditorías internas anuales específicas bajo Norma ISO 15.489, demoras y falta de estandarización en la digitalización de certificados de avance de obra de red FTTH/5G y actas de recepción en sucursales del interior, y falta de difusión formal del manual de resguardo documental al personal técnico de campo.",
+        recomendacion: "Implementar un protocolo obligatorio de carga digital en SAP Document Management dentro de las 48 horas de firmado cada certificado de avance de obra en todas las regionales e incorporar revisiones anuales bajo Norma ISO 15.489 en el plan anual de Auditoría Interna reportado al Comité de Auditoría.",
         refs: [
           { label: "Abrir CCI-01", view: "etapa1-cci", sub: "cci-1" },
           { label: "Impacto PT-A1", view: "etapa2-ejecucion", sub: "pt-a1" }
@@ -1077,7 +1079,7 @@ export const documentosEtapa3 = {
         componenteBase: "2. Evaluación del Sistema Contable",
         fallbackNC: "72,00% — RC: MEDIO",
         preguntasCriticas: "CCI-02 (Preg. 22 y 23) → Hallazgo H-01 / Ajuste AJ-01 ($28.340M en PT-A1/A4)",
-        observacion: "Vinculación directa con AJ-01 ($28.340M): las Preguntas 22 y 23 expusieron demoras operativas en la comunicación desde Ingeniería de Red hacia Contabilidad Patrimonial (SAP FI-AA) para registrar bajas por obsolescencia de centrales analógicas de cobre fuera de servicio comercial ($21.450M en PT-A4) y siniestros/vandalismo de tramos de fibra óptica ($6.890M en PT-A1). Adicionalmente, se observan desfasajes operativos de 24 a 48 hs. en la conciliación de cobranzas externas (Rapipago, Pago Fácil y billeteras) y demoras menores en facturación corporativa B2B (Personal Tech), sin comprometer la integridad general del ERP SAP ni la cobertura 100% de la mora > 180 días en la Previsión NIIF 9 (PT-B3 conforme).",
+        observacion: "Se identificaron demoras operativas en la comunicación desde Ingeniería de Red hacia Contabilidad Patrimonial (SAP FI-AA) para registrar bajas por obsolescencia técnica de centrales analógicas de cobre fuera de servicio comercial ($21.450 millones) y bajas por siniestros y vandalismo en tramos de fibra óptica ($6.890 millones). Adicionalmente, se observaron desfasajes operativos de 24 a 48 horas en la conciliación de cobranzas externas (Rapipago, Pago Fácil y billeteras virtuales) y demoras menores en facturación corporativa B2B (Personal Tech), sin comprometer la integridad general del ERP SAP ni la cobertura íntegra de la cartera con mora superior a 180 días en la previsión bajo NIIF 9.",
         recomendacion: "Integrar un flujo workflow automático entre el sistema de inventario físico de red (OSS/NOC) y SAP FI-AA que dispare órdenes obligatorias de baja o deterioro ante reemplazo de tecnología FTTH o reporte de robo en red, e implementar conciliación vía API en tiempo real con recaudadores externos.",
         refs: [
           { label: "Abrir CCI-02", view: "etapa1-cci", sub: "cci-2" },
@@ -1092,7 +1094,7 @@ export const documentosEtapa3 = {
         componenteBase: "3. Sistema de Presupuestos",
         fallbackNC: "77,78% — RC: BAJO",
         preguntasCriticas: "CCI-03 • Control presupuestario CAPEX 5G/FTTH y NIC 29",
-        observacion: "Emisión puntual de órdenes de trabajo de emergencia operativa sin partida presupuestaria previa y falta de vinculación plurianual automatizada de desvíos CAPEX vs. proyecciones reales de despliegue 5G en moneda homogénea (NIC 29).",
+        observacion: "Emisión puntual de órdenes de trabajo de emergencia operativa sin partida presupuestaria previa y falta de vinculación plurianual automatizada de desvíos CAPEX frente a proyecciones reales de despliegue 5G en moneda homogénea (NIC 29).",
         recomendacion: "Bloquear en SAP FM/CO la emisión de órdenes sin reserva presupuestaria (habilitando un flujo electrónico de aprobación de urgencia en 2 horas) y parametrizar tableros mensuales en FP&A con doble vista nominal e indexada NIC 29.",
         refs: [
           { label: "Abrir CCI-03", view: "etapa1-cci", sub: "cci-3" },
@@ -1104,10 +1106,16 @@ export const documentosEtapa3 = {
         codigoCCI: "CCI-04",
         componenteBase: "4. Sistema Operativo y Talento Humano",
         fallbackNC: "80,00% — RC: BAJO",
-        preguntasCriticas: "CCI-04 (Preg. 12) → Partida menor PAE-NC-01 ($4.450M vacaciones TI < PAE)",
-        observacion: "Legajos físicos incompletos en personal técnico de campo del interior y acumulación de días de vacaciones/licencias no gozadas en especialistas clave de TI/5G sin recálculo automatizado mensual de la provisión laboral (diferencia menor $4.450M incluida en PAE-NC-01, inferior al umbral PAE $8.311M).",
-        recomendacion: "Digitalizar el 100% de los legajos laborales regionales, establecer un cronograma escalonado de goce de licencias con back-ups cruzados en Ingeniería 5G y automatizar en SAP HCM la interfaz mensual del devengamiento de vacaciones.",
+        preguntasCriticas: "CCI-04 (Preg. 12) • Legajos de personal técnico y seguimiento de horas TI (PT-A / PT-E2)",
+        observacion: "Legajos físicos incompletos en personal técnico de campo del interior y acumulación de días de vacaciones y licencias no gozadas en especialistas clave de TI/5G, junto con oportunidades de mejora en el recálculo automatizado mensual de provisiones laborales y en el seguimiento horario del personal asignado entre soporte operativo y desarrollos internos de software.",
+        recomendacion: "Digitalizar el 100% de los legajos laborales regionales, establecer un cronograma escalonado de goce de licencias con respaldos cruzados en Ingeniería 5G/TI y fortalecer en SAP HCM / Jira el recálculo mensual y la imputación horaria discriminada bajo NIC 38.",
+        observacionAmpliada: "Legajos físicos incompletos en personal técnico de campo del interior y acumulación de días de vacaciones/licencias no gozadas en especialistas clave de TI/5G sin recálculo automatizado mensual de la provisión laboral (diferencia menor identificada de $4.450 millones, de efecto inmaterial respecto del conjunto de los estados financieros).",
+        preguntasCriticasAmpliada: "CCI-04 (Preg. 12) → Partida menor PAE-NC-01 ($4.450M vacaciones TI < PAE)",
         refs: [
+          { label: "Abrir CCI-04", view: "etapa1-cci", sub: "cci-4" },
+          { label: "PT-E2 Software/Horas", view: "etapa2-ejecucion", sub: "pt-e2" }
+        ],
+        refsAmpliada: [
           { label: "Abrir CCI-04", view: "etapa1-cci", sub: "cci-4" },
           { label: "PAE-NC-01 (#sec-pae)", view: "etapa2-ejecucion", sub: "sec-pae" }
         ]
@@ -1117,10 +1125,17 @@ export const documentosEtapa3 = {
         codigoCCI: "CCI-05",
         componenteBase: "5. Sistema Tecnológico y TIC",
         fallbackNC: "47,62% — RC: ALTO",
-        preguntasCriticas: "CCI-05 (Preg. 19) → Reclasificación AJ-04 ($11.240M Flow NIIF 15) + Interfaces",
-        observacion: "Persistencia de interfaces manuales entre sistemas comerciales heredados (incluyendo el entorno post-adquisición TMA) y el ERP SAP, lo que originó la registración bruta en lugar de neta en acuerdos de contenidos de terceros en Flow (AJ-04 por $11.240M en PT-D3), además de requerir seguimiento cercano sobre compromisos de espectro 5G ante ENACOM y simulacros integrales del Plan de Continuidad (BCP).",
-        recomendacion: "Culminar la migración e integración automatizada de los facturadores heredados al core convergente SAP BRIM con regla contable NIIF 15 (Agente vs. Principal), sostener el tablero de hitos regulatorios 5G ENACOM y ejecutar pruebas semestrales certificadas del BCP.",
+        preguntasCriticas: "CCI-05 (Preg. 19) • Interfaces ERP SAP, recaudadores, espectro ENACOM y BCP (PT-B / PT-E)",
+        observacion: "Persistencia de interfaces parcialmente manuales entre sistemas comerciales y técnicos heredados (incluyendo el entorno post-adquisición de TMA) y el ERP SAP, generando demoras puntuales en conciliaciones de recaudación externa y exigiendo validaciones manuales adicionales en la imputación de desarrollos de software, además de requerir monitoreo cercano sobre compromisos de espectro 5G ante ENACOM y simulacros periódicos integrales del Plan de Continuidad de Negocio (BCP).",
+        recomendacion: "Culminar la migración e integración automatizada de los sistemas heredados al core convergente SAP BRIM / SAP PS con validaciones automáticas de interfaz, sostener el tablero de hitos regulatorios 5G ante ENACOM y ejecutar pruebas semestrales certificadas del BCP.",
+        observacionAmpliada: "Persistencia de interfaces manuales entre sistemas comerciales heredados (incluyendo el entorno post-adquisición de TMA) y el ERP SAP —lo que originó la registración bruta en lugar de neta de ciertos acuerdos de contenidos de terceros en Flow ($11.240 millones)—, además de requerir seguimiento cercano sobre compromisos de espectro 5G ante ENACOM y simulacros integrales del Plan de Continuidad (BCP).",
+        preguntasCriticasAmpliada: "CCI-05 (Preg. 19) → Reclasificación AJ-04 ($11.240M Flow NIIF 15) + Interfaces",
         refs: [
+          { label: "Abrir CCI-05", view: "etapa1-cci", sub: "cci-5" },
+          { label: "PT-B2/B3 Recaudadores", view: "etapa2-ejecucion", sub: "pt-b2" },
+          { label: "PT-E1 Espectro", view: "etapa2-ejecucion", sub: "pt-e1" }
+        ],
+        refsAmpliada: [
           { label: "Abrir CCI-05", view: "etapa1-cci", sub: "cci-5" },
           { label: "PT-D3 Flow", view: "etapa2-ejecucion", sub: "pt-d3" },
           { label: "PT-E1 Espectro", view: "etapa2-ejecucion", sub: "pt-e1" }
@@ -1130,75 +1145,86 @@ export const documentosEtapa3 = {
   },
   cartaRepresentacion: {
     ordenRealizacion: 3,
-    fecha: "20 de febrero de 2026 (Misma fecha que el Informe del Auditor — NIA 580.14)",
+    fecha: "20 de febrero de 2026",
     norma: "NIA 580 (Manifestaciones Escritas) • NIA 450.14 • NIA 540 • NIA 550 • NIA 560",
     destinatario: "A los Señores Auditores Externos Independientes: Estudio GREBE — PISONERO DE BIASE (Contadores Públicos — U.C.P.)",
     membreteCliente: "TELECOM ARGENTINA S.A. — CUIT 30-63945373-8 — Domicilio Legal: Gral. Hornos 690, C.A.B.A.",
     firmantes: "Presidente del Directorio, Gerente General (CEO) y Director de Administración y Finanzas (CFO) de Telecom Argentina S.A.",
+    saludo: "De nuestra consideración:",
+    introduccion: "En relación con la auditoría que Uds. han practicado sobre los Estados Financieros Consolidados de TELECOM ARGENTINA S.A. correspondientes al ejercicio finalizado el 31 de diciembre de 2025, con el propósito de expresar una opinión acerca de si dichos estados financieros presentan razonablemente la situación financiera consolidada, el desempeño financiero y los flujos de efectivo de conformidad con las Normas de contabilidad NIIF emitidas por el IASB, confirmamos —a nuestro mejor leal saber y entender— las siguientes manifestaciones:",
+    cierre: "Sin otro particular, saludamos a Uds. muy atentamente.",
     puntosClave: [
       {
-        titulo: "1. Responsabilidad sobre los EECC Consolidados bajo NIIF y Control Interno (NIA 580.10 / NIA 240)",
-        texto: "Reconocemos nuestra responsabilidad por la preparación y presentación razonable de los Estados Financieros Consolidados al 31/12/2025 (comparativos 2024/2023) de conformidad con las Normas de contabilidad NIIF emitidas por el IASB, reexpresados en moneda homogénea de cierre (NIC 29), así como por el diseño e implementación del control interno necesario para prevenir o detectar incorrecciones materiales por fraude o error.",
+        titulo: "1. Responsabilidad sobre los EECC Consolidados bajo NIIF y el Control Interno",
+        texto: "Reconocemos nuestra responsabilidad por la preparación y presentación razonable de los Estados Financieros Consolidados al 31 de diciembre de 2025 (con cifras comparativas correspondientes al ejercicio finalizado el 31 de diciembre de 2024) de conformidad con las Normas de contabilidad NIIF emitidas por el IASB, reexpresados en moneda homogénea de cierre (NIC 29) y conforme las normas de la CNV, así como por el diseño, implementación y mantenimiento del control interno que consideramos necesario para permitir la preparación de estados financieros libres de incorrección material, debida a fraude o error.",
         norma: "NIA 580.10 / NIA 240",
         refView: "etapa1-analisis-eecc",
         refSub: "esp",
-        refLabel: "Ver EECC Base (1C)"
+        refLabel: "Ver EECC Base (1C)",
+        soloAmpliado: false
       },
       {
-        titulo: "2. Acceso Irrestricto a Registros SAP, Actas Societarias y Regulaciones ENACOM/CNV (NIA 580.11)",
-        texto: "Confirmamos haber puesto a disposición del equipo auditor (Grebe - Pisonero De Biase) la totalidad de la contabilidad en ERP SAP, los libros rubricados (Inventarios y Balances), las actas de Asamblea, Directorio y Comité de Auditoría celebradas hasta la fecha, los contratos corporativos B2B, y las resoluciones del ENACOM (Res. 1285/2023 espectro 5G) y de la CNV.",
+        titulo: "2. Acceso Irrestricto a Registros Contables, Actas Societarias y Documentación Regulatoria",
+        texto: "Confirmamos haber puesto a vuestra disposición la totalidad de los registros contables en el sistema ERP SAP, los libros societarios y contables rubricados (Inventarios y Balances y Diario), las actas de Asamblea de Accionistas, Directorio y Comité de Auditoría celebradas hasta la fecha del presente documento, los contratos corporativos B2B y de contenidos, la documentación respaldatoria de titularidad marcaria e infraestructura de red, y las resoluciones aplicables emitidas por el ENACOM (incluida la Res. 1285/2023 sobre espectro 5G) y la CNV.",
         norma: "NIA 580.11",
         refView: "etapa2-ejecucion",
         refSub: "pt-e1",
-        refLabel: "Ver PT-E1 (ENACOM/INPI)"
+        refLabel: "Ver PT-E1 (ENACOM/INPI)",
+        soloAmpliado: false
       },
       {
-        titulo: "3. Evaluación de Incorrecciones Identificadas y Declaración sobre Partidas No Ajustadas (NIA 450.14)",
-        texto: "Confirmamos haber revisado el resumen de diferencias acumuladas en la Planilla de Ajustes Propuestos (AJ-01 por $28.340M en Bienes de Uso y reclasificación AJ-04 por $11.240M en Ingresos/Costos Flow). Asimismo, declaramos que los desvíos inferiores al umbral mínimo PAE de $8.311M (PAE-NC-01 por $7.570M) y cualquier eventual incorrección no corregida son inmateriales, tanto individualmente como en conjunto, respecto de los estados financieros consolidados en su conjunto.",
+        titulo: "3. Evaluación de Diferencias Identificadas en la Auditoría",
+        texto: "Confirmamos haber revisado conjuntamente con Uds. las observaciones y diferencias identificadas durante el examen sobre los rubros Bienes de Uso, Créditos por Ventas y Activos Intangibles (en particular el registro de bajas por obsolescencia técnica y siniestros en Bienes de Uso por $28.340 millones), habiéndolas contabilizado íntegramente al cierre del ejercicio, por lo que no subsisten diferencias acumuladas ni partidas pendientes sin ajustar respecto de los estados financieros consolidados en su conjunto.",
         norma: "NIA 450.14",
         refView: "etapa2-ejecucion",
         refSub: "sec-pae",
-        refLabel: "Ver Planilla PAE"
+        refLabel: "Ver Planilla PAE",
+        soloAmpliado: false
       },
       {
         titulo: "4. Combinación de Negocios Telefónica Móviles Argentina S.A. — PPA NIIF 3 (Notas 9, 10 y 29)",
-        texto: "Manifestamos que la medición a valor razonable al 24/02/2025 de los activos identificables adquiridos y pasivos asumidos de TMA ($1.332.961M en PP&E y $274.183M en Activos Intangibles, según Notas 9, 10 y 29) refleja la mejor evidencia técnica independiente disponible y no omitió activos ni pasivos contingentes identificables bajo NIIF 3.",
+        texto: "Manifestamos que la medición a valor razonable al 24 de febrero de 2025 de los activos identificables adquiridos y pasivos asumidos de Telefónica Móviles Argentina S.A. (TMA) —incluyendo $1.332.961 millones en Propiedad, Planta y Equipo y $274.183 millones en Activos Intangibles según Notas 9, 10 y 29— refleja la mejor evidencia técnica independiente disponible y no ha omitido activos ni pasivos contingentes identificables bajo la NIIF 3.",
         norma: "NIIF 3 / Nota 29",
         refView: "etapa2-ejecucion",
         refSub: "pt-a",
-        refLabel: "Ver PT-A / PT-E"
+        refLabel: "Ver PT-A / PT-E",
+        soloAmpliado: false
       },
       {
-        titulo: "5. Test de Deterioro Llave de Negocio (UGE Redes Personal) y Estimaciones Contables (NIA 540 / NIC 36)",
-        texto: "Confirmamos que los métodos, datos y supuestos significativos empleados en las estimaciones contables —en particular el modelo DCF para el Valor Recuperable de la UGE Redes Personal ($12.774.695M frente a valor libros asignado $12.439.729M; cobertura positiva $334.966M con WACC real post-impuestos 11,85% y crecimiento perpetuo 1,5% en Nota 8 y Nota 3.u.1)— son razonables y consistentes con la intención y capacidad operativa de la Sociedad.",
+        titulo: "5. Estimaciones Contables Significativas y Valor Recuperable de Activos (NIC 36 / NIIF 9)",
+        texto: "Confirmamos que los métodos, datos y supuestos significativos empleados en las estimaciones contables al cierre —incluyendo la previsión para incobrables por pérdidas crediticias esperadas bajo NIIF 9 ($(270.919) millones sobre Nota 5), las vidas útiles técnicas asignadas bajo NIC 16 y NIC 38, y el modelo de flujos de fondos descontados (DCF) aplicado al Valor Recuperable de la UGE Redes Personal ($12.774.695 millones frente a valor en libros asignado de $12.439.729 millones; WACC real post-impuestos 11,85% y crecimiento a perpetuidad 1,5% en Nota 8 y Nota 3.u.1)— son razonables y consistentes con la intención y capacidad operativa de la Sociedad.",
         norma: "NIA 540 / NIC 36",
         refView: "etapa2-ejecucion",
         refSub: "pt-f1",
-        refLabel: "Ver PT-F1 (DCF)"
+        refLabel: "Ver PT-F1 (DCF)",
+        soloAmpliado: true
       },
       {
-        titulo: "6. Contingencias Judiciales, Regulatorias y Fiscales (NIA 501 / NIC 37 — Nota 20)",
-        texto: "Hemos informado y entregado al equipo auditor todas las confirmaciones de asesores legales externos sobre reclamos judiciales, laborales, civiles, impositivos y regulatorios existentes al cierre, asegurando que las provisiones por $563.085M expuestas en la Nota 20 reflejan adecuadamente el pasivo probable medido con base en las mejores estimaciones disponibles.",
+        titulo: "6. Contingencias Judiciales, Regulatorias y Fiscales (Nota 20)",
+        texto: "Hemos informado y facilitado las confirmaciones directas de nuestros asesores legales y fiscales externos sobre la totalidad de los reclamos judiciales, laborales, civiles, tributarios y regulatorios existentes al cierre, asegurando que las provisiones por $563.085 millones expuestas en la Nota 20 reflejan adecuadamente las obligaciones probables medidas con base en la mejor estimación disponible conforme NIC 37.",
         norma: "NIA 501 / Nota 20",
         refView: "etapa2-ejecucion",
         refSub: "pt-f",
-        refLabel: "Ver PT-F2 (Legales)"
+        refLabel: "Ver PT-F2 (Legales)",
+        soloAmpliado: true
       },
       {
-        titulo: "7. Partes Relacionadas (NIA 550 / NIC 24 — Nota 28) y Principio de Empresa en Marcha (NIA 570)",
-        texto: "Confirmamos la revelación íntegra de la identidad de todas las partes relacionadas (accionistas controlantes y entidades vinculadas en Nota 28) y de sus saldos/transacciones celebradas en condiciones equivalentes a las de mercado, así como nuestra evaluación de que no existen incertidumbres materiales ni incumplimientos de covenants (Deuda Neta/EBITDA 1,84x) que comprometan la continuidad operativa por los próximos 12 meses.",
+        titulo: "7. Partes Relacionadas (Nota 28) y Principio de Empresa en Funcionamiento",
+        texto: "Confirmamos la revelación íntegra de la identidad de todas las partes relacionadas (accionistas controlantes y entidades vinculadas detalladas en Nota 28) y de los saldos y transacciones celebradas en condiciones equivalentes a las de mercado conforme NIC 24, así como nuestra evaluación de que no existen incertidumbres materiales ni incumplimientos de compromisos financieros (covenants: Deuda Neta/EBITDA de 1,84x) que comprometan la continuidad operativa de la Sociedad durante los próximos doce meses.",
         norma: "NIA 550 / NIA 570",
         refView: "etapa2-ejecucion",
         refSub: "pt-c",
-        refLabel: "Ver PT-C (Covenants)"
+        refLabel: "Ver PT-C (Covenants)",
+        soloAmpliado: true
       },
       {
-        titulo: "8. Hechos Posteriores al Cierre del Ejercicio (NIA 560)",
-        texto: "Desde el 1° de enero de 2026 hasta el 20 de febrero de 2026 (fecha del presente documento y del Informe del Auditor Independiente) no han ocurrido eventos o circunstancias adicionales que requieran ajuste contable ni revelación complementaria en las Notas a los Estados Financieros Consolidados.",
+        titulo: "8. Hechos Posteriores al Cierre del Ejercicio",
+        texto: "Desde el 1° de enero de 2026 hasta el 20 de febrero de 2026 (fecha de la presente Carta de Representación y de vuestro Informe de Auditoría Independiente) no han ocurrido eventos o circunstancias adicionales que requieran ajuste contable ni revelación complementaria en las Notas a los Estados Financieros Consolidados.",
         norma: "NIA 560",
         refView: "etapa1-detallada",
         refSub: null,
-        refLabel: "Cronograma Cierre"
+        refLabel: "Cronograma Cierre",
+        soloAmpliado: false
       }
     ]
   }

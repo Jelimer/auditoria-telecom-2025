@@ -15,7 +15,9 @@ import {
   ClipboardCheck,
   Calculator,
   HelpCircle,
-  X
+  X,
+  Copy,
+  Check
 } from 'lucide-react';
 import { documentosEtapa3 } from '../data/etapas2y3Data';
 import { proyectoMeta } from '../data/etapa1Data';
@@ -74,21 +76,21 @@ const INFORME_SECCIONES_INFO = {
     titulo: 'KAM 1 — Bienes de Uso e Incorporación TMA (Notas 9 y 29)',
     obligatorio: 'Seleccionado por Juicio Profesional bajo NIA 701 (Principal rubro del Activo)',
     queEs:
-      'Resume por qué auditamos especialmente Bienes de Uso ($6.789.118M; 40,84% del Activo, +$1.332.961M ingresados a valor razonable por la adquisición de Telefónica Móviles Argentina S.A. el 24/02/2025 bajo NIIF 3 y bajas de cobre obsoleto) y las pruebas realizadas.',
+      'Resume por qué auditamos especialmente Bienes de Uso ($6.760.778M post-ajuste AJ-01 = 40,74% del Activo ajustado; saldo base Nota 9 $6.789.118M = 40,84%, incl. +$1.332.961M por Telefónica Móviles Argentina S.A. al 24/02/2025 bajo NIIF 3 y bajas de cobre obsoleto) y las pruebas ejecutadas.',
     detallePregunta:
-      'Si preguntan por qué acá no aparece «AJ-01 ($28.340M)»: porque la Gerencia aceptó registrar el ajuste antes del cierre (o quedó debajo de materialidad) y el dictamen público de NIA 701 describe riesgos y procedimientos ejecutados, NO la planilla interna de ajustes.'
+      'Si preguntan por qué acá no aparece «AJ-01 ($28.340M)»: porque en el dictamen público bajo NIA 701 se describen riesgos y procedimientos ejecutados, NO la planilla interna de ajustes. Si la Gerencia aceptó AJ-01, el KAM muestra el saldo depurado ($6.760.778M); si simulás rechazarlo, muestra el libro ($6.789.118M).'
   },
   kam2: {
     titulo: 'KAM 2 — Activos Intangibles, Espectro 4G/5G y Software (Notas 10, 25 y 29)',
-    obligatorio: 'Seleccionado por Juicio Profesional bajo NIA 701 (Segundo rubro elegido)',
+    obligatorio: 'Seleccionado por Juicio Profesional bajo NIA 701 (Segundo asunto clave por peso patrimonial)',
     queEs:
-      'Detalla por qué Activos Intangibles ($2.671.525M; 16,07% del Activo) fue clave: verificación legal de concesiones de espectro ENACOM (5G banda 3.400–3.500 MHz), marcas INPI, PPA TMA ($274.183M NIIF 3) y capitalización de desarrollos de software bajo los 6 criterios de NIC 38.57.',
+      'Detalla por qué Activos Intangibles ($2.671.525M; ~16,1% del Activo) fue clave: verificación legal de concesiones de espectro ENACOM (5G banda 3.400–3.500 MHz), marcas INPI, PPA TMA ($274.183M NIIF 3) y capitalización de desarrollos de software bajo los 6 criterios de NIC 38.57.',
     detallePregunta:
       'Por qué es riesgosa la capitalización de software interno: porque si una empresa quiere inflar ganancias puede activar como Intangibles lo que en realidad eran sueldos u horas de mantenimiento/soporte ($42.500M que en el Word/Web verificamos como gasto).'
   },
   kam3: {
     titulo: 'KAM 3 — Créditos por Ventas y Previsión NIIF 9 (Notas 5 y 29)',
-    obligatorio: 'Seleccionado por Juicio Profesional bajo NIA 701 (Tercer rubro elegido)',
+    obligatorio: 'Seleccionado por Juicio Profesional bajo NIA 701 (Tercer asunto clave por estimación NIIF 9)',
     queEs:
       'Explica el riesgo por el salto del 105,25% al consolidar la cartera de TMA ($421.919M bajo NIIF 3) y la alta dosis de estimación en el modelo de pérdida crediticia esperada (NIIF 9), auditado vía circularización positiva directa (65 B2B), corte de fondos y TAACs al 100%.',
     detallePregunta:
@@ -358,7 +360,7 @@ function InformeTituloTooltip({
           {children}
         </span>
         <span
-          className={`no-print inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold border transition-colors shrink-0 ${
+          className={`no-print select-none inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold border transition-colors shrink-0 ${
             darkHeader
               ? 'bg-indigo-900 text-lime-300 border-indigo-700'
               : open
@@ -382,28 +384,36 @@ function InformeTituloTooltip({
   );
 }
 
-const SECCIONES_MEMORANDO_3_RUBROS = {
-  1: {
-    subtitulo: '2. Síntesis de Ejecución Sustantiva sobre los 3 Rubros Auditados (PT-A, PT-E y PT-B)',
-    contenido:
-      'Ejecutamos los procedimientos planificados en Visita Interina (Oct-Nov 2025), Pre-Cierre (Dic 2025) y Cierre Final (Ene-Feb 2026) sobre los 3 rubros prioritarios seleccionados: (i) Programa A (PT-A1 a PT-A4 — Bienes de Uso $6.789.118M contables en Nota 9, incl. PPA TMA $1.332.961M): las Pruebas Globales de Amortización ($1.533.091M vs Nota 9 pág. 50) y Valor Residual ($6.859.618M antes de previsiones / $6.789.118M netos) cerraron con $0 de diferencia matemática, detectándose en pruebas físicas y técnicas el desvío compuesto AJ-01 ($28.340M) que reduce el saldo auditado a $6.760.778M; (ii) Programa E (PT-E1 a PT-E2 — Activos Intangibles $2.671.525M en Nota 10, incl. espectro 4G/5G Res. ENACOM 1285/2023 y TMA $274.183M Nota 29): ambas Pruebas Globales ($234.722M amortización Nota 10/25 y $2.671.525M valor residual) cerraron conformes ($0); y (iii) Programa B (PT-B1 a PT-B3 — Créditos por Ventas $800.128M netos sobre $1.071.047M brutos y Previsión NIIF 9 $(270.919)M en Nota 5): circularización positiva directa B2B a 65 clientes, corte B2B y recaudadores ($36.890M), y reproceso 100% TAACs confirmando cobertura íntegra de mora > 180 días, saldo conforme ($0).',
-    refs: [
-      { label: 'PT-A: Bienes de Uso', view: 'etapa2-ejecucion', sub: 'pt-a' },
-      { label: 'PT-E: Intangibles', view: 'etapa2-ejecucion', sub: 'pt-e' },
-      { label: 'PT-B: Créditos', view: 'etapa2-ejecucion', sub: 'pt-b' }
-    ]
-  },
-  2: {
-    subtitulo: '3. Acumulación de Incorrecciones, Estimaciones y Límites PAE / ET / PM (NIA 450 y NIA 540)',
-    contenido:
-      'Evaluados conjuntamente los tres programas sustantivos prioritarios de la cátedra (PT-A Bienes de Uso, PT-E Activos Intangibles y PT-B Créditos por Ventas), el único desvío identificado asciende a $28.340M en Bienes de Uso (Asiento compuesto AJ-01: $21.450M por obsolescencia de centrales de cobre en PT-A4 + $6.890M por fibra óptica y nodos vandalizados sin baja en PT-A1), equivalente al 17,05% de PM ($166.225M) y 34,10% de ET ($83.112M). Los rubros Activos Intangibles (PT-E) y Créditos por Ventas (PT-B) arrojaron $0 de diferencia, sin registrarse partidas menores (< PAE $8.311M) dentro de estos 3 rubros. Todas las estimaciones críticas revisadas (PPA TMA NIIF 3, vidas útiles NIC 16/38 y Previsión NIIF 9) carecen de sesgo de la Dirección.',
-    refs: [
-      { label: 'Planilla PAE (#sec-pae)', view: 'etapa2-ejecucion', sub: 'sec-pae' },
-      { label: 'PT-A4: Obsolescencia', view: 'etapa2-ejecucion', sub: 'pt-a4' },
-      { label: 'PT-A1: Fibra Vandalizada', view: 'etapa2-ejecucion', sub: 'pt-a1' }
-    ]
-  }
-};
+function getSeccionesMemorando3Rubros(aj1Aceptado) {
+  return {
+    1: {
+      subtitulo: '2. Síntesis de Ejecución Sustantiva sobre los 3 Rubros Auditados (1° PT-A, 2° PT-B y 3° PT-E)',
+      contenido: `Ejecutamos los procedimientos planificados en Visita Interina (Oct-Nov 2025), Pre-Cierre (Dic 2025) y Cierre Final (Ene-Feb 2026) sobre los 3 rubros prioritarios seleccionados: (i) Programa A (PT-A1 a PT-A4 — Bienes de Uso $6.789.118M base Nota 9, incl. PPA TMA $1.332.961M): las Pruebas Globales de Amortización ($1.533.091M vs Nota 9 pág. 50) y Valor Residual ($6.859.618M antes de previsiones / $6.789.118M netos) cerraron con $0 de diferencia matemática, detectándose en pruebas físicas y técnicas el desvío compuesto AJ-01 ($28.340M), ${
+        aj1Aceptado
+          ? 'el cual fue aceptado y contabilizado por la Gerencia quedando el saldo final auditado en $6.760.778M'
+          : 'el cual quedó sin contabilizar al cierre por decisión de la Dirección (saldo contable $6.789.118M; desvío inferior a ET $83.112M y PM $166.225M)'
+      }; (ii) Programa B (PT-B1 a PT-B3 — Créditos por Ventas $800.128M netos sobre $1.071.047M brutos y Previsión NIIF 9 $(270.919)M en Nota 5): circularización positiva directa B2B a 65 clientes, corte B2B y recaudadores ($36.890M), y reproceso 100% TAACs confirmando cobertura íntegra de mora > 180 días, saldo conforme ($0); y (iii) Programa E (PT-E1 a PT-E2 — Activos Intangibles $2.671.525M en Nota 10, incl. espectro 4G/5G Res. ENACOM 1285/2023 y TMA $274.183M Nota 29): ambas Pruebas Globales ($234.722M amortización Nota 10/25 y $2.671.525M valor residual) cerraron conformes ($0).`,
+      refs: [
+        { label: '1° PT-A: Bienes de Uso', view: 'etapa2-ejecucion', sub: 'pt-a' },
+        { label: '2° PT-B: Créditos', view: 'etapa2-ejecucion', sub: 'pt-b' },
+        { label: '3° PT-E: Intangibles', view: 'etapa2-ejecucion', sub: 'pt-e' }
+      ]
+    },
+    2: {
+      subtitulo: '3. Acumulación de Incorrecciones, Estimaciones y Límites PAE / ET / PM (NIA 450 y NIA 540)',
+      contenido:
+        'Evaluados conjuntamente los tres programas sustantivos prioritarios de la cátedra (1° PT-A Bienes de Uso, 2° PT-B Créditos por Ventas y 3° PT-E Activos Intangibles), el único desvío identificado asciende a $28.340M en Bienes de Uso (Asiento compuesto AJ-01: $21.450M por obsolescencia de centrales de cobre en PT-A4 + $6.890M por fibra óptica y nodos vandalizados sin baja en PT-A1), equivalente al 17,05% de PM ($166.225M) y 34,10% de ET ($83.112M). Los rubros Créditos por Ventas (PT-B) y Activos Intangibles (PT-E) arrojaron $0 de diferencia, sin registrarse partidas menores (< PAE $8.311M) dentro de estos 3 rubros. Todas las estimaciones críticas revisadas (PPA TMA NIIF 3, vidas útiles NIC 16/38 y Previsión NIIF 9) carecen de sesgo de la Dirección.',
+      refs: [
+        { label: 'Planilla PAE (#sec-pae)', view: 'etapa2-ejecucion', sub: 'sec-pae' },
+        { label: 'PT-A4: Obsolescencia', view: 'etapa2-ejecucion', sub: 'pt-a4' },
+        { label: 'PT-A1: Fibra Vandalizada', view: 'etapa2-ejecucion', sub: 'pt-a1' }
+      ]
+    },
+    3: {
+      refs: [{ label: 'Covenants y Ratios (1C)', view: 'etapa1-analisis-eecc', sub: 'ratios' }]
+    }
+  };
+}
 
 export default function Etapa3InformeView({
   cciCalculados = [],
@@ -415,15 +425,46 @@ export default function Etapa3InformeView({
 }) {
   // Orden cronológico de realización: 1) Carta CI -> 2) Memorando Conclusión -> 3) Carta Gerencia -> 4) Informe Final
   const [docActivo, setDocActivo] = useState('carta-ci'); // 'carta-ci' | 'memorando' | 'carta-gerencia' | 'informe'
-  // Por defecto la Etapa 3 evalúa exclusivamente los 3 rubros elegidos (PT-A, PT-E, PT-B)
+  // Por defecto la Etapa 3 evalúa exclusivamente los 3 rubros elegidos (1° PT-A, 2° PT-B, 3° PT-E)
   const [incluirAlcanceAmpliado, setIncluirAlcanceAmpliado] = useState(false);
   const [hoveredDocTab, setHoveredDocTab] = useState(null);
+  const [copiedDoc, setCopiedDoc] = useState(null);
+  const copyTimerRef = useRef(null);
 
   useEffect(() => {
     if (subTarget && ['carta-ci', 'memorando', 'carta-gerencia', 'informe'].includes(subTarget)) {
       setDocActivo(subTarget);
     }
   }, [subTarget, subTargetTick]);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    };
+  }, []);
+
+  const handleCopiarTextoLimpio = async (docKey, plainText) => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(plainText);
+      } else {
+        throw new Error('Clipboard API unavailable');
+      }
+    } catch {
+      const textarea = document.createElement('textarea');
+      textarea.value = plainText;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+    }
+    setCopiedDoc(docKey);
+    if (copyTimerRef.current) clearTimeout(copyTimerRef.current);
+    copyTimerRef.current = setTimeout(() => setCopiedDoc(null), 2600);
+  };
 
   // Parámetros de significatividad establecidos en Etapa 1D (NIA 320 / Slosse)
   const MATERIALIDAD_GLOBAL = 166225; // PM: 1% s/ Activo Total ($16.622.552M)
@@ -445,8 +486,241 @@ export default function Etapa3InformeView({
     0
   );
 
+  const aj1Aceptado = ajustesState.find((a) => a.id === 'aj-1')?.aceptado ?? true;
   const esLimpiaEstricta = totalNoAjustado === 0;
   const esFavorableSinSalvedades = totalNoAjustado < MATERIALIDAD_GLOBAL;
+  const seccionesMemorando3Rubros = getSeccionesMemorando3Rubros(aj1Aceptado);
+
+  // Saldos y pesos patrimoniales coherentes en KAMs segun registración o no de AJ-01 ($28.340M)
+  const ppeKamMonto = aj1Aceptado ? '6.760.778' : '6.789.118';
+  const ppeKamPorcentaje = aj1Aceptado ? '40,74%' : '40,84%';
+  const intangiblesKamPorcentaje = aj1Aceptado ? '16,10%' : '16,07%';
+
+  const getTextoPunto3CartaRepresentacion = () => {
+    if (esLimpiaEstricta) {
+      if (incluirAlcanceAmpliado) {
+        return 'Confirmamos haber evaluado y contabilizado al 31 de diciembre de 2025 las correcciones significativas comunicadas durante la auditoría (bajas por obsolescencia técnica y siniestros en Bienes de Uso por $28.340 millones y reclasificación entre ingresos y costos operativos de contenidos por $11.240 millones). Asimismo, declaramos que las diferencias menores no ajustadas detalladas en el anexo adjunto ($7.570 millones agregados) son inmateriales, tanto individualmente como en su conjunto, respecto de los estados financieros consolidados tomados en su conjunto.';
+      }
+      return documentosEtapa3.cartaRepresentacion.puntosClave[2].texto;
+    }
+    const resumenPendientes = ajustesPendientes
+      .map((a) =>
+        a.id === 'aj-1'
+          ? `bajas en Bienes de Uso por $${a.montoMillones.toLocaleString('es-AR')} millones`
+          : `reclasificación en ingresos y costos operativos por $${a.montoMillones.toLocaleString('es-AR')} millones`
+      )
+      .join(' y ');
+    return `Declaramos haber revisado el resumen de diferencias identificadas durante la auditoría cuyo detalle se adjunta en anexo a la presente (${resumenPendientes}; total bruto de $${totalNoAjustado.toLocaleString('es-AR')} millones) y confirmamos nuestra decisión de no contabilizarlas al cierre del ejercicio, por considerar que sus efectos no resultan materiales, ni individualmente ni en forma agregada, respecto de los estados financieros consolidados tomados en su conjunto.`;
+  };
+
+  const generarTextoLimpioPaso1 = () => {
+    const ci = documentosEtapa3.cartaControlInterno;
+    const cuerpo = ci.recomendaciones
+      .map((rec) => {
+        const obs = incluirAlcanceAmpliado && rec.observacionAmpliada ? rec.observacionAmpliada : rec.observacion;
+        return `${rec.componenteBase.toUpperCase()}\nObservación detectada: ${obs}\nRecomendación: ${rec.recomendacion}`;
+      })
+      .join('\n\n');
+
+    return [
+      'CARTA CON RECOMENDACIONES SOBRE EL SISTEMA DE CONTROL INTERNO',
+      `Ciudad Autónoma de Buenos Aires, ${ci.fecha}`,
+      '',
+      ci.destinatario,
+      ci.domicilio,
+      '',
+      ci.saludo,
+      '',
+      ci.introduccion,
+      '',
+      cuerpo,
+      '',
+      ci.cierre,
+      '',
+      'GREBE — PISONERO DE BIASE',
+      'Contadores Públicos (U.C.P.)',
+      'Auditores Externos Independientes'
+    ].join('\n');
+  };
+
+  const generarTextoLimpioPaso2 = () => {
+    const m = documentosEtapa3.memorandoConclusion;
+    const textoConclusion = esLimpiaEstricta
+      ? `Habiendo la Gerencia de Telecom Argentina S.A. aceptado y contabilizado la totalidad de los ajustes ≥ PAE (${
+          ajustesComputables.length === 1
+            ? `${ajustesComputables[0].codigoAjuste} por $${ajustesComputables[0].montoMillones.toLocaleString('es-AR')}M`
+            : `${ajustesComputables.map((a) => `${a.codigoAjuste} $${a.montoMillones.toLocaleString('es-AR')}M`).join(' + ')}; total $${totalAjustado.toLocaleString('es-AR')}M`
+        }), los saldos de los rubros auditados quedan razonablemente expuestos conforme a NIIF. Recomendamos emitir una OPINIÓN FAVORABLE SIN SALVEDADES el día 20/02/2026 bajo NIAs (RT N° 32 FACPCE), previa obtención de la Carta de Representación (NIA 580).`
+      : esFavorableSinSalvedades
+      ? `Aun ante la falta de registración por la Dirección de partidas propuestas por un total bruto de $${totalNoAjustado.toLocaleString('es-AR')} millones (impacto patrimonial neto $${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M), dicho desvío residual permanece por debajo del Error Tolerable ($${ERROR_TOLERABLE.toLocaleString('es-AR')}M) y representa el ${((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de la Materialidad Global ($${MATERIALIDAD_GLOBAL.toLocaleString('es-AR')}M), sin generar distorsión significativa generalizada sobre los estados financieros consolidados tomados en su conjunto (NIA 450 / NIA 700 / RT N° 32). Corresponde emitir una OPINIÓN FAVORABLE SIN SALVEDADES dejando constancia expresa en la Carta de Representación (NIA 450.14) y comunicando las deficiencias al Directorio/Comité de Auditoría.`
+      : `Atento a que los ajustes no registrados suman $${totalNoAjustado.toLocaleString('es-AR')} millones y SUPERAN la Materialidad Global ($${MATERIALIDAD_GLOBAL.toLocaleString('es-AR')}M), se recomienda emitir una OPINIÓN CON SALVEDADES (NIA 705) por incorrección material en medición y exposición bajo NIIF.`;
+
+    const secs = m.secciones
+      .map((sec, idx) => {
+        const over = !incluirAlcanceAmpliado && seccionesMemorando3Rubros[idx];
+        const sub = over?.subtitulo || sec.subtitulo;
+        const cont = over?.contenido || sec.contenido;
+        return `${sub}\n${cont}`;
+      })
+      .join('\n\n');
+
+    const lineasPAE = ajustesState
+      .filter((aj) => incluirAlcanceAmpliado || aj.id === 'aj-1')
+      .map(
+        (aj) =>
+          `- ${aj.codigoAjuste} (${aj.refPT} — ${aj.rubro}): $${aj.montoMillones.toLocaleString('es-AR')}M | Efecto PN/Res: ${
+            aj.impactoPatrimonial?.resultadoEjercicio ? `$${aj.impactoPatrimonial.resultadoEjercicio.toLocaleString('es-AR')}M` : '$0 (Neutro)'
+          } | ${aj.superaPAE ? (aj.aceptado ? 'Registrado' : 'Pendiente') : 'Menor al PAE ($8.311M)'}`
+      );
+    if (!incluirAlcanceAmpliado) {
+      lineasPAE.push('- Sin ajuste (PT-B1/B2/B3 — Créditos por Ventas y Previsión NIIF 9 Nota 5): $0M | Conforme');
+      lineasPAE.push('- Sin ajuste (PT-E1/E2 — Activos Intangibles Notas 10 y 25): $0M | Conforme');
+    }
+
+    return [
+      m.titulo.toUpperCase(),
+      `PARA: ${m.para}`,
+      `DE: ${m.de}`,
+      `CLIENTE: ${m.cliente}`,
+      `FECHA: ${m.fecha}`,
+      `PERÍODO HECHOS POSTERIORES (NIA 560): ${m.periodoHechosPosteriores}`,
+      '',
+      secs,
+      '',
+      '5. Cuadro Resumen de Evaluación de Incorrecciones — Planilla PAE (NIA 450)',
+      ...lineasPAE,
+      `Total no registrado computable (≥ PAE): $${totalNoAjustado.toLocaleString('es-AR')}M (${((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% s/ PM).`,
+      '',
+      '6. Conclusión Global de Acumulación y Propuesta de Dictamen al Socio (NIA 450 / NIA 700)',
+      textoConclusion,
+      '',
+      'Elaborado por: GREBE — PISONERO DE BIASE (Contadores Públicos — U.C.P.)'
+    ].join('\n');
+  };
+
+  const generarTextoLimpioPaso3 = () => {
+    const cr = documentosEtapa3.cartaRepresentacion;
+    const clausulas = cr.puntosClave.map((punto, idx) => {
+      const textoFinal = idx === 2 ? getTextoPunto3CartaRepresentacion() : punto.texto;
+      return `${idx + 1}. ${textoFinal}`;
+    });
+
+    return [
+      cr.membreteCliente,
+      `Ciudad Autónoma de Buenos Aires, ${cr.fecha}`,
+      '',
+      cr.destinatario,
+      '',
+      cr.saludo,
+      '',
+      cr.introduccion,
+      '',
+      ...clausulas,
+      '',
+      cr.cierre,
+      '',
+      '________________________________________          ________________________________________          ________________________________________',
+      'Presidente del Directorio                        Gerente General (CEO)                            Director de Administración y Finanzas (CFO)',
+      'Telecom Argentina S.A.'
+    ].join('\n\n');
+  };
+
+  const generarTextoLimpioPaso4 = () => {
+    const opinionTitulo = esFavorableSinSalvedades ? '1. Opinión' : '1. Opinión con salvedades';
+    const opinionConclusion = esFavorableSinSalvedades
+      ? 'En nuestra opinión, los estados financieros consolidados adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación financiera consolidada del Grupo al 31 de diciembre de 2025, así como su desempeño financiero consolidado y los flujos de efectivo consolidados correspondientes al ejercicio finalizado en esa fecha, de conformidad con las Normas de contabilidad NIIF emitidas por el Consejo de Normas Internacionales de Contabilidad (IASB), en moneda homogénea de cierre (NIC 29) y las normas pertinentes de la Comisión Nacional de Valores (CNV).'
+      : `En nuestra opinión, excepto por los efectos de las cuestiones descritas en la sección «Fundamento de la opinión con salvedades» (ajustes propuestos no registrados por un total de $${totalNoAjustado.toLocaleString('es-AR')} millones que superan la Materialidad Global de $166.225M), los estados financieros consolidados adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación financiera consolidada de Telecom Argentina S.A. al 31 de diciembre de 2025, de conformidad con las Normas de contabilidad NIIF emitidas por el IASB.`;
+
+    const fundamentoTitulo = esFavorableSinSalvedades
+      ? '2. Fundamento de la opinión'
+      : '2. Fundamento de la opinión con salvedades';
+
+    const fundamentoBloque = !esFavorableSinSalvedades
+      ? `${ajustesPendientes
+          .map(
+            (ap) =>
+              `- ${ap.rubro} ($${ap.montoMillones.toLocaleString('es-AR')} millones): ${ap.descripcionHallazgo}`
+          )
+          .join('\n')}\n\n`
+      : '';
+
+    return [
+      'INFORME DE AUDITORÍA EMITIDO POR LOS AUDITORES INDEPENDIENTES',
+      '',
+      'A los Señores Accionistas, Presidente y Directores de',
+      'TELECOM ARGENTINA S.A.',
+      'CUIT N° 30-63945373-8',
+      'Domicilio Legal: Gral. Hornos 690 — Ciudad Autónoma de Buenos Aires',
+      '',
+      'I. Informe sobre la auditoría de los estados financieros consolidados',
+      '',
+      opinionTitulo,
+      'Hemos auditado los estados financieros consolidados de TELECOM ARGENTINA S.A. y sus sociedades controladas (en adelante, indistintamente, la «Sociedad» o el «Grupo»), los cuales comprenden el estado de situación financiera consolidado al 31 de diciembre de 2025, los estados consolidados de resultados, del resultado integral, de cambios en el patrimonio y de flujos de efectivo correspondientes al ejercicio finalizado en esa fecha, y las notas a los estados financieros consolidados, que incluyen información sobre las políticas contables materiales y otra información explicativa.',
+      opinionConclusion,
+      '',
+      fundamentoTitulo,
+      `${fundamentoBloque}Hemos llevado a cabo nuestra auditoría de conformidad con las Normas Internacionales de Auditoría (NIAs). Dichas normas fueron adoptadas como normas de auditoría en Argentina mediante la Resolución Técnica N° 32 de la Federación Argentina de Consejos Profesionales de Ciencias Económicas (FACPCE), tal y como fueron aprobadas por el Consejo de Normas Internacionales de Auditoría y Aseguramiento (IAASB por su sigla en inglés). Nuestras responsabilidades de acuerdo con dichas normas se describen más adelante en la sección «Responsabilidades de los auditores en relación con la auditoría de los estados financieros consolidados» de nuestro informe. Consideramos que la evidencia de auditoría que hemos obtenido proporciona una base suficiente y adecuada para nuestra opinión.`,
+      '',
+      '3. Independencia',
+      'Somos independientes del Grupo de conformidad con el Código Internacional de Ética para Profesionales de la Contabilidad (incluidas las Normas Internacionales de Independencia) emitido por el Consejo de Normas Internacionales de Ética para Contadores (Código del IESBA) aplicable a las auditorías de estados financieros de entidades de interés público, junto con los requerimientos de ética que son aplicables a nuestras auditorías de estados financieros en la Ciudad Autónoma de Buenos Aires (Código Local) y las resoluciones de la CNV, y hemos cumplido las demás responsabilidades de ética de conformidad con el Código del IESBA y el Código Local.',
+      '',
+      '4. Cuestiones clave de la auditoría',
+      'Las cuestiones clave de la auditoría representan aquellos asuntos que, conforme a nuestro criterio profesional, revistieron la mayor significatividad dentro del examen de los estados financieros consolidados del ejercicio 2025. Estas áreas fueron abordadas en el marco global de la auditoría y sirvieron de base para formar nuestra opinión sobre el conjunto de los estados financieros, sin que emitamos un pronunciamiento independiente sobre cada partida en particular.',
+      '',
+      '1. Medición, existencia física y bajas por obsolescencia de Bienes de Uso — Incorporación de TMA (Notas 9 y 29)',
+      `Al cierre del ejercicio 2025, Propiedad, Planta y Equipo totaliza $${ppeKamMonto} millones (${ppeKamPorcentaje} del Activo Consolidado), comprendiendo $1.332.961 millones incorporados a su valor razonable bajo NIIF 3 tras la adquisición de Telefónica Móviles Argentina S.A. (TMA) concretada el 24 de febrero de 2025, además de inversiones en red de fibra óptica (FTTH) y despliegue 5G por $1.351.105 millones. La relevancia del área obedece al peso patrimonial del rubro, la extensión geográfica de la infraestructura técnica, los criterios de asignación del precio de compra (PPA) y las estimaciones sobre bajas por siniestros y obsolescencia de antiguas centrales de cobre en proceso de apagado.`,
+      'Respuesta de auditoría:\nAplicamos, entre otros procedimientos sustantivos y de control:\n- relevamiento y evaluación de los circuitos de activación de obras en curso, baja de activos y conciliación dentro del módulo de activo fijo del ERP SAP;\n- verificación física presencial sobre Data Centers, radiobases y nodos estratégicos, cruzando los registros contables contra reportes operativos de siniestros y vandalismo;\n- inspección documental de obras en curso activadas y solicitud de informes oficiales de dominio ante registros inmobiliarios y automotores;\n- revisión del criterio técnico aplicado en la valuación a valor razonable de la combinación de negocios de TMA bajo NIIF 3; y\n- recálculo global independiente de la depreciación anual ($1.533.091 millones) y del valor residual reexpresado (NIC 29), junto al análisis de informes técnicos de desuso y deterioro bajo NIC 16 y NIC 36.',
+      '',
+      '2. Titularidad legal, capitalización de software y amortización de Activos Intangibles — Incorporación de TMA (Notas 10, 25 y 29)',
+      `Los Activos Intangibles alcanzan $2.671.525 millones al 31 de diciembre de 2025 (${intangiblesKamPorcentaje} del Activo Consolidado), integrados por licencias de espectro radioeléctrico 4G/5G adjudicadas por ENACOM ($1.985.420 millones), marcas comerciales ($400.750 millones), activos incorporados por la adquisición de TMA ($274.183 millones bajo NIIF 3) y desarrollos internos de software activados según NIC 38. El asunto resultó prioritario por su magnitud financiera, la verificación jurídica de las concesiones habilitantes y el juicio exigido para separar gastos corrientes de TI respecto de desarrollos capitalizables.`,
+      'Respuesta de auditoría:\nEjecutamos, entre otras tareas:\n- cotejo de resoluciones vigentes emitidas por ENACOM (incluido el lote 5G en banda 3.400–3.500 MHz) y compulsa pública de títulos marcarios en el INPI complementada con confirmaciones de asesores legales;\n- examen de los seis requisitos acumulativos del párrafo 57 de la NIC 38 sobre una muestra de proyectos internos de software en SAP PS y Jira ($285.355 millones y 158.800 horas);\n- pruebas de corte e integridad sobre gastos de mantenimiento y soporte informático ($42.500 millones) para corroborar su correcta imputación a resultados; y\n- recálculo global del cargo anual por amortizaciones ($234.722 millones) y conciliación de la evolución del valor residual al cierre.',
+      '',
+      '3. Integridad de Créditos por Ventas y estimación de la Previsión para incobrables bajo NIIF 9 (Notas 5 y 29)',
+      'Al 31 de diciembre de 2025, el rubro Créditos por Ventas se expone en $800.128 millones netos ($1.071.047 millones de cartera bruta deducidos por una previsión por deterioro de $(270.919) millones), exhibiendo una suba interanual del 105,25% originada principalmente por la consolidación de la cartera de TMA ($421.919 millones valuados según NIIF 3). La determinación de pérdidas crediticias esperadas conforme a la NIIF 9 exige juzgar parámetros de morosidad histórica y supuestos macroeconómicos prospectivos sobre millones de cuentas de clientes.',
+      'Respuesta de auditoría:\nNuestras pruebas abarcaron, entre otros procedimientos:\n- circularización externa bajo modalidad positiva directa a 65 clientes corporativos B2B relevantes y verificación alternativa mediante cobranzas posteriores de enero de 2026;\n- prueba de corte de facturación B2B al cierre de ejercicio y conciliación de recaudadores externos y billeteras virtuales al 31 de diciembre de 2025 ($36.890 millones) contra acreditaciones bancarias del primer día hábil posterior; y\n- reproceso integral del 100% de la matriz de antigüedad de saldos mediante técnicas de auditoría asistidas por computadora (TAACs), validando la razonabilidad del modelo NIIF 9 y la cobertura íntegra de créditos con mora superior a 180 días.',
+      '',
+      '5. Información que acompaña a los estados financieros consolidados (“otra información”)',
+      'La otra información comprende la Memoria Anual Integrada y la Reseña Informativa preparadas por el Directorio, pero no incluye los estados financieros consolidados ni nuestro informe de auditoría correspondiente. Nuestra opinión sobre los estados financieros consolidados no cubre la otra información y no expresamos ninguna forma de conclusión que proporcione un grado de seguridad sobre ésta. En relación con nuestra auditoría, nuestra responsabilidad es leer la otra información y considerar si existe una incongruencia material entre ésta y los estados financieros consolidados o nuestro conocimiento obtenido en la auditoría. Si concluyéramos que existe una incorrección material, estamos obligados a informar de ello. No tenemos nada que informar al respecto.',
+      '',
+      '6. Responsabilidades del Directorio y del Comité de Auditoría en relación con los estados financieros consolidados',
+      'El Directorio de la Sociedad es responsable de la preparación y presentación razonable de los estados financieros consolidados adjuntos de conformidad con las Normas de contabilidad NIIF emitidas por el IASB, y del control interno que el Directorio considere necesario para permitir la preparación de estados financieros consolidados libres de incorrección material, debida a fraude o error. En la preparación de los estados financieros consolidados, el Directorio es responsable de la evaluación de la capacidad del Grupo para continuar como empresa en funcionamiento, revelando, según corresponda, las cuestiones relacionadas con la empresa en funcionamiento y utilizando el principio contable de empresa en funcionamiento, excepto si el Directorio tiene intención de liquidar el Grupo o de cesar sus operaciones, o bien no exista otra alternativa realista. El Comité de Auditoría de la Sociedad es responsable de la supervisión del proceso de información financiera del Grupo.',
+      '',
+      '7. Responsabilidades de los auditores en relación con la auditoría de los estados financieros consolidados',
+      'Nuestros objetivos son obtener una seguridad razonable de que los estados financieros consolidados en su conjunto están libres de incorrección material, debida a fraude o error, y emitir un informe de auditoría que contiene nuestra opinión. Seguridad razonable es un alto grado de seguridad, pero no garantiza que una auditoría realizada de conformidad con las NIAs siempre detecte una incorrección material cuando existe. Como parte de una auditoría de conformidad con las NIAs, aplicamos nuestro juicio profesional y mantenemos una actitud de escepticismo profesional durante toda la auditoría. También:\n- Identificamos y evaluamos los riesgos de incorrección material en los estados financieros consolidados, debida a fraude o error, diseñamos y aplicamos procedimientos de auditoría para responder a dichos riesgos y obtenemos evidencia de auditoría suficiente y adecuada para proporcionar una base para nuestra opinión.\n- Obtenemos conocimiento del control interno relevante para la auditoría con el fin de diseñar procedimientos de auditoría que sean adecuados en función de las circunstancias y no con la finalidad de expresar una opinión sobre la eficacia del control interno del Grupo.\n- Evaluamos lo adecuado de las políticas contables aplicadas y la razonabilidad de las estimaciones contables y la correspondiente información revelada por el Directorio.\n- Concluimos sobre lo adecuado de la utilización, por el Directorio, del principio contable de empresa en funcionamiento y, basándonos en la evidencia obtenida, si existe o no una incertidumbre material relacionada con hechos o con condiciones que puedan generar dudas significativas sobre la capacidad del Grupo para continuar como empresa en funcionamiento.\n- Evaluamos la presentación global, la estructura y el contenido de los estados financieros consolidados, incluida la información revelada, y si representan las transacciones y hechos subyacentes de un modo que logren la presentación razonable.\n- Obtenemos evidencia de auditoría suficiente y adecuada en relación con la información financiera de las entidades o actividades de negocio dentro del Grupo para expresar una opinión sobre los estados financieros consolidados, siendo los únicos responsables de nuestra opinión de auditoría.\n- Nos comunicamos con el Comité de Auditoría en relación con, entre otras cuestiones, el alcance y el momento de realización de la auditoría y los hallazgos significativos, incluida cualquier deficiencia significativa en el control interno que identifiquemos durante nuestra auditoría.\n- También proporcionamos al Comité de Auditoría una declaración de que hemos cumplido los requerimientos de ética aplicables en relación con la independencia y les hemos comunicado todas las relaciones y demás cuestiones de las que se puede esperar razonablemente que puedan afectar a nuestra independencia y, en su caso, las acciones tomadas para eliminar las amenazas o las salvaguardas aplicadas.\n- Entre las cuestiones que han sido objeto de comunicación con el Comité de Auditoría, determinamos las que han sido de la mayor significatividad en la auditoría de los estados financieros consolidados del período actual y que son, en consecuencia, las cuestiones clave de la auditoría. Describimos esas cuestiones en nuestro informe de auditoría, salvo que las disposiciones legales o reglamentarias prohíban revelar públicamente la cuestión o, en circunstancias extremadamente poco frecuentes, determinemos que una cuestión no se debería comunicar en nuestro informe porque cabe razonablemente esperar que las consecuencias adversas de hacerlo superarían los beneficios de interés público de la misma.',
+      '',
+      'II. Informe sobre otros requerimientos legales y reglamentarios',
+      'a) Los estados financieros consolidados adjuntos han sido transcriptos en el libro «Inventarios y Balances» y cumplen, en lo que es materia de nuestra competencia, con lo dispuesto en la Ley General de Sociedades N° 19.550 y en las resoluciones pertinentes de la Comisión Nacional de Valores (CNV).',
+      'b) Los estados financieros consolidados de Telecom Argentina S.A. surgen de registros contables llevados, en sus aspectos formales, de conformidad con las disposiciones legales vigentes y las condiciones de seguridad e integridad autorizadas por la CNV (Sistema ERP SAP).',
+      'c) Según surge de los registros contables de la Sociedad al 31 de diciembre de 2025, la deuda devengada a favor del Sistema Integrado Previsional Argentino (SIPA) en concepto de aportes y contribuciones previsionales ascendía a $33.699.737.311, no siendo exigible a esa fecha.',
+      'd) En cumplimiento del art. 21°, inc. b), Capítulo III, Sección VI, Título II de las Normas de la CNV (T.O. 2013 y modif.), informamos que el total de honorarios facturados en concepto de servicios de auditoría externa correspondientes al ejercicio finalizado el 31 de diciembre de 2025 representa: d.1) el 100% sobre el total de honorarios facturados a Telecom Argentina S.A. por todo concepto en dicho ejercicio; d.2) el 100% sobre el total de honorarios por servicios de auditoría y relacionados facturados a Telecom Argentina S.A., su sociedad controlante, controladas y vinculadas; y d.3) el 100% sobre el total de honorarios facturados por todo concepto al referido grupo económico en dicho ejercicio.',
+      'e) Hemos aplicado los procedimientos sobre prevención de lavado de activos y financiación del terrorismo previstos en las normas profesionales vigentes emitidas por la FACPCE (Resolución N° 420/11, su modificatoria Resolución JG N° 616/23 y normativa UIF concordante), sin observaciones significativas que informar al cierre.',
+      '',
+      'Ciudad Autónoma de Buenos Aires, 20 de febrero de 2026.',
+      '',
+      'GREBE — PISONERO DE BIASE',
+      'Contadores Públicos (U.C.P.)',
+      'Auditores Externos Independientes'
+    ].join('\n');
+  };
+
+  const CopyCleanButton = ({ docKey, getText, label = 'Copiar texto limpio para presentar' }) => {
+    const isCopied = copiedDoc === docKey;
+    return (
+      <button
+        type="button"
+        onClick={() => handleCopiarTextoLimpio(docKey, getText())}
+        className={`no-print inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-extrabold border transition-all cursor-pointer shrink-0 ${
+          isCopied
+            ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+            : 'bg-indigo-600 text-white border-indigo-700 hover:bg-indigo-700 shadow-xs'
+        }`}
+        title="Copia al portapapeles la redacción formal pura (sin rótulos web, códigos internos ni badges de estudio) lista para pegar en Word"
+      >
+        {isCopied ? <Check className="w-3.5 h-3.5 shrink-0" /> : <Copy className="w-3.5 h-3.5 shrink-0" />}
+        <span>{isCopied ? '¡Copiado limpio al portapapeles!' : label}</span>
+      </button>
+    );
+  };
 
   const RefPill = ({ label, view, sub = null, tone = 'slate' }) => {
     if (!onNavigate) return null;
@@ -776,15 +1050,18 @@ export default function Etapa3InformeView({
       {docActivo === 'carta-ci' && (
         <div className="print-sheet bg-white rounded-2xl border border-slate-200 p-8 shadow-xs max-w-4xl mx-auto space-y-5">
           <div className="border-b border-slate-200 pb-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="no-print flex flex-wrap items-center justify-between gap-2">
               <span className="px-2.5 py-0.5 rounded bg-amber-100 text-amber-900 text-xs font-extrabold inline-flex flex-wrap items-center gap-1">
                 <span>PASO 1 DE CIERRE • 12/02/2026 — CARTA DE CONTROL INTERNO (</span>
                 <NormaTooltip code="NIA 265" align="left" placement="bottom" />
                 <span>/ SLOSSE)</span>
               </span>
-              <span className="text-xs font-mono font-bold text-slate-500">
-                Ref: Legajo Conclusión LC-01
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-mono font-bold text-slate-500">
+                  Ref: Legajo Conclusión LC-01
+                </span>
+                <CopyCleanButton docKey="carta-ci" getText={generarTextoLimpioPaso1} />
+              </div>
             </div>
             <div className="mt-2">
               <InformeTituloTooltip sectionKey="paso1" align="left" placement="bottom" badgeLabel="¿Qué es? / ¿Obligatorio?">
@@ -798,10 +1075,13 @@ export default function Etapa3InformeView({
               <strong>Domicilio:</strong> {documentosEtapa3.cartaControlInterno.domicilio} •{' '}
               <strong>Fecha:</strong> {documentosEtapa3.cartaControlInterno.fecha}
             </p>
-            <p className="text-[11px] font-semibold text-teal-800 mt-1">
+            <p className="no-print text-[11px] font-semibold text-teal-800 mt-1">
               Encuadre Normativo: {documentosEtapa3.cartaControlInterno.norma}
             </p>
-            <p className="text-xs text-slate-700 mt-2 leading-relaxed text-justify">
+            <p className="text-xs font-bold text-slate-800 mt-3">
+              {documentosEtapa3.cartaControlInterno.saludo}
+            </p>
+            <p className="text-xs text-slate-700 mt-1.5 leading-relaxed text-justify">
               {documentosEtapa3.cartaControlInterno.introduccion}
             </p>
           </div>
@@ -809,6 +1089,15 @@ export default function Etapa3InformeView({
           <div className="space-y-3.5">
             {documentosEtapa3.cartaControlInterno.recomendaciones.map((rec, i) => {
               const cciLive = cciCalculados.find((c) => c.id === rec.cciId);
+              const obsMostrada =
+                incluirAlcanceAmpliado && rec.observacionAmpliada ? rec.observacionAmpliada : rec.observacion;
+              const pregMostrada =
+                incluirAlcanceAmpliado && rec.preguntasCriticasAmpliada
+                  ? rec.preguntasCriticasAmpliada
+                  : rec.preguntasCriticas;
+              const refsMostradas =
+                incluirAlcanceAmpliado && rec.refsAmpliada ? rec.refsAmpliada : rec.refs;
+
               const rcColor =
                 cciLive?.rcLabel === 'ALTO'
                   ? 'bg-red-100 text-red-900 border-red-300'
@@ -824,32 +1113,32 @@ export default function Etapa3InformeView({
                     <h4 className="text-xs font-extrabold text-slate-900 uppercase bg-white px-3 py-1.5 rounded-lg border border-slate-200">
                       {rec.componenteBase}
                     </h4>
-                    <span className={`px-2.5 py-1 rounded-lg text-[11px] font-extrabold border ${rcColor}`}>
+                    <span className={`no-print px-2.5 py-1 rounded-lg text-[11px] font-extrabold border ${rcColor}`}>
                       {cciLive
                         ? `NC: ${cciLive.nc.toFixed(2).replace('.', ',')}% (${cciLive.positivas}/${cciLive.total} SÍ) — RC: ${cciLive.rcLabel}`
                         : rec.fallbackNC}
                     </span>
                   </div>
 
-                  <div className="text-[11px] font-bold text-indigo-800 bg-indigo-50/70 px-2.5 py-1 rounded-md border border-indigo-200 inline-block">
-                    Trazabilidad: {rec.preguntasCriticas}
+                  <div className="no-print text-[11px] font-bold text-indigo-800 bg-indigo-50/70 px-2.5 py-1 rounded-md border border-indigo-200 inline-block">
+                    Trazabilidad: {pregMostrada}
                   </div>
 
                   <p className="text-xs text-slate-700 leading-relaxed text-justify">
-                    <strong className="text-red-700">Debilidad / Observación Detectada:</strong>{' '}
-                    {rec.observacion}
+                    <strong className="text-red-700">Observación Detectada:</strong>{' '}
+                    {obsMostrada}
                   </p>
                   <p className="text-xs text-teal-950 bg-teal-50/70 p-2.5 rounded-lg border border-teal-200 leading-relaxed text-justify">
                     <strong className="text-teal-800">Recomendación de Auditoría Externa:</strong>{' '}
                     {rec.recomendacion}
                   </p>
 
-                  {rec.refs && rec.refs.length > 0 && (
+                  {refsMostradas && refsMostradas.length > 0 && (
                     <div className="flex flex-wrap items-center gap-1.5 pt-1 no-print">
                       <span className="text-[10px] font-bold uppercase text-slate-400 mr-1">
                         Evidencia vinculada:
                       </span>
-                      {rec.refs.map((r, j) => (
+                      {refsMostradas.map((r, j) => (
                         <RefPill key={j} label={r.label} view={r.view} sub={r.sub} tone="indigo" />
                       ))}
                     </div>
@@ -858,6 +1147,10 @@ export default function Etapa3InformeView({
               );
             })}
           </div>
+
+          <p className="text-xs text-slate-700 leading-relaxed text-justify pt-2">
+            {documentosEtapa3.cartaControlInterno.cierre}
+          </p>
 
           <div className="pt-4 border-t border-slate-200 flex flex-wrap justify-between items-center gap-3 text-xs text-slate-600">
             <span>Firmado por: <strong>GREBE — PISONERO DE BIASE</strong> (Contadores Públicos — U.C.P.)</span>
@@ -875,7 +1168,7 @@ export default function Etapa3InformeView({
       {docActivo === 'memorando' && (
         <div className="print-sheet bg-white rounded-2xl border border-slate-200 p-8 shadow-xs max-w-4xl mx-auto space-y-5">
           <div className="border-b border-slate-200 pb-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="no-print flex flex-wrap items-center justify-between gap-2">
               <span className="px-2.5 py-0.5 rounded bg-teal-100 text-teal-800 text-xs font-extrabold inline-flex flex-wrap items-center gap-1">
                 <span>PASO 2 DE CIERRE • 18/02/2026 — ANTES DE EMITIR EL DICTAMEN (SLOSSE /</span>
                 <NormaTooltip code="NIA 220" align="center" placement="bottom" />
@@ -883,9 +1176,12 @@ export default function Etapa3InformeView({
                 <NormaTooltip code="NIA 450" align="center" placement="bottom" />
                 <span>)</span>
               </span>
-              <span className="text-xs font-mono font-bold text-slate-500">
-                Ref: Legajo Conclusión LC-02
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-mono font-bold text-slate-500">
+                  Ref: Legajo Conclusión LC-02
+                </span>
+                <CopyCleanButton docKey="memorando" getText={generarTextoLimpioPaso2} />
+              </div>
             </div>
             <div className="mt-2">
               <InformeTituloTooltip sectionKey="paso2" align="left" placement="bottom" badgeLabel="¿Qué es? / ¿Obligatorio?">
@@ -912,10 +1208,10 @@ export default function Etapa3InformeView({
 
           <div className="space-y-4">
             {documentosEtapa3.memorandoConclusion.secciones.map((sec, idx) => {
-              const overrideSolo3Rubros = !incluirAlcanceAmpliado && SECCIONES_MEMORANDO_3_RUBROS[idx];
-              const subtituloMostrado = overrideSolo3Rubros ? overrideSolo3Rubros.subtitulo : sec.subtitulo;
-              const contenidoMostrado = overrideSolo3Rubros ? overrideSolo3Rubros.contenido : sec.contenido;
-              const refsMostradas = overrideSolo3Rubros ? overrideSolo3Rubros.refs : sec.refs;
+              const overrideSolo3Rubros = !incluirAlcanceAmpliado && seccionesMemorando3Rubros[idx];
+              const subtituloMostrado = overrideSolo3Rubros?.subtitulo || sec.subtitulo;
+              const contenidoMostrado = overrideSolo3Rubros?.contenido || sec.contenido;
+              const refsMostradas = overrideSolo3Rubros?.refs || sec.refs;
 
               return (
                 <div key={idx} className="print-avoid-break p-4 rounded-xl bg-slate-50/70 border border-slate-200 space-y-2">
@@ -928,7 +1224,7 @@ export default function Etapa3InformeView({
                       <h4 className="text-sm font-extrabold text-teal-900">{subtituloMostrado}</h4>
                     )}
                     {sec.normas && (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-teal-100 text-teal-800">
+                      <span className="no-print text-[10px] font-bold px-2 py-0.5 rounded bg-teal-100 text-teal-800">
                         {sec.normas}
                       </span>
                     )}
@@ -1031,11 +1327,11 @@ export default function Etapa3InformeView({
                         <tr className="bg-emerald-50/30">
                           <td className="py-2 px-2.5 font-mono font-bold text-slate-900">
                             Sin ajuste
-                            <span className="block text-[10px] font-normal text-slate-500">PT-E1 / PT-E2</span>
+                            <span className="block text-[10px] font-normal text-slate-500">PT-B1 / PT-B2 / PT-B3</span>
                           </td>
                           <td className="py-2 px-2.5">
-                            <span className="font-bold text-slate-800">Activos Intangibles (Nota 10 y 25)</span>
-                            <span className="block text-[11px] text-slate-500">Pruebas Globales, ENACOM, INPI y NIC 38</span>
+                            <span className="font-bold text-slate-800">Créditos por Ventas y Previsión NIIF 9 (Nota 5)</span>
+                            <span className="block text-[11px] text-slate-500">Circularización Positiva Directa, Corte y TAACs</span>
                           </td>
                           <td className="py-2 px-2.5 text-right font-mono font-bold text-emerald-800">$0M</td>
                           <td className="py-2 px-2.5 text-right font-mono text-emerald-800">$0</td>
@@ -1049,11 +1345,11 @@ export default function Etapa3InformeView({
                         <tr className="bg-emerald-50/30">
                           <td className="py-2 px-2.5 font-mono font-bold text-slate-900">
                             Sin ajuste
-                            <span className="block text-[10px] font-normal text-slate-500">PT-B1 / PT-B2 / PT-B3</span>
+                            <span className="block text-[10px] font-normal text-slate-500">PT-E1 / PT-E2</span>
                           </td>
                           <td className="py-2 px-2.5">
-                            <span className="font-bold text-slate-800">Créditos por Ventas y Previsión NIIF 9 (Nota 5)</span>
-                            <span className="block text-[11px] text-slate-500">Circularización Positiva Directa, Corte y TAACs</span>
+                            <span className="font-bold text-slate-800">Activos Intangibles (Nota 10 y 25)</span>
+                            <span className="block text-[11px] text-slate-500">Pruebas Globales, ENACOM, INPI y NIC 38</span>
                           </td>
                           <td className="py-2 px-2.5 text-right font-mono font-bold text-emerald-800">$0M</td>
                           <td className="py-2 px-2.5 text-right font-mono text-emerald-800">$0</td>
@@ -1091,11 +1387,11 @@ export default function Etapa3InformeView({
               <p className="text-[11px] text-slate-500 text-justify">
                 {incluirAlcanceAmpliado ? (
                   <>
-                    Nota (Alcance Ampliado Web): Los 3 rubros prioritarios evaluados para la cátedra (PT-A, PT-E y PT-B) acumulan únicamente AJ-01 ($28.340M = 17,05% de PM y 34,10% de ET). En alcance ampliado se adicionan AJ-04 ($11.240M neutro en Ventas Flow PT-D3) y partidas menores {ajustesMenores.map((m) => m.codigoAjuste).join(', ')} (${ajustesMenores.reduce((s, m) => s + m.montoMillones, 0).toLocaleString('es-AR')}M &lt; PAE $8.311M).
+                    Nota (Alcance Ampliado Web): Los 3 rubros prioritarios evaluados para la cátedra (PT-A, PT-B y PT-E) acumulan únicamente AJ-01 ($28.340M = 17,05% de PM y 34,10% de ET). En alcance ampliado se adicionan AJ-04 ($11.240M neutro en Ventas Flow PT-D3) y partidas menores {ajustesMenores.map((m) => m.codigoAjuste).join(', ')} (${ajustesMenores.reduce((s, m) => s + m.montoMillones, 0).toLocaleString('es-AR')}M &lt; PAE $8.311M).
                   </>
                 ) : (
                   <>
-                    Nota: Cuadro depurado exclusivamente sobre los 3 rubros elegidos y ejecutados para la presentación (PT-A Bienes de Uso, PT-E Activos Intangibles y PT-B Créditos por Ventas). El único ajuste detectado es AJ-01 ($28.340M = 17,05% de PM y 34,10% de ET), sin partidas menores (&lt; PAE $8.311M) dentro de estos 3 rubros.
+                    Nota: Cuadro depurado exclusivamente sobre los 3 rubros elegidos y ejecutados para la presentación (1° PT-A Bienes de Uso, 2° PT-B Créditos por Ventas y 3° PT-E Activos Intangibles). El único ajuste detectado es AJ-01 ($28.340M = 17,05% de PM y 34,10% de ET), sin partidas menores (&lt; PAE $8.311M) dentro de estos 3 rubros.
                   </>
                 )}
               </p>
@@ -1112,7 +1408,11 @@ export default function Etapa3InformeView({
               </h4>
               <p className="text-xs text-slate-800 leading-relaxed text-justify">
                 {esLimpiaEstricta
-                  ? `Habiendo la Gerencia de Telecom Argentina S.A. aceptado y contabilizado la totalidad de los ajustes ≥ PAE (${ajustesComputables.map((a) => `${a.codigoAjuste} $${a.montoMillones.toLocaleString('es-AR')}M`).join(' + ')}; total $${totalAjustado.toLocaleString('es-AR')}M), los saldos de los rubros auditados quedan razonablemente expuestos conforme a NIIF. Recomendamos emitir una OPINIÓN FAVORABLE SIN SALVEDADES el día 20/02/2026 bajo NIAs (RT N° 32 FACPCE), previa obtención de la Carta de Representación (NIA 580).`
+                  ? `Habiendo la Gerencia de Telecom Argentina S.A. aceptado y contabilizado la totalidad de los ajustes ≥ PAE (${
+                      ajustesComputables.length === 1
+                        ? `${ajustesComputables[0].codigoAjuste} por $${ajustesComputables[0].montoMillones.toLocaleString('es-AR')}M`
+                        : `${ajustesComputables.map((a) => `${a.codigoAjuste} $${a.montoMillones.toLocaleString('es-AR')}M`).join(' + ')}; total $${totalAjustado.toLocaleString('es-AR')}M`
+                    }), los saldos de los rubros auditados quedan razonablemente expuestos conforme a NIIF. Recomendamos emitir una OPINIÓN FAVORABLE SIN SALVEDADES el día 20/02/2026 bajo NIAs (RT N° 32 FACPCE), previa obtención de la Carta de Representación (NIA 580).`
                   : esFavorableSinSalvedades
                   ? `Aun ante la falta de registración por la Dirección de partidas propuestas por un total bruto de $${totalNoAjustado.toLocaleString('es-AR')} millones (impacto patrimonial neto $${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M), dicho desvío residual permanece por debajo del Error Tolerable ($${ERROR_TOLERABLE.toLocaleString('es-AR')}M) y representa el ${((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de la Materialidad Global ($${MATERIALIDAD_GLOBAL.toLocaleString('es-AR')}M), sin generar distorsión significativa generalizada sobre los estados financieros consolidados tomados en su conjunto (NIA 450 / NIA 700 / RT N° 32). Corresponde emitir una OPINIÓN FAVORABLE SIN SALVEDADES dejando constancia expresa en la Carta de Representación (NIA 450.14) y comunicando las deficiencias al Directorio/Comité de Auditoría.`
                   : `Atento a que los ajustes no registrados suman $${totalNoAjustado.toLocaleString('es-AR')} millones y SUPERAN la Materialidad Global ($${MATERIALIDAD_GLOBAL.toLocaleString('es-AR')}M), se recomienda emitir una OPINIÓN CON SALVEDADES (NIA 705) por incorrección material en medición y exposición bajo NIIF.`}
@@ -1136,15 +1436,18 @@ export default function Etapa3InformeView({
       {docActivo === 'carta-gerencia' && (
         <div className="print-sheet bg-white rounded-2xl border border-slate-200 p-8 shadow-xs max-w-4xl mx-auto space-y-5">
           <div className="border-b border-slate-200 pb-4 space-y-2">
-            <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="no-print flex flex-wrap items-center justify-between gap-2">
               <span className="px-2.5 py-0.5 rounded bg-purple-100 text-purple-800 text-xs font-extrabold inline-flex flex-wrap items-center gap-1">
                 <span>PASO 3 DE CIERRE • 20/02/2026 (MISMA FECHA DEL INFORME —</span>
                 <NormaTooltip code="NIA 580" align="left" placement="bottom" />
                 <span>.14)</span>
               </span>
-              <span className="text-xs font-mono font-bold text-slate-500">
-                Ref: Legajo Conclusión LC-03
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-mono font-bold text-slate-500">
+                  Ref: Legajo Conclusión LC-03
+                </span>
+                <CopyCleanButton docKey="carta-gerencia" getText={generarTextoLimpioPaso3} />
+              </div>
             </div>
             <div className="pt-1">
               <InformeTituloTooltip sectionKey="paso3" align="left" placement="bottom" badgeLabel="¿Qué es? / ¿Obligatorio?">
@@ -1156,62 +1459,93 @@ export default function Etapa3InformeView({
             <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs space-y-1">
               <p className="font-bold text-slate-900">{documentosEtapa3.cartaRepresentacion.membreteCliente}</p>
               <p className="text-slate-700">
+                <strong>Lugar y Fecha:</strong> Ciudad Autónoma de Buenos Aires, {documentosEtapa3.cartaRepresentacion.fecha}{' '}
+                <span className="no-print text-[11px] font-semibold text-purple-700">(Misma fecha que el Informe — NIA 580.14)</span>
+              </p>
+              <p className="text-slate-700">
                 <strong>Dirigida a:</strong> {documentosEtapa3.cartaRepresentacion.destinatario}
               </p>
               <p className="text-slate-700">
-                <strong>Firmantes:</strong> {documentosEtapa3.cartaRepresentacion.firmantes} •{' '}
-                <strong>Fecha:</strong> {documentosEtapa3.cartaRepresentacion.fecha}
+                <strong>Firmantes:</strong> {documentosEtapa3.cartaRepresentacion.firmantes}
               </p>
-              <p className="text-[11px] font-semibold text-purple-800">
+              <p className="no-print text-[11px] font-semibold text-purple-800">
                 Normativa Aplicable: {documentosEtapa3.cartaRepresentacion.norma}
               </p>
             </div>
+            <p className="text-xs font-bold text-slate-800 pt-1">
+              {documentosEtapa3.cartaRepresentacion.saludo}
+            </p>
+            <p className="text-xs text-slate-700 leading-relaxed text-justify">
+              {documentosEtapa3.cartaRepresentacion.introduccion}
+            </p>
           </div>
 
-          {/* Banner dinámico NIA 450.14 sobre estado de ajustes PAE */}
+          {/* Simulador didáctico NIA 450.14 sobre estado de ajustes PAE */}
           <div
-            className={`print-avoid-break p-3.5 rounded-xl border text-xs ${
+            className={`no-print print-avoid-break p-3.5 rounded-xl border text-xs ${
               esLimpiaEstricta ? 'bg-emerald-50 border-emerald-200 text-emerald-950' : 'bg-amber-50 border-amber-200 text-amber-950'
             }`}
           >
             <p className="font-extrabold">
-              Anexo de Manifestaciones s/ Planilla de Ajustes Propuestos (<NormaTooltip code="NIA 450" />.14 — Estado en Vivo):
+              Control de Coherencia con Planilla PAE (<NormaTooltip code="NIA 450" />.14 — Vista Estudio / No se imprime en la carta):
             </p>
             <p className="mt-1 leading-relaxed text-justify">
               {esLimpiaEstricta
                 ? ajustesMenores.length > 0
-                  ? `La Dirección confirma haber contabilizado al 31/12/2025 la totalidad de los ajustes ≥ PAE (${ajustesComputables.map((a) => `${a.codigoAjuste}: $${a.montoMillones.toLocaleString('es-AR')}M`).join(' y ')}), restando únicamente partidas menores debajo del PAE (${ajustesMenores.map((m) => `${m.codigoAjuste} $${m.montoMillones.toLocaleString('es-AR')}M`).join(', ')}) que declara inmateriales en conjunto.`
-                  : `La Dirección confirma haber contabilizado al 31/12/2025 la totalidad de los ajustes propuestos en los rubros auditados (${ajustesComputables.map((a) => `${a.codigoAjuste}: $${a.montoMillones.toLocaleString('es-AR')}M`).join(' y ')}), sin quedar diferencias pendientes ni partidas menores sin ajustar dentro del alcance evaluado.`
-                : `La Dirección adjunta a esta Carta el detalle de las diferencias propuestas no contabilizadas por $${totalNoAjustado.toLocaleString('es-AR')}M (${ajustesPendientes.map((a) => `${a.codigoAjuste}: $${a.montoMillones.toLocaleString('es-AR')}M`).join(', ')}), manifestando formalmente que su efecto individual y agregado no distorsiona significativamente los Estados Financieros Consolidados al 31/12/2025.`}
+                  ? `La Dirección confirma haber contabilizado al 31/12/2025 los ajustes ≥ PAE (${ajustesComputables.map((a) => `${a.codigoAjuste}: $${a.montoMillones.toLocaleString('es-AR')}M`).join(' y ')}), restando únicamente partidas menores debajo del PAE (${ajustesMenores.map((m) => `${m.codigoAjuste} $${m.montoMillones.toLocaleString('es-AR')}M`).join(', ')}) declaradas inmateriales.`
+                  : `La Dirección confirma haber contabilizado al 31/12/2025 el único ajuste ≥ PAE en los 3 rubros auditados (${ajustesComputables.map((a) => `${a.codigoAjuste}: $${a.montoMillones.toLocaleString('es-AR')}M`).join(' y ')}), sin quedar diferencias pendientes ni partidas menores sin ajustar.`
+                : `Anexo obligatorio NIA 450.14 activo: la Dirección adjunta las diferencias propuestas no contabilizadas por $${totalNoAjustado.toLocaleString('es-AR')}M (${ajustesPendientes.map((a) => `${a.codigoAjuste}: $${a.montoMillones.toLocaleString('es-AR')}M`).join(', ')}) declarando que no distorsionan los EECC consolidados.`}
             </p>
           </div>
 
           <div className="space-y-3">
-            {documentosEtapa3.cartaRepresentacion.puntosClave.map((punto, idx) => (
-              <div
-                key={idx}
-                className="print-avoid-break p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3 text-xs text-slate-700"
-              >
-                <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0 mt-0.5" />
-                <div className="flex-1 space-y-1.5">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="font-extrabold text-slate-900">{punto.titulo}</span>
-                    <span className="px-2 py-0.5 rounded bg-purple-100 text-purple-900 text-[10px] font-bold">
-                      {punto.norma}
-                    </span>
-                  </div>
-                  <p className="leading-relaxed text-justify">{punto.texto}</p>
-                  {punto.refView && (
-                    <div className="no-print pt-0.5">
-                      <RefPill label={punto.refLabel} view={punto.refView} sub={punto.refSub} tone="slate" />
+            {documentosEtapa3.cartaRepresentacion.puntosClave.map((punto, idx) => {
+              const textoFinal = idx === 2 ? getTextoPunto3CartaRepresentacion() : punto.texto;
+              const mostrarPill = punto.refView && (incluirAlcanceAmpliado || !punto.soloAmpliado);
+              return (
+                <div
+                  key={idx}
+                  className="print-avoid-break p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3 text-xs text-slate-700"
+                >
+                  <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0 mt-0.5 no-print" />
+                  <div className="flex-1 space-y-1.5">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <span className="font-extrabold text-slate-900">{punto.titulo}</span>
+                      <span className="no-print px-2 py-0.5 rounded bg-purple-100 text-purple-900 text-[10px] font-bold">
+                        {punto.norma}
+                      </span>
                     </div>
-                  )}
+                    <p className="leading-relaxed text-justify">{textoFinal}</p>
+                    {mostrarPill && (
+                      <div className="no-print pt-0.5">
+                        <RefPill label={punto.refLabel} view={punto.refView} sub={punto.refSub} tone="slate" />
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
-          <div className="pt-4 border-t border-slate-200 flex flex-wrap justify-between items-center gap-3 text-xs text-slate-600">
+          <div className="pt-2 space-y-4">
+            <p className="text-xs text-slate-700">{documentosEtapa3.cartaRepresentacion.cierre}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6 text-center text-[11px] text-slate-700">
+              <div className="border-t border-slate-400 pt-1.5">
+                <p className="font-bold text-slate-900">Presidente del Directorio</p>
+                <p>Telecom Argentina S.A.</p>
+              </div>
+              <div className="border-t border-slate-400 pt-1.5">
+                <p className="font-bold text-slate-900">Gerente General (CEO)</p>
+                <p>Telecom Argentina S.A.</p>
+              </div>
+              <div className="border-t border-slate-400 pt-1.5">
+                <p className="font-bold text-slate-900">Director de Adm. y Finanzas (CFO)</p>
+                <p>Telecom Argentina S.A.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="no-print pt-4 border-t border-slate-200 flex flex-wrap justify-between items-center gap-3 text-xs text-slate-600">
             <span>Recibida conforme por: <strong>GREBE — PISONERO DE BIASE</strong> (Contadores Públicos — U.C.P.)</span>
             <button
               onClick={() => setDocActivo('informe')}
@@ -1226,16 +1560,23 @@ export default function Etapa3InformeView({
       {/* PASO 4 FINAL (20/02/2026): INFORME DE AUDITORÍA EMITIDO POR LOS AUDITORES INDEPENDIENTES (NIAs / RT N° 32 FACPCE) */}
       {docActivo === 'informe' && (
         <div className="space-y-5 max-w-4xl mx-auto">
-          <div className="no-print bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-2.5 flex flex-wrap items-center gap-2 text-xs text-indigo-950">
-            <HelpCircle className="w-4 h-4 text-indigo-700 shrink-0" />
-            <span>
-              <strong>Modo Estudio Interactivo:</strong> dejá el mouse encima (o tocá en pantalla) sobre cualquier título, KAM, inciso o firma del Informe para ver <strong>de qué trata, si es obligatorio y qué te pueden preguntar</strong>. Al imprimir, estas ayudas se ocultan automáticamente.
-            </span>
+          <div className="no-print bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs text-indigo-950">
+            <div className="flex items-center gap-2 min-w-0 flex-1">
+              <HelpCircle className="w-4 h-4 text-indigo-700 shrink-0" />
+              <span>
+                <strong>Modo Estudio Interactivo:</strong> tocá o pasá el mouse por cualquier sección para ver <strong>qué te pueden preguntar</strong>. Los rótulos azules se ocultan al imprimir o usar el botón de copia limpia.
+              </span>
+            </div>
+            <CopyCleanButton
+              docKey="informe"
+              getText={generarTextoLimpioPaso4}
+              label="Copiar Informe limpio para presentar (Word)"
+            />
           </div>
 
           <div className="print-sheet bg-white rounded-2xl border border-slate-300 p-8 sm:p-10 shadow-sm space-y-5 text-slate-800 leading-relaxed">
             <div className="text-center border-b-2 border-slate-800 pb-5">
-              <p className="text-xs font-extrabold uppercase tracking-widest text-teal-800">
+              <p className="no-print text-xs font-extrabold uppercase tracking-widest text-teal-800">
                 PASO 4 FINAL (CULMINACIÓN DE LA AUDITORÍA) • NORMAS INTERNACIONALES DE AUDITORÍA (NIAs — RT N° 32 FACPCE)
               </p>
               <div className="mt-1 flex justify-center">
@@ -1245,7 +1586,7 @@ export default function Etapa3InformeView({
                   </h3>
                 </InformeTituloTooltip>
               </div>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="no-print text-xs text-slate-500 mt-1">
                 Sobre los Estados Financieros Consolidados de Telecom Argentina S.A. correspondientes al ejercicio finalizado el 31 de diciembre de 2025
               </p>
             </div>
@@ -1282,12 +1623,15 @@ export default function Etapa3InformeView({
                 <div className="mb-2">
                   <InformeTituloTooltip sectionKey="sec1" align="left" placement="bottom" badgeLabel="¿Obligatorio? / Preguntas">
                     <h5 className="font-extrabold text-slate-950 uppercase text-xs">
-                      1. {esFavorableSinSalvedades ? 'Opinión (Favorable sin Salvedades — NIA 700)' : 'Opinión con Salvedades (NIA 705)'}
+                      1. {esFavorableSinSalvedades ? 'Opinión' : 'Opinión con salvedades'}{' '}
+                      <span className="no-print select-none font-semibold normal-case text-indigo-700">
+                        ({esFavorableSinSalvedades ? 'Favorable sin Salvedades — NIA 700' : 'NIA 705'})
+                      </span>
                     </h5>
                   </InformeTituloTooltip>
                 </div>
                 <p className="text-slate-800 text-justify">
-                  Hemos auditado los estados financieros consolidados de <strong>TELECOM ARGENTINA S.A.</strong> y sus sociedades controladas (en adelante, indistintamente, la «Sociedad» o el «Grupo»), los cuales comprenden el estado de situación financiera consolidado al <strong>31 de diciembre de 2025</strong>, los estados consolidados de resultados, del resultado integral, de cambios en el patrimonio y de flujos de efectivo correspondientes al ejercicio finalizado en esa fecha, y las notas explicativas seleccionadas a los estados financieros consolidados que incluyen políticas contables materiales y otra información explicativa.
+                  Hemos auditado los estados financieros consolidados de <strong>TELECOM ARGENTINA S.A.</strong> y sus sociedades controladas (en adelante, indistintamente, la «Sociedad» o el «Grupo»), los cuales comprenden el estado de situación financiera consolidado al <strong>31 de diciembre de 2025</strong>, los estados consolidados de resultados, del resultado integral, de cambios en el patrimonio y de flujos de efectivo correspondientes al ejercicio finalizado en esa fecha, y las notas a los estados financieros consolidados, que incluyen información sobre las políticas contables materiales y otra información explicativa.
                 </p>
                 {esFavorableSinSalvedades ? (
                   <div className="mt-2.5 space-y-2">
@@ -1295,9 +1639,9 @@ export default function Etapa3InformeView({
                       En nuestra opinión, los estados financieros consolidados adjuntos presentan razonablemente, en todos sus aspectos significativos, la situación financiera consolidada del Grupo al <strong>31 de diciembre de 2025</strong>, así como su desempeño financiero consolidado y los flujos de efectivo consolidados correspondientes al ejercicio finalizado en esa fecha, de conformidad con las <strong>Normas de contabilidad NIIF emitidas por el Consejo de Normas Internacionales de Contabilidad (IASB)</strong>, en moneda homogénea de cierre (NIC 29) y las normas pertinentes de la Comisión Nacional de Valores (CNV).
                     </p>
                     {!esLimpiaEstricta && (
-                      <div className="p-3 rounded-lg bg-red-50 border-2 border-red-300 text-xs text-red-950 space-y-1">
+                      <div className="no-print p-3 rounded-lg bg-red-50 border-2 border-red-300 text-xs text-red-950 space-y-1">
                         <p className="font-extrabold text-red-800 uppercase">
-                          Impacto en el Dictamen y Cierre por Incorrecciones NO Registradas ({ajustesPendientes.map((a) => a.codigoAjuste).join(' + ')} — NIA 450):
+                          Simulación Didáctica — Impacto NIA 450 por Incorrecciones NO Registradas ({ajustesPendientes.map((a) => a.codigoAjuste).join(' + ')}) (no integra el texto formal del dictamen):
                         </p>
                         <p className="leading-relaxed text-justify">
                           Los desvíos propuestos no registrados suman <strong>${totalNoAjustado.toLocaleString('es-AR')} millones</strong> brutos (impacto patrimonial neto <strong>${impactoPatrimonialNoAjustado.toLocaleString('es-AR')}M</strong>, equivalente al {((totalNoAjustado / MATERIALIDAD_GLOBAL) * 100).toFixed(2).replace('.', ',')}% de la PM de $166.225M). <strong>Por qué no modifica la opinión:</strong> al ubicarse por debajo del Error Tolerable ($83.112M) y de la Materialidad Global ($166.225M), no produce distorsión significativa generalizada en los estados financieros consolidados, por lo que la opinión se mantiene <strong>Favorable sin Salvedades</strong> (requiriendo únicamente constancia anexa en la Carta de Representación — NIA 450.14 y comunicación al Comité de Auditoría).
@@ -1327,7 +1671,7 @@ export default function Etapa3InformeView({
                     <ul className="list-disc pl-5 space-y-1">
                       {ajustesPendientes.map((ap) => (
                         <li key={ap.id} className="text-justify">
-                          <strong>{ap.rubro} ({ap.codigoAjuste} — ${ap.montoMillones.toLocaleString('es-AR')} millones):</strong>{' '}
+                          <strong>{ap.rubro} (${ap.montoMillones.toLocaleString('es-AR')} millones):</strong>{' '}
                           {ap.descripcionHallazgo}
                         </li>
                       ))}
@@ -1344,7 +1688,10 @@ export default function Etapa3InformeView({
                 <div className="mb-1">
                   <InformeTituloTooltip sectionKey="sec3" align="left" placement="bottom" badgeLabel="Código IESBA / EIP">
                     <h5 className="font-extrabold text-slate-950 uppercase text-xs">
-                      3. Independencia (Código IESBA para Entidades de Interés Público — NIA 700)
+                      3. Independencia{' '}
+                      <span className="no-print select-none font-semibold normal-case text-indigo-700">
+                        (Código IESBA para Entidades de Interés Público — NIA 700)
+                      </span>
                     </h5>
                   </InformeTituloTooltip>
                 </div>
@@ -1358,7 +1705,10 @@ export default function Etapa3InformeView({
                 <div className="mb-1.5">
                   <InformeTituloTooltip sectionKey="sec4" align="left" placement="bottom" badgeLabel="¿Obligatorio en cotizantes?">
                     <h5 className="font-extrabold text-slate-950 uppercase text-xs">
-                      4. Cuestiones clave de la auditoría (Key Audit Matters — NIA 701)
+                      4. Cuestiones clave de la auditoría{' '}
+                      <span className="no-print select-none font-semibold normal-case text-indigo-700">
+                        (Key Audit Matters — NIA 701)
+                      </span>
                     </h5>
                   </InformeTituloTooltip>
                 </div>
@@ -1386,7 +1736,7 @@ export default function Etapa3InformeView({
                             </p>
                           </InformeTituloTooltip>
                           <p className="text-justify">
-                            Al cierre del ejercicio 2025, Propiedad, Planta y Equipo totaliza $6.789.118 millones contables (40,84% del Activo Consolidado), comprendiendo $1.332.961 millones incorporados a su valor razonable bajo NIIF 3 tras la adquisición de Telefónica Móviles Argentina S.A. (TMA) concretada el 24 de febrero de 2025, además de inversiones en red de fibra óptica (FTTH) y despliegue 5G por $1.351.105 millones. La relevancia del área obedece al peso patrimonial del rubro, la extensión geográfica de la infraestructura técnica, los criterios de asignación del precio de compra (PPA) y las estimaciones sobre bajas por siniestros y obsolescencia de antiguas centrales de cobre en proceso de apagado.
+                            Al cierre del ejercicio 2025, Propiedad, Planta y Equipo totaliza ${ppeKamMonto} millones ({ppeKamPorcentaje} del Activo Consolidado), comprendiendo $1.332.961 millones incorporados a su valor razonable bajo NIIF 3 tras la adquisición de Telefónica Móviles Argentina S.A. (TMA) concretada el 24 de febrero de 2025, además de inversiones en red de fibra óptica (FTTH) y despliegue 5G por $1.351.105 millones. La relevancia del área obedece al peso patrimonial del rubro, la extensión geográfica de la infraestructura técnica, los criterios de asignación del precio de compra (PPA) y las estimaciones sobre bajas por siniestros y obsolescencia de antiguas centrales de cobre en proceso de apagado.
                           </p>
                         </td>
                         <td className="p-3.5 space-y-1.5 leading-relaxed">
@@ -1408,7 +1758,7 @@ export default function Etapa3InformeView({
                             </p>
                           </InformeTituloTooltip>
                           <p className="text-justify">
-                            Los Activos Intangibles alcanzan $2.671.525 millones al 31 de diciembre de 2025 (16,07% del Activo Consolidado), integrados por licencias de espectro radioeléctrico 4G/5G adjudicadas por ENACOM ($1.985.420 millones), marcas comerciales ($400.750 millones), activos incorporados por la adquisición de TMA ($274.183 millones bajo NIIF 3) y desarrollos internos de software activados según NIC 38. El asunto resultó prioritario por su magnitud financiera, la verificación jurídica de las concesiones habilitantes y el juicio exigido para separar gastos corrientes de TI respecto de desarrollos capitalizables.
+                            Los Activos Intangibles alcanzan $2.671.525 millones al 31 de diciembre de 2025 ({intangiblesKamPorcentaje} del Activo Consolidado), integrados por licencias de espectro radioeléctrico 4G/5G adjudicadas por ENACOM ($1.985.420 millones), marcas comerciales ($400.750 millones), activos incorporados por la adquisición de TMA ($274.183 millones bajo NIIF 3) y desarrollos internos de software activados según NIC 38. El asunto resultó prioritario por su magnitud financiera, la verificación jurídica de las concesiones habilitantes y el juicio exigido para separar gastos corrientes de TI respecto de desarrollos capitalizables.
                           </p>
                         </td>
                         <td className="p-3.5 space-y-1.5 leading-relaxed">
@@ -1451,7 +1801,10 @@ export default function Etapa3InformeView({
                 <div className="mb-1">
                   <InformeTituloTooltip sectionKey="sec5" align="left" placement="bottom" badgeLabel="¿Auditamos la Memoria?">
                     <h5 className="font-extrabold text-slate-950 uppercase text-xs">
-                      5. Información que acompaña a los estados financieros consolidados (“otra información” — NIA 720)
+                      5. Información que acompaña a los estados financieros consolidados (“otra información”){' '}
+                      <span className="no-print select-none font-semibold normal-case text-indigo-700">
+                        (NIA 720)
+                      </span>
                     </h5>
                   </InformeTituloTooltip>
                 </div>
@@ -1474,12 +1827,15 @@ export default function Etapa3InformeView({
                 </p>
               </div>
 
-              {/* 7. RESPONSABILIDADES DE LOS AUDITORES (NIA 700 / NIA 570 / NIA 600) */}
+              {/* 7. RESPONSABILIDADES DE LOS AUDITORES (NIA 700 / NIA 570 / NIA 600 / NIA 701) */}
               <div>
                 <div className="mb-1.5">
                   <InformeTituloTooltip sectionKey="sec7" align="left" placement="bottom" badgeLabel="Seguridad razonable / NIA 600">
                     <h5 className="font-extrabold text-slate-950 uppercase text-xs">
-                      7. Responsabilidades de los auditores en relación con la auditoría de los estados financieros consolidados (NIA 700 / NIA 570 / NIA 600)
+                      7. Responsabilidades de los auditores en relación con la auditoría de los estados financieros consolidados{' '}
+                      <span className="no-print select-none font-semibold normal-case text-indigo-700">
+                        (NIA 700 / NIA 570 / NIA 600 / NIA 701)
+                      </span>
                     </h5>
                   </InformeTituloTooltip>
                 </div>
@@ -1494,19 +1850,25 @@ export default function Etapa3InformeView({
                     Obtenemos conocimiento del control interno relevante para la auditoría con el fin de diseñar procedimientos de auditoría que sean adecuados en función de las circunstancias y no con la finalidad de expresar una opinión sobre la eficacia del control interno del Grupo.
                   </li>
                   <li>
-                    Evaluamos lo adecuado de las políticas contables aplicadas y la razonabilidad de las estimaciones contables y la correspondiente información revelada por el Directorio (<NormaTooltip code="NIA 540" />).
+                    Evaluamos lo adecuado de las políticas contables aplicadas y la razonabilidad de las estimaciones contables y la correspondiente información revelada por el Directorio <span className="no-print">(<NormaTooltip code="NIA 540" />)</span>.
                   </li>
                   <li>
-                    Concluimos sobre lo adecuado de la utilización, por el Directorio, del principio contable de <strong>empresa en funcionamiento</strong> y, basándonos en la evidencia obtenida, si existe o no una incertidumbre material relacionada con hechos o con condiciones que puedan generar dudas significativas sobre la capacidad del Grupo para continuar como empresa en funcionamiento (<NormaTooltip code="NIA 570" />).
+                    Concluimos sobre lo adecuado de la utilización, por el Directorio, del principio contable de <strong>empresa en funcionamiento</strong> y, basándonos en la evidencia obtenida, si existe o no una incertidumbre material relacionada con hechos o con condiciones que puedan generar dudas significativas sobre la capacidad del Grupo para continuar como empresa en funcionamiento <span className="no-print">(<NormaTooltip code="NIA 570" />)</span>.
                   </li>
                   <li>
                     Evaluamos la presentación global, la estructura y el contenido de los estados financieros consolidados, incluida la información revelada, y si representan las transacciones y hechos subyacentes de un modo que logren la presentación razonable.
                   </li>
                   <li>
-                    Obtenemos evidencia de auditoría suficiente y adecuada en relación con la información financiera de las entidades o actividades de negocio dentro del Grupo para expresar una opinión sobre los estados financieros consolidados (<strong>Auditoría de Grupos — <NormaTooltip code="NIA 600" /></strong>), siendo los únicos responsables de nuestra opinión de auditoría.
+                    Obtenemos evidencia de auditoría suficiente y adecuada en relación con la información financiera de las entidades o actividades de negocio dentro del Grupo para expresar una opinión sobre los estados financieros consolidados, siendo los únicos responsables de nuestra opinión de auditoría <span className="no-print">(<strong>Auditoría de Grupos — <NormaTooltip code="NIA 600" /></strong>)</span>.
                   </li>
                   <li>
-                    Nos comunicamos con el <strong>Comité de Auditoría</strong> en relación con, entre otras cuestiones, el alcance y el momento de realización de la auditoría y los hallazgos significativos, incluida cualquier deficiencia significativa en el control interno (Carta CI LC-01), nuestra declaración de independencia y las cuestiones clave de la auditoría (KAM).
+                    Nos comunicamos con el <strong>Comité de Auditoría</strong> en relación con, entre otras cuestiones, el alcance y el momento de realización de la auditoría y los hallazgos significativos, incluida cualquier deficiencia significativa en el control interno que identifiquemos durante nuestra auditoría.
+                  </li>
+                  <li>
+                    También proporcionamos al <strong>Comité de Auditoría</strong> una declaración de que hemos cumplido los requerimientos de ética aplicables en relación con la independencia y les hemos comunicado todas las relaciones y demás cuestiones de las que se puede esperar razonablemente que puedan afectar a nuestra independencia y, en su caso, las acciones tomadas para eliminar las amenazas o las salvaguardas aplicadas.
+                  </li>
+                  <li>
+                    Entre las cuestiones que han sido objeto de comunicación con el <strong>Comité de Auditoría</strong>, determinamos las que han sido de la mayor significatividad en la auditoría de los estados financieros consolidados del período actual y que son, en consecuencia, las cuestiones clave de la auditoría. Describimos esas cuestiones en nuestro informe de auditoría, salvo que las disposiciones legales o reglamentarias prohíban revelar públicamente la cuestión o, en circunstancias extremadamente poco frecuentes, determinemos que una cuestión no se debería comunicar en nuestro informe porque cabe razonablemente esperar que las consecuencias adversas de hacerlo superarían los beneficios de interés público de la misma.
                   </li>
                 </ul>
               </div>
@@ -1515,40 +1877,63 @@ export default function Etapa3InformeView({
               <div className="border-b border-slate-300 pb-1.5 pt-2">
                 <InformeTituloTooltip sectionKey="secII" align="left" placement="bottom" badgeLabel="Leyes Argentinas">
                   <h4 className="text-sm font-extrabold uppercase text-slate-950">
-                    II. Informe sobre otros requerimientos legales y reglamentarios (CNV / LGS N° 19.550 / SIPA / UIF)
+                    II. Informe sobre otros requerimientos legales y reglamentarios{' '}
+                    <span className="no-print select-none font-semibold normal-case text-indigo-700">
+                      (CNV / LGS N° 19.550 / SIPA / UIF)
+                    </span>
                   </h4>
                 </InformeTituloTooltip>
               </div>
               <ol className="list-[lower-alpha] pl-5 text-xs text-slate-700 space-y-2.5 text-justify">
                 <li>
-                  <InformeTituloTooltip sectionKey="incA" align="left" placement="bottom" badgeLabel="Inciso a) LGS/CNV">
-                    <span className="font-bold text-slate-900">Transcripción societaria (LGS N° 19.550 y CNV):</span>
-                  </InformeTituloTooltip>{' '}
+                  <span className="no-print select-none mr-1.5">
+                    <InformeTituloTooltip sectionKey="incA" align="left" placement="bottom" badgeLabel="Inciso a) LGS/CNV">
+                      <span className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-700">
+                        Transcripción LGS / CNV
+                      </span>
+                    </InformeTituloTooltip>
+                  </span>
                   Los estados financieros consolidados adjuntos han sido transcriptos en el libro <em>«Inventarios y Balances»</em> y cumplen, en lo que es materia de nuestra competencia, con lo dispuesto en la <strong>Ley General de Sociedades N° 19.550</strong> y en las resoluciones pertinentes de la Comisión Nacional de Valores (CNV).
                 </li>
                 <li>
-                  <InformeTituloTooltip sectionKey="incB" align="left" placement="bottom" badgeLabel="Inciso b) Registros SAP">
-                    <span className="font-bold text-slate-900">Integridad de registros contables (ERP SAP):</span>
-                  </InformeTituloTooltip>{' '}
-                  Los estados financieros separados y consolidados de <strong>Telecom Argentina S.A.</strong> surgen de registros contables llevados, en sus aspectos formales, de conformidad con las disposiciones legales vigentes y las condiciones de seguridad e integridad autorizadas por la CNV (Sistema ERP SAP).
+                  <span className="no-print select-none mr-1.5">
+                    <InformeTituloTooltip sectionKey="incB" align="left" placement="bottom" badgeLabel="Inciso b) Registros SAP">
+                      <span className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-700">
+                        Integridad Registros ERP SAP
+                      </span>
+                    </InformeTituloTooltip>
+                  </span>
+                  Los estados financieros consolidados de <strong>Telecom Argentina S.A.</strong> surgen de registros contables llevados, en sus aspectos formales, de conformidad con las disposiciones legales vigentes y las condiciones de seguridad e integridad autorizadas por la CNV (Sistema ERP SAP).
                 </li>
                 <li>
-                  <InformeTituloTooltip sectionKey="incC" align="left" placement="bottom" badgeLabel="Inciso c) Deuda SIPA">
-                    <span className="font-bold text-slate-900">Deuda devengada previsional (Ley 17.250):</span>
-                  </InformeTituloTooltip>{' '}
+                  <span className="no-print select-none mr-1.5">
+                    <InformeTituloTooltip sectionKey="incC" align="left" placement="bottom" badgeLabel="Inciso c) Deuda SIPA">
+                      <span className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-700">
+                        Deuda SIPA (Ley 17.250)
+                      </span>
+                    </InformeTituloTooltip>
+                  </span>
                   Según surge de los registros contables de la Sociedad al <strong>31 de diciembre de 2025</strong>, la deuda devengada a favor del <strong>Sistema Integrado Previsional Argentino (SIPA)</strong> en concepto de aportes y contribuciones previsionales ascendía a <strong>$33.699.737.311</strong>, no siendo exigible a esa fecha.
                 </li>
                 <li>
-                  <InformeTituloTooltip sectionKey="incD" align="left" placement="bottom" badgeLabel="Inciso d) Honorarios CNV">
-                    <span className="font-bold text-slate-900">Independencia y honorarios (Art. 21° CNV):</span>
-                  </InformeTituloTooltip>{' '}
+                  <span className="no-print select-none mr-1.5">
+                    <InformeTituloTooltip sectionKey="incD" align="left" placement="bottom" badgeLabel="Inciso d) Honorarios CNV">
+                      <span className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-700">
+                        Honorarios Art. 21° CNV
+                      </span>
+                    </InformeTituloTooltip>
+                  </span>
                   En cumplimiento del <strong>art. 21°, inc. b), Capítulo III, Sección VI, Título II de las Normas de la CNV (T.O. 2013 y modif.)</strong>, informamos que el total de honorarios facturados en concepto de servicios de auditoría externa correspondientes al ejercicio finalizado el 31 de diciembre de 2025 representa: <strong>d.1) el 100%</strong> sobre el total de honorarios facturados a Telecom Argentina S.A. por todo concepto en dicho ejercicio; <strong>d.2) el 100%</strong> sobre el total de honorarios por servicios de auditoría y relacionados facturados a Telecom Argentina S.A., su sociedad controlante, controladas y vinculadas; y <strong>d.3) el 100%</strong> sobre el total de honorarios facturados por todo concepto al referido grupo económico en dicho ejercicio.
                 </li>
                 <li>
-                  <InformeTituloTooltip sectionKey="incE" align="left" placement="bottom" badgeLabel="Inciso e) UIF / Res. 420/11">
-                    <span className="font-bold text-slate-900">Prevención de lavado de activos (UIF):</span>
-                  </InformeTituloTooltip>{' '}
-                  Hemos aplicado los procedimientos sobre prevención de lavado de activos y financiación del terrorismo previstos en las normas profesionales vigentes emitidas por la FACPCE (Resolución N° 420/11 y normativa UIF concordante), sin observaciones significativas que informar al cierre.
+                  <span className="no-print select-none mr-1.5">
+                    <InformeTituloTooltip sectionKey="incE" align="left" placement="bottom" badgeLabel="Inciso e) UIF / FACPCE">
+                      <span className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-[10px] font-bold text-slate-700">
+                        PLA/FT UIF (Res. 420/11 / 616/23)
+                      </span>
+                    </InformeTituloTooltip>
+                  </span>
+                  Hemos aplicado los procedimientos sobre prevención de lavado de activos y financiación del terrorismo previstos en las normas profesionales vigentes emitidas por la FACPCE (Resolución N° 420/11, su modificatoria Resolución JG N° 616/23 y normativa UIF concordante), sin observaciones significativas que informar al cierre.
                 </li>
               </ol>
 
