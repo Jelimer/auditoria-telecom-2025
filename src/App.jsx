@@ -149,10 +149,12 @@ const NAV_ITEMS = [
   {
     id: 'etapa3-informe',
     shortLabel: '3. Conclusión e Informe',
-    label: 'Etapa 3: Carta CI, Memorando, Carta Gerencia e Informe (NIAs / RT N° 32)',
+    label: 'Etapa 3 y Documentos Formales: Carta de Encargo, Independencia, Cierre e Informe (NIAs / RT N° 32)',
     etapaTag: 'Etapa 3: Conclusión',
     icon: Award,
     subItems: [
+      { id: 'carta-encargo', label: '3.0.A. Carta de Encargo (15/10 Prev.)', type: 'tab' },
+      { id: 'declaracion-independencia', label: '3.0.B. Declaración Independ. (15/10 Prev.)', type: 'tab' },
       { id: 'carta-ci', label: '3.1. Carta Control Interno (12/02)', type: 'tab' },
       { id: 'memorando', label: '3.2. Memorando Conclusión (18/02)', type: 'tab' },
       { id: 'carta-gerencia', label: '3.3. Carta de Gerencia (20/02)', type: 'tab' },

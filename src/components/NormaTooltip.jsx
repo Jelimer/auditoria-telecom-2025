@@ -2,6 +2,15 @@ import React, { useState } from 'react';
 import { BookOpen, Info, X } from 'lucide-react';
 
 export const NORMAS_DICCIONARIO = {
+  'NIA 210': {
+    codigo: 'NIA 210',
+    titulo: 'Acuerdo de los Términos del Encargo de Auditoría',
+    emisor: 'IAASB / FACPCE',
+    queTrata:
+      'Establece las precondiciones previas de la auditoría (marco contable aceptable, responsabilidades de la Dirección sobre EECC, control interno y acceso irrestricto) y exige documentar por escrito los términos acordados mediante una Carta de Encargo antes de iniciar el examen.',
+    aplicacion:
+      'En Telecom sustenta la Carta de Encargo del 15/10/2025: EECC Consolidados bajo NIIF (IASB / NIC 29 / CNV), auditoría bajo NIAs (RT N° 32), informe esperado con KAM (NIA 701), Carta de Representación (NIA 580) y honorarios por 1.220 hs ($80.683.020).'
+  },
   'NIA 220': {
     codigo: 'NIA 220',
     titulo: 'Gestión de la Calidad de una Auditoría de Estados Financieros',
@@ -789,7 +798,7 @@ export function renderTextWithNormas(text) {
 
   const decoded = decodeBasicEntities(text);
   const regex =
-    /\b(NIA\s*(?:220|240|250|260|265|300|315|320|330|450|500|501|505|520|540|560|570|580|600|620|700|701|705|706|720)|NIC\s*(?:16|29|36|38)|NIIF\s*(?:3|9|15|16)|RT\s*(?:32|37|53)|Circularización|cartas?\s+de\s+confirmación|procedimientos?\s+alternativos?|Prueba\s+de\s+Corte|corte\s+de\s+facturación|corte\s+de\s+operaciones|Matriz\s+de\s+Antigüedad(?:\s+de\s+Deuda)?|Aging|Previsión\s+NIIF\s*9|TAACs?|Personal\s+Tech)\b/gi;
+    /\b(NIA\s*(?:210|220|240|250|260|265|300|315|320|330|450|500|501|505|520|540|560|570|580|600|620|700|701|705|706|720)|NIC\s*(?:16|29|36|38)|NIIF\s*(?:3|9|15|16)|RT\s*(?:32|37|53)|Circularización|cartas?\s+de\s+confirmación|procedimientos?\s+alternativos?|Prueba\s+de\s+Corte|corte\s+de\s+facturación|corte\s+de\s+operaciones|Matriz\s+de\s+Antigüedad(?:\s+de\s+Deuda)?|Aging|Previsión\s+NIIF\s*9|TAACs?|Personal\s+Tech)\b/gi;
   const parts = decoded.split(regex);
   if (parts.length <= 1) return decoded;
 

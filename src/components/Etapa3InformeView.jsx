@@ -233,6 +233,24 @@ const INFORME_SECCIONES_INFO = {
           'Lectura de actas de Directorio y Comité de Auditoría de ene–feb 2026, cobros posteriores bancarios (PT-B1 / PT-B2), respuesta actualizada de abogados (Nota 20) y manifestación escrita de CEO/CFO en la Carta de Representación.'
       }
     ]
+  },
+  previoA: {
+    subtituloHeader: 'Documento Previo de Aceptación • 15/10/2025 (LP-00)',
+    titulo: 'Carta de Encargo de Auditoría Externa (NIA 210 / Slosse)',
+    obligatorio: 'OBLIGATORIA antes de iniciar el encargo (NIA 210.9–10)',
+    queEs:
+      'Es el acuerdo escrito entre el estudio auditor y el Directorio / Comité de Auditoría que deja documentados el objetivo, alcance bajo NIAs (RT N° 32), marco NIIF (IASB / NIC 29 / CNV), informe esperado con KAM, responsabilidad por EECC/acceso irrestricto y honorarios (1.220 hs = $80.683.020).',
+    detallePregunta:
+      'Por qué se fecha al inicio (15/10/2025) antes de los 4 Documentos Finales: la Carta de Encargo se firma ANTES de ejecutar los CCI (20/10/2025) y el trabajo de campo; no es una "propuesta" previa sino el contrato técnico definitivo de aceptación del encargo.'
+  },
+  previoB: {
+    subtituloHeader: 'Documento Previo de Independencia • 15/10/2025 (LP-00)',
+    titulo: 'Declaración Formal de Independencia (Código IESBA EIP / CNV / NIA 220)',
+    obligatorio: 'OBLIGATORIA en Entidades de Interés Público / CNV (IESBA / Ley N° 26.831)',
+    queEs:
+      'Manifestación formal del estudio y su equipo declarando independencia real y aparente respecto de Telecom Argentina S.A., controlante y controladas (incluida TMA), ausencia de incompatibilidades y exclusividad del 100% en servicios de auditoría externa.',
+    detallePregunta:
+      'Cómo conecta con el cierre: la exclusividad del 100% declarada al inicio es exactamente lo que luego informamos al mercado en el Apartado II inciso d) (Art. 21° Normas CNV) del Informe Final el 20/02/2026.'
   }
 };
 
@@ -423,8 +441,8 @@ export default function Etapa3InformeView({
   subTarget,
   subTargetTick
 }) {
-  // Orden cronológico de realización: 1) Carta CI -> 2) Memorando Conclusión -> 3) Carta Gerencia -> 4) Informe Final
-  const [docActivo, setDocActivo] = useState('carta-ci'); // 'carta-ci' | 'memorando' | 'carta-gerencia' | 'informe'
+  // Orden cronológico de realización: Previos (Carta de Encargo -> Independencia) + Cierre (1 Carta CI -> 2 Memorando -> 3 Carta Gerencia -> 4 Informe Final)
+  const [docActivo, setDocActivo] = useState('carta-ci');
   // Por defecto la Etapa 3 evalúa exclusivamente los 3 rubros elegidos (1° PT-A, 2° PT-B, 3° PT-E)
   const [incluirAlcanceAmpliado, setIncluirAlcanceAmpliado] = useState(false);
   const [hoveredDocTab, setHoveredDocTab] = useState(null);
@@ -432,7 +450,12 @@ export default function Etapa3InformeView({
   const copyTimerRef = useRef(null);
 
   useEffect(() => {
-    if (subTarget && ['carta-ci', 'memorando', 'carta-gerencia', 'informe'].includes(subTarget)) {
+    if (
+      subTarget &&
+      ['carta-encargo', 'declaracion-independencia', 'carta-ci', 'memorando', 'carta-gerencia', 'informe'].includes(
+        subTarget
+      )
+    ) {
       setDocActivo(subTarget);
     }
   }, [subTarget, subTargetTick]);
@@ -511,6 +534,58 @@ export default function Etapa3InformeView({
       )
       .join(' y ');
     return `Declaramos haber revisado el resumen de diferencias identificadas durante la auditoría cuyo detalle se adjunta en anexo a la presente (${resumenPendientes}; total bruto de $${totalNoAjustado.toLocaleString('es-AR')} millones) y confirmamos nuestra decisión de no contabilizarlas al cierre del ejercicio, por considerar que sus efectos no resultan materiales, ni individualmente ni en forma agregada, respecto de los estados financieros consolidados tomados en su conjunto.`;
+  };
+
+  const generarTextoLimpioPrevioA = () => {
+    const ce = documentosEtapa3.cartaEncargo;
+    const cuerpo = ce.clausulas.map((c) => `${c.titulo}\n${c.texto}`).join('\n\n');
+    return [
+      ce.titulo,
+      ce.estudio,
+      ce.estudioSub,
+      `${ce.lugar}, ${ce.fecha}`,
+      '',
+      ce.destinatario,
+      ce.cuit,
+      ce.domicilio,
+      `Ref.: ${ce.referencia}`,
+      '',
+      ce.saludo,
+      ce.introduccion,
+      '',
+      cuerpo,
+      '',
+      ce.cierre,
+      '',
+      ce.estudio,
+      'Contadores Públicos (U.C.P.)',
+      ce.firmantes
+    ].join('\n');
+  };
+
+  const generarTextoLimpioPrevioB = () => {
+    const di = documentosEtapa3.declaracionIndependencia;
+    const cuerpo = di.declaraciones.map((d) => `${d.titulo}\n${d.texto}`).join('\n\n');
+    return [
+      di.titulo,
+      di.estudio,
+      di.estudioSub,
+      `${di.lugar}, ${di.fecha}`,
+      '',
+      di.destinatario,
+      `${di.cuit} — ${di.domicilio}`,
+      '',
+      di.saludo,
+      di.introduccion,
+      '',
+      cuerpo,
+      '',
+      di.cierre,
+      '',
+      di.estudio,
+      'Contadores Públicos (U.C.P.)',
+      di.firmantes
+    ].join('\n');
   };
 
   const generarTextoLimpioPaso1 = () => {
@@ -744,6 +819,25 @@ export default function Etapa3InformeView({
     );
   };
 
+  const documentosPrevios = [
+    {
+      id: 'carta-encargo',
+      pasoKey: 'previoA',
+      orden: 'Previo A • 15/10/2025',
+      titulo: 'A. Carta de Encargo (NIA 210)',
+      sub: 'Aceptación de términos, alcance NIIF/NIAs, 1.220 hs y $80,68M',
+      badge: 'Inicio Encargo (LP-00)'
+    },
+    {
+      id: 'declaracion-independencia',
+      pasoKey: 'previoB',
+      orden: 'Previo B • 15/10/2025',
+      titulo: 'B. Declaración Formal de Independencia',
+      sub: 'Código IESBA (EIP), CNV, TMA y exclusividad 100% auditoría',
+      badge: 'Requisito CNV / IESBA'
+    }
+  ];
+
   const cronologiaDocumentos = [
     {
       id: 'carta-ci',
@@ -805,10 +899,10 @@ export default function Etapa3InformeView({
               </span>
             </div>
             <h2 className="text-xl font-extrabold text-slate-900 mt-2">
-              Secuencia Cronológica de Cierre: Carta de Control Interno, Memorando, Carta de Representación e Informe Final
+              Archivo Documental Completo: Aceptación e Independencia (15/10) + Los 4 Documentos de Cierre (12/02 → 20/02)
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              Ordenados secuencialmente por fecha de realización conforme a la doctrina de Carlos Slosse y las Normas Internacionales de Auditoría (NIAs) adoptadas mediante{' '}
+              Ordenados cronológicamente conforme a Carlos Slosse y las Normas Internacionales de Auditoría (NIAs) adoptadas mediante{' '}
               <strong className="text-slate-700">Resolución Técnica N° 32 de la FACPCE</strong> para entidades bajo oferta pública CNV ({proyectoMeta.cliente}).
             </p>
           </div>
@@ -830,8 +924,88 @@ export default function Etapa3InformeView({
           </div>
         </div>
 
-        {/* Selector de los 4 Documentos ordenados por Fecha de Realización */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4 no-print">
+        {/* Fila 1: Documentos Previos de Aceptación e Independencia (Inicio del Encargo: 15/10/2025) */}
+        <div className="mt-4 no-print space-y-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-teal-800 bg-teal-50 border border-teal-200 px-2.5 py-0.5 rounded-full">
+              Documentos Previos de Aceptación e Independencia • Inicio del Encargo (15/10/2025)
+            </span>
+            <span className="text-[10px] text-slate-500 font-medium">
+              Previos a los 4 documentos de cierre • Legajo Permanente LP-00
+            </span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {documentosPrevios.map((tab, idx) => {
+              const active = docActivo === tab.id;
+              const tabAlign = idx === 0 ? 'left-0' : 'right-0';
+              return (
+                <div
+                  key={tab.id}
+                  className="relative flex flex-col"
+                  onMouseLeave={() => setHoveredDocTab((cur) => (cur === tab.id ? null : cur))}
+                >
+                  <button
+                    type="button"
+                    onClick={() => setDocActivo(tab.id)}
+                    className={`w-full flex-1 text-left p-3 rounded-xl border transition-all cursor-pointer flex flex-col justify-between ${
+                      active
+                        ? 'bg-teal-950 text-white border-teal-950 shadow-sm ring-2 ring-teal-400'
+                        : 'bg-teal-50/40 text-slate-800 border-teal-200 hover:bg-white hover:border-teal-400'
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-center justify-between gap-1 mb-1">
+                        <span
+                          className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
+                            active ? 'bg-teal-800 text-lime-300' : 'bg-teal-100 text-teal-900'
+                          }`}
+                        >
+                          {tab.orden}
+                        </span>
+                        <span
+                          className={`text-[10px] font-extrabold px-2 py-0.5 rounded ${
+                            active ? 'bg-teal-700 text-white' : 'bg-white text-teal-800 border border-teal-200'
+                          }`}
+                        >
+                          {tab.badge}
+                        </span>
+                      </div>
+                      <div
+                        onMouseEnter={() => setHoveredDocTab(tab.id)}
+                        className="inline-flex items-center gap-1.5 mt-0.5 group/tabtitle"
+                      >
+                        <p className="text-xs font-extrabold border-b border-dotted border-teal-300/80">
+                          {tab.titulo}
+                        </p>
+                        <HelpCircle
+                          className={`w-3.5 h-3.5 shrink-0 ${active ? 'text-lime-300' : 'text-teal-700'}`}
+                        />
+                      </div>
+                    </div>
+                    <p className={`text-[11px] mt-1 ${active ? 'text-teal-200' : 'text-slate-600'}`}>{tab.sub}</p>
+                  </button>
+
+                  {hoveredDocTab === tab.id && (
+                    <TarjetaPopoverInfo
+                      info={INFORME_SECCIONES_INFO[tab.pasoKey]}
+                      onClose={() => setHoveredDocTab(null)}
+                      wrapperClassName={`top-full pt-2 ${tabAlign}`}
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Fila 2: Selector de los 4 Documentos Finales de Cierre ordenados por Fecha de Realización */}
+        <div className="mt-4 pt-3 border-t border-slate-100 no-print space-y-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-indigo-800 bg-indigo-50 border border-indigo-200 px-2.5 py-0.5 rounded-full">
+              Etapa 3 — Los 4 Documentos Finales del Auditor (Cierre Cronológico: 12/02 → 20/02/2026)
+            </span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {cronologiaDocumentos.map((tab, idx) => {
             const active = docActivo === tab.id;
             const tabAlign =
@@ -908,17 +1082,19 @@ export default function Etapa3InformeView({
               </div>
             );
           })}
+          </div>
         </div>
       </div>
 
-      {/* Barra interactiva de simulación de Ajustes (impacto NIA 450 / NIA 700 en vivo) */}
-      <div
-        className={`no-print rounded-2xl p-5 shadow-xs border-2 transition-colors ${
-          esLimpiaEstricta
-            ? 'bg-gradient-to-r from-slate-900 to-teal-950 border-teal-800 text-white'
-            : 'bg-gradient-to-r from-slate-900 via-red-950 to-rose-950 border-red-500 text-white'
-        }`}
-      >
+      {/* Barra interactiva de simulación de Ajustes (solo para los 4 documentos de cierre) */}
+      {!['carta-encargo', 'declaracion-independencia'].includes(docActivo) && (
+        <div
+          className={`no-print rounded-2xl p-5 shadow-xs border-2 transition-colors ${
+            esLimpiaEstricta
+              ? 'bg-gradient-to-r from-slate-900 to-teal-950 border-teal-800 text-white'
+              : 'bg-gradient-to-r from-slate-900 via-red-950 to-rose-950 border-red-500 text-white'
+          }`}
+        >
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div>
             <div className="flex flex-wrap items-center gap-2">
@@ -1044,7 +1220,228 @@ export default function Etapa3InformeView({
             </span>
           </div>
         )}
-      </div>
+        </div>
+      )}
+
+      {/* PREVIOS ACEPTACIÓN A (15/10/2025): CARTA DE ENCARGO DE AUDITORÍA EXTERNA (NIA 210) */}
+      {docActivo === 'carta-encargo' && (
+        <div className="print-sheet bg-white rounded-2xl border border-slate-200 p-8 shadow-xs max-w-4xl mx-auto space-y-5">
+          <div className="border-b border-slate-200 pb-4 space-y-2">
+            <div className="no-print flex flex-wrap items-center justify-between gap-2">
+              <span className="px-2.5 py-0.5 rounded bg-teal-100 text-teal-900 text-xs font-extrabold inline-flex flex-wrap items-center gap-1">
+                <span>PREVIOS AL ENCARGO • 15/10/2025 — CARTA DE ENCARGO (</span>
+                <NormaTooltip code="NIA 210" align="left" placement="bottom" />
+                <span>/ SLOSSE)</span>
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-mono font-bold text-slate-500">Ref: Legajo Permanente LP-00</span>
+                <CopyCleanButton docKey="carta-encargo" getText={generarTextoLimpioPrevioA} />
+              </div>
+            </div>
+            <div className="pt-1">
+              <InformeTituloTooltip
+                sectionKey="previoA"
+                align="left"
+                placement="bottom"
+                badgeLabel="¿Qué es? / ¿Obligatorio?"
+              >
+                <h3 className="text-xl font-extrabold text-slate-950">
+                  {documentosEtapa3.cartaEncargo.titulo}
+                </h3>
+              </InformeTituloTooltip>
+            </div>
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs space-y-1">
+              <p className="font-bold text-slate-900">
+                {documentosEtapa3.cartaEncargo.estudio} —{' '}
+                <span className="font-normal text-slate-600">{documentosEtapa3.cartaEncargo.estudioSub}</span>
+              </p>
+              <p className="text-slate-700">
+                <strong>Lugar y Fecha:</strong> {documentosEtapa3.cartaEncargo.lugar},{' '}
+                {documentosEtapa3.cartaEncargo.fecha}
+              </p>
+              <p className="text-slate-700">
+                <strong>Destinatario:</strong> {documentosEtapa3.cartaEncargo.destinatario} ({documentosEtapa3.cartaEncargo.cuit}) •{' '}
+                {documentosEtapa3.cartaEncargo.domicilio}
+              </p>
+              <p className="text-slate-700">
+                <strong>Referencia:</strong> {documentosEtapa3.cartaEncargo.referencia}
+              </p>
+              <p className="no-print text-[11px] font-semibold text-teal-800">
+                Normativa Aplicable: {documentosEtapa3.cartaEncargo.norma}
+              </p>
+            </div>
+            <p className="text-xs font-bold text-slate-800 pt-1">{documentosEtapa3.cartaEncargo.saludo}</p>
+            <p className="text-xs text-slate-700 leading-relaxed text-justify">
+              {documentosEtapa3.cartaEncargo.introduccion}
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {documentosEtapa3.cartaEncargo.clausulas.map((cl, idx) => (
+              <div
+                key={idx}
+                className="print-avoid-break p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3 text-xs text-slate-700"
+              >
+                <CheckCircle2 className="w-4 h-4 text-teal-600 shrink-0 mt-0.5 no-print" />
+                <div className="flex-1 space-y-1.5">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="font-extrabold text-slate-900">{cl.titulo}</span>
+                    <span className="no-print px-2 py-0.5 rounded bg-teal-100 text-teal-900 text-[10px] font-bold">
+                      {cl.norma}
+                    </span>
+                  </div>
+                  <p className="leading-relaxed text-justify">{cl.texto}</p>
+                  {cl.refView && (
+                    <div className="no-print pt-0.5">
+                      <RefPill label={cl.refLabel} view={cl.refView} sub={cl.refSub} tone="teal" />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="pt-2 space-y-4">
+            <p className="text-xs text-slate-700 leading-relaxed text-justify">
+              {documentosEtapa3.cartaEncargo.cierre}
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-5 text-center text-[11px] text-slate-700">
+              <div className="border-t border-slate-400 pt-2">
+                <p className="font-bold text-slate-900">{documentosEtapa3.cartaEncargo.estudio}</p>
+                <p>Contadores Públicos (U.C.P.)</p>
+                <p className="text-slate-600">{documentosEtapa3.cartaEncargo.firmantes}</p>
+              </div>
+              <div className="border-t border-slate-400 pt-2">
+                <p className="font-bold text-slate-900">Conformidad TELECOM ARGENTINA S.A.</p>
+                <p>Presidente / Comité de Auditoría</p>
+                <p className="text-slate-500">Recibido conforme de los términos (NIA 210)</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="no-print pt-4 border-t border-slate-200 flex flex-wrap justify-between items-center gap-3 text-xs text-slate-600">
+            <span>Estudio Auditor Independiente • Legajo Permanente LP-00</span>
+            <button
+              onClick={() => setDocActivo('declaracion-independencia')}
+              className="no-print text-teal-700 font-extrabold hover:underline cursor-pointer"
+            >
+              Continuar a Previo B: Declaración Formal de Independencia (15/10/2025) →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* PREVIOS ACEPTACIÓN B (15/10/2025): DECLARACIÓN FORMAL DE INDEPENDENCIA */}
+      {docActivo === 'declaracion-independencia' && (
+        <div className="print-sheet bg-white rounded-2xl border border-slate-200 p-8 shadow-xs max-w-4xl mx-auto space-y-5">
+          <div className="border-b border-slate-200 pb-4 space-y-2">
+            <div className="no-print flex flex-wrap items-center justify-between gap-2">
+              <span className="px-2.5 py-0.5 rounded bg-teal-100 text-teal-900 text-xs font-extrabold inline-flex flex-wrap items-center gap-1">
+                <span>PREVIOS AL ENCARGO • 15/10/2025 — INDEPENDENCIA EIP / CNV (</span>
+                <NormaTooltip code="NIA 220" align="left" placement="bottom" />
+                <span>/ IESBA)</span>
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-mono font-bold text-slate-500">Ref: Legajo Permanente LP-00</span>
+                <CopyCleanButton docKey="declaracion-independencia" getText={generarTextoLimpioPrevioB} />
+              </div>
+            </div>
+            <div className="pt-1">
+              <InformeTituloTooltip
+                sectionKey="previoB"
+                align="left"
+                placement="bottom"
+                badgeLabel="¿Qué es? / ¿Obligatorio?"
+              >
+                <h3 className="text-xl font-extrabold text-slate-950">
+                  {documentosEtapa3.declaracionIndependencia.titulo}
+                </h3>
+              </InformeTituloTooltip>
+            </div>
+            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-xs space-y-1">
+              <p className="font-bold text-slate-900">
+                {documentosEtapa3.declaracionIndependencia.estudio} —{' '}
+                <span className="font-normal text-slate-600">
+                  {documentosEtapa3.declaracionIndependencia.estudioSub}
+                </span>
+              </p>
+              <p className="text-slate-700">
+                <strong>Lugar y Fecha:</strong> {documentosEtapa3.declaracionIndependencia.lugar},{' '}
+                {documentosEtapa3.declaracionIndependencia.fecha}
+              </p>
+              <p className="text-slate-700">
+                <strong>Destinatario:</strong> {documentosEtapa3.declaracionIndependencia.destinatario} (
+                {documentosEtapa3.declaracionIndependencia.cuit} —{' '}
+                {documentosEtapa3.declaracionIndependencia.domicilio})
+              </p>
+              <p className="no-print text-[11px] font-semibold text-teal-800">
+                Encuadre Ético y Regulatorio: {documentosEtapa3.declaracionIndependencia.norma}
+              </p>
+            </div>
+            <p className="text-xs font-bold text-slate-800 pt-1">
+              {documentosEtapa3.declaracionIndependencia.saludo}
+            </p>
+            <p className="text-xs text-slate-700 leading-relaxed text-justify">
+              {documentosEtapa3.declaracionIndependencia.introduccion}
+            </p>
+          </div>
+
+          <div className="space-y-3">
+            {documentosEtapa3.declaracionIndependencia.declaraciones.map((decl, idx) => (
+              <div
+                key={idx}
+                className="print-avoid-break p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3 text-xs text-slate-700"
+              >
+                <ShieldCheck className="w-4 h-4 text-teal-700 shrink-0 mt-0.5 no-print" />
+                <div className="flex-1 space-y-1.5">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="font-extrabold text-slate-900">{decl.titulo}</span>
+                    <span className="no-print px-2 py-0.5 rounded bg-teal-100 text-teal-900 text-[10px] font-bold">
+                      {decl.norma}
+                    </span>
+                  </div>
+                  <p className="leading-relaxed text-justify">{decl.texto}</p>
+                  {decl.refView && (
+                    <div className="no-print pt-0.5">
+                      <RefPill label={decl.refLabel} view={decl.refView} sub={decl.refSub} tone="indigo" />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="pt-2 space-y-4">
+            <p className="text-xs text-slate-700 leading-relaxed text-justify">
+              {documentosEtapa3.declaracionIndependencia.cierre}
+            </p>
+            <div className="pt-4 border-t border-slate-200 text-xs text-slate-700">
+              <p className="font-extrabold text-slate-900">
+                {documentosEtapa3.declaracionIndependencia.estudio}
+              </p>
+              <p>Contadores Públicos (U.C.P.) — Auditores Externos Independientes</p>
+              <p className="text-slate-600 font-semibold mt-0.5">
+                {documentosEtapa3.declaracionIndependencia.firmantes}
+              </p>
+            </div>
+          </div>
+
+          <div className="no-print pt-4 border-t border-slate-200 flex flex-wrap justify-between items-center gap-3 text-xs text-slate-600">
+            <button
+              onClick={() => setDocActivo('carta-encargo')}
+              className="no-print text-slate-600 font-bold hover:underline cursor-pointer"
+            >
+              ← Volver a Carta de Encargo (15/10/2025)
+            </button>
+            <button
+              onClick={() => setDocActivo('carta-ci')}
+              className="no-print text-indigo-700 font-extrabold hover:underline cursor-pointer"
+            >
+              Ir al Paso 1 de Cierre: Carta de Control Interno (12/02/2026) →
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* PASO 1 (12/02/2026): CARTA DE RECOMENDACIONES DE CONTROL INTERNO A LA GERENCIA (NIA 265 / SLOSSE) */}
       {docActivo === 'carta-ci' && (

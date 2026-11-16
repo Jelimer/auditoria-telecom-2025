@@ -995,6 +995,109 @@ export const hallazgosYAjustes = [
 ];
 
 export const documentosEtapa3 = {
+  cartaEncargo: {
+    ordenRealizacion: 'Previo A',
+    titulo: 'CARTA DE ENCARGO DE AUDITORÍA EXTERNA (NIA 210)',
+    estudio: 'ESTUDIO GREBE – PISONERO DE BIASE',
+    estudioSub: 'Contadores Públicos (U.C.P.) — Posadas, Provincia de Misiones',
+    lugar: 'Ciudad Autónoma de Buenos Aires',
+    fecha: '15 de octubre de 2025',
+    destinatario: 'Señores Presidente, Miembros del Directorio y Comité de Auditoría de TELECOM ARGENTINA S.A.',
+    cuit: 'CUIT N° 30-63945373-8',
+    domicilio: 'Gral. Hornos 690 — Ciudad Autónoma de Buenos Aires',
+    referencia: 'Aceptación y términos del encargo de auditoría externa — Ejercicio 2025',
+    norma: 'NIA 210 (Acuerdo de los Términos del Encargo) • NIAs (RT N° 32 FACPCE) • Doctrina Carlos A. Slosse',
+    saludo: 'De nuestra mayor consideración:',
+    introduccion:
+      'Por la presente confirmamos nuestra aceptación y entendimiento de los términos del encargo para auditar los Estados Financieros Consolidados de TELECOM ARGENTINA S.A. y sus sociedades controladas al 31 de diciembre de 2025 (que comprenden el estado de situación financiera consolidado, los estados consolidados de resultados, del resultado integral, de cambios en el patrimonio, de flujos de efectivo y sus notas), preparados de conformidad con las Normas de contabilidad NIIF emitidas por el Consejo de Normas Internacionales de Contabilidad (IASB), en moneda homogénea de cierre (NIC 29) y las normas pertinentes de la Comisión Nacional de Valores (CNV).',
+    clausulas: [
+      {
+        titulo: '1. Objetivo, Alcance, Marco Normativo e Informe Esperado',
+        norma: 'NIA 210.10 / RT N° 32 / NIA 700–701',
+        texto:
+          'Nuestro examen se ejecutará aplicando las Normas Internacionales de Auditoría (NIAs) emitidas por el IAASB y adoptadas en la República Argentina mediante la Resolución Técnica N° 32 de la FACPCE (incluida la NIA 210). El objetivo es obtener una seguridad razonable de que los estados financieros consolidados en su conjunto estén libres de incorrección material, debida a fraude o error —teniendo presente que, debido a las limitaciones inherentes a la auditoría y al control interno, existe el riesgo inevitable de que algunas incorrecciones materiales puedan no ser detectadas—. Al cierre emitiremos nuestro Informe de Auditoría Independiente (bajo NIA 700 y NIA 701 sobre Cuestiones Clave de la Auditoría, junto con los apartados legales vigentes de LGS, CNV, SIPA y UIF), pudiendo variar su opinión según la evidencia y significatividad resultante. Asimismo, comunicaremos por escrito al Directorio y al Comité de Auditoría las deficiencias significativas en el control interno detectadas (NIA 265 / NIA 260).',
+        refView: 'etapa3-informe',
+        refSub: 'informe',
+        refLabel: 'Ver Informe Final (3.4)'
+      },
+      {
+        titulo: '2. Responsabilidades del Directorio y Precondiciones de Auditoría',
+        norma: 'NIA 210.6(b) / NIA 580',
+        texto:
+          'La Dirección es responsable por la preparación y presentación razonable de los estados financieros consolidados bajo NIIF (IASB / NIC 29), por el control interno que considere necesario para permitir estados libres de incorrección material, y por proporcionarnos acceso irrestricto a todos los registros contables en el sistema ERP SAP, actas societarias, documentación de respaldo y personal de la Sociedad, así como las manifestaciones escritas necesarias al cierre del examen (Carta de Representación — NIA 580).',
+        refView: 'etapa3-informe',
+        refSub: 'carta-gerencia',
+        refLabel: 'Ver Carta de Gerencia (3.3)'
+      },
+      {
+        titulo: '3. Cronograma de Trabajo (12 Semanas) y Presupuesto de Honorarios',
+        norma: 'NIA 300 / CPCECABA / Plazo CNV 70 días',
+        texto:
+          'La ejecución principal se desarrollará a lo largo de 12 semanas corridas (diciembre de 2025 a febrero de 2026), tras las tareas preliminares de planificación de octubre de 2025, con fecha estimada de emisión del dictamen el 20 de febrero de 2026 (dentro del plazo legal de 70 días corridos ante la CNV). Los honorarios profesionales presupuestados ascienden a $80.683.020 (equivalente a USD 55.452), correspondientes a 1.220 horas de equipo profesional (820 hs en PT-A/PT-E/PT-B + 400 hs Planificación, Analíticas, Calidad y Cierre) valuadas según Módulos oficiales del CPCECABA más un 10% de gastos directos asociados (TAACs, traslados y circularizaciones).',
+        refView: 'etapa1-detallada',
+        refSub: 'sec-1c-presupuesto-honorarios',
+        refLabel: 'Ver Presupuesto 1.220 hs (1D)'
+      }
+    ],
+    cierre:
+      'Agradeceremos nos devuelvan una copia firmada de la presente en señal de conformidad con los términos acordados. Sin otro particular, saludamos a Uds. muy atentamente.',
+    firmantes: 'Grebe Cáceres, Juan Martín — Pisonero De Biase, Jelimer'
+  },
+  declaracionIndependencia: {
+    ordenRealizacion: 'Previo B',
+    titulo: 'DECLARACIÓN FORMAL DE INDEPENDENCIA',
+    estudio: 'ESTUDIO GREBE – PISONERO DE BIASE',
+    estudioSub: 'Contadores Públicos (U.C.P.) — Posadas, Provincia de Misiones',
+    lugar: 'Ciudad Autónoma de Buenos Aires',
+    fecha: '15 de octubre de 2025',
+    destinatario: 'Señores Miembros del Comité de Auditoría y de la Comisión Fiscalizadora de TELECOM ARGENTINA S.A.',
+    cuit: 'CUIT N° 30-63945373-8',
+    domicilio: 'Gral. Hornos 690 — Ciudad Autónoma de Buenos Aires',
+    norma: 'Código del IESBA (EIP) • Normas CNV (T.O. 2013 y modif.) • Ley N° 26.831 • NIA 220 (RT N° 32)',
+    saludo: 'De nuestra mayor consideración:',
+    introduccion:
+      'En cumplimiento de los requerimientos éticos y legales aplicables a entidades de interés público establecidos en el Código Internacional de Ética para Profesionales de la Contabilidad (incluidas las Normas Internacionales de Independencia — Código del IESBA), las Normas de la Comisión Nacional de Valores (T.O. 2013 y modif., Cap. III, Secc. VI, Tít. II y Ley N° 26.831), el Código de Ética Profesional local vigente y los estándares de control de calidad aplicables bajo NIAs / RT N° 32 FACPCE (NIA 220), declaramos formalmente para el encargo de auditoría del ejercicio finalizado el 31 de diciembre de 2025 que:',
+    declaraciones: [
+      {
+        titulo: '1. Independencia Real y Aparente respecto de Telecom y TMA',
+        norma: 'Código IESBA (EIP) / NIIF 3',
+        texto:
+          'Los socios firmantes, el equipo profesional interviniente y los especialistas externos contratados mantenemos absoluta independencia real y aparente respecto de Telecom Argentina S.A., su sociedad controlante, sociedades controladas y entidades vinculadas (incluyendo Telefónica Móviles Argentina S.A., adquirida en el ejercicio 2025).',
+        refView: 'etapa1-ente',
+        refSub: null,
+        refLabel: 'Ver Conocimiento del Ente (1A)'
+      },
+      {
+        titulo: '2. Ausencia de Causales de Incompatibilidad Legal o Profesional',
+        norma: 'Código Local / CNV',
+        texto:
+          'No nos encontramos alcanzados por ninguna de las causales de incompatibilidad previstas en las normas profesionales y regulatorias vigentes (relación de dependencia, parentesco, intereses financieros directos o indirectos significativos ni acuerdos de honorarios contingentes).',
+        refView: 'etapa3-informe',
+        refSub: 'informe',
+        refLabel: 'Ver Sección 3 Independencia'
+      },
+      {
+        titulo: '3. Exclusividad en Servicios de Auditoría Externa (100% Art. 21° CNV)',
+        norma: 'Art. 21° inc. b) CNV',
+        texto:
+          'Nuestro estudio no presta al Grupo Telecom servicios de consultoría contable, impositiva, valuación ni diseño de sistemas incompatibles con nuestra función, limitándose exclusivamente a la auditoría contable externa (100% de honorarios de auditoría conforme lo previsto en el art. 21° inc. b de las Normas de la CNV).',
+        refView: 'etapa3-informe',
+        refSub: 'informe',
+        refLabel: 'Ver Inciso d) en Informe (3.4)'
+      },
+      {
+        titulo: '4. Monitoreo Continuo hasta la Emisión del Dictamen (20/02/2026)',
+        norma: 'NIA 220 / NIA 260',
+        texto:
+          'Nos comprometemos a monitorear de forma continua esta condición durante todo el transcurso de la auditoría del ejercicio 2025 y hasta la emisión del Informe Final el 20 de febrero de 2026, comunicando de inmediato al Comité de Auditoría cualquier circunstancia que pudiera generar una amenaza a nuestra independencia.',
+        refView: 'etapa1-detallada',
+        refSub: 'sec-1c-presupuesto-honorarios',
+        refLabel: 'Ver Cronograma 12 Semanas'
+      }
+    ],
+    cierre: 'Sin otro particular, saludamos a Uds. muy atentamente.',
+    firmantes: 'Grebe Cáceres, Juan Martín — Pisonero De Biase, Jelimer'
+  },
   memorandoConclusion: {
     titulo: "MEMORANDO RESUMEN DE AUDITORÍA (ETAPA DE CONCLUSIÓN — NIAs / RT N° 32 & SLOSSE)",
     ordenRealizacion: 2,
