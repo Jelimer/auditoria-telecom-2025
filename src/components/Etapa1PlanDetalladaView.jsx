@@ -998,7 +998,7 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 text-xs font-bold transition-colors cursor-pointer"
           >
             <Lightbulb className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-            2. ¿De dónde salen las 1.220 horas? (Presupuesto de Tiempo)
+            2. ¿Cómo suman 1.220 hs (820 hs PT + 400 hs Planif./Cierre)?
           </button>
           <button
             onClick={() => setModalTeorico(presupuestoHonorarios.fundamentosTeoricos.rentabilidadYSocio)}
@@ -1096,6 +1096,49 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
           </table>
         </div>
 
+        {/* Conciliación clara para explicar en clase: Horas cargadas en los 3 PT (820 hs) -> Presupuesto Total (1.220 hs) y Honorarios ($80,68M) */}
+        <div className="mt-4 p-4 sm:p-5 rounded-xl bg-teal-50/80 border border-teal-300 text-xs leading-relaxed space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="text-teal-900 font-extrabold uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+              🎓 Para explicar claro en clase: ¿Cómo se conectan las 820 hs de los 3 PT con las 1.220 hs y los $80.683.020?
+            </span>
+            <span className="px-2.5 py-0.5 rounded-full bg-teal-700 text-white font-mono text-[10px] font-bold">
+              420 + 280 + 120 = 820 hs PT (+ 400 hs) = 1.220 hs
+            </span>
+          </div>
+
+          <p className="text-slate-800 text-xs sm:text-[13px] leading-relaxed text-justify">
+            Para que en clase se entienda fácil de dónde salen los honorarios: en nuestras <strong>3 cédulas sumarias de ejecución</strong> cargamos exactamente <strong>820 horas de trabajo de campo</strong> repartidas según la complejidad y el riesgo de cada rubro —<strong>420 hs en Bienes de Uso (<code>PT-A</code>)</strong> por ser el 40,84% del Activo y exigir recorridas físicas en Data Centers y radiobases 5G, títulos en RPI/DNRPA, altas CAPEX y detección de bajas (<code>AJ-01</code>); <strong>280 hs en Activos Intangibles (<code>PT-E</code>)</strong> por licencias de espectro ENACOM, marcas INPI y la revisión técnica de 18 proyectos de software en SAP PS/Jira bajo NIC 38; y <strong>120 hs en Créditos por Ventas (<code>PT-B</code>)</strong> porque el uso de software TAACs permitió recalcular al 100% la previsión NIIF 9 ahorrando horas manuales. A esas <strong>820 hs de campo (67,2%)</strong> les sumamos <strong>400 hs adicionales (32,8%)</strong> que exige toda auditoría completa bajo Carlos Slosse y las NIAs —<strong>140 hs</strong> de Planificación Estratégica y 5 CCIs, <strong>90 hs</strong> de revisiones analíticas en los demás rubros (deuda, ventas, llaves y RECPAM), <strong>80 hs</strong> de supervisión/control de calidad y <strong>90 hs</strong> de Etapa 3 para hechos posteriores, Carta de Control Interno, Memorando, Carta de Representación e Informe—, completando <strong>1.220 horas totales</strong> en 12 semanas (para cumplir el tope legal de 70 días de la CNV). Esas 1.220 hs no las cobra todas el Socio al valor máximo: se distribuyen en una <strong>pirámide de 5 profesionales</strong> (700 hs de Juniors a $39.950/h, 400 hs de Seniors a $79.900/h y 120 hs de Socio a $111.860/h según Módulos CPCECABA a $15.980), totalizando <strong>$73.348.200</strong> más un <strong>10% de gastos directos</strong> ($7.334.820 en viáticos, TAACs y circularizaciones) = <strong>$80.683.020</strong> (~USD 55.452, apenas el 0,00096% de las ventas anuales de Telecom).
+          </p>
+
+          <div className="grid grid-cols-2 lg:grid-cols-6 gap-2 pt-1 text-[11px]">
+            <div className="p-2 rounded-lg bg-white border border-teal-200 text-center">
+              <span className="font-bold text-slate-600 block">PT-A (Bienes de Uso)</span>
+              <strong className="font-mono text-teal-900 text-xs">420 hs</strong>
+            </div>
+            <div className="p-2 rounded-lg bg-white border border-teal-200 text-center">
+              <span className="font-bold text-slate-600 block">PT-E (Intangibles)</span>
+              <strong className="font-mono text-teal-900 text-xs">280 hs</strong>
+            </div>
+            <div className="p-2 rounded-lg bg-white border border-teal-200 text-center">
+              <span className="font-bold text-slate-600 block">PT-B (Créditos)</span>
+              <strong className="font-mono text-teal-900 text-xs">120 hs</strong>
+            </div>
+            <div className="p-2 rounded-lg bg-emerald-100/70 border border-emerald-300 text-center">
+              <span className="font-bold text-emerald-900 block">Subtotal 3 PT Campo</span>
+              <strong className="font-mono text-emerald-950 text-xs">820 hs (67,2%)</strong>
+            </div>
+            <div className="p-2 rounded-lg bg-white border border-slate-200 text-center">
+              <span className="font-bold text-slate-600 block">Planif. + Analít. + Cierre</span>
+              <strong className="font-mono text-slate-900 text-xs">400 hs (32,8%)</strong>
+            </div>
+            <div className="p-2 rounded-lg bg-teal-900 text-white text-center">
+              <span className="font-bold text-lime-300 block">Total Encargo</span>
+              <strong className="font-mono text-white text-xs">1.220 hs • $80,68M</strong>
+            </div>
+          </div>
+        </div>
+
         {/* Nota Técnica de Escala y Coherencia para la Cátedra */}
         <div className="mt-4 p-4 rounded-xl bg-slate-900 text-white border border-teal-500/30 text-xs leading-relaxed space-y-3">
           <div className="flex items-center gap-2 text-lime-400 font-extrabold text-[11px] uppercase tracking-wide">
@@ -1119,24 +1162,24 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
 
             <div className="space-y-2 text-slate-300 text-[11px]">
               <p>
-                <strong className="text-white">1. El porqué de las 12 semanas (3 meses):</strong>{' '}
+                <strong className="text-white">1. Conexión directa con los 3 PT (820 hs) + Planificación y Cierre (400 hs):</strong>{' '}
+                <em>«En nuestras 3 cédulas sustantivas de campo cargamos 820 horas reales: 420 hs en Bienes de Uso (PT-A), 280 hs en Activos Intangibles (PT-E) y 120 hs en Créditos por Ventas (PT-B). A eso sumamos 400 hs para Etapa 1 (Planificación y 5 CCIs), procedimientos analíticos del resto del balance, supervisión y Etapa 3 de Cierre e Informe, completando las 1.220 horas totales del encargo.»</em>
+              </p>
+              <p>
+                <strong className="text-white">2. El porqué de las 12 semanas (3 meses):</strong>{' '}
                 <em>«Planificamos un cronograma de 12 semanas corridas (Diciembre a Febrero) porque Telecom cotiza en la CNV y en la Bolsa de Nueva York (SEC), lo que le impone un plazo legal perentorio de 70 días corridos post-cierre para presentar sus estados contables auditados. Extender el encargo a 5 meses significaría caer en incumplimiento normativo con suspensión de cotización.»</em>
               </p>
               <p>
-                <strong className="text-white">2. La estructura del equipo (5 profesionales):</strong>{' '}
-                <em>«Conformamos un equipo piramidal de 5 miembros: 1 Socio a cargo de la dirección estratégica y firma del dictamen (120 hs, 10 hs/sem), 2 Seniors —Grebe y Pisonero— a cargo del trabajo de campo, programas y supervisión (400 hs en total, 17 hs/sem cada uno), y 2 Juniors dedicados a relevamientos físicos y tareas operativas (700 hs en total, 29 hs/sem cada uno). Esto totaliza exactamente 1.220 horas profesionales.»</em>
+                <strong className="text-white">3. La estructura del equipo (5 profesionales):</strong>{' '}
+                <em>«Repartimos las 1.220 horas en un equipo piramidal de 5 miembros: 1 Socio a cargo de la dirección estratégica y firma del dictamen (120 hs, 10 hs/sem), 2 Seniors —Grebe y Pisonero— a cargo del trabajo de campo, programas complejos y supervisión (400 hs en total, 17 hs/sem cada uno), y 2 Juniors dedicados a relevamientos físicos y cotejos operativos (700 hs en total, 29 hs/sem cada uno).»</em>
               </p>
               <p>
-                <strong className="text-white">3. La aplicación del arancel oficial del CPCECABA:</strong>{' '}
-                <em>«Para dotar de realismo y rigurosidad técnica al presupuesto, no inventamos valores arbitrarios: adoptamos la tabla arancelaria oficial del Consejo Profesional de Ciencias Económicas (CPCECABA) a Noviembre de 2026, donde 1 Módulo equivale a $15.980. La tarifa horaria surge de multiplicar los módulos de cada jerarquía: 2,5 módulos para el Junior ($39.950/h), 5,0 módulos para el Senior ($79.900/h) y 7,0 módulos para el Socio ($111.860/h). La sumatoria de las 1.220 horas arroja un subtotal de honorarios de $73.348.200.»</em>
+                <strong className="text-white">4. La aplicación del arancel oficial del CPCECABA:</strong>{' '}
+                <em>«No inventamos tarifas arbitrarias: adoptamos la tabla arancelaria oficial del CPCECABA a Noviembre de 2026 (1 Módulo = $15.980). Cada rol cobra según su responsabilidad: 2,5 módulos el Junior ($39.950/h), 5,0 módulos el Senior ($79.900/h) y 7,0 módulos el Socio ($111.860/h), arrojando $73.348.200 de labor profesional.»</em>
               </p>
               <p>
-                <strong className="text-white">4. Los gastos directos (10% out-of-pocket):</strong>{' '}
-                <em>«Sumamos un 10% de gastos directos de bolsillo ($7.334.820) destinados específicamente a la auditoría: licencias temporales de software TAACs (IDEA/ACL) para procesar millones de registros de facturación masiva, traslados y viáticos para inspeccionar los 16 Data Centers y radiobases 5G en el interior, y circularizaciones postales y notariales. Con esto alcanzamos el Presupuesto Total de $80.683.020 (aprox. USD 55.452).»</em>
-              </p>
-              <p>
-                <strong className="text-white">5. Conclusión de razonabilidad frente a la empresa:</strong>{' '}
-                <em>«Frente a una compañía que factura más de $8,3 billones y posee un activo de $16,6 billones, un honorario de $80M representa el 0,00096% de las ventas. Mientras que firmas como PwC cobran más de USD 1,5 millones por un encargo corporativo de esta envergadura, presupuestar $80M con aranceles del Consejo para un equipo de 5 auditores demuestra máxima prudencia, respaldo matemático y excelencia académica.»</em>
+                <strong className="text-white">5. Los gastos directos (10%) y conclusión de escala:</strong>{' '}
+                <em>«Sumamos un 10% de gastos directos ($7.334.820) por licencias TAACs, viáticos a los 16 Data Centers y radiobases 5G del interior, y circularizaciones. El honorario total de $80.683.020 (~USD 55.452) equivale apenas al 0,00096% de las ventas de Telecom ($8,3 billones), demostrando máxima prudencia y respaldo técnico.»</em>
               </p>
             </div>
           </div>

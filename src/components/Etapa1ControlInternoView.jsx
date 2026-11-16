@@ -21,7 +21,7 @@ const CCI_PT_TARGETS = {
   'cci-2': { targetPT: 'pt-b', label: 'PT-B: Créditos por Ventas (120 hs)' },
   'cci-3': { targetPT: 'pt-a', label: 'PT-A: Bienes de Uso / CAPEX' },
   'cci-4': { targetPT: 'pt-c', label: 'PT-C: Préstamos' },
-  'cci-5': { targetPT: 'pt-e', label: 'PT-E: Activos Intangibles (50 hs)' }
+  'cci-5': { targetPT: 'pt-e', label: 'PT-E: Activos Intangibles (280 hs)' }
 };
 
 const GUIA_CORRESPONDENCIA = [
@@ -66,7 +66,7 @@ const GUIA_CORRESPONDENCIA = [
     codigo: 'CCI-05',
     componente: 'Entorno Tecnológico y Red',
     rubroPrincipal: 'Activos Intangibles / TIC',
-    ptLabel: 'PT-E (50 hs)',
+    ptLabel: 'PT-E (280 hs)',
     targetPT: 'pt-e',
     isClickable: true,
   },

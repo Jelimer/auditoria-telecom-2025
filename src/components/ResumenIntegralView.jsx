@@ -194,7 +194,7 @@ const GUION_ESLABONES_BASE = [
     navSub: 'sec-1c-materialidad',
     navLabel: 'Abrir 1D. Planificación Detallada',
     queHicimos:
-      'Fijamos la Significatividad Global (PM) sobre el Activo Total: 1% = $166.225M. Por el RC ALTO en Archivo y TIC bajamos el Error Tolerable (ET) al límite prudente del 50% de PM ($83.112M) y definimos el umbral PAE en el 5% de PM ($8.311M). Armamos los programas sustantivos y el presupuesto de 1.220 horas en 3 meses (420 hs PT-A, 120 hs PT-B, 50 hs PT-E).',
+      'Fijamos la Significatividad Global (PM) sobre el Activo Total: 1% = $166.225M. Por el RC ALTO en Archivo y TIC bajamos el Error Tolerable (ET) al límite prudente del 50% de PM ($83.112M) y definimos el umbral PAE en el 5% de PM ($8.311M). Armamos los programas sustantivos y el presupuesto de 1.220 horas en 3 meses (820 hs en los 3 PT: 420 hs PT-A, 280 hs PT-E y 120 hs PT-B + 400 hs de Planificación, Analíticas, Calidad y Cierre; $80.683.020).',
     porQueConecta:
       'Traduce el diagnóstico estratégico en reglas matemáticas concretas para la Etapa 2: cuánto tamaño debe tener la muestra y a partir de qué monto ($8.311M) una diferencia debe proponerse como ajuste.',
     fraseOral:

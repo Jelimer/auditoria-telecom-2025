@@ -112,7 +112,8 @@
 
 ## 6. Duración del Encargo (3 Meses / 12 Semanas) y Presupuesto de Honorarios (Noviembre 2026)
 1. **Duración Normalizada del Encargo:** **3 Meses / 12 Semanas corridas (Diciembre 2025 a Febrero 2026)**, atendiendo el plazo legal CNV de 70 días corridos post-cierre. **Fechas de Cierre Etapa 3:** `12/02/2026` Carta CI (`LC-01`) → `18/02/2026` Memorando (`LC-02`) → `20/02/2026` Carta de Representación (`LC-03`) e Informe Final del Auditor Independiente.
-2. **Presupuesto de Tiempo y Costos (1.220 hs — Módulo CPCECABA `$15.980`):**
+2. **Presupuesto de Tiempo y Costos (1.220 hs totales = 820 hs en los 3 PT + 400 hs Planificación/Analíticas/Calidad/Cierre — Módulo CPCECABA `$15.980`):**
+   - **Horas por PT ejecutado (820 hs de campo):** `PT-A` (`420 hs`) + `PT-E` (`280 hs`) + `PT-B` (`120 hs`) = `820 hs` (`67,2%`), más `400 hs` (`32,8%`: `140 hs` Planificación Etapa 1, `90 hs` Analíticas otros rubros, `80 hs` Supervisión/Calidad y `90 hs` Etapa 3 Cierre/Informes) = **`1.220 hs`**.
    - **1 Socio:** 120 hs × 7 mód. (`$111.860/h`) = **`$13.423.200`**.
    - **2 Auditores Senior (Grebe — Pisonero De Biase):** 400 hs × 5 mód. (`$79.900/h`) = **`$31.960.000`**.
    - **2 Auditores Junior:** 700 hs × 2,5 mód. (`$39.950/h`) = **`$27.965.000`**.
