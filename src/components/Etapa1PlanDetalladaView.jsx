@@ -1108,8 +1108,46 @@ export default function Etapa1PlanDetalladaView({ onNavigate, subTarget, subTarg
           </div>
 
           <p className="text-slate-800 text-xs sm:text-[13px] leading-relaxed text-justify">
-            Para que en clase se entienda fácil de dónde salen los honorarios: en nuestras <strong>3 cédulas sumarias de ejecución</strong> cargamos exactamente <strong>820 horas de trabajo de campo</strong> repartidas según la complejidad y el riesgo de cada rubro —<strong>420 hs en Bienes de Uso (<code>PT-A</code>)</strong> por ser el 40,84% del Activo y exigir recorridas físicas en Data Centers y radiobases 5G, títulos en RPI/DNRPA, altas CAPEX y detección de bajas (<code>AJ-01</code>); <strong>280 hs en Activos Intangibles (<code>PT-E</code>)</strong> por licencias de espectro ENACOM, marcas INPI y la revisión técnica de 18 proyectos de software en SAP PS/Jira bajo NIC 38; y <strong>120 hs en Créditos por Ventas (<code>PT-B</code>)</strong> porque el uso de software TAACs permitió recalcular al 100% la previsión NIIF 9 ahorrando horas manuales. A esas <strong>820 hs de campo (67,2%)</strong> les sumamos <strong>400 hs adicionales (32,8%)</strong> que exige toda auditoría completa bajo Carlos Slosse y las NIAs —<strong>140 hs</strong> de Planificación Estratégica y 5 CCIs, <strong>90 hs</strong> de revisiones analíticas en los demás rubros (deuda, ventas, llaves y RECPAM), <strong>80 hs</strong> de supervisión/control de calidad y <strong>90 hs</strong> de Etapa 3 para hechos posteriores, Carta de Control Interno, Memorando, Carta de Representación e Informe—, completando <strong>1.220 horas totales</strong> en 12 semanas (para cumplir el tope legal de 70 días de la CNV). Esas 1.220 hs no las cobra todas el Socio al valor máximo: se distribuyen en una <strong>pirámide de 5 profesionales</strong> (700 hs de Juniors a $39.950/h, 400 hs de Seniors a $79.900/h y 120 hs de Socio a $111.860/h según Módulos CPCECABA a $15.980), totalizando <strong>$73.348.200</strong> más un <strong>10% de gastos directos</strong> ($7.334.820 en viáticos, TAACs y circularizaciones) = <strong>$80.683.020</strong> (~USD 55.452, apenas el 0,00096% de las ventas anuales de Telecom).
+            Para que en clase se entienda fácil de dónde salen los honorarios: en nuestras <strong>3 cédulas sumarias de ejecución</strong> cargamos exactamente <strong>820 horas de trabajo de campo</strong> repartidas según la complejidad y el riesgo de cada rubro —<strong>420 hs en Bienes de Uso (<code>PT-A</code>)</strong> por ser el 40,84% del Activo y exigir recorridas físicas en Data Centers y radiobases 5G, títulos en RPI/DNRPA, altas CAPEX y detección de bajas (<code>AJ-01</code>); <strong>280 hs en Activos Intangibles (<code>PT-E</code>)</strong> por licencias de espectro ENACOM, marcas INPI y la revisión técnica de 18 proyectos de software en SAP PS/Jira bajo NIC 38; y <strong>120 hs en Créditos por Ventas (<code>PT-B</code>)</strong> porque el uso de software TAACs permitió recalcular al 100% la previsión NIIF 9 ahorrando horas manuales. A esas <strong>820 hs de campo (67,2%)</strong> les sumamos <strong>400 hs adicionales (32,8%)</strong> que exige toda auditoría completa bajo Carlos Slosse y las NIAs —<strong>140 hs</strong> de Planificación Estratégica y 5 CCIs, <strong>90 hs</strong> de revisiones analíticas en los demás rubros (deuda, ventas, llaves y RECPAM), <strong>80 hs</strong> de supervisión/control de calidad y <strong>90 hs</strong> de Etapa 3 para hechos posteriores, Carta de Control Interno, Memorando, Carta de Representación e Informe—, completando <strong>1.220 horas totales</strong> en 12 semanas (para cumplir el tope legal de 70 días de la CNV). Esas 1.220 hs no las cobra todas el Socio al valor máximo: se distribuyen en una <strong>pirámide de 5 profesionales</strong> según los <strong>Módulos oficiales del CPCECABA ($15.980/módulo a Nov. 2026)</strong>, siendo completamente normal y legal facturar el encargo completo (~67% campo y ~33% planificación, supervisión y cierre).
           </p>
+
+          {/* Desglose aritmético paso a paso: qué se multiplica con qué */}
+          <div className="p-3.5 rounded-xl bg-white border border-teal-200 space-y-2 text-[11px] sm:text-xs text-slate-800">
+            <strong className="text-teal-900 uppercase tracking-wide block text-[11px]">
+              🧮 Cálculo paso a paso (¿qué se multiplica con qué para llegar a $80.683.020?)
+            </strong>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+              <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 space-y-1 font-mono text-[11px]">
+                <span className="font-sans font-bold text-slate-700 block">
+                  1) De las horas de los 3 PT al total del equipo (12 semanas):
+                </span>
+                <div>• Campo 3 PT: 420 (PT-A) + 280 (PT-E) + 120 (PT-B) = <strong>820 hs</strong></div>
+                <div>• Planif. + Analít. + Calidad + Cierre: <strong>+ 400 hs</strong> = <strong>1.220 hs</strong></div>
+                <div className="pt-1 border-t border-slate-200 text-slate-700">
+                  • 2 Juniors (~29 hs/sem × 2 × 12 sem): <strong>700 hs</strong>
+                </div>
+                <div>• 2 Seniors (~17 hs/sem × 2 × 12 sem): <strong>400 hs</strong></div>
+                <div>• 1 Socio (10 hs/sem × 1 × 12 sem): <strong>120 hs</strong></div>
+                <div className="font-extrabold text-teal-900">→ 700 + 400 + 120 = 1.220 hs exactas</div>
+              </div>
+
+              <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200 space-y-1 font-mono text-[11px]">
+                <span className="font-sans font-bold text-slate-700 block">
+                  2) Valor Hora (Módulo $15.980) × Horas + 10% Gastos Directos:
+                </span>
+                <div>• Junior: 2,5 mód × $15.980 = $39.950/h → × 700 hs = <strong>$27.965.000</strong></div>
+                <div>• Senior: 5,0 mód × $15.980 = $79.900/h → × 400 hs = <strong>$31.960.000</strong></div>
+                <div>• Socio: 7,0 mód × $15.980 = $111.860/h → × 120 hs = <strong>$13.423.200</strong></div>
+                <div className="pt-1 border-t border-slate-200">
+                  • Subtotal Labor: $27.965.000 + $31.960.000 + $13.423.200 = <strong>$73.348.200</strong>
+                </div>
+                <div>• + 10% Gastos Directos (TAACs / viáticos / circ.): $73.348.200 × 10% = <strong>$7.334.820</strong></div>
+                <div className="font-extrabold text-emerald-900">
+                  → TOTAL = $80.683.020 (÷ $1.455 BNA = USD 55.452)
+                </div>
+              </div>
+            </div>
+          </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-6 gap-2 pt-1 text-[11px]">
             <div className="p-2 rounded-lg bg-white border border-teal-200 text-center">
